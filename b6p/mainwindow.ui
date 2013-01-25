@@ -18,6 +18,9 @@
     <item>
      <widget class="TimeAssignment" name="widget" native="true"/>
     </item>
+    <item>
+     <widget class="TimeAssignment" name="widget_2" native="true"/>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -45,7 +48,7 @@
   <customwidget>
    <class>TimeAssignment</class>
    <extends>QWidget</extends>
-   <header>timeassignment.h</header>
+   <header location="global">timeassignment.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
