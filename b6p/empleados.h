@@ -12,15 +12,21 @@ class Empleados : public ACollection
     Q_OBJECT
 public:
     explicit Empleados(QObject *parent = 0);
+    virtual ~Empleados();
     virtual void loadData();
     virtual void saveData();
+    virtual void defineHeaders(QStringList &list);
+    virtual void fillData(QTreeWidget &tree);
+    virtual bool addNew();
+    virtual void edit(QVariant ID);
+    virtual void deleteElement(QVariant ID);
 
     EmpleadoPtr getEmpleado(int idEmpleado);
     EmpleadosLst getAll();
 signals:
     
 public slots:
-    
+
 private:
     QMap<int, EmpleadoPtr> m_Empleados;
 };

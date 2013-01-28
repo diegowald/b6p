@@ -61,7 +61,11 @@ SOURCES += main.cpp\
     planificacionesdiassubsectores.cpp \
     sectores.cpp \
     subsectores.cpp \
-    days.cpp
+    days.cpp \
+    genericlist.cpp \
+    dlgemployee.cpp \
+    timeassignmentitemedit.cpp \
+    availabilitywidget.cpp
 
 HEADERS  += mainwindow.h \
     timeassignment.h \
@@ -85,7 +89,15 @@ HEADERS  += mainwindow.h \
     sectores.h \
     subsectores.h \
     nullablefield.h \
-    days.h
+    days.h \
+    genericlist.h \
+    dlgemployee.h \
+    timeassignmentitemedit.h \
+    availabilitywidget.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    genericlist.ui \
+    dlgemployee.ui \
+    timeassignmentitemedit.ui \
+    availabilitywidget.ui
 

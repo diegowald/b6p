@@ -12,6 +12,12 @@ public:
     explicit SubSectores(QObject *parent = 0);
     virtual void loadData();
     virtual void saveData();
+    virtual void defineHeaders(QStringList &list);
+    virtual void fillData(QTreeWidget &tree);
+    virtual bool addNew();
+    virtual void edit(QVariant ID);
+    virtual void deleteElement(QVariant ID);
+
 
     SubSectorPtr getSubSector(int idSubSector);
 

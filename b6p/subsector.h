@@ -36,4 +36,5 @@ private:
 
 typedef boost::shared_ptr<SubSector> SubSectorPtr;
 typedef boost::shared_ptr<QList<SubSectorPtr> > SubSectoresLst;
+
 #endif // SUBSECTOR_H

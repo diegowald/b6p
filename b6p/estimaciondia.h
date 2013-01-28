@@ -22,4 +22,5 @@ private:
 };
 
 typedef boost::shared_ptr<EstimacionDia> EstimacionDiaPtr;
+typedef boost::shared_ptr<QList<EstimacionDiaPtr> > EstimacionDiaLst;
 #endif // ESTIMACIONDIA_H

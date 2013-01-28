@@ -19,6 +19,10 @@ DataStore::DataStore(QObject *parent) :
 {
 }
 
+DataStore::~DataStore()
+{
+}
+
 void DataStore::addElement(QString name, ACollection* newMember)
 {
     m_DataCollection[name] = boost::shared_ptr<ACollection>(newMember);

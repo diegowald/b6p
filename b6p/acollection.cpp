@@ -1,4 +1,5 @@
 #include "acollection.h"
+#include <QDebug>
 
 ACollection::ACollection(QString Name, QObject *parent) :
     QObject(parent), m_Name(Name)
@@ -23,4 +24,10 @@ void ACollection::save()
 QString ACollection::name() const
 {
     return m_Name;
+}
+
+bool ACollection::addNew()
+{
+    qDebug() << "AddNew";
+    return true;
 }

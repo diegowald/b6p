@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <boost/shared_ptr.hpp>
+#include <QTreeWidget>
 
 class ACollection : public QObject
 {
@@ -17,6 +18,11 @@ public:
 
     virtual void loadData() = 0;
     virtual void saveData() = 0;
+    virtual void defineHeaders(QStringList &list) = 0;
+    virtual void fillData(QTreeWidget &tree) = 0;
+    virtual bool addNew();
+    virtual void edit(QVariant ID) = 0;
+    virtual void deleteElement(QVariant ID) = 0;
 
 signals:
     void loaded(QString name);
@@ -25,7 +31,7 @@ signals:
     void saving(QString name);
     
 public slots:
-    
+
 private:
     QString m_Name;
 

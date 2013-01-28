@@ -8,7 +8,7 @@ TimeAssignmentPlugin::TimeAssignmentPlugin(QWidget *parent)
     initialized = false;
 }
 
-void TimeAssignmentPlugin::initialize(QDesignerFormEditorInterface *core)
+void TimeAssignmentPlugin::initialize(QDesignerFormEditorInterface */*core*/)
 {
     if (initialized)
         return;

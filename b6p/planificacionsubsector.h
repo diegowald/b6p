@@ -46,4 +46,6 @@ private:
 };
 
 typedef boost::shared_ptr<PlanificacionSubSector> PlanificacionSubSectorPtr;
+typedef boost::shared_ptr<QList<PlanificacionSubSectorPtr> > PlanificacionSubSectorLst;
+
 #endif // PLANIFICACIONSUBSECTOR_H

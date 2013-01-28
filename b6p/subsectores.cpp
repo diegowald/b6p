@@ -37,3 +37,23 @@ SubSectoresLst SubSectores::getAll(int IDSector)
     }
     return res;
 }
+
+void SubSectores::defineHeaders(QStringList &list)
+{
+}
+
+void SubSectores::fillData(QTreeWidget &tree)
+{
+}
+
+bool SubSectores::addNew()
+{
+}
+
+void SubSectores::edit(QVariant ID)
+{
+}
+
+void SubSectores::deleteElement(QVariant ID)
+{
+}

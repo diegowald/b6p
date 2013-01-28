@@ -24,6 +24,11 @@ NullableField<QString> Empleado::Nombre()
     return nombre;
 }
 
+NullableField<QString> Empleado::Legajo()
+{
+    return legajo;
+}
+
 NullableField<QDate> Empleado::FechaIngreso()
 {
     return fechaIngreso;
@@ -42,6 +47,11 @@ void Empleado::Apellido(NullableField<QString> value)
 void Empleado::Nombre(NullableField<QString> value)
 {
     nombre = value;
+}
+
+void Empleado::Legajo(NullableField<QString> value)
+{
+    legajo = value;
 }
 
 void Empleado::FechaIngreso(NullableField<QDate> value)

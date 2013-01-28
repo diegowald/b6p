@@ -34,4 +34,6 @@ private:
 };
 
 typedef boost::shared_ptr<PlanificacionDia> PlanificacionDiaPtr;
+typedef boost::shared_ptr<QList<PlanificacionDiaPtr> > PlanificacionDiaLst;
+
 #endif // PLANIFICACIONDIA_H

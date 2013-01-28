@@ -21,6 +21,9 @@
     <item>
      <widget class="TimeAssignment" name="widget_2" native="true"/>
     </item>
+    <item>
+     <widget class="QMdiArea" name="mdiArea"/>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -32,6 +35,39 @@
      <height>29</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuPlanification">
+    <property name="title">
+     <string>Planification</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="actionApprove"/>
+    <addaction name="separator"/>
+    <addaction name="actionPrint"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuEmployees">
+    <property name="title">
+     <string>Employees</string>
+    </property>
+    <addaction name="actionView"/>
+   </widget>
+   <widget class="QMenu" name="menuCustomization">
+    <property name="title">
+     <string>Customization</string>
+    </property>
+    <addaction name="actionParameters"/>
+   </widget>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>About</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
+   <addaction name="menuPlanification"/>
+   <addaction name="menuEmployees"/>
+   <addaction name="menuCustomization"/>
+   <addaction name="menuAbout"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -42,6 +78,68 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+   <property name="toolTip">
+    <string>Open Planification</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::ApplicationSpecificRole</enum>
+   </property>
+  </action>
+  <action name="actionApprove">
+   <property name="text">
+    <string>Approve</string>
+   </property>
+   <property name="toolTip">
+    <string>Approves Planification</string>
+   </property>
+  </action>
+  <action name="actionPrint">
+   <property name="text">
+    <string>Print</string>
+   </property>
+   <property name="toolTip">
+    <string>Prints Planification</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+   <property name="toolTip">
+    <string>Exits application</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::QuitRole</enum>
+   </property>
+  </action>
+  <action name="actionView">
+   <property name="text">
+    <string>View</string>
+   </property>
+   <property name="toolTip">
+    <string>View Employees</string>
+   </property>
+  </action>
+  <action name="actionParameters">
+   <property name="text">
+    <string>Parameters</string>
+   </property>
+   <property name="toolTip">
+    <string>Edit configuration parameters</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About...</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::AboutRole</enum>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>

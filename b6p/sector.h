@@ -30,5 +30,6 @@ private:
 };
 
 typedef boost::shared_ptr<Sector> SectorPtr;
+typedef boost::shared_ptr<QList<SectorPtr> > SectorLst;
 
 #endif // SECTOR_H

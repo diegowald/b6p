@@ -15,6 +15,7 @@ class DataStore : public QObject
 {
     Q_OBJECT
 public:
+    virtual ~DataStore();
     static DataStore* instance();
     void initialize(QObject *parent);
 

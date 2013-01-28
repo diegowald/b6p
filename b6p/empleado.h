@@ -16,11 +16,13 @@ public:
     NullableField<int> IDEmpleado();
     NullableField<QString> Apellido();
     NullableField<QString> Nombre();
+    NullableField<QString> Legajo();
     NullableField<QDate> FechaIngreso();
 
     void IDEmpleado(NullableField<int> value);
     void Apellido(NullableField<QString> value);
     void Nombre(NullableField<QString> value);
+    void Legajo(NullableField<QString> value);
     void FechaIngreso(NullableField<QDate> value);
 
 signals:
@@ -31,6 +33,7 @@ private:
     NullableField<int> idEmpleado;
     NullableField<QString> apellido;
     NullableField<QString> nombre;
+    NullableField<QString> legajo;
     NullableField<QDate> fechaIngreso;
 };
 

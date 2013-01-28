@@ -11,8 +11,13 @@ public:
 
     virtual void loadData();
     virtual void saveData();
-
+    virtual void defineHeaders(QStringList &list);
+    virtual void fillData(QTreeWidget &tree);
+    virtual bool addNew();
+    virtual void edit(QVariant ID);
+    virtual void deleteElement(QVariant ID);
     QString getValue(QString key, QString defaultValue);
+
 signals:
     
 public slots:
