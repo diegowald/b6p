@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>471</width>
-    <height>54</height>
+    <height>35</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,17 +30,17 @@
     <number>2</number>
    </property>
    <item>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="lblDay">
      <property name="text">
       <string>TextLabel</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QTimeEdit" name="timeEdit"/>
+    <widget class="QTimeEdit" name="timeFrom"/>
    </item>
    <item>
-    <widget class="QTimeEdit" name="timeEdit_2"/>
+    <widget class="QTimeEdit" name="timeTo"/>
    </item>
    <item>
     <widget class="TimeAssignment" name="widget" native="true"/>

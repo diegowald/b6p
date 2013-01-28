@@ -2,6 +2,7 @@
 
 #include <QTime>
 #include <QPainter>
+#include <QDebug>
 
 TimeAssignment::TimeAssignment(QWidget *parent) :
     QWidget(parent)
@@ -13,11 +14,11 @@ TimeAssignment::TimeAssignment(QWidget *parent) :
     m_TimelineHeight = 6;
     m_AssignmentHeight = 12;
     m_FontSize = 10;
-    m_InitialTimeline.setDate(QDate(2013, 1, 1));
-    m_InitialTimeline.setTime(QTime(9, 0, 0, 0));
+    m_InitialTimeline.setDate(QDate::currentDate());
+    m_InitialTimeline.setTime(QTime(0, 0, 0, 0));
 
-    m_FinalTimeline.setDate(QDate(2013, 1, 1));
-    m_FinalTimeline.setTime(QTime(18, 0, 0, 0));
+    m_FinalTimeline.setDate(QDate::currentDate());
+    m_FinalTimeline.setTime(QTime(23, 59, 59, 0));
 
     m_StartAssignment.setDate(QDate(2013, 1, 1));
     m_StartAssignment.setTime(QTime(12, 0, 0, 0));
@@ -93,6 +94,7 @@ float TimeAssignment::delta2screen(float delta, float w)
 void TimeAssignment::setBackgroundColor(QColor color)
 {
     m_BackgroundColor = color;
+    repaint();
 }
 
 QColor TimeAssignment::backgroundColor() const
@@ -103,6 +105,7 @@ QColor TimeAssignment::backgroundColor() const
 void TimeAssignment::setTimeLineColor(QColor color)
 {
     m_TimelineColor = color;
+    repaint();
 }
 
 QColor TimeAssignment::timeLineColor() const
@@ -113,6 +116,7 @@ QColor TimeAssignment::timeLineColor() const
 void TimeAssignment::setAssignmentColor(QColor color)
 {
     m_AssignmentColor = color;
+    repaint();
 }
 
 QColor TimeAssignment::assignmentColor() const
@@ -123,6 +127,7 @@ QColor TimeAssignment::assignmentColor() const
 void TimeAssignment::setAssignmentHeight(int value)
 {
     m_AssignmentHeight = value;
+    repaint();
 }
 
 int TimeAssignment::AssignmentHeight() const
@@ -133,6 +138,7 @@ int TimeAssignment::AssignmentHeight() const
 void TimeAssignment::setHorizontalGap(int value)
 {
     m_HorizontalGap = value;
+    repaint();
 }
 
 int TimeAssignment::horizontalGap() const
@@ -143,6 +149,7 @@ int TimeAssignment::horizontalGap() const
 void TimeAssignment::setTimeLineHeight(int value)
 {
     m_TimelineHeight = value;
+    repaint();
 }
 
 int TimeAssignment::timelineHeight() const
@@ -153,6 +160,7 @@ int TimeAssignment::timelineHeight() const
 void TimeAssignment::setFontSize(int value)
 {
     m_FontSize = value;
+    repaint();
 }
 
 int TimeAssignment::fontSize() const
@@ -163,6 +171,7 @@ int TimeAssignment::fontSize() const
 void TimeAssignment::setInitialTimeline(QDateTime value)
 {
     m_InitialTimeline = value;
+    repaint();
 }
 
 QDateTime TimeAssignment::initialTimeline() const
@@ -173,6 +182,7 @@ QDateTime TimeAssignment::initialTimeline() const
 void TimeAssignment::setFinalTimeline(QDateTime value)
 {
     m_FinalTimeline = value;
+    repaint();
 }
 
 QDateTime TimeAssignment::finalTimeline() const
@@ -182,7 +192,9 @@ QDateTime TimeAssignment::finalTimeline() const
 
 void TimeAssignment::setStartAssignment(QDateTime value)
 {
+    qDebug() << value.toString();
     m_StartAssignment = value;
+    repaint();
 }
 
 QDateTime TimeAssignment::startAssignment() const
@@ -193,6 +205,7 @@ QDateTime TimeAssignment::startAssignment() const
 void TimeAssignment::setEndAssignment(QDateTime value)
 {
     m_EndAssignment = value;
+    repaint();
 }
 
 QDateTime TimeAssignment::endAssignment() const

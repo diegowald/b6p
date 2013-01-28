@@ -32,10 +32,12 @@ public:
     QDateTime initialTimeline() const;
     void setFinalTimeline(QDateTime value);
     QDateTime finalTimeline() const;
-    void setStartAssignment(QDateTime value);
     QDateTime startAssignment() const;
-    void setEndAssignment(QDateTime value);
     QDateTime endAssignment() const;
+
+public slots:
+    void setStartAssignment(QDateTime value);
+    void setEndAssignment(QDateTime value);
 
 protected:
     void paintEvent(QPaintEvent *event);
