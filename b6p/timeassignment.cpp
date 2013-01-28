@@ -42,6 +42,7 @@ void TimeAssignment::paintEvent(QPaintEvent */*event*/)
     painter.fillRect(timeline, m_TimelineColor);
     painter.setPen(m_TimelineColor);
     painter.drawRect(timeline);
+    //painter.drawArc(10, 10, 10, 10, 0, 16*360);
 
     // Paint Background timeline references
     int timeWidth = timeline.width();
@@ -117,6 +118,16 @@ void TimeAssignment::setAssignmentColor(QColor color)
 QColor TimeAssignment::assignmentColor() const
 {
     return m_AssignmentColor;
+}
+
+void TimeAssignment::setAssignmentHeight(int value)
+{
+    m_AssignmentHeight = value;
+}
+
+int TimeAssignment::AssignmentHeight() const
+{
+    return m_AssignmentHeight;
 }
 
 void TimeAssignment::setHorizontalGap(int value)

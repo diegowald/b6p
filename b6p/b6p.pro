@@ -42,11 +42,50 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     timeassignment.cpp \
-    timeassignmentplugin.cpp
+    timeassignmentplugin.cpp \
+    acollection.cpp \
+    sector.cpp \
+    subsector.cpp \
+    empleado.cpp \
+    parametro.cpp \
+    calendariopersona.cpp \
+    capacidadpersonasector.cpp \
+    planificaciondia.cpp \
+    estimaciondia.cpp \
+    planificacionsubsector.cpp \
+    empleados.cpp \
+    datastore.cpp \
+    parametros.cpp \
+    estimacionesdias.cpp \
+    planificacionesdias.cpp \
+    planificacionesdiassubsectores.cpp \
+    sectores.cpp \
+    subsectores.cpp \
+    days.cpp
 
 HEADERS  += mainwindow.h \
     timeassignment.h \
-    timeassignmentplugin.h
+    timeassignmentplugin.h \
+    acollection.h \
+    sector.h \
+    subsector.h \
+    empleado.h \
+    parametro.h \
+    calendariopersona.h \
+    capacidadpersonasector.h \
+    planificaciondia.h \
+    estimaciondia.h \
+    planificacionsubsector.h \
+    empleados.h \
+    datastore.h \
+    parametros.h \
+    estimacionesdias.h \
+    planificacionesdias.h \
+    planificacionesdiassubsectores.h \
+    sectores.h \
+    subsectores.h \
+    nullablefield.h \
+    days.h
 
 FORMS    += mainwindow.ui
 

@@ -20,6 +20,8 @@ public:
     QColor timeLineColor() const;
     void setAssignmentColor(QColor color);
     QColor assignmentColor() const;
+    void setAssignmentHeight(int value);
+    int AssignmentHeight() const;
     void setHorizontalGap(int value);
     int horizontalGap() const;
     void setTimeLineHeight(int value);
