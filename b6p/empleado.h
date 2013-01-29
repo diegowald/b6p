@@ -7,6 +7,9 @@
 #include "nullablefield.h"
 #include <QDate>
 
+#include "capacidadpersonasector.h"
+#include "calendariopersona.h"
+
 class Empleado : public QObject
 {
     Q_OBJECT
@@ -24,6 +27,9 @@ public:
     void Nombre(NullableField<QString> value);
     void Legajo(NullableField<QString> value);
     void FechaIngreso(NullableField<QDate> value);
+
+    CapacidadPersonaSectorLst getCapacities();
+    CalendarioPersonaLst getDisponibilidad();
 
 signals:
     

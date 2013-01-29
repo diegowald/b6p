@@ -10,6 +10,8 @@
 #include "planificacionesdiassubsectores.h"
 #include "sectores.h"
 #include "subsectores.h"
+#include "calendariopersonas.h"
+#include "capacidadespersonasector.h"
 
 class DataStore : public QObject
 {
@@ -26,6 +28,8 @@ public:
     PlanificacionesSubSectoresPtr getPlanificacionesSubSectores();
     SectoresPtr getSectores();
     SubSectoresPtr getSubSectores();
+    CalendarioPersonasPtr getCalendarios();
+    CapacidadesPersonaSectorPtr getCapacidades();
 
 protected:
     explicit DataStore(QObject *parent = 0);

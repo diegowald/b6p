@@ -1,4 +1,5 @@
 #include "empleado.h"
+#include "datastore.h"
 
 Empleado::Empleado(QObject *parent) :
     QObject(parent)
@@ -57,4 +58,15 @@ void Empleado::Legajo(NullableField<QString> value)
 void Empleado::FechaIngreso(NullableField<QDate> value)
 {
     fechaIngreso = value;
+}
+
+
+CapacidadPersonaSectorLst Empleado::getCapacities()
+{
+    return DataStore::instance()->getCapacidades()->getAll(*IDEmpleado().value());
+}
+
+CalendarioPersonaLst Empleado::getDisponibilidad()
+{
+    return DataStore::instance()->getCalendarios()->getAll(*IDEmpleado().value());
 }

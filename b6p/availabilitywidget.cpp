@@ -33,7 +33,23 @@ void AvailabilityWidget::setFrom(QDateTime value)
     ui->timeFrom->setDateTime(value);
 }
 
+void AvailabilityWidget::setFrom(QTime value)
+{
+    QDateTime dt;
+    dt.setDate(QDate::currentDate());
+    dt.setTime(value);
+    setFrom(dt);
+}
+
 void AvailabilityWidget::setTo(QDateTime value)
 {
     ui->timeTo->setDateTime(value);
+}
+
+void AvailabilityWidget::setTo(QTime value)
+{
+    QDateTime dt;
+    dt.setDate(QDate::currentDate());
+    dt.setTime(value);
+    setTo(dt);
 }

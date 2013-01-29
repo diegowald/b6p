@@ -31,7 +31,7 @@
  #maemo5: warning(This example does not work on Maemo platform)
  #simulator: warning(This example does not work on Simulator platform)
 
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -65,7 +65,10 @@ SOURCES += main.cpp\
     genericlist.cpp \
     dlgemployee.cpp \
     timeassignmentitemedit.cpp \
-    availabilitywidget.cpp
+    availabilitywidget.cpp \
+    capacitywidget.cpp \
+    calendariopersonas.cpp \
+    capacidadespersonasector.cpp
 
 HEADERS  += mainwindow.h \
     timeassignment.h \
@@ -93,11 +96,15 @@ HEADERS  += mainwindow.h \
     genericlist.h \
     dlgemployee.h \
     timeassignmentitemedit.h \
-    availabilitywidget.h
+    availabilitywidget.h \
+    capacitywidget.h \
+    calendariopersonas.h \
+    capacidadespersonasector.h
 
 FORMS    += mainwindow.ui \
     genericlist.ui \
     dlgemployee.ui \
     timeassignmentitemedit.ui \
-    availabilitywidget.ui
+    availabilitywidget.ui \
+    capacitywidget.ui
 

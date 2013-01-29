@@ -18,7 +18,10 @@ public:
     void setAvailableFrom(QDateTime value);
     void setAvailableTo(QDateTime value);
     void setFrom(QDateTime value);
+    void setFrom(QTime value);
     void setTo(QDateTime value);
+    void setTo(QTime value);
+
 private:
     Ui::AvailabilityWidget *ui;
 };

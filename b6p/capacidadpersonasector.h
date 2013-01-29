@@ -6,7 +6,6 @@
 #include "nullablefield.h"
 #include "sector.h"
 #include "subsector.h"
-#include "empleado.h"
 
 class CapacidadPersonaSector : public QObject
 {
@@ -18,16 +17,15 @@ public:
     NullableField<int> IDSector();
     NullableField<int> ID_SubSector();
     NullableField<int> IDEmpleado();
-    NullableField<float> Capacidad();
+    NullableField<int> Capacidad();
 
     void IDSector(NullableField<int> value);
     void IDSubSector(NullableField<int> value);
     void IDEmpleado(NullableField<int> value);
-    void Capacidad(NullableField<float> value);
+    void Capacidad(NullableField<int> value);
 
     SectorPtr getSector();
     SubSectorPtr getSubSector();
-    EmpleadoPtr getEmpleado();
 
 signals:
     
@@ -37,8 +35,10 @@ private:
     NullableField<int> m_IDSector;
     NullableField<int> m_ID_SubSector;
     NullableField<int> m_IDEmpleado;
-    NullableField<float> m_Capacidad;
+    NullableField<int> m_Capacidad;
 };
 
 typedef boost::shared_ptr<CapacidadPersonaSector> CapacidadPersonaSectorPtr;
+typedef boost::shared_ptr<QList<CapacidadPersonaSectorPtr> > CapacidadPersonaSectorLst;
+
 #endif // CAPACIDADPERSONASECTOR_H

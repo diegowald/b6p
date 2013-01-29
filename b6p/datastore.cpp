@@ -88,3 +88,20 @@ SubSectoresPtr DataStore::getSubSectores()
         addElement(key, new SubSectores(this));
     return SubSectoresPtr((SubSectores*)m_DataCollection[key].get());
 }
+
+
+CalendarioPersonasPtr DataStore::getCalendarios()
+{
+    QString key = "Calendarios";
+    if (m_DataCollection.find(key) == m_DataCollection.end())
+        addElement(key, new CalendarioPersonas(this));
+    return CalendarioPersonasPtr((CalendarioPersonas*)m_DataCollection[key].get());
+}
+
+CapacidadesPersonaSectorPtr DataStore::getCapacidades()
+{
+    QString key = "Capacidades";
+    if (m_DataCollection.find(key) == m_DataCollection.end())
+        addElement(key, new CapacidadesPersonaSector(this));
+    return CapacidadesPersonaSectorPtr((CapacidadesPersonaSector*)m_DataCollection[key].get());
+}

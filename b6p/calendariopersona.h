@@ -5,7 +5,6 @@
 #include <QTime>
 #include <boost/shared_ptr.hpp>
 #include "nullablefield.h"
-#include "empleado.h"
 
 class CalendarioPersona : public QObject
 {
@@ -23,7 +22,6 @@ public:
     void HoraIngreso(NullableField<QTime> value);
     void HoraEgreso(NullableField<QTime> value);
 
-    EmpleadoPtr getEmpleado();
 
 signals:
     
@@ -37,4 +35,6 @@ private:
 };
 
 typedef boost::shared_ptr<CalendarioPersona> CalendarioPersonaPtr;
+typedef boost::shared_ptr<QList<CalendarioPersonaPtr> > CalendarioPersonaLst;
+
 #endif // CALENDARIOPERSONA_H

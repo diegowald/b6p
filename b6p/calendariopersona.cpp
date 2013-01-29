@@ -49,8 +49,3 @@ void CalendarioPersona::HoraEgreso(NullableField<QTime> value)
 {
     m_HoraEgreso = value;
 }
-
-EmpleadoPtr CalendarioPersona::getEmpleado()
-{
-    return DataStore::instance()->getEmpleados()->getEmpleado(*m_IDEmpleado.value());
-}

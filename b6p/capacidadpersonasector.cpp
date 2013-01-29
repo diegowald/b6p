@@ -25,7 +25,7 @@ NullableField<int> CapacidadPersonaSector::IDEmpleado()
     return m_IDEmpleado;
 }
 
-NullableField<float> CapacidadPersonaSector::Capacidad()
+NullableField<int> CapacidadPersonaSector::Capacidad()
 {
     return m_Capacidad;
 }
@@ -45,7 +45,7 @@ void CapacidadPersonaSector::IDEmpleado(NullableField<int> value)
     m_IDEmpleado = value;
 }
 
-void CapacidadPersonaSector::Capacidad(NullableField<float> value)
+void CapacidadPersonaSector::Capacidad(NullableField<int> value)
 {
     m_Capacidad = value;
 }
@@ -58,9 +58,4 @@ SectorPtr CapacidadPersonaSector::getSector()
 SubSectorPtr CapacidadPersonaSector::getSubSector()
 {
     return DataStore::instance()->getSubSectores()->getSubSector(*m_ID_SubSector.value());
-}
-
-EmpleadoPtr CapacidadPersonaSector::getEmpleado()
-{
-    return DataStore::instance()->getEmpleados()->getEmpleado(*m_IDEmpleado.value());
 }
