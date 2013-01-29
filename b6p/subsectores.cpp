@@ -5,8 +5,21 @@ SubSectores::SubSectores(QObject *parent) :
 {
 }
 
-void SubSectores::loadData()
+QString SubSectores::getSqlString()
 {
+    return "select ID, IDSector, Nombre, Descripcion from subsectores;";
+}
+
+void SubSectores::addRecord(Record &record)
+{
+    SubSectorPtr s(new SubSector(this));
+
+    s->IDSubsector(NullableField<int>(record["ID"].toInt()));
+    s->IDSector(NullableField<int>(record["IDSector"].toInt()));
+    s->Nombre(NullableField<QString>(record["Nombre"].toString()));
+    s->Descripcion(NullableField<QString>(record["Descripcion"].toString()));
+
+    m_SubSectores[*s->IDSubsector().value()] = s;
 }
 
 void SubSectores::saveData()

@@ -12,7 +12,7 @@ public:
     explicit SubSector(QObject *parent = 0);
     
     NullableField<int> IDSector();
-    NullableField<int> IDSubSector();
+    NullableField<int> IDSubsector();
     NullableField<QString> Nombre();
     NullableField<QString> Descripcion();
 

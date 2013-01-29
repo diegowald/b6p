@@ -15,7 +15,7 @@ NullableField<int> SubSector::IDSector()
     return m_IDSector;
 }
 
-NullableField<int> SubSector::IDSubSector()
+NullableField<int> SubSector::IDSubsector()
 {
     return m_IDSubSector;
 }

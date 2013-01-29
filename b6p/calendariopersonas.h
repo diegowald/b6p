@@ -11,7 +11,8 @@ class CalendarioPersonas : public ACollection
 public:
     explicit CalendarioPersonas(QObject *parent = 0);
     
-    virtual void loadData();
+    virtual QString getSqlString();
+    virtual void addRecord(Record &record);
     virtual void saveData();
     virtual void defineHeaders(QStringList &list) ;
     virtual void fillData(QTreeWidget &tree);

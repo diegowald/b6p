@@ -11,7 +11,13 @@ class EstimacionDia : public QObject
     Q_OBJECT
 public:
     explicit EstimacionDia(QObject *parent = 0);
-    
+
+    NullableField<QDate> Dia();
+    NullableField<int> EstimacionHoras();
+
+    void Dia(NullableField<QDate> value);
+    void EstimacionHoras(NullableField<int> value);
+
 signals:
     
 public slots:

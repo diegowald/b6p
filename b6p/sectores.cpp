@@ -5,8 +5,20 @@ Sectores::Sectores(QObject *parent) :
 {
 }
 
-void Sectores::loadData()
+QString Sectores::getSqlString()
 {
+    return "select ID, Nombre, Descripcion from sectores;";
+}
+
+void Sectores::addRecord(Record &record)
+{
+    SectorPtr s(new Sector(this));
+
+    s->IDSector(NullableField<int>(record["ID"].toInt()));
+    s->Nombre(NullableField<QString>(record["Nombre"].toString()));
+    s->Descripcion(NullableField<QString>(record["Descripcion"].toString()));
+
+    m_Sectores[*s->IDSector().value()] = s;
 }
 
 void Sectores::saveData()

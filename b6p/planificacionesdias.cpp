@@ -5,8 +5,20 @@ PlanificacionesDias::PlanificacionesDias(QObject *parent) :
 {
 }
 
-void PlanificacionesDias::loadData()
+QString PlanificacionesDias::getSqlString()
 {
+    return "select Dia, Notas, IDSupervisor from planificaciondia;";
+}
+
+void PlanificacionesDias::addRecord(Record &record)
+{
+    PlanificacionDiaPtr p(new PlanificacionDia(this));
+
+    p->Dia(NullableField<QDate>(record["Dia"].toDate()));
+    p->Notas(NullableField<QString>(record["Notas"].toString()));
+    p->IDSupervisor(NullableField<int>(record["IDSupervisor"].toInt()));
+
+    m_Planificaciones[*p->Dia().value()] = p;
 }
 
 void PlanificacionesDias::saveData()

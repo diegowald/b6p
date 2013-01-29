@@ -5,8 +5,21 @@ CalendarioPersonas::CalendarioPersonas(QObject *parent) :
 {
 }
 
-void CalendarioPersonas::loadData()
+QString CalendarioPersonas::getSqlString()
 {
+    return "select Dia, IDEmpleado, HoraIngreso, HoraEgreso from calendariopersonas;";
+}
+
+void CalendarioPersonas::addRecord(Record &record)
+{
+    CalendarioPersonaPtr c(new CalendarioPersona(this));
+
+    c->Dia(NullableField<int>(record["Dia"].toInt()));
+    c->IDEmpleado(NullableField<int>(record["IDEmpleado"].toInt()));
+    c->HoraIngreso(NullableField<QTime>(record["HoraIngreso"].toTime()));
+    c->HoraEgreso(NullableField<QTime>(record["HoraEgreso"].toTime()));
+
+    m_Calendarios.push_back(c);
 }
 
 void CalendarioPersonas::saveData()

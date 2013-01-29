@@ -4,6 +4,9 @@
 #include <QObject>
 #include <boost/shared_ptr.hpp>
 #include <QTreeWidget>
+#include "sqlhandler.h"
+
+typedef QMap<QString, QVariant> Record;
 
 class ACollection : public QObject
 {
@@ -16,11 +19,12 @@ public:
 
     QString name() const;
 
-    virtual void loadData() = 0;
+    virtual QString getSqlString() = 0;
+    virtual void addRecord(Record &record) = 0;
     virtual void saveData() = 0;
     virtual void defineHeaders(QStringList &list) = 0;
     virtual void fillData(QTreeWidget &tree) = 0;
-    virtual bool addNew();
+    virtual bool addNew() = 0;
     virtual void edit(QVariant ID) = 0;
     virtual void deleteElement(QVariant ID) = 0;
 
@@ -34,7 +38,7 @@ public slots:
 
 private:
     QString m_Name;
-
+    SQLHandler sqlEngine;
 };
 
 #endif // ACOLLECTION_H

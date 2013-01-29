@@ -5,8 +5,17 @@ EstimacionesDias::EstimacionesDias(QObject *parent)
 {
 }
 
-void EstimacionesDias::loadData()
+QString EstimacionesDias::getSqlString()
 {
+    return "select Dia, HorasEstimadas from planificaciondias;";
+}
+
+void EstimacionesDias::addRecord(Record &record)
+{
+    EstimacionDiaPtr e(new EstimacionDia(this));
+    e->Dia(NullableField<QDate>(record["Dia"].toDate()));
+    e->EstimacionHoras(NullableField<int>(record["HorasEstimadas"].toInt()));
+    m_Estimaciones[*e->Dia().value()] = e;
 }
 
 void EstimacionesDias::saveData()

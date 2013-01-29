@@ -11,8 +11,20 @@ Empleados::~Empleados()
 {
 }
 
-void Empleados::loadData()
+QString Empleados::getSqlString()
 {
+    return "select ID, Apellido, Nombres, Legajo, FechaIngreso from empleados";
+}
+
+void Empleados::addRecord(Record &record)
+{
+    EmpleadoPtr e(new Empleado(this));
+    e->IDEmpleado(NullableField<int>(record["ID"].toInt()));
+    e->Apellido(NullableField<QString>(record["Apellido"].toString()));
+    e->Nombre(NullableField<QString>(record["Nombres"].toString()));
+    e->Legajo(NullableField<QString>(record["Legajo"].toString()));
+    e->FechaIngreso(NullableField<QDate>(record["FechaIngreso"].toDate()));
+    m_Empleados[*e->IDEmpleado().value()] = e;
 }
 
 void Empleados::saveData()

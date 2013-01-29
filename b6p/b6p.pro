@@ -68,7 +68,8 @@ SOURCES += main.cpp\
     availabilitywidget.cpp \
     capacitywidget.cpp \
     calendariopersonas.cpp \
-    capacidadespersonasector.cpp
+    capacidadespersonasector.cpp \
+    sqlhandler.cpp
 
 HEADERS  += mainwindow.h \
     timeassignment.h \
@@ -99,7 +100,8 @@ HEADERS  += mainwindow.h \
     availabilitywidget.h \
     capacitywidget.h \
     calendariopersonas.h \
-    capacidadespersonasector.h
+    capacidadespersonasector.h \
+    sqlhandler.h
 
 FORMS    += mainwindow.ui \
     genericlist.ui \

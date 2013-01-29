@@ -30,6 +30,7 @@ void DataStore::addElement(QString name, ACollection* newMember)
     connect(newMember, SIGNAL(loading(QString)), this, SIGNAL(loading(QString)));
     connect(newMember, SIGNAL(saved(QString)), this, SIGNAL(saved(QString)));
     connect(newMember, SIGNAL(saving(QString)), this, SIGNAL(saving(QString)));
+    newMember->load();
 }
 
 ParametrosPtr DataStore::getParametros()

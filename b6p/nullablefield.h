@@ -10,6 +10,12 @@ public:
         m_Value = NULL;
     }
 
+    NullableField(T value)
+    {
+        m_Value = NULL;
+        setValue(value);
+    }
+
     T *value()
     {
         return m_Value;

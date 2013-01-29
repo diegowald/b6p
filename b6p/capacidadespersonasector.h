@@ -11,7 +11,8 @@ class CapacidadesPersonaSector : public ACollection
 public:
     explicit CapacidadesPersonaSector(QObject *parent = 0);
 
-    virtual void loadData();
+    QString getSqlString();
+    void addRecord(Record &record);
     virtual void saveData();
     virtual void defineHeaders(QStringList &list) ;
     virtual void fillData(QTreeWidget &tree);

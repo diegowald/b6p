@@ -48,12 +48,12 @@ void PlanificacionSubSector::Dia(NullableField<QDate> value)
     m_Dia = value;
 }
 
-void PlanificacionSubSector::IDsector(NullableField<int> value)
+void PlanificacionSubSector::IDSector(NullableField<int> value)
 {
     m_IDSector = value;
 }
 
-void PlanificacionSubSector::IDSubsector(NullableField<int> value)
+void PlanificacionSubSector::IDSubSector(NullableField<int> value)
 {
     m_IDSubSector = value;
 }

@@ -23,8 +23,8 @@ public:
     NullableField<QTime> HoraFin();
 
     void Dia(NullableField<QDate> value);
-    void IDsector(NullableField<int> value);
-    void IDSubsector(NullableField<int> value);
+    void IDSector(NullableField<int> value);
+    void IDSubSector(NullableField<int> value);
     void IDEmpleado(NullableField<int> value);
     void HoraInicio(NullableField<QTime> value);
     void HoraFin(NullableField<QTime> value);

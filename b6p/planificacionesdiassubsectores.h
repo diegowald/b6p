@@ -2,13 +2,15 @@
 #define PLANIFICACIONESDIASSUBSECTORES_H
 
 #include "acollection.h"
+#include "planificacionsubsector.h"
 
 class PlanificacionesDiasSubSectores : public ACollection
 {
     Q_OBJECT
 public:
     explicit PlanificacionesDiasSubSectores(QObject *parent = 0);
-    virtual void loadData();
+    virtual QString getSqlString();
+    virtual void addRecord(Record &record);
     virtual void saveData();
     virtual void defineHeaders(QStringList &list);
     virtual void fillData(QTreeWidget &tree);
@@ -19,6 +21,8 @@ signals:
     
 public slots:
     
+private:
+    QList<PlanificacionSubSectorPtr> m_Planificacion;
 };
 
 typedef boost::shared_ptr<PlanificacionesDiasSubSectores> PlanificacionesSubSectoresPtr;

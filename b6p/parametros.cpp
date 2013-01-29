@@ -5,8 +5,14 @@ Parametros::Parametros(QObject *parent) :
 {
 }
 
-void Parametros::loadData()
+QString Parametros::getSqlString()
 {
+    return "select Key, Value from parametros;";
+}
+
+void Parametros::addRecord(Record &record)
+{
+    m_Dictionary["Key"] = record["Key"].toString();
 }
 
 void Parametros::saveData()

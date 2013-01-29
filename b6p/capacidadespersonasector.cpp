@@ -17,8 +17,21 @@ CapacidadPersonaSectorLst CapacidadesPersonaSector::getAll(int IDEmpleado)
 }
 
 
-void CapacidadesPersonaSector::loadData()
+QString CapacidadesPersonaSector::getSqlString()
 {
+    return "select IDSector, IDSubSector, IDEmpleado, Capacidad from capacidadespersonasector;";
+}
+
+void CapacidadesPersonaSector::addRecord(Record &record)
+{
+    CapacidadPersonaSectorPtr c(new CapacidadPersonaSector(this));
+
+    c->IDSector(NullableField<int>(record["IDSector"].toInt()));
+    c->IDSubSector(NullableField<int>(record["IDSubSector"].toInt()));
+    c->IDEmpleado(NullableField<int>(record["IDEmpleado"].toInt()));
+    c->Capacidad(NullableField<int>(record["Capacidad"].toInt()));
+
+    m_Capacidades.push_back(c);
 }
 
 void CapacidadesPersonaSector::saveData()
