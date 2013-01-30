@@ -21,6 +21,8 @@ public:
     void Nombre(NullableField<QString> value);
     void Descripcion(NullableField<QString> value);
 
+    virtual RecordPtr asRecordPtr();
+
 signals:
     
 public slots:

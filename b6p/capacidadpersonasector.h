@@ -27,6 +27,8 @@ public:
     SectorPtr getSector();
     SubSectorPtr getSubSector();
 
+    virtual RecordPtr asRecordPtr();
+
 signals:
     
 public slots:

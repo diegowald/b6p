@@ -15,6 +15,18 @@ CalendarioPersona::CalendarioPersona(QObject *parent) :
     m_HoraEgreso.reparent(this);
 }
 
+RecordPtr CalendarioPersona::asRecordPtr()
+{
+    RecordPtr res(new Record());
+
+    (*res)["Dia"] = m_Dia.toVariant();
+    (*res)["IDEmpleado"] = m_IDEmpleado.toVariant();
+    (*res)["HoraIngreso"] = m_HoraIngreso.toVariant();
+    (*res)["HoraEgreso"] = m_HoraEgreso.toVariant();
+
+    return res;
+}
+
 NullableField<int> CalendarioPersona::Dia()
 {
     return m_Dia;

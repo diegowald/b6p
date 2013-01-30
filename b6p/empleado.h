@@ -31,6 +31,8 @@ public:
     CapacidadPersonaSectorLst getCapacities();
     CalendarioPersonaLst getDisponibilidad();
 
+    virtual RecordPtr asRecordPtr();
+
 signals:
     
 public slots:

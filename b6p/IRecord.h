@@ -18,6 +18,9 @@ enum RecordStatus
 struct IRecord
 {
     IRecord() { status = UNMODIFIED; }
+
+    virtual RecordPtr asRecordPtr() = 0;
+
     virtual bool isModified()
     {
         return status == MODIFIED;

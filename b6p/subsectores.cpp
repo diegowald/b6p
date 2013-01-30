@@ -19,11 +19,51 @@ void SubSectores::addRecord(Record &record)
     s->Nombre(NullableField<QString>(record["Nombre"].toString()));
     s->Descripcion(NullableField<QString>(record["Descripcion"].toString()));
 
-    m_SubSectores[*s->IDSubsector().value()] = s;
+    m_SubSectores[s->IDSubsector().value()] = s;
 }
 
-void SubSectores::saveData()
+QString SubSectores::getDeleteStatement()
 {
+    return "delete from subsectores where ID = :ID;";
+}
+
+QString SubSectores::getUpdateStatement()
+{
+    return "update subsectores set IDSector = :IDSector, Nombre = :Nombre, Descripcion = :Descripcion where ID = :ID;";
+}
+
+QString SubSectores::getInsertStatement()
+{
+    return " insert into subsectores "
+            " (IDSector, Nombre, Descripcion) "
+            " values "
+            " (:IDSector, :Nombre, :Descripcion);";
+}
+
+RecordSet SubSectores::getRecords(RecordStatus status)
+{
+    RecordSet res(new QList<RecordPtr>());
+    foreach(SubSectorPtr s, m_SubSectores.values())
+    {
+        switch (status)
+        {
+        case NEW:
+            if (s->isNew())
+                res->push_back(s->asRecordPtr());
+            break;
+        case MODIFIED:
+            if (s->isModified())
+                res->push_back(s->asRecordPtr());
+            break;
+        case DELETED:
+            if (s->isDeleted())
+                res->push_back(s->asRecordPtr());
+            break;
+        default:
+            break;
+        }
+    }
+    return res;
 }
 
 SubSectorPtr SubSectores::getSubSector(int idSubSector)
@@ -45,7 +85,7 @@ SubSectoresLst SubSectores::getAll(int IDSector)
     SubSectoresLst res(new QList<SubSectorPtr>());
     foreach(SubSectorPtr subsector, m_SubSectores.values())
     {
-        if (*subsector->IDSector().value() == IDSector)
+        if (subsector->IDSector().value() == IDSector)
             res->push_back(subsector);
     }
     return res;

@@ -32,6 +32,8 @@ public:
     SectorPtr getSector();
     SubSectorPtr getSubsector();
     EmpleadoPtr getEmpleado();
+
+    virtual RecordPtr asRecordPtr();
 signals:
     
 public slots:

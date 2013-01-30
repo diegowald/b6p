@@ -16,6 +16,18 @@ Empleado::Empleado(QObject *parent) :
 
 }
 
+RecordPtr Empleado::asRecordPtr()
+{
+    RecordPtr res(new Record());
+
+    (*res)["ID"] = idEmpleado.toVariant();
+    (*res)["Apellido"] = apellido.toVariant();
+    (*res)["Nombres"] = nombre.toVariant();
+    (*res)["FechaIngreso"] = fechaIngreso.toVariant();
+
+    return res;
+}
+
 NullableField<int> Empleado::IDEmpleado()
 {
     return idEmpleado;
@@ -74,10 +86,10 @@ void Empleado::FechaIngreso(NullableField<QDate> value)
 
 CapacidadPersonaSectorLst Empleado::getCapacities()
 {
-    return DataStore::instance()->getCapacidades()->getAll(*IDEmpleado().value());
+    return DataStore::instance()->getCapacidades()->getAll(IDEmpleado().value());
 }
 
 CalendarioPersonaLst Empleado::getDisponibilidad()
 {
-    return DataStore::instance()->getCalendarios()->getAll(*IDEmpleado().value());
+    return DataStore::instance()->getCalendarios()->getAll(IDEmpleado().value());
 }

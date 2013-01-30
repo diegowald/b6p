@@ -23,6 +23,7 @@ public:
 
     SectorPtr getSector();
 
+    virtual RecordPtr asRecordPtr();
 signals:
     
 public slots:

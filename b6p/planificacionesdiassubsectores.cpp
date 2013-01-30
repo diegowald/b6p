@@ -24,8 +24,50 @@ void PlanificacionesDiasSubSectores::addRecord(Record &record)
     m_Planificacion.push_back(p);
 }
 
-void PlanificacionesDiasSubSectores::saveData()
+QString PlanificacionesDiasSubSectores::getDeleteStatement()
 {
+    return "delete from planificacionsubsector where "
+            " Dia = :Dia, IDSector = :IDSector, IDSubSector = :IDSubSector, "
+            " IDEmpleado = :IDEmpleado, HoraInicio = :HoraInicio, HoraFin = :HoraFin;";
+}
+
+QString PlanificacionesDiasSubSectores::getUpdateStatement()
+{
+    return "";
+}
+
+QString PlanificacionesDiasSubSectores::getInsertStatement()
+{
+    return "insert into planificacionsubsector "
+            " (Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin) "
+            " values "
+            " (:Dia, :IDSector, :IDSubsector, :IDEmpleado, :HoraInicio, :HoraFin);";
+}
+
+RecordSet PlanificacionesDiasSubSectores::getRecords(RecordStatus status)
+{
+    RecordSet res(new QList<RecordPtr>());
+    foreach(PlanificacionSubSectorPtr p, m_Planificacion)
+    {
+        switch (status)
+        {
+        case NEW:
+            if (p->isNew())
+                res->push_back(p->asRecordPtr());
+            break;
+        case MODIFIED:
+            if (p->isModified())
+                res->push_back(p->asRecordPtr());
+            break;
+        case DELETED:
+            if (p->isDeleted())
+                res->push_back(p->asRecordPtr());
+            break;
+        default:
+            break;
+        }
+    }
+    return res;
 }
 
 void PlanificacionesDiasSubSectores::defineHeaders(QStringList &list)

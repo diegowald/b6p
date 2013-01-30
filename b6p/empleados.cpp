@@ -24,11 +24,51 @@ void Empleados::addRecord(Record &record)
     e->Nombre(NullableField<QString>(record["Nombres"].toString()));
     e->Legajo(NullableField<QString>(record["Legajo"].toString()));
     e->FechaIngreso(NullableField<QDate>(record["FechaIngreso"].toDate()));
-    m_Empleados[*e->IDEmpleado().value()] = e;
+    m_Empleados[e->IDEmpleado().value()] = e;
 }
 
-void Empleados::saveData()
+QString Empleados::getDeleteStatement()
 {
+    return "delete from empleados where ID = :ID;";
+}
+
+QString Empleados::getUpdateStatement()
+{
+    return "update empleados set Apellido = :Apellido, Nombres = :Nombres, "
+            " Legajo = :Legajo, FechaIngreso = :FechaIngreso where ID = :ID;";
+}
+
+QString Empleados::getInsertStatement()
+{
+    return "insert into empleados (Apellido, Nombres, Legajo, FechaIngreso) "
+            " values "
+            "(:Apellido, :Nombres, :Legajo, :FechaIngreso);";
+}
+
+RecordSet Empleados::getRecords(RecordStatus status)
+{
+    RecordSet res(new QList<RecordPtr>());
+    foreach(EmpleadoPtr e, m_Empleados.values())
+    {
+        switch (status)
+        {
+        case NEW:
+            if (e->isNew())
+                res->push_back(e->asRecordPtr());
+            break;
+        case MODIFIED:
+            if (e->isModified())
+                res->push_back(e->asRecordPtr());
+            break;
+        case DELETED:
+            if (e->isDeleted())
+                res->push_back(e->asRecordPtr());
+            break;
+        default:
+            break;
+        }
+    }
+    return res;
 }
 
 EmpleadoPtr Empleados::getEmpleado(int idEmpleado)
@@ -58,10 +98,10 @@ void Empleados::fillData(QTreeWidget &tree)
     foreach(EmpleadoPtr emp, m_Empleados)
     {
         QTreeWidgetItem *item = new QTreeWidgetItem();
-        item->setText(0, *emp->Apellido().value());
-        item->setText(1, *emp->Nombre().value());
-        item->setText(2, *emp->Legajo().value());
-        item->setText(3, emp->FechaIngreso().value()->toString(Qt::TextDate));
+        item->setText(0, emp->Apellido().value());
+        item->setText(1, emp->Nombre().value());
+        item->setText(2, emp->Legajo().value());
+        item->setText(3, emp->FechaIngreso().value().toString(Qt::TextDate));
         tree.insertTopLevelItem(0, item);
     }
 }

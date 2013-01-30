@@ -23,6 +23,8 @@ public:
 
     EmpleadoPtr getSupervisor();
 
+    virtual RecordPtr asRecordPtr();
+
 signals:
     
 public slots:

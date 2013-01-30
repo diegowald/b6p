@@ -1,6 +1,7 @@
 #ifndef NULLABLEFIELD_H
 #define NULLABLEFIELD_H
 #include "IRecord.h"
+#include <QVariant>
 
 enum FieldStatus
 {
@@ -32,9 +33,14 @@ public:
         parent = newParent;
     }
 
-    T *value()
+    T value()
     {
-        return m_Value;
+        return *m_Value;
+    }
+
+    QVariant toVariant()
+    {
+        return isNull() ? QVariant() : value();
     }
 
     void setValue(T newValue)

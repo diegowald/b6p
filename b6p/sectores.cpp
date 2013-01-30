@@ -18,11 +18,51 @@ void Sectores::addRecord(Record &record)
     s->Nombre(NullableField<QString>(record["Nombre"].toString()));
     s->Descripcion(NullableField<QString>(record["Descripcion"].toString()));
 
-    m_Sectores[*s->IDSector().value()] = s;
+    m_Sectores[s->IDSector().value()] = s;
 }
 
-void Sectores::saveData()
+QString Sectores::getDeleteStatement()
 {
+    return "delete from sectores where ID = :ID;";
+}
+
+QString Sectores::getUpdateStatement()
+{
+    return "update sectores set Nombre = :Nombre, Descripcion = :Descripcion where ID = :ID;";
+}
+
+QString Sectores::getInsertStatement()
+{
+    return "insert into sectores "
+            " (Nombre, Descripcion) "
+            " values "
+            " (:Nombre, :Descripcion);";
+}
+
+RecordSet Sectores::getRecords(RecordStatus status)
+{
+    RecordSet res(new QList<RecordPtr>());
+    foreach(SectorPtr s, m_Sectores.values())
+    {
+        switch (status)
+        {
+        case NEW:
+            if (s->isNew())
+                res->push_back(s->asRecordPtr());
+            break;
+        case MODIFIED:
+            if (s->isModified())
+                res->push_back(s->asRecordPtr());
+            break;
+        case DELETED:
+            if (s->isDeleted())
+                res->push_back(s->asRecordPtr());
+            break;
+        default:
+            break;
+        }
+    }
+    return res;
 }
 
 SectorPtr Sectores::getSector(int IDSector)

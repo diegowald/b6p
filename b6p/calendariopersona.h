@@ -22,6 +22,7 @@ public:
     void HoraIngreso(NullableField<QTime> value);
     void HoraEgreso(NullableField<QTime> value);
 
+    virtual RecordPtr asRecordPtr();
 
 signals:
     

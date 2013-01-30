@@ -10,6 +10,16 @@ EstimacionDia::EstimacionDia(QObject *parent) :
     m_EstimacionHoras.reparent(this);
 }
 
+RecordPtr EstimacionDia::asRecordPtr()
+{
+    RecordPtr res(new Record());
+
+    (*res)["Dia"] = m_Dia.toVariant();
+    (*res)["EstimacionHoras"] = m_EstimacionHoras.toVariant();
+
+    return res;
+}
+
 NullableField<QDate> EstimacionDia::Dia()
 {
     return m_Dia;

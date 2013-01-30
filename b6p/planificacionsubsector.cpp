@@ -19,6 +19,19 @@ PlanificacionSubSector::PlanificacionSubSector(QObject *parent) :
     m_HoraFin.reparent(this);
 }
 
+RecordPtr PlanificacionSubSector::asRecordPtr()
+{
+    RecordPtr res(new Record());
+
+    (*res)["Dia"] = m_Dia.toVariant();
+    (*res)["IDSector"] = m_IDSector.toVariant();
+    (*res)["IDSubSector"] = m_IDSubSector.toVariant();
+    (*res)["IDEmpleado"] = m_IDEmpleado.toVariant();
+    (*res)["HoraInicio"] = m_HoraInicio.toVariant();
+    (*res)["HoraFin"] = m_HoraFin.toVariant();
+
+    return res;
+}
 
 NullableField<QDate> PlanificacionSubSector::Dia()
 {
@@ -82,15 +95,15 @@ void PlanificacionSubSector::HoraFin(NullableField<QTime> value)
 
 SectorPtr PlanificacionSubSector::getSector()
 {
-    return DataStore::instance()->getSectores()->getSector(*m_IDSector.value());
+    return DataStore::instance()->getSectores()->getSector(m_IDSector.value());
 }
 
 SubSectorPtr PlanificacionSubSector::getSubsector()
 {
-    return DataStore::instance()->getSubSectores()->getSubSector(*m_IDSubSector.value());
+    return DataStore::instance()->getSubSectores()->getSubSector(m_IDSubSector.value());
 }
 
 EmpleadoPtr PlanificacionSubSector::getEmpleado()
 {
-    return DataStore::instance()->getEmpleados()->getEmpleado(*m_IDEmpleado.value());
+    return DataStore::instance()->getEmpleados()->getEmpleado(m_IDEmpleado.value());
 }

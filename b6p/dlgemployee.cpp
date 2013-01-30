@@ -18,10 +18,10 @@ DlgEmployee::~DlgEmployee()
 void DlgEmployee::setData(EmpleadoPtr empleado)
 {
     // Informacion basica
-    ui->txtID->setText(*empleado->Legajo().value());
-    ui->txtLastName->setText(*empleado->Apellido().value());
-    ui->txtNames->setText(*empleado->Nombre().value());
-    ui->dateStart->setDate(*empleado->FechaIngreso().value());
+    ui->txtID->setText(empleado->Legajo().value());
+    ui->txtLastName->setText(empleado->Apellido().value());
+    ui->txtNames->setText(empleado->Nombre().value());
+    ui->dateStart->setDate(empleado->FechaIngreso().value());
 
     // Sectores, subsectores y capacidades
     CapacidadPersonaSectorLst caps = empleado->getCapacities();
@@ -30,9 +30,9 @@ void DlgEmployee::setData(EmpleadoPtr empleado)
         QTreeWidgetItem *item = new QTreeWidgetItem();
         ui->treeCapacities->addTopLevelItem(item);
         CapacityWidget *w = new CapacityWidget();
-        w->setSector(*cap->getSector()->Nombre().value());
-        w->setSubSector(*cap->getSubSector()->Nombre().value());
-        w->setCapacity(*cap->Capacidad().value());
+        w->setSector(cap->getSector()->Nombre().value());
+        w->setSubSector(cap->getSubSector()->Nombre().value());
+        w->setCapacity(cap->Capacidad().value());
         ui->treeCapacities->setItemWidget(item, 0, w);
     }
 
@@ -41,7 +41,7 @@ void DlgEmployee::setData(EmpleadoPtr empleado)
     foreach (CalendarioPersonaPtr cal, *cals.get())
     {
         AvailabilityWidget *w = NULL;
-        switch (*cal->Dia().value())
+        switch (cal->Dia().value())
         {
         case 0:
             w = ui->TimeSunday;
@@ -66,8 +66,8 @@ void DlgEmployee::setData(EmpleadoPtr empleado)
             w = ui->TimeSaturday;
             break;
         }
-        w->setFrom(*cal->HoraIngreso().value());
-        w->setTo(*cal->HoraEgreso().value());
+        w->setFrom(cal->HoraIngreso().value());
+        w->setTo(cal->HoraEgreso().value());
     }
 }
 

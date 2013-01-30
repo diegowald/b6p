@@ -12,6 +12,17 @@ Sector::Sector(QObject *parent) :
     m_Descripcion.reparent(this);
 }
 
+RecordPtr Sector::asRecordPtr()
+{
+    RecordPtr res(new Record());
+
+    (*res)["IDSector"] = m_IDSector.toVariant();
+    (*res)["Nombre"] = m_Nombre.toVariant();
+    (*res)["Descripcion"] = m_Descripcion.toVariant();
+
+    return res;
+}
+
 NullableField<int> Sector::IDSector()
 {
     return m_IDSector;

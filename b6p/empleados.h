@@ -15,12 +15,17 @@ public:
     virtual ~Empleados();
     virtual QString getSqlString();
     virtual void addRecord(Record &record);
-    virtual void saveData();
     virtual void defineHeaders(QStringList &list);
     virtual void fillData(QTreeWidget &tree);
     virtual bool addNew();
     virtual void edit(QVariant ID);
     virtual void deleteElement(QVariant ID);
+
+
+    virtual QString getDeleteStatement();
+    virtual QString getUpdateStatement();
+    virtual QString getInsertStatement();
+    virtual RecordSet getRecords(RecordStatus status);
 
     EmpleadoPtr getEmpleado(int idEmpleado);
     EmpleadosLst getAll();

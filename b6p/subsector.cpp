@@ -16,6 +16,18 @@ SubSector::SubSector(QObject *parent) :
 
 }
 
+RecordPtr SubSector::asRecordPtr()
+{
+    RecordPtr res(new Record());
+
+    (*res)["IDSector"] = m_IDSector.toVariant();
+    (*res)["ID"] = m_IDSubSector.toVariant();
+    (*res)["Nombre"] = m_Nombre.toVariant();
+    (*res)["Descripcion"] = m_Descripcion.toVariant();
+
+    return res;
+}
+
 NullableField<int> SubSector::IDSector()
 {
     return m_IDSector;
@@ -59,5 +71,5 @@ void SubSector::Descripcion(NullableField<QString> value)
 
 SectorPtr SubSector::getSector()
 {
-    return DataStore::instance()->getSectores()->getSector(*m_IDSector.value());
+    return DataStore::instance()->getSectores()->getSector(m_IDSector.value());
 }

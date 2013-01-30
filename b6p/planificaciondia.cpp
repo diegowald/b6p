@@ -13,6 +13,17 @@ PlanificacionDia::PlanificacionDia(QObject *parent) :
     m_IDSupervisor.reparent(this);
 }
 
+RecordPtr PlanificacionDia::asRecordPtr()
+{
+    RecordPtr res(new Record());
+
+    (*res)["Dia"] = m_Dia.toVariant();
+    (*res)["Notas"] = m_Notas.toVariant();
+    (*res)["IDSupervisor"] = m_IDSupervisor.toVariant();
+
+    return res;
+}
+
 NullableField<QDate> PlanificacionDia::Dia()
 {
     return m_Dia;
@@ -48,5 +59,5 @@ void PlanificacionDia::IDSupervisor(NullableField<int> value)
 
 EmpleadoPtr PlanificacionDia::getSupervisor()
 {
-    return DataStore::instance()->getEmpleados()->getEmpleado(*m_IDSupervisor.value());
+    return DataStore::instance()->getEmpleados()->getEmpleado(m_IDSupervisor.value());
 }

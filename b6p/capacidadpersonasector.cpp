@@ -15,6 +15,18 @@ CapacidadPersonaSector::CapacidadPersonaSector(QObject *parent) :
     m_Capacidad.reparent(this);
 }
 
+RecordPtr CapacidadPersonaSector::asRecordPtr()
+{
+    RecordPtr res(new Record());
+
+    (*res)["IDSector"] = m_IDSector.toVariant();
+    (*res)["IDSubSector"] = m_ID_SubSector.toVariant();
+    (*res)["IDEmpleado"] = m_IDEmpleado.toVariant();
+    (*res)["Capacidad"] = m_Capacidad.toVariant();
+
+    return res;
+}
+
 NullableField<int> CapacidadPersonaSector::IDSector()
 {
     return m_IDSector;
@@ -61,10 +73,10 @@ void CapacidadPersonaSector::Capacidad(NullableField<int> value)
 
 SectorPtr CapacidadPersonaSector::getSector()
 {
-    return DataStore::instance()->getSectores()->getSector(*m_IDSector.value());
+    return DataStore::instance()->getSectores()->getSector(m_IDSector.value());
 }
 
 SubSectorPtr CapacidadPersonaSector::getSubSector()
 {
-    return DataStore::instance()->getSubSectores()->getSubSector(*m_ID_SubSector.value());
+    return DataStore::instance()->getSubSectores()->getSubSector(m_ID_SubSector.value());
 }

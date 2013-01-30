@@ -15,30 +15,37 @@ void Parametros::addRecord(Record &record)
     m_Dictionary["Key"] = record["Key"].toString();
 }
 
-QString getDeleteStatement()
+QString Parametros::getDeleteStatement()
 {
     return "delete from parametros where Key = :Key;";
 }
 
-QString getUpdateStatement()
+QString Parametros::getUpdateStatement()
 {
     return "update parametros set Value = :Value where Key = :Key;";
 }
 
-QString getInsertStatement()
+QString Parametros::getInsertStatement()
 {
     return "insert into parametros (Key, Value) values (:Key, :Value);";
 }
 
-RecordSet getRecords(RecordStatus status)
+RecordSet Parametros::getRecords(RecordStatus status)
 {
-    return RecordSet();
+    if ((status == NEW) || (status == DELETED))
+        return RecordSet();
+
+    RecordSet rs(new QList<RecordPtr>());
+    foreach(QString key, m_Dictionary)
+    {
+        RecordPtr r(new Record());
+        (*r)["Key"] = key;
+        (*r)["Value"] = m_Dictionary[key];
+        rs->push_back(r);
+    }
+    return rs;
 }
 
-
-void Parametros::saveData()
-{
-}
 
 void Parametros::defineHeaders(QStringList &)
 {

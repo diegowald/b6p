@@ -22,8 +22,49 @@ void CalendarioPersonas::addRecord(Record &record)
     m_Calendarios.push_back(c);
 }
 
-void CalendarioPersonas::saveData()
+QString CalendarioPersonas::getDeleteStatement()
 {
+    return "delete from calendariopersonas where Dia = :Dia and IDEmpleado = :IDEmpleado;";
+}
+
+QString CalendarioPersonas::getUpdateStatement()
+{
+    return "update calendariopersonas set HoraIngreso = :HoraIngreso, HoraEgreso = :HoraEgreso "
+            " where Dia = :Dia and IDEmpleado = :IDEmpleado;";
+}
+
+QString CalendarioPersonas::getInsertStatement()
+{
+    return "insert into calendariopersonas "
+            " (Dia, IDEmpleado, HoraIngreso, HoraEgreso) "
+            " values "
+            " (:Dia, :IDEmpleado, :HoraIngreso, :HoraEgreso);";
+}
+
+RecordSet CalendarioPersonas::getRecords(RecordStatus status)
+{
+    RecordSet res(new QList<RecordPtr>());
+    foreach(CalendarioPersonaPtr c, m_Calendarios)
+    {
+        switch (status)
+        {
+        case NEW:
+            if (c->isNew())
+                res->push_back(c->asRecordPtr());
+            break;
+        case MODIFIED:
+            if (c->isModified())
+                res->push_back(c->asRecordPtr());
+            break;
+        case DELETED:
+            if (c->isDeleted())
+                res->push_back(c->asRecordPtr());
+            break;
+        default:
+            break;
+        }
+    }
+    return res;
 }
 
 void CalendarioPersonas::defineHeaders(QStringList &list)
@@ -51,7 +92,7 @@ CalendarioPersonaLst CalendarioPersonas::getAll(int IDEmpleado)
     CalendarioPersonaLst res(new QList<CalendarioPersonaPtr>());
     foreach (CalendarioPersonaPtr cal, m_Calendarios)
     {
-        if (*cal->IDEmpleado().value() == IDEmpleado)
+        if (cal->IDEmpleado().value() == IDEmpleado)
             res->push_back(cal);
     }
     return res;

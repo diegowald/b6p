@@ -18,11 +18,51 @@ void PlanificacionesDias::addRecord(Record &record)
     p->Notas(NullableField<QString>(record["Notas"].toString()));
     p->IDSupervisor(NullableField<int>(record["IDSupervisor"].toInt()));
 
-    m_Planificaciones[*p->Dia().value()] = p;
+    m_Planificaciones[p->Dia().value()] = p;
 }
 
-void PlanificacionesDias::saveData()
+QString PlanificacionesDias::getDeleteStatement()
 {
+    return "delete from planificaciondia where Dia = :Dia;";
+}
+
+QString PlanificacionesDias::getUpdateStatement()
+{
+    return "update planificaciondia set Notas = :Notas, IDSupervisor = :IDSupervisor where Dia = :Dia;";
+}
+
+QString PlanificacionesDias::getInsertStatement()
+{
+    return "insert into planificaciondia "
+            " (Dia, Notas, IDSupervisor) "
+            " values "
+            " (:Dia, :Notas, :IDSupervisor);";
+}
+
+RecordSet PlanificacionesDias::getRecords(RecordStatus status)
+{
+    RecordSet res(new QList<RecordPtr>());
+    foreach(PlanificacionDiaPtr p, m_Planificaciones.values())
+    {
+        switch (status)
+        {
+        case NEW:
+            if (p->isNew())
+                res->push_back(p->asRecordPtr());
+            break;
+        case MODIFIED:
+            if (p->isModified())
+                res->push_back(p->asRecordPtr());
+            break;
+        case DELETED:
+            if (p->isDeleted())
+                res->push_back(p->asRecordPtr());
+            break;
+        default:
+            break;
+        }
+    }
+    return res;
 }
 
 void PlanificacionesDias::defineHeaders(QStringList &list)

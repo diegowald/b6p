@@ -18,6 +18,7 @@ public:
     void Dia(NullableField<QDate> value);
     void EstimacionHoras(NullableField<int> value);
 
+    virtual RecordPtr asRecordPtr();
 signals:
     
 public slots:
