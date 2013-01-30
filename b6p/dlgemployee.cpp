@@ -18,10 +18,25 @@ DlgEmployee::~DlgEmployee()
 void DlgEmployee::setData(EmpleadoPtr empleado)
 {
     // Informacion basica
-    ui->txtID->setText(empleado->Legajo().value());
-    ui->txtLastName->setText(empleado->Apellido().value());
-    ui->txtNames->setText(empleado->Nombre().value());
-    ui->dateStart->setDate(empleado->FechaIngreso().value());
+    if (empleado->Legajo().isNull())
+        ui->txtID->clear();
+    else
+        ui->txtID->setText(empleado->Legajo().value());
+
+    if(empleado->Apellido().isNull())
+        ui->txtLastName->clear();
+    else
+        ui->txtLastName->setText(empleado->Apellido().value());
+
+    if (empleado->Nombre().isNull())
+        ui->txtNames->clear();
+    else
+        ui->txtNames->setText(empleado->Nombre().value());
+
+    if (empleado->FechaIngreso().isNull())
+        ui->dateStart->clear();
+    else
+        ui->dateStart->setDate(empleado->FechaIngreso().value());
 
     // Sectores, subsectores y capacidades
     CapacidadPersonaSectorLst caps = empleado->getCapacities();
@@ -71,10 +86,6 @@ void DlgEmployee::setData(EmpleadoPtr empleado)
     }
 }
 
-EmpleadoPtr DlgEmployee::getData()
-{
-}
-
 void DlgEmployee::setupAssignment(AvailabilityWidget *w, QString label)
 {
     w->setLabel(label);
@@ -98,4 +109,20 @@ void DlgEmployee::setupScreen()
     setupAssignment(ui->TimeThrursday, tr("Thursday"));
     setupAssignment(ui->TimeTuesday, tr("Tuesday"));
     setupAssignment(ui->TimeWednesday, tr("Wednesday"));
+}
+
+
+QString DlgEmployee::Apellido()
+{
+    return ui->txtLastName->text();
+}
+
+QString DlgEmployee::Nombres()
+{
+    return ui->txtNames->text();
+}
+
+QDate DlgEmployee::FechaIngreso()
+{
+    return ui->dateStart->date();
 }

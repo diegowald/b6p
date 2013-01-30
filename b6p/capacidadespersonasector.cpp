@@ -26,10 +26,10 @@ void CapacidadesPersonaSector::addRecord(Record &record)
 {
     CapacidadPersonaSectorPtr c(new CapacidadPersonaSector(this));
 
-    c->IDSector(NullableField<int>(record["IDSector"].toInt()));
-    c->IDSubSector(NullableField<int>(record["IDSubSector"].toInt()));
-    c->IDEmpleado(NullableField<int>(record["IDEmpleado"].toInt()));
-    c->Capacidad(NullableField<int>(record["Capacidad"].toInt()));
+    c->IDSector().setValue(record["IDSector"].toInt());
+    c->ID_SubSector().setValue(record["IDSubSector"].toInt());
+    c->IDEmpleado().setValue(record["IDEmpleado"].toInt());
+    c->Capacidad().setValue(record["Capacidad"].toInt());
 
     m_Capacidades.push_back(c);
 }
@@ -95,10 +95,10 @@ bool CapacidadesPersonaSector::addNew()
 {
 }
 
-void CapacidadesPersonaSector::edit(QVariant ID)
+bool CapacidadesPersonaSector::edit(QVariant ID)
 {
 }
 
-void CapacidadesPersonaSector::deleteElement(QVariant ID)
+bool CapacidadesPersonaSector::deleteElement(QVariant ID)
 {
 }

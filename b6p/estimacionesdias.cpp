@@ -13,8 +13,8 @@ QString EstimacionesDias::getSqlString()
 void EstimacionesDias::addRecord(Record &record)
 {
     EstimacionDiaPtr e(new EstimacionDia(this));
-    e->Dia(NullableField<QDate>(record["Dia"].toDate()));
-    e->EstimacionHoras(NullableField<int>(record["HorasEstimadas"].toInt()));
+    e->Dia().setValue(record["Dia"].toDate());
+    e->EstimacionHoras().setValue(record["HorasEstimadas"].toInt());
     m_Estimaciones[e->Dia().value()] = e;
 }
 
@@ -74,10 +74,10 @@ bool EstimacionesDias::addNew()
 {
 }
 
-void EstimacionesDias::edit(QVariant ID)
+bool EstimacionesDias::edit(QVariant ID)
 {
 }
 
-void EstimacionesDias::deleteElement(QVariant ID)
+bool EstimacionesDias::deleteElement(QVariant ID)
 {
 }

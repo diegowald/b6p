@@ -7,9 +7,9 @@ Sector::Sector(QObject *parent) :
     m_Nombre.setNull();
     m_Descripcion.setNull();
 
-    m_IDSector.reparent(this);
-    m_Nombre.reparent(this);
-    m_Descripcion.reparent(this);
+    m_IDSector.setParent(this);
+    m_Nombre.setParent(this);
+    m_Descripcion.setParent(this);
 }
 
 RecordPtr Sector::asRecordPtr()
@@ -23,32 +23,33 @@ RecordPtr Sector::asRecordPtr()
     return res;
 }
 
-NullableField<int> Sector::IDSector()
+NullableField<int> &Sector::IDSector()
 {
     return m_IDSector;
 }
 
-NullableField<QString> Sector::Nombre()
+NullableField<QString> &Sector::Nombre()
 {
     return m_Nombre;
 }
 
-NullableField<QString> Sector::Descripcion()
+NullableField<QString> &Sector::Descripcion()
 {
     return m_Descripcion;
 }
 
-void Sector::IDSector(NullableField<int> value)
+/*void Sector::IDSector(NullableField<int> value)
 {
-    m_IDSector = value;
+    m_IDSector.setValue(value);
 }
 
 void Sector::Nombre(NullableField<QString> value)
 {
-    m_Nombre = value;
+    m_Nombre.setValue(value);
 }
 
 void Sector::Descripcion(NullableField<QString> value)
 {
-    m_Descripcion = value;
+    m_Descripcion.setValue(value);
 }
+*/

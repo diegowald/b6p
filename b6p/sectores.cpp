@@ -14,9 +14,9 @@ void Sectores::addRecord(Record &record)
 {
     SectorPtr s(new Sector(this));
 
-    s->IDSector(NullableField<int>(record["ID"].toInt()));
-    s->Nombre(NullableField<QString>(record["Nombre"].toString()));
-    s->Descripcion(NullableField<QString>(record["Descripcion"].toString()));
+    s->IDSector().setValue(record["ID"].toInt());
+    s->Nombre().setValue(record["Nombre"].toString());
+    s->Descripcion().setValue(record["Descripcion"].toString());
 
     m_Sectores[s->IDSector().value()] = s;
 }
@@ -85,10 +85,10 @@ bool Sectores::addNew()
 {
 }
 
-void Sectores::edit(QVariant ID)
+bool Sectores::edit(QVariant ID)
 {
 }
 
-void Sectores::deleteElement(QVariant ID)
+bool Sectores::deleteElement(QVariant ID)
 {
 }

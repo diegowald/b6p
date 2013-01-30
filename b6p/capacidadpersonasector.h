@@ -14,15 +14,15 @@ public:
     explicit CapacidadPersonaSector(QObject *parent = 0);
 
     
-    NullableField<int> IDSector();
-    NullableField<int> ID_SubSector();
-    NullableField<int> IDEmpleado();
-    NullableField<int> Capacidad();
+    NullableField<int> &IDSector();
+    NullableField<int> &ID_SubSector();
+    NullableField<int> &IDEmpleado();
+    NullableField<int> &Capacidad();
 
-    void IDSector(NullableField<int> value);
+    /*void IDSector(NullableField<int> value);
     void IDSubSector(NullableField<int> value);
     void IDEmpleado(NullableField<int> value);
-    void Capacidad(NullableField<int> value);
+    void Capacidad(NullableField<int> value);*/
 
     SectorPtr getSector();
     SubSectorPtr getSubSector();

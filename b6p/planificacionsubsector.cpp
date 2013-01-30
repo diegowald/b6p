@@ -11,12 +11,12 @@ PlanificacionSubSector::PlanificacionSubSector(QObject *parent) :
     m_HoraInicio.setNull();
     m_HoraFin.setNull();
 
-    m_Dia.reparent(this);
-    m_IDSector.reparent(this);
-    m_IDSubSector.reparent(this);
-    m_IDEmpleado.reparent(this);
-    m_HoraInicio.reparent(this);
-    m_HoraFin.reparent(this);
+    m_Dia.setParent(this);
+    m_IDSector.setParent(this);
+    m_IDSubSector.setParent(this);
+    m_IDEmpleado.setParent(this);
+    m_HoraInicio.setParent(this);
+    m_HoraFin.setParent(this);
 }
 
 RecordPtr PlanificacionSubSector::asRecordPtr()
@@ -33,65 +33,65 @@ RecordPtr PlanificacionSubSector::asRecordPtr()
     return res;
 }
 
-NullableField<QDate> PlanificacionSubSector::Dia()
+NullableField<QDate> &PlanificacionSubSector::Dia()
 {
     return m_Dia;
 }
 
-NullableField<int> PlanificacionSubSector::IDSector()
+NullableField<int> &PlanificacionSubSector::IDSector()
 {
     return m_IDSector;
 }
 
-NullableField<int> PlanificacionSubSector::IDSubSector()
+NullableField<int> &PlanificacionSubSector::IDSubSector()
 {
     return m_IDSubSector;
 }
 
-NullableField<int> PlanificacionSubSector::IDEmpleado()
+NullableField<int> &PlanificacionSubSector::IDEmpleado()
 {
     return m_IDEmpleado;
 }
 
-NullableField<QTime> PlanificacionSubSector::HoraInicio()
+NullableField<QTime> &PlanificacionSubSector::HoraInicio()
 {
     return m_HoraInicio;
 }
 
-NullableField<QTime> PlanificacionSubSector::HoraFin()
+NullableField<QTime> &PlanificacionSubSector::HoraFin()
 {
     return m_HoraFin;
 }
 
-void PlanificacionSubSector::Dia(NullableField<QDate> value)
+/*void PlanificacionSubSector::Dia(NullableField<QDate> value)
 {
-    m_Dia = value;
+    m_Dia.setValue(value);
 }
 
 void PlanificacionSubSector::IDSector(NullableField<int> value)
 {
-    m_IDSector = value;
+    m_IDSector.setValue(value);
 }
 
 void PlanificacionSubSector::IDSubSector(NullableField<int> value)
 {
-    m_IDSubSector = value;
+    m_IDSubSector.setValue(value);
 }
 
 void PlanificacionSubSector::IDEmpleado(NullableField<int> value)
 {
-    m_IDEmpleado = value;
+    m_IDEmpleado.setValue(value);
 }
 
 void PlanificacionSubSector::HoraInicio(NullableField<QTime> value)
 {
-    m_HoraInicio = value;
+    m_HoraInicio.setValue(value);
 }
 
 void PlanificacionSubSector::HoraFin(NullableField<QTime> value)
 {
-    m_HoraFin = value;
-}
+    m_HoraFin.setValue(value);
+}*/
 
 SectorPtr PlanificacionSubSector::getSector()
 {

@@ -18,7 +18,10 @@ public:
     ~DlgEmployee();
 
     void setData(EmpleadoPtr empleado);
-    EmpleadoPtr getData();
+
+    QString Apellido();
+    QString Nombres();
+    QDate FechaIngreso();
 
 protected:
     void setupScreen();

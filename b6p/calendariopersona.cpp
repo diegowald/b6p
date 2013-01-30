@@ -9,10 +9,10 @@ CalendarioPersona::CalendarioPersona(QObject *parent) :
     m_HoraIngreso.setNull();
     m_HoraEgreso.setNull();
 
-    m_Dia.reparent(this);
-    m_IDEmpleado.reparent(this);
-    m_HoraIngreso.reparent(this);
-    m_HoraEgreso.reparent(this);
+    m_Dia.setParent(this);
+    m_IDEmpleado.setParent(this);
+    m_HoraIngreso.setParent(this);
+    m_HoraEgreso.setParent(this);
 }
 
 RecordPtr CalendarioPersona::asRecordPtr()
@@ -27,46 +27,42 @@ RecordPtr CalendarioPersona::asRecordPtr()
     return res;
 }
 
-NullableField<int> CalendarioPersona::Dia()
+NullableField<int> &CalendarioPersona::Dia()
 {
     return m_Dia;
 }
 
-NullableField<int> CalendarioPersona::IDEmpleado()
+NullableField<int> &CalendarioPersona::IDEmpleado()
 {
     return m_IDEmpleado;
 }
 
-NullableField<QTime> CalendarioPersona::HoraIngreso()
+NullableField<QTime> &CalendarioPersona::HoraIngreso()
 {
     return m_HoraIngreso;
 }
 
-NullableField<QTime> CalendarioPersona::HoraEgreso()
+NullableField<QTime> &CalendarioPersona::HoraEgreso()
 {
     return m_HoraEgreso;
 }
 
-void CalendarioPersona::Dia(NullableField<int> value)
+/*void CalendarioPersona::Dia(NullableField<int> value)
 {
-    m_Dia = value;
-    m_Dia.reparent(this);
+    m_Dia.setValue(value);
 }
 
 void CalendarioPersona::IDEmpleado(NullableField<int> value)
 {
-    m_IDEmpleado = value;
-    m_IDEmpleado.reparent(this);
+    m_IDEmpleado.setValue(value);
 }
 
 void CalendarioPersona::HoraIngreso(NullableField<QTime> value)
 {
-    m_HoraIngreso = value;
-    m_HoraIngreso.reparent(this);
+    m_HoraIngreso.setValue(value);
 }
 
 void CalendarioPersona::HoraEgreso(NullableField<QTime> value)
 {
-    m_HoraEgreso = value;
-    m_HoraEgreso.reparent(this);
-}
+    m_HoraEgreso.setValue(value);
+}*/

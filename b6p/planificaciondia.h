@@ -13,13 +13,13 @@ class PlanificacionDia : public QObject, public IRecord
 public:
     explicit PlanificacionDia(QObject *parent = 0);
 
-    NullableField<QDate> Dia();
-    NullableField<QString> Notas();
-    NullableField<int> IDSupervisor();
+    NullableField<QDate> &Dia();
+    NullableField<QString> &Notas();
+    NullableField<int> &IDSupervisor();
 
-    void Dia(NullableField<QDate> value);
+    /*void Dia(NullableField<QDate> value);
     void Notas(NullableField<QString> value);
-    void IDSupervisor(NullableField<int> value);
+    void IDSupervisor(NullableField<int> value);*/
 
     EmpleadoPtr getSupervisor();
 

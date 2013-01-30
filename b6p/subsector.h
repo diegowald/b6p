@@ -11,15 +11,15 @@ class SubSector : public QObject, public IRecord
 public:
     explicit SubSector(QObject *parent = 0);
     
-    NullableField<int> IDSector();
-    NullableField<int> IDSubsector();
-    NullableField<QString> Nombre();
-    NullableField<QString> Descripcion();
+    NullableField<int> &IDSector();
+    NullableField<int> &IDSubsector();
+    NullableField<QString> &Nombre();
+    NullableField<QString> &Descripcion();
 
-    void IDSector(NullableField<int> value);
+    /*void IDSector(NullableField<int> value);
     void IDSubsector(NullableField<int> value);
     void Nombre(NullableField<QString> value);
-    void Descripcion(NullableField<QString> value);
+    void Descripcion(NullableField<QString> value);*/
 
     SectorPtr getSector();
 

@@ -14,12 +14,12 @@ void PlanificacionesDiasSubSectores::addRecord(Record &record)
 {
     PlanificacionSubSectorPtr p(new PlanificacionSubSector(this));
 
-    p->Dia(NullableField<QDate>(record["Dia"].toDate()));
-    p->IDSector(NullableField<int>(record["IDSector"].toInt()));
-    p->IDSubSector(NullableField<int>(record["IDSubsector"].toInt()));
-    p->IDEmpleado(NullableField<int>(record["IDEmpleado"].toInt()));
-    p->HoraInicio(NullableField<QTime>(record["HoraInicio"].toTime()));
-    p->HoraFin(NullableField<QTime>(record["HoraFin"].toTime()));
+    p->Dia().setValue(record["Dia"].toDate());
+    p->IDSector().setValue(record["IDSector"].toInt());
+    p->IDSubSector().setValue(record["IDSubsector"].toInt());
+    p->IDEmpleado().setValue(record["IDEmpleado"].toInt());
+    p->HoraInicio().setValue(record["HoraInicio"].toTime());
+    p->HoraFin().setValue(record["HoraFin"].toTime());
 
     m_Planificacion.push_back(p);
 }
@@ -82,10 +82,10 @@ bool PlanificacionesDiasSubSectores::addNew()
 {
 }
 
-void PlanificacionesDiasSubSectores::edit(QVariant ID)
+bool PlanificacionesDiasSubSectores::edit(QVariant ID)
 {
 }
 
-void PlanificacionesDiasSubSectores::deleteElement(QVariant ID)
+bool PlanificacionesDiasSubSectores::deleteElement(QVariant ID)
 {
 }

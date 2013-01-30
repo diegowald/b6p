@@ -14,19 +14,19 @@ class Empleado : public QObject, public IRecord
 {
     Q_OBJECT
 public:
-    explicit Empleado(QObject *parent = 0);
+    explicit Empleado(bool isNew = false, QObject *parent = 0);
     
-    NullableField<int> IDEmpleado();
-    NullableField<QString> Apellido();
-    NullableField<QString> Nombre();
-    NullableField<QString> Legajo();
-    NullableField<QDate> FechaIngreso();
+    NullableField<int> &IDEmpleado();
+    NullableField<QString> &Apellido();
+    NullableField<QString> &Nombre();
+    NullableField<QString> &Legajo();
+    NullableField<QDate> &FechaIngreso();
 
-    void IDEmpleado(NullableField<int> value);
+    /*void IDEmpleado(NullableField<int> value);
     void Apellido(NullableField<QString> value);
     void Nombre(NullableField<QString> value);
     void Legajo(NullableField<QString> value);
-    void FechaIngreso(NullableField<QDate> value);
+    void FechaIngreso(NullableField<QDate> value);*/
 
     CapacidadPersonaSectorLst getCapacities();
     CalendarioPersonaLst getDisponibilidad();

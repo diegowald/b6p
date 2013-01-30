@@ -12,11 +12,11 @@ class EstimacionDia : public QObject, public IRecord
 public:
     explicit EstimacionDia(QObject *parent = 0);
 
-    NullableField<QDate> Dia();
-    NullableField<int> EstimacionHoras();
+    NullableField<QDate> &Dia();
+    NullableField<int> &EstimacionHoras();
 
-    void Dia(NullableField<QDate> value);
-    void EstimacionHoras(NullableField<int> value);
+    /*void Dia(NullableField<QDate> value);
+    void EstimacionHoras(NullableField<int> value);*/
 
     virtual RecordPtr asRecordPtr();
 signals:

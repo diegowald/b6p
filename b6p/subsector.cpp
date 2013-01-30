@@ -9,10 +9,10 @@ SubSector::SubSector(QObject *parent) :
     m_Nombre.setNull();
     m_Descripcion.setNull();
 
-    m_IDSector.reparent(this);
-    m_IDSubSector.reparent(this);
-    m_Nombre.reparent(this);
-    m_Descripcion.reparent(this);
+    m_IDSector.setParent(this);
+    m_IDSubSector.setParent(this);
+    m_Nombre.setParent(this);
+    m_Descripcion.setParent(this);
 
 }
 
@@ -28,46 +28,46 @@ RecordPtr SubSector::asRecordPtr()
     return res;
 }
 
-NullableField<int> SubSector::IDSector()
+NullableField<int> &SubSector::IDSector()
 {
     return m_IDSector;
 }
 
-NullableField<int> SubSector::IDSubsector()
+NullableField<int> &SubSector::IDSubsector()
 {
     return m_IDSubSector;
 }
 
-NullableField<QString> SubSector::Nombre()
+NullableField<QString> &SubSector::Nombre()
 {
     return m_Nombre;
 }
 
-NullableField<QString> SubSector::Descripcion()
+NullableField<QString> &SubSector::Descripcion()
 {
     return m_Descripcion;
 }
 
-void SubSector::IDSector(NullableField<int> value)
+/*void SubSector::IDSector(NullableField<int> value)
 {
-    m_IDSector = value;
+    m_IDSector.setValue(value);
 }
 
 void SubSector::IDSubsector(NullableField<int> value)
 {
-    m_IDSubSector = value;
+    m_IDSubSector.setValue(value);
 }
 
 void SubSector::Nombre(NullableField<QString> value)
 {
-    m_Nombre = value;
+    m_Nombre.setValue(value);
 }
 
 void SubSector::Descripcion(NullableField<QString> value)
 {
-    m_Descripcion = value;
+    m_Descripcion.setValue(value);
 }
-
+*/
 
 SectorPtr SubSector::getSector()
 {

@@ -20,8 +20,8 @@ public:
     virtual void defineHeaders(QStringList &list) ;
     virtual void fillData(QTreeWidget &tree);
     virtual bool addNew();
-    virtual void edit(QVariant ID);
-    virtual void deleteElement(QVariant ID);
+    virtual bool edit(QVariant ID);
+    virtual bool deleteElement(QVariant ID);
 
     CalendarioPersonaLst getAll(int IDEmpleado);
 

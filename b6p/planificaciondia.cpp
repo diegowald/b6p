@@ -8,9 +8,9 @@ PlanificacionDia::PlanificacionDia(QObject *parent) :
     m_Notas.setNull();
     m_IDSupervisor.setNull();
 
-    m_Dia.reparent(this);
-    m_Notas.reparent(this);
-    m_IDSupervisor.reparent(this);
+    m_Dia.setParent(this);
+    m_Notas.setParent(this);
+    m_IDSupervisor.setParent(this);
 }
 
 RecordPtr PlanificacionDia::asRecordPtr()
@@ -24,38 +24,35 @@ RecordPtr PlanificacionDia::asRecordPtr()
     return res;
 }
 
-NullableField<QDate> PlanificacionDia::Dia()
+NullableField<QDate> &PlanificacionDia::Dia()
 {
     return m_Dia;
 }
 
-NullableField<QString> PlanificacionDia::Notas()
+NullableField<QString> &PlanificacionDia::Notas()
 {
     return m_Notas;
 }
 
-NullableField<int> PlanificacionDia::IDSupervisor()
+NullableField<int> &PlanificacionDia::IDSupervisor()
 {
     return m_IDSupervisor;
 }
 
-void PlanificacionDia::Dia(NullableField<QDate> value)
+/*void PlanificacionDia::Dia(NullableField<QDate> value)
 {
-    m_Dia = value;
-    m_Dia.reparent(this);
+    m_Dia.setValue(value);
 }
 
 void PlanificacionDia::Notas(NullableField<QString> value)
 {
-    m_Notas = value;
-    m_Notas.reparent(this);
+    m_Notas.setValue(value);
 }
 
 void PlanificacionDia::IDSupervisor(NullableField<int> value)
 {
-    m_IDSupervisor = value;
-    m_IDSupervisor.reparent(this);
-}
+    m_IDSupervisor.setValue(value);
+}*/
 
 EmpleadoPtr PlanificacionDia::getSupervisor()
 {

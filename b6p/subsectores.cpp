@@ -14,10 +14,10 @@ void SubSectores::addRecord(Record &record)
 {
     SubSectorPtr s(new SubSector(this));
 
-    s->IDSubsector(NullableField<int>(record["ID"].toInt()));
-    s->IDSector(NullableField<int>(record["IDSector"].toInt()));
-    s->Nombre(NullableField<QString>(record["Nombre"].toString()));
-    s->Descripcion(NullableField<QString>(record["Descripcion"].toString()));
+    s->IDSubsector().setValue(record["ID"].toInt());
+    s->IDSector().setValue(record["IDSector"].toInt());
+    s->Nombre().setValue(record["Nombre"].toString());
+    s->Descripcion().setValue(record["Descripcion"].toString());
 
     m_SubSectores[s->IDSubsector().value()] = s;
 }
@@ -103,10 +103,10 @@ bool SubSectores::addNew()
 {
 }
 
-void SubSectores::edit(QVariant ID)
+bool SubSectores::edit(QVariant ID)
 {
 }
 
-void SubSectores::deleteElement(QVariant ID)
+bool SubSectores::deleteElement(QVariant ID)
 {
 }

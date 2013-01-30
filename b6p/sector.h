@@ -13,13 +13,13 @@ class Sector : public QObject, public IRecord
 public:
     explicit Sector(QObject *parent = 0);
 
-    NullableField<int> IDSector();
-    NullableField<QString> Nombre();
-    NullableField<QString> Descripcion();
+    NullableField<int> &IDSector();
+    NullableField<QString> &Nombre();
+    NullableField<QString> &Descripcion();
 
-    void IDSector(NullableField<int> value);
+    /*void IDSector(NullableField<int> value);
     void Nombre(NullableField<QString> value);
-    void Descripcion(NullableField<QString> value);
+    void Descripcion(NullableField<QString> value);*/
 
     virtual RecordPtr asRecordPtr();
 

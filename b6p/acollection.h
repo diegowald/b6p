@@ -25,8 +25,8 @@ public:
     virtual void defineHeaders(QStringList &list) = 0;
     virtual void fillData(QTreeWidget &tree) = 0;
     virtual bool addNew() = 0;
-    virtual void edit(QVariant ID) = 0;
-    virtual void deleteElement(QVariant ID) = 0;
+    virtual bool edit(QVariant ID) = 0;
+    virtual bool deleteElement(QVariant ID) = 0;
 
     virtual QString getDeleteStatement() = 0;
     virtual QString getUpdateStatement() = 0;

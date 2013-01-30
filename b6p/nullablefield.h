@@ -27,8 +27,7 @@ public:
         setValue(value);
     }
 
-
-    void reparent(IRecord *newParent)
+    void setParent(IRecord *newParent)
     {
         parent = newParent;
     }
@@ -41,6 +40,14 @@ public:
     QVariant toVariant()
     {
         return isNull() ? QVariant() : value();
+    }
+
+    void setValue(NullableField<T> value)
+    {
+        if (value.isNull())
+            setNull();
+        else
+            setValue(value.value());
     }
 
     void setValue(T newValue)

@@ -14,10 +14,10 @@ void CalendarioPersonas::addRecord(Record &record)
 {
     CalendarioPersonaPtr c(new CalendarioPersona(this));
 
-    c->Dia(NullableField<int>(record["Dia"].toInt()));
-    c->IDEmpleado(NullableField<int>(record["IDEmpleado"].toInt()));
-    c->HoraIngreso(NullableField<QTime>(record["HoraIngreso"].toTime()));
-    c->HoraEgreso(NullableField<QTime>(record["HoraEgreso"].toTime()));
+    c->Dia().setValue(record["Dia"].toInt());
+    c->IDEmpleado().setValue(record["IDEmpleado"].toInt());
+    c->HoraIngreso().setValue(record["HoraIngreso"].toTime());
+    c->HoraEgreso().setValue(record["HoraEgreso"].toTime());
 
     m_Calendarios.push_back(c);
 }
@@ -79,11 +79,11 @@ bool CalendarioPersonas::addNew()
 {
 }
 
-void CalendarioPersonas::edit(QVariant ID)
+bool CalendarioPersonas::edit(QVariant ID)
 {
 }
 
-void CalendarioPersonas::deleteElement(QVariant ID)
+bool CalendarioPersonas::deleteElement(QVariant ID)
 {
 }
 

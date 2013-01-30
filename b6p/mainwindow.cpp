@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //DataStore::instance()->initialize(this);
 
     ui->setupUi(this);
-    ui->widget->setBackgroundColor(Qt::white);
+    /*ui->widget->setBackgroundColor(Qt::white);
     ui->widget->setTimeLineColor(Qt::lightGray);
     ui->widget->setTimeLineHeight(4);
     ui->widget->setAssignmentColor(Qt::darkRed);
@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QDateTime dt = ui->widget->startAssignment();
     dt.setTime(QTime(10, 0, 0));
     ui->widget->setStartAssignment(dt);
-
+*/
 
     //
 }

@@ -14,9 +14,9 @@ void PlanificacionesDias::addRecord(Record &record)
 {
     PlanificacionDiaPtr p(new PlanificacionDia(this));
 
-    p->Dia(NullableField<QDate>(record["Dia"].toDate()));
-    p->Notas(NullableField<QString>(record["Notas"].toString()));
-    p->IDSupervisor(NullableField<int>(record["IDSupervisor"].toInt()));
+    p->Dia().setValue(record["Dia"].toDate());
+    p->Notas().setValue(record["Notas"].toString());
+    p->IDSupervisor().setValue(record["IDSupervisor"].toInt());
 
     m_Planificaciones[p->Dia().value()] = p;
 }
@@ -77,10 +77,10 @@ bool PlanificacionesDias::addNew()
 {
 }
 
-void PlanificacionesDias::edit(QVariant ID)
+bool PlanificacionesDias::edit(QVariant ID)
 {
 }
 
-void PlanificacionesDias::deleteElement(QVariant ID)
+bool PlanificacionesDias::deleteElement(QVariant ID)
 {
 }

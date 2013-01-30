@@ -19,11 +19,11 @@ QString Empleados::getSqlString()
 void Empleados::addRecord(Record &record)
 {
     EmpleadoPtr e(new Empleado(this));
-    e->IDEmpleado(NullableField<int>(record["ID"].toInt()));
-    e->Apellido(NullableField<QString>(record["Apellido"].toString()));
-    e->Nombre(NullableField<QString>(record["Nombres"].toString()));
-    e->Legajo(NullableField<QString>(record["Legajo"].toString()));
-    e->FechaIngreso(NullableField<QDate>(record["FechaIngreso"].toDate()));
+    e->IDEmpleado().setValue(record["ID"].toInt());
+    e->Apellido().setValue(record["Apellido"].toString());
+    e->Nombre().setValue(record["Nombres"].toString());
+    e->Legajo().setValue(record["Legajo"].toString());
+    e->FechaIngreso().setValue(record["FechaIngreso"].toDate());
     m_Empleados[e->IDEmpleado().value()] = e;
 }
 
@@ -108,15 +108,27 @@ void Empleados::fillData(QTreeWidget &tree)
 
 bool Empleados::addNew()
 {
-    DlgEmployee dlg;
-    dlg.exec();
-    return false;
+    int id = -1;
+    return edit(id);
 }
 
-void Empleados::edit(QVariant ID)
+bool Empleados::edit(QVariant ID)
 {
+    EmpleadoPtr e;
+    if (ID == -1)
+        e = EmpleadoPtr(new Empleado(true, this));
+    else
+        e = getEmpleado(ID.toInt());
+    DlgEmployee dlg;
+    dlg.setData(e);
+    if (dlg.exec() == QDialog::Accepted)
+    {
+        e->Apellido().setValue(dlg.Apellido());
+        e->Nombre().setValue(dlg.Nombres());
+        e->FechaIngreso().setValue(dlg.FechaIngreso());
+    }
 }
 
-void Empleados::deleteElement(QVariant ID)
+bool Empleados::deleteElement(QVariant ID)
 {
 }

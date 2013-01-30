@@ -1,7 +1,7 @@
 #include "empleado.h"
 #include "datastore.h"
 
-Empleado::Empleado(QObject *parent) :
+Empleado::Empleado(bool isNew, QObject *parent) :
     QObject(parent)
 {
     idEmpleado.setNull();
@@ -9,11 +9,13 @@ Empleado::Empleado(QObject *parent) :
     nombre.setNull();
     fechaIngreso.setNull();
 
-    idEmpleado.reparent(this);
-    apellido.reparent(this);
-    nombre.reparent(this);
-    fechaIngreso.reparent(this);
+    idEmpleado.setParent(this);
+    apellido.setParent(this);
+    nombre.setParent(this);
+    fechaIngreso.setParent(this);
 
+    if (isNew)
+        setNew();
 }
 
 RecordPtr Empleado::asRecordPtr()
@@ -28,68 +30,69 @@ RecordPtr Empleado::asRecordPtr()
     return res;
 }
 
-NullableField<int> Empleado::IDEmpleado()
+NullableField<int>& Empleado::IDEmpleado()
 {
     return idEmpleado;
 }
 
-NullableField<QString> Empleado::Apellido()
+NullableField<QString>& Empleado::Apellido()
 {
     return apellido;
 }
 
-NullableField<QString> Empleado::Nombre()
+NullableField<QString>& Empleado::Nombre()
 {
     return nombre;
 }
 
-NullableField<QString> Empleado::Legajo()
+NullableField<QString>& Empleado::Legajo()
 {
     return legajo;
 }
 
-NullableField<QDate> Empleado::FechaIngreso()
+NullableField<QDate>& Empleado::FechaIngreso()
 {
     return fechaIngreso;
 }
 
-void Empleado::IDEmpleado(NullableField<int> value)
+/*void Empleado::IDEmpleado(NullableField<int> value)
 {
-    idEmpleado = value;
-    idEmpleado.reparent(this);
+    idEmpleado.setValue(value);
 }
 
 void Empleado::Apellido(NullableField<QString> value)
 {
-    apellido = value;
-    apellido.reparent(this);
+    apellido.setValue(value);
 }
 
 void Empleado::Nombre(NullableField<QString> value)
 {
-    nombre = value;
-    nombre.reparent(this);
+    nombre.setValue(value);
 }
 
 void Empleado::Legajo(NullableField<QString> value)
 {
-    legajo = value;
-    legajo.reparent(this);
+    legajo.setValue(value);
 }
 
 void Empleado::FechaIngreso(NullableField<QDate> value)
 {
-    fechaIngreso = value;
-    fechaIngreso.reparent(this);
+    fechaIngreso.setValue(value);
 }
-
+*/
 
 CapacidadPersonaSectorLst Empleado::getCapacities()
 {
-    return DataStore::instance()->getCapacidades()->getAll(IDEmpleado().value());
+    if (IDEmpleado().isNull())
+        return CapacidadPersonaSectorLst(new QList<CapacidadPersonaSectorPtr>());
+    else
+        return DataStore::instance()->getCapacidades()->getAll(IDEmpleado().value());
 }
 
 CalendarioPersonaLst Empleado::getDisponibilidad()
 {
-    return DataStore::instance()->getCalendarios()->getAll(IDEmpleado().value());
+    if (IDEmpleado().isNull())
+        return CalendarioPersonaLst(new QList<CalendarioPersonaPtr>());
+    else
+        return DataStore::instance()->getCalendarios()->getAll(IDEmpleado().value());
 }

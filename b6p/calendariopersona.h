@@ -12,15 +12,15 @@ class CalendarioPersona : public QObject, public IRecord
 public:
     explicit CalendarioPersona(QObject *parent = 0);
     
-    NullableField<int> Dia();
-    NullableField<int> IDEmpleado();
-    NullableField<QTime> HoraIngreso();
-    NullableField<QTime> HoraEgreso();
+    NullableField<int>& Dia();
+    NullableField<int>& IDEmpleado();
+    NullableField<QTime>& HoraIngreso();
+    NullableField<QTime>& HoraEgreso();
 
-    void Dia(NullableField<int> value);
+/*    void Dia(NullableField<int> value);
     void IDEmpleado(NullableField<int> value);
     void HoraIngreso(NullableField<QTime> value);
-    void HoraEgreso(NullableField<QTime> value);
+    void HoraEgreso(NullableField<QTime> value);*/
 
     virtual RecordPtr asRecordPtr();
 

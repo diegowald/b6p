@@ -59,11 +59,11 @@ bool Parametros::addNew()
 {
 }
 
-void Parametros::edit(QVariant)
+bool Parametros::edit(QVariant)
 {
 }
 
-void Parametros::deleteElement(QVariant)
+bool Parametros::deleteElement(QVariant)
 {
 }
 

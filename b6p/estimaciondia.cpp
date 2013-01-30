@@ -6,8 +6,8 @@ EstimacionDia::EstimacionDia(QObject *parent) :
     m_Dia.setNull();
     m_EstimacionHoras.setNull();
 
-    m_Dia.reparent(this);
-    m_EstimacionHoras.reparent(this);
+    m_Dia.setParent(this);
+    m_EstimacionHoras.setParent(this);
 }
 
 RecordPtr EstimacionDia::asRecordPtr()
@@ -20,24 +20,23 @@ RecordPtr EstimacionDia::asRecordPtr()
     return res;
 }
 
-NullableField<QDate> EstimacionDia::Dia()
+NullableField<QDate> &EstimacionDia::Dia()
 {
     return m_Dia;
 }
 
-NullableField<int> EstimacionDia::EstimacionHoras()
+NullableField<int> &EstimacionDia::EstimacionHoras()
 {
     return m_EstimacionHoras;
 }
 
-void EstimacionDia::Dia(NullableField<QDate> value)
+/*void EstimacionDia::Dia(NullableField<QDate> value)
 {
-    m_Dia = value;
-    m_Dia.reparent(this);
+    m_Dia.setValue(value);
 }
 
 void EstimacionDia::EstimacionHoras(NullableField<int> value)
 {
-    m_EstimacionHoras = value;
-    m_EstimacionHoras.reparent(this);
+    m_EstimacionHoras.setValue(value);
 }
+*/
