@@ -6,7 +6,7 @@
 #include <boost/shared_ptr.hpp>
 #include "nullablefield.h"
 
-class CalendarioPersona : public QObject
+class CalendarioPersona : public QObject, public IRecord
 {
     Q_OBJECT
 public:

@@ -21,3 +21,7 @@ QSqlQuery SQLHandler::getAll(QString query)
     q.exec();
     return q;
 }
+
+void SQLHandler::executeQuery(QString cmd, RecordPtr record)
+{
+}

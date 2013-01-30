@@ -9,7 +9,7 @@
 #include "subsector.h"
 #include "empleado.h"
 
-class PlanificacionSubSector : public QObject
+class PlanificacionSubSector : public QObject, public IRecord
 {
     Q_OBJECT
 public:

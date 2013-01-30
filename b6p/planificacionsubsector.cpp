@@ -10,6 +10,13 @@ PlanificacionSubSector::PlanificacionSubSector(QObject *parent) :
     m_IDEmpleado.setNull();
     m_HoraInicio.setNull();
     m_HoraFin.setNull();
+
+    m_Dia.reparent(this);
+    m_IDSector.reparent(this);
+    m_IDSubSector.reparent(this);
+    m_IDEmpleado.reparent(this);
+    m_HoraInicio.reparent(this);
+    m_HoraFin.reparent(this);
 }
 
 

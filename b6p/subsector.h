@@ -5,7 +5,7 @@
 #include <boost/shared_ptr.hpp>
 #include "nullablefield.h"
 #include "sector.h"
-class SubSector : public QObject
+class SubSector : public QObject, public IRecord
 {
     Q_OBJECT
 public:

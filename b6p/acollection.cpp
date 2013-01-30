@@ -33,8 +33,39 @@ void ACollection::load()
 void ACollection::save()
 {
     emit saving(m_Name);
-    saveData();
+    // Obtener los registros eliminados.
+    deleteRecordsDB();
+
+    // Obtener los registros modificados
+    updateRecordsToDB();
+
+    // Obtener los registros nuevos
+    addNewRecordsToDB();
     emit saved(m_Name);
+}
+
+void ACollection::deleteRecordsDB()
+{
+    executeCommand(getDeleteStatement(), DELETED);
+}
+
+void ACollection::updateRecordsToDB()
+{
+    executeCommand(getUpdateStatement(), MODIFIED);
+}
+
+void ACollection::addNewRecordsToDB()
+{
+    executeCommand(getInsertStatement(), NEW);
+}
+
+void ACollection::executeCommand(QString cmd, RecordStatus status)
+{
+    RecordSet set = getRecords(NEW);
+    foreach(RecordPtr r, *set)
+    {
+        sqlEngine.executeQuery(cmd, r);
+    }
 }
 
 QString ACollection::name() const

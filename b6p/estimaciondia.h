@@ -6,7 +6,7 @@
 #include <boost/shared_ptr.hpp>
 #include "nullablefield.h"
 
-class EstimacionDia : public QObject
+class EstimacionDia : public QObject, public IRecord
 {
     Q_OBJECT
 public:

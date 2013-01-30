@@ -6,6 +6,10 @@ Sector::Sector(QObject *parent) :
     m_IDSector.setNull();
     m_Nombre.setNull();
     m_Descripcion.setNull();
+
+    m_IDSector.reparent(this);
+    m_Nombre.reparent(this);
+    m_Descripcion.reparent(this);
 }
 
 NullableField<int> Sector::IDSector()

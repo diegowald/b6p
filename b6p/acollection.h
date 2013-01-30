@@ -5,8 +5,8 @@
 #include <boost/shared_ptr.hpp>
 #include <QTreeWidget>
 #include "sqlhandler.h"
+#include "IRecord.h"
 
-typedef QMap<QString, QVariant> Record;
 
 class ACollection : public QObject
 {
@@ -21,13 +21,17 @@ public:
 
     virtual QString getSqlString() = 0;
     virtual void addRecord(Record &record) = 0;
-    virtual void saveData() = 0;
+
     virtual void defineHeaders(QStringList &list) = 0;
     virtual void fillData(QTreeWidget &tree) = 0;
     virtual bool addNew() = 0;
     virtual void edit(QVariant ID) = 0;
     virtual void deleteElement(QVariant ID) = 0;
 
+    virtual QString getDeleteStatement() = 0;
+    virtual QString getUpdateStatement() = 0;
+    virtual QString getInsertStatement() = 0;
+    virtual RecordSet getRecords(RecordStatus status) = 0;
 signals:
     void loaded(QString name);
     void loading(QString name);
@@ -36,6 +40,11 @@ signals:
     
 public slots:
 
+protected:
+    virtual void deleteRecordsDB();
+    virtual void updateRecordsToDB();
+    virtual void addNewRecordsToDB();
+    virtual void executeCommand(QString cmd, RecordStatus status);
 private:
     QString m_Name;
     SQLHandler sqlEngine;

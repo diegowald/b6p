@@ -7,7 +7,7 @@
 #include "nullablefield.h"
 #include "empleado.h"
 
-class PlanificacionDia : public QObject
+class PlanificacionDia : public QObject, public IRecord
 {
     Q_OBJECT
 public:

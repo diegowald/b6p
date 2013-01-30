@@ -7,7 +7,7 @@
 #include "sector.h"
 #include "subsector.h"
 
-class CapacidadPersonaSector : public QObject
+class CapacidadPersonaSector : public QObject, public IRecord
 {
     Q_OBJECT
 public:

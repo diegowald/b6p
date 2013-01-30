@@ -2,10 +2,12 @@
 #define SECTOR_H
 
 #include <QObject>
+#include "IRecord.h"
+
 #include <boost/shared_ptr.hpp>
 #include "nullablefield.h"
 
-class Sector : public QObject
+class Sector : public QObject, public IRecord
 {
     Q_OBJECT
 public:

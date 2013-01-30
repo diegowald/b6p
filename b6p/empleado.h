@@ -10,7 +10,7 @@
 #include "capacidadpersonasector.h"
 #include "calendariopersona.h"
 
-class Empleado : public QObject
+class Empleado : public QObject, public IRecord
 {
     Q_OBJECT
 public:

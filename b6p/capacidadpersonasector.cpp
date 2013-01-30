@@ -8,6 +8,11 @@ CapacidadPersonaSector::CapacidadPersonaSector(QObject *parent) :
     m_ID_SubSector.setNull();
     m_IDEmpleado.setNull();
     m_Capacidad.setNull();
+
+    m_IDSector.reparent(this);
+    m_ID_SubSector.reparent(this);
+    m_IDEmpleado.reparent(this);
+    m_Capacidad.reparent(this);
 }
 
 NullableField<int> CapacidadPersonaSector::IDSector()
@@ -33,21 +38,25 @@ NullableField<int> CapacidadPersonaSector::Capacidad()
 void CapacidadPersonaSector::IDSector(NullableField<int> value)
 {
     m_IDSector = value;
+    m_IDSector.reparent(this);
 }
 
 void CapacidadPersonaSector::IDSubSector(NullableField<int> value)
 {
     m_ID_SubSector = value;
+    m_ID_SubSector.reparent(this);
 }
 
 void CapacidadPersonaSector::IDEmpleado(NullableField<int> value)
 {
     m_IDEmpleado = value;
+    m_IDEmpleado.reparent(this);
 }
 
 void CapacidadPersonaSector::Capacidad(NullableField<int> value)
 {
     m_Capacidad = value;
+    m_Capacidad.reparent(this);
 }
 
 SectorPtr CapacidadPersonaSector::getSector()

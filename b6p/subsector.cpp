@@ -8,6 +8,12 @@ SubSector::SubSector(QObject *parent) :
     m_IDSubSector.setNull();
     m_Nombre.setNull();
     m_Descripcion.setNull();
+
+    m_IDSector.reparent(this);
+    m_IDSubSector.reparent(this);
+    m_Nombre.reparent(this);
+    m_Descripcion.reparent(this);
+
 }
 
 NullableField<int> SubSector::IDSector()

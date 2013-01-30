@@ -101,7 +101,8 @@ HEADERS  += mainwindow.h \
     capacitywidget.h \
     calendariopersonas.h \
     capacidadespersonasector.h \
-    sqlhandler.h
+    sqlhandler.h \
+    IRecord.h
 
 FORMS    += mainwindow.ui \
     genericlist.ui \

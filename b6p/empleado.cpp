@@ -8,6 +8,12 @@ Empleado::Empleado(QObject *parent) :
     apellido.setNull();
     nombre.setNull();
     fechaIngreso.setNull();
+
+    idEmpleado.reparent(this);
+    apellido.reparent(this);
+    nombre.reparent(this);
+    fechaIngreso.reparent(this);
+
 }
 
 NullableField<int> Empleado::IDEmpleado()
@@ -38,26 +44,31 @@ NullableField<QDate> Empleado::FechaIngreso()
 void Empleado::IDEmpleado(NullableField<int> value)
 {
     idEmpleado = value;
+    idEmpleado.reparent(this);
 }
 
 void Empleado::Apellido(NullableField<QString> value)
 {
     apellido = value;
+    apellido.reparent(this);
 }
 
 void Empleado::Nombre(NullableField<QString> value)
 {
     nombre = value;
+    nombre.reparent(this);
 }
 
 void Empleado::Legajo(NullableField<QString> value)
 {
     legajo = value;
+    legajo.reparent(this);
 }
 
 void Empleado::FechaIngreso(NullableField<QDate> value)
 {
     fechaIngreso = value;
+    fechaIngreso.reparent(this);
 }
 
 
