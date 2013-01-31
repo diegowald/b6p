@@ -126,7 +126,11 @@ bool Empleados::edit(QVariant ID)
         e->Apellido().setValue(dlg.Apellido());
         e->Nombre().setValue(dlg.Nombres());
         e->FechaIngreso().setValue(dlg.FechaIngreso());
+
+        m_Empleados[e->IDEmpleado().value()] = e;
+        return true;
     }
+    return false;
 }
 
 bool Empleados::deleteElement(QVariant ID)

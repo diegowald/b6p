@@ -4,7 +4,10 @@
 Empleado::Empleado(bool isNew, QObject *parent) :
     QObject(parent)
 {
-    idEmpleado.setNull();
+    if (isNew)
+        idEmpleado.setValue(-1);
+    else
+        idEmpleado.setNull();
     apellido.setNull();
     nombre.setNull();
     fechaIngreso.setNull();

@@ -47,7 +47,7 @@ NullableField<int> &CapacidadPersonaSector::Capacidad()
     return m_Capacidad;
 }
 
-void CapacidadPersonaSector::IDSector(NullableField<int> value)
+/*void CapacidadPersonaSector::IDSector(NullableField<int> value)
 {
     m_IDSector.setValue(value);
 }
@@ -65,7 +65,7 @@ void CapacidadPersonaSector::IDEmpleado(NullableField<int> value)
 void CapacidadPersonaSector::Capacidad(NullableField<int> value)
 {
     m_Capacidad.setValue(value);
-}
+}*/
 
 SectorPtr CapacidadPersonaSector::getSector()
 {

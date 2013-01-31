@@ -24,7 +24,9 @@ public:
 
     virtual void defineHeaders(QStringList &list) = 0;
     virtual void fillData(QTreeWidget &tree) = 0;
+    virtual bool addNewRecord();
     virtual bool addNew() = 0;
+    virtual bool editRecord(QVariant ID);
     virtual bool edit(QVariant ID) = 0;
     virtual bool deleteElement(QVariant ID) = 0;
 

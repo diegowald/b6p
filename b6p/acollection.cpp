@@ -5,7 +5,7 @@
 #include <QSqlField>
 
 ACollection::ACollection(QString Name, QObject *parent) :
-    QObject(parent), m_Name(Name), sqlEngine("./db.db")
+    QObject(parent), m_Name(Name), sqlEngine("./planning.b6p")
 {
 }
 
@@ -61,11 +61,27 @@ void ACollection::addNewRecordsToDB()
 
 void ACollection::executeCommand(QString cmd, RecordStatus status)
 {
-    RecordSet set = getRecords(NEW);
+    RecordSet set = getRecords(status);
     foreach(RecordPtr r, *set)
     {
         sqlEngine.executeQuery(cmd, r);
     }
+}
+
+bool ACollection::addNewRecord()
+{
+    bool result = addNew();
+    if (result)
+        save();
+    return result;
+}
+
+bool ACollection::editRecord(QVariant ID)
+{
+    bool result = edit(ID);
+    if (result)
+        save();
+    return result;
 }
 
 QString ACollection::name() const

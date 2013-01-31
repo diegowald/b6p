@@ -29,14 +29,14 @@ void GenericList::setHeader(QStringList &headers)
 void GenericList::on_actionNew_triggered()
 {
     qDebug() << "1";
-    qDebug() << model->addNew();
+    qDebug() << model->addNewRecord();
     qDebug() << "2";
 }
 
 void GenericList::on_actionEdit_triggered()
 {
     if (ui->treeList->currentItem())
-        model->edit(ui->treeList->currentItem()->data(0, Qt::UserRole));
+        model->editRecord(ui->treeList->currentItem()->data(0, Qt::UserRole));
 }
 
 void GenericList::on_actionDelete_triggered()

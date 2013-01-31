@@ -2,6 +2,7 @@
 #define IRECORD_H
 #include <boost/shared_ptr.hpp>
 #include <QMap>
+#include <QDebug>
 
 typedef QMap<QString, QVariant> Record;
 typedef boost::shared_ptr<Record> RecordPtr;
@@ -38,7 +39,9 @@ struct IRecord
 
     void setModified()
     {
-        status = MODIFIED;
+        qDebug() << status;
+        if (status == UNMODIFIED)
+            status = MODIFIED;
     }
     void setDeleted()
     {
