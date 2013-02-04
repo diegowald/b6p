@@ -10,6 +10,7 @@ typedef boost::shared_ptr<QList<RecordPtr> > RecordSet;
 
 enum RecordStatus
 {
+    UNINITIALIZED,
     UNMODIFIED,
     NEW,
     MODIFIED,
@@ -18,9 +19,15 @@ enum RecordStatus
 
 struct IRecord
 {
-    IRecord() { status = UNMODIFIED; }
+    IRecord() { status = UNINITIALIZED; }
 
     virtual RecordPtr asRecordPtr() = 0;
+
+    virtual void setInitialized()
+    {
+        if (status != NEW)
+            status = UNMODIFIED;
+    }
 
     virtual bool isModified()
     {

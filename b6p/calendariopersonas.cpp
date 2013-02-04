@@ -18,7 +18,7 @@ void CalendarioPersonas::addRecord(Record &record)
     c->IDEmpleado().setValue(record["IDEmpleado"].toInt());
     c->HoraIngreso().setValue(record["HoraIngreso"].toTime());
     c->HoraEgreso().setValue(record["HoraEgreso"].toTime());
-
+    c->setInitialized();
     m_Calendarios.push_back(c);
 }
 

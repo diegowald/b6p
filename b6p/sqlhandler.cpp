@@ -1,5 +1,7 @@
 #include "sqlhandler.h"
 #include <QSqlError>
+#include <QDateTime>
+#include <QVariant>
 
 SQLHandler::SQLHandler(QString database)
 {
@@ -33,7 +35,7 @@ void SQLHandler::executeQuery(QString cmd, RecordPtr record)
 
     if (!db.open())
     {
-        // Error\
+        // Error
         return;
     }
     qDebug() << cmd;
@@ -46,8 +48,21 @@ void SQLHandler::executeQuery(QString cmd, RecordPtr record)
         if (cmd.contains(param))
         {
             qDebug() << param << " = " << (*record)[key];
-            q.bindValue(param, (*record)[key]);
-            hay que chequear el tema del variant para dates
+            QVariant value = (*record)[key];
+            switch (value.type())
+            {
+            case QVariant::DateTime:
+            case QVariant::Date:
+            case QVariant::Time:
+            {
+                QDateTime dt = value.toDateTime();
+                value = dt.toMSecsSinceEpoch();
+                break;
+            }
+            default:
+                break;
+            }
+            q.bindValue(param, value);
         }
     }
     q.exec();

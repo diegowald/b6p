@@ -30,7 +30,7 @@ void CapacidadesPersonaSector::addRecord(Record &record)
     c->ID_SubSector().setValue(record["IDSubSector"].toInt());
     c->IDEmpleado().setValue(record["IDEmpleado"].toInt());
     c->Capacidad().setValue(record["Capacidad"].toInt());
-
+    c->setInitialized();
     m_Capacidades.push_back(c);
 }
 

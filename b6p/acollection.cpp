@@ -24,8 +24,8 @@ void ACollection::load()
         for (int i = 0; i < rec.count(); i++)
         {
             record[rec.fieldName(i)] = rec.field(i).value();
-            addRecord(record);
         }
+        addRecord(record);
     }
     emit loaded(m_Name);
 }

@@ -15,6 +15,7 @@ void EstimacionesDias::addRecord(Record &record)
     EstimacionDiaPtr e(new EstimacionDia(this));
     e->Dia().setValue(record["Dia"].toDate());
     e->EstimacionHoras().setValue(record["HorasEstimadas"].toInt());
+    e->setInitialized();
     m_Estimaciones[e->Dia().value()] = e;
 }
 

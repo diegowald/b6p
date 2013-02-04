@@ -17,6 +17,7 @@ void PlanificacionesDias::addRecord(Record &record)
     p->Dia().setValue(record["Dia"].toDate());
     p->Notas().setValue(record["Notas"].toString());
     p->IDSupervisor().setValue(record["IDSupervisor"].toInt());
+    p->setInitialized();
 
     m_Planificaciones[p->Dia().value()] = p;
 }

@@ -14,7 +14,7 @@ class Empleado : public QObject, public IRecord
 {
     Q_OBJECT
 public:
-    explicit Empleado(bool isNew = false, QObject *parent = 0);
+    explicit Empleado(bool isNew, QObject *parent = 0);
     
     NullableField<int> &IDEmpleado();
     NullableField<QString> &Apellido();

@@ -18,12 +18,13 @@ QString Empleados::getSqlString()
 
 void Empleados::addRecord(Record &record)
 {
-    EmpleadoPtr e(new Empleado(this));
+    EmpleadoPtr e(new Empleado(false, this));
     e->IDEmpleado().setValue(record["ID"].toInt());
     e->Apellido().setValue(record["Apellido"].toString());
     e->Nombre().setValue(record["Nombres"].toString());
     e->Legajo().setValue(record["Legajo"].toString());
     e->FechaIngreso().setValue(record["FechaIngreso"].toDate());
+    e->setInitialized();
     m_Empleados[e->IDEmpleado().value()] = e;
 }
 
@@ -99,6 +100,7 @@ void Empleados::fillData(QTreeWidget &tree)
     {
         QTreeWidgetItem *item = new QTreeWidgetItem();
         item->setText(0, emp->Apellido().value());
+        item->setData(0, Qt::UserRole, emp->IDEmpleado().value());
         item->setText(1, emp->Nombre().value());
         item->setText(2, emp->Legajo().value());
         item->setText(3, emp->FechaIngreso().value().toString(Qt::TextDate));

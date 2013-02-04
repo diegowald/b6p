@@ -18,6 +18,7 @@ void SubSectores::addRecord(Record &record)
     s->IDSector().setValue(record["IDSector"].toInt());
     s->Nombre().setValue(record["Nombre"].toString());
     s->Descripcion().setValue(record["Descripcion"].toString());
+    s->setInitialized();
 
     m_SubSectores[s->IDSubsector().value()] = s;
 }

@@ -20,6 +20,7 @@ void PlanificacionesDiasSubSectores::addRecord(Record &record)
     p->IDEmpleado().setValue(record["IDEmpleado"].toInt());
     p->HoraInicio().setValue(record["HoraInicio"].toTime());
     p->HoraFin().setValue(record["HoraFin"].toTime());
+    p->setInitialized();
 
     m_Planificacion.push_back(p);
 }

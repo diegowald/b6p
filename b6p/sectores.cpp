@@ -17,6 +17,7 @@ void Sectores::addRecord(Record &record)
     s->IDSector().setValue(record["ID"].toInt());
     s->Nombre().setValue(record["Nombre"].toString());
     s->Descripcion().setValue(record["Descripcion"].toString());
+    s->setInitialized();
 
     m_Sectores[s->IDSector().value()] = s;
 }
