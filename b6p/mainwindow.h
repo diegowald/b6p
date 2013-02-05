@@ -30,6 +30,10 @@ private slots:
 
     void on_actionAbout_triggered();
 
+    void datastore_loaded(QString name);
+    void datastore_loading(QString name);
+    void datastore_saved(QString name);
+    void datastore_saving(QString name);
 private:
     Ui::MainWindow *ui;
 };

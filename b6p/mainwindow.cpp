@@ -10,6 +10,16 @@ MainWindow::MainWindow(QWidget *parent) :
     //DataStore::instance()->initialize(this);
 
     ui->setupUi(this);
+
+    // connecting datastore signals with status bar
+    connect(DataStore::instance(), SIGNAL(loaded(QString)),
+            this, SLOT(datastore_loaded(QString)));
+    connect(DataStore::instance(), SIGNAL(loading(QString)),
+            this, SLOT(datastore_loading(QString)));
+    connect(DataStore::instance(), SIGNAL(saved(QString)),
+            this, SLOT(datastore_saved(QString)));
+    connect(DataStore::instance(), SIGNAL(saving(QString)),
+            this, SLOT(datastore_saving(QString)));
     /*ui->widget->setBackgroundColor(Qt::white);
     ui->widget->setTimeLineColor(Qt::lightGray);
     ui->widget->setTimeLineHeight(4);
@@ -66,4 +76,24 @@ void MainWindow::on_actionParameters_triggered()
 void MainWindow::on_actionAbout_triggered()
 {
     // Opens About box.
+}
+
+void MainWindow::datastore_loaded(QString name)
+{
+    ui->statusBar->showMessage(tr("%1 Loaded.").arg(name));
+}
+
+void MainWindow::datastore_loading(QString name)
+{
+    ui->statusBar->showMessage(tr("Loading %1...").arg(name));
+}
+
+void MainWindow::datastore_saved(QString name)
+{
+    ui->statusBar->showMessage(tr("%1 Saved.").arg(name));
+}
+
+void MainWindow::datastore_saving(QString name)
+{
+    ui->statusBar->showMessage(tr("Saving %1...").arg(name));
 }

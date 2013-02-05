@@ -131,7 +131,8 @@ bool Empleados::edit(QVariant ID)
         e->Legajo().setValue(dlg.Legajo());
 
         e->updateCapacities(dlg.Capacities());
-        e->updateDisponibilidades(dlg.Disponibilidades());
+        CalendarioPersonaLst disponibilidades = dlg.Disponibilidades();
+        e->updateDisponibilidades(disponibilidades);
 
         m_Empleados[e->IDEmpleado().value()] = e;
         return true;

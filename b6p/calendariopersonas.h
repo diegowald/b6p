@@ -25,7 +25,7 @@ public:
 
     CalendarioPersonaLst getAll(int IDEmpleado);
     void updateCalendarFromData(CalendarioPersonaPtr dataFrom);
-
+    void updateCalendarFromData(CalendarioPersonaLst dataList);
 signals:
     
 public slots:

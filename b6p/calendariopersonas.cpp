@@ -92,21 +92,44 @@ CalendarioPersonaLst CalendarioPersonas::getAll(int IDEmpleado)
     CalendarioPersonaLst res(new QList<CalendarioPersonaPtr>());
     foreach (CalendarioPersonaPtr cal, m_Calendarios)
     {
+        qDebug() << cal->IDEmpleado().value();
         if (cal->IDEmpleado().value() == IDEmpleado)
             res->push_back(cal);
     }
     return res;
 }
 
+void CalendarioPersonas::updateCalendarFromData(CalendarioPersonaLst dataList)
+{
+    foreach (CalendarioPersonaPtr c, *dataList)
+    {
+        updateCalendarFromData(c);
+    }
+}
+
 void CalendarioPersonas::updateCalendarFromData(CalendarioPersonaPtr dataFrom)
 {
     CalendarioPersonaLst cp = getAll(dataFrom->IDEmpleado().value());
-    foreach(CalendarioPersonaPtr c, *cp)
+    hay que rehacer todo esto.
+    if (cp->count() > 0)
     {
-        if (c->EqualsTo(dataFrom))
-        {aca esta rompiendo el shared pointer.
-            c->updateWith(dataFrom);
-            return;
+
+        foreach(CalendarioPersonaPtr c, *cp)
+        {
+            if (c->EqualsTo(dataFrom))
+            {
+                c->updateWith(dataFrom);
+                return;
+            }
         }
+    }
+    else
+    {
+        CalendarioPersonaPtr c(new CalendarioPersona(this));
+        c->Dia().setValue(dataFrom->Dia().value());
+        c->IDEmpleado().setValue(dataFrom->IDEmpleado().value());
+        c->updateWith(dataFrom);
+        m_Calendarios.push_back(c);
+        return;
     }
 }
