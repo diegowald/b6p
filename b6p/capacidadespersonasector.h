@@ -24,6 +24,7 @@ public:
     virtual bool deleteElement(QVariant ID);
 
     CapacidadPersonaSectorLst getAll(int IDEmpleado);
+    void updateCapacityfromData(CapacidadPersonaSectorPtr dataFrom);
 signals:
     
 public slots:

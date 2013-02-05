@@ -74,6 +74,17 @@ SectorPtr Sectores::getSector(int IDSector)
         return m_Sectores[IDSector];
 }
 
+SectorPtr Sectores::getSector(QString SectorName)
+{
+    foreach (SectorPtr s, m_Sectores.values())
+    {
+        if (s->Nombre().value() == SectorName)
+            return s;
+    }
+
+    return SectorPtr();
+}
+
 void Sectores::defineHeaders(QStringList &list)
 {
 }

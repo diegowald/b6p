@@ -7,6 +7,12 @@
 #include "sector.h"
 #include "subsector.h"
 
+class CapacidadPersonaSector;
+
+typedef boost::shared_ptr<CapacidadPersonaSector> CapacidadPersonaSectorPtr;
+typedef boost::shared_ptr<QList<CapacidadPersonaSectorPtr> > CapacidadPersonaSectorLst;
+
+
 class CapacidadPersonaSector : public QObject, public IRecord
 {
     Q_OBJECT
@@ -18,6 +24,9 @@ public:
     NullableField<int> &ID_SubSector();
     NullableField<int> &IDEmpleado();
     NullableField<int> &Capacidad();
+
+    bool EqualsTo(CapacidadPersonaSectorPtr other);
+    void updateWith(CapacidadPersonaSectorPtr other);
 
     /*void IDSector(NullableField<int> value);
     void IDSubSector(NullableField<int> value);
@@ -39,8 +48,5 @@ private:
     NullableField<int> m_IDEmpleado;
     NullableField<int> m_Capacidad;
 };
-
-typedef boost::shared_ptr<CapacidadPersonaSector> CapacidadPersonaSectorPtr;
-typedef boost::shared_ptr<QList<CapacidadPersonaSectorPtr> > CapacidadPersonaSectorLst;
 
 #endif // CAPACIDADPERSONASECTOR_H

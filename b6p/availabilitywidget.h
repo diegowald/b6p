@@ -22,8 +22,14 @@ public:
     void setTo(QDateTime value);
     void setTo(QTime value);
 
+    void setDay(int day);
+    int Day();
+    QDateTime FromTime();
+    QDateTime ToTime();
+
 private:
     Ui::AvailabilityWidget *ui;
+    int m_day;
 };
 
 #endif // AVAILABILITYWIDGET_H

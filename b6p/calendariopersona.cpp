@@ -66,3 +66,22 @@ void CalendarioPersona::HoraEgreso(NullableField<QTime> value)
 {
     m_HoraEgreso.setValue(value);
 }*/
+
+bool CalendarioPersona::EqualsTo(CalendarioPersonaPtr other)
+{
+    return ((m_Dia.value() == other->Dia().value())
+            && m_IDEmpleado.value() == other->IDEmpleado().value());
+}
+
+void CalendarioPersona::updateWith(CalendarioPersonaPtr other)
+{
+    if (other->HoraIngreso().isNull())
+        m_HoraIngreso.setNull();
+    else
+        m_HoraIngreso.setValue(other->HoraIngreso().value());
+
+    if (other->HoraEgreso().isNull())
+        m_HoraEgreso.setNull();
+    else
+        m_HoraEgreso.setValue(other->HoraEgreso().value());
+}

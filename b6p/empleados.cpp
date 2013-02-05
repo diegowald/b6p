@@ -23,7 +23,7 @@ void Empleados::addRecord(Record &record)
     e->Apellido().setValue(record["Apellido"].toString());
     e->Nombre().setValue(record["Nombres"].toString());
     e->Legajo().setValue(record["Legajo"].toString());
-    e->FechaIngreso().setValue(record["FechaIngreso"].toDate());
+    e->FechaIngreso().setValue(QDateTime::fromMSecsSinceEpoch(record["FechaIngreso"].toLongLong()).date());
     e->setInitialized();
     m_Empleados[e->IDEmpleado().value()] = e;
 }
@@ -128,6 +128,10 @@ bool Empleados::edit(QVariant ID)
         e->Apellido().setValue(dlg.Apellido());
         e->Nombre().setValue(dlg.Nombres());
         e->FechaIngreso().setValue(dlg.FechaIngreso());
+        e->Legajo().setValue(dlg.Legajo());
+
+        e->updateCapacities(dlg.Capacities());
+        e->updateDisponibilidades(dlg.Disponibilidades());
 
         m_Empleados[e->IDEmpleado().value()] = e;
         return true;

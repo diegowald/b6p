@@ -97,3 +97,16 @@ CalendarioPersonaLst CalendarioPersonas::getAll(int IDEmpleado)
     }
     return res;
 }
+
+void CalendarioPersonas::updateCalendarFromData(CalendarioPersonaPtr dataFrom)
+{
+    CalendarioPersonaLst cp = getAll(dataFrom->IDEmpleado().value());
+    foreach(CalendarioPersonaPtr c, *cp)
+    {
+        if (c->EqualsTo(dataFrom))
+        {aca esta rompiendo el shared pointer.
+            c->updateWith(dataFrom);
+            return;
+        }
+    }
+}

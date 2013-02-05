@@ -28,8 +28,10 @@ public:
     void Legajo(NullableField<QString> value);
     void FechaIngreso(NullableField<QDate> value);*/
 
-    CapacidadPersonaSectorLst getCapacities();
-    CalendarioPersonaLst getDisponibilidad();
+    CapacidadPersonaSectorLst Capacities();
+    void updateCapacities(CapacidadPersonaSectorLst newCapacities);
+    CalendarioPersonaLst Disponibilidades();
+    void updateDisponibilidades(CalendarioPersonaLst newDisponibilidades);
 
     virtual RecordPtr asRecordPtr();
 

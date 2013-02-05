@@ -102,3 +102,15 @@ bool CapacidadesPersonaSector::edit(QVariant ID)
 bool CapacidadesPersonaSector::deleteElement(QVariant ID)
 {
 }
+
+void CapacidadesPersonaSector::updateCapacityfromData(CapacidadPersonaSectorPtr dataFrom)
+{
+    foreach (CapacidadPersonaSectorPtr c, m_Capacidades)
+    {
+        if (c->EqualsTo(dataFrom))
+        {
+            c->updateWith(dataFrom);
+            return;
+        }
+    }
+}

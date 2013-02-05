@@ -75,6 +75,17 @@ SubSectorPtr SubSectores::getSubSector(int idSubSector)
         return m_SubSectores[idSubSector];
 }
 
+SubSectorPtr SubSectores::getSubSector(int idSector, QString SubSectorName)
+{
+    SubSectoresLst ss = getAll(idSector);
+    foreach (SubSectorPtr s, *ss)
+    {
+        if (s->Nombre().value() == SubSectorName)
+            return s;
+    }
+    return SubSectorPtr();
+}
+
 SubSectoresLst SubSectores::getAll()
 {
     SubSectoresLst res(new QList<SubSectorPtr>(m_SubSectores.values()));

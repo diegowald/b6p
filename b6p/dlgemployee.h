@@ -22,13 +22,18 @@ public:
     QString Apellido();
     QString Nombres();
     QDate FechaIngreso();
+    QString Legajo();
+    CapacidadPersonaSectorLst Capacities();
+    CalendarioPersonaLst Disponibilidades();
 
 protected:
     void setupScreen();
-    void setupAssignment(AvailabilityWidget* w, QString label);
+    void setupAssignment(AvailabilityWidget* w, int day);
+    CalendarioPersonaPtr getAssignment(AvailabilityWidget *w);
 
 private:
     Ui::DlgEmployee *ui;
+    EmpleadoPtr m_Empleado;
 };
 
 #endif // DLGEMPLOYEE_H

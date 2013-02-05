@@ -1,6 +1,7 @@
 #include "dlgemployee.h"
 #include "ui_dlgemployee.h"
 #include "capacitywidget.h"
+#include "datastore.h"
 
 DlgEmployee::DlgEmployee(QWidget *parent) :
     QDialog(parent),
@@ -17,6 +18,7 @@ DlgEmployee::~DlgEmployee()
 
 void DlgEmployee::setData(EmpleadoPtr empleado)
 {
+    m_Empleado = empleado;
     // Informacion basica
     if (empleado->Legajo().isNull())
         ui->txtID->clear();
@@ -39,7 +41,7 @@ void DlgEmployee::setData(EmpleadoPtr empleado)
         ui->dateStart->setDate(empleado->FechaIngreso().value());
 
     // Sectores, subsectores y capacidades
-    CapacidadPersonaSectorLst caps = empleado->getCapacities();
+    CapacidadPersonaSectorLst caps = empleado->Capacities();
     foreach (CapacidadPersonaSectorPtr cap, *caps.get())
     {
         QTreeWidgetItem *item = new QTreeWidgetItem();
@@ -52,10 +54,11 @@ void DlgEmployee::setData(EmpleadoPtr empleado)
     }
 
     // Disponibilidad de horarios
-    CalendarioPersonaLst cals = empleado->getDisponibilidad();
+    CalendarioPersonaLst cals = empleado->Disponibilidades();
     foreach (CalendarioPersonaPtr cal, *cals.get())
     {
         AvailabilityWidget *w = NULL;
+        w->setDay(cal->Dia().value());
         switch (cal->Dia().value())
         {
         case 0:
@@ -86,9 +89,9 @@ void DlgEmployee::setData(EmpleadoPtr empleado)
     }
 }
 
-void DlgEmployee::setupAssignment(AvailabilityWidget *w, QString label)
+void DlgEmployee::setupAssignment(AvailabilityWidget *w, int day)
 {
-    w->setLabel(label);
+    w->setDay(day);
     QDateTime dt;
     dt.setDate(QDate::currentDate());
     dt.setTime(QTime(9, 0, 0, 0));
@@ -102,13 +105,13 @@ void DlgEmployee::setupScreen()
     ui->txtID->setText("");
     ui->txtLastName->setText("");
     ui->txtNames->setText("");
-    setupAssignment(ui->TimeFriday, tr("Friday"));
-    setupAssignment(ui->TimeMonday, tr("Monday"));
-    setupAssignment(ui->TimeSaturday, tr("Saturday"));
-    setupAssignment(ui->TimeSunday, tr("Sunday"));
-    setupAssignment(ui->TimeThrursday, tr("Thursday"));
-    setupAssignment(ui->TimeTuesday, tr("Tuesday"));
-    setupAssignment(ui->TimeWednesday, tr("Wednesday"));
+    setupAssignment(ui->TimeFriday, 5);
+    setupAssignment(ui->TimeMonday, 1);
+    setupAssignment(ui->TimeSaturday, 6);
+    setupAssignment(ui->TimeSunday, 0);
+    setupAssignment(ui->TimeThrursday, 4);
+    setupAssignment(ui->TimeTuesday, 2);
+    setupAssignment(ui->TimeWednesday, 3);
 }
 
 
@@ -125,4 +128,56 @@ QString DlgEmployee::Nombres()
 QDate DlgEmployee::FechaIngreso()
 {
     return ui->dateStart->date();
+}
+
+QString DlgEmployee::Legajo()
+{
+    return ui->txtID->text();
+}
+
+CapacidadPersonaSectorLst DlgEmployee::Capacities()
+{
+    CapacidadPersonaSectorLst res(new QList<CapacidadPersonaSectorPtr>());
+
+    for (int i = 0; i < ui->treeCapacities->topLevelItemCount(); i++)
+    {
+        QTreeWidgetItem *treeitem = ui->treeCapacities->topLevelItem(i);
+        CapacityWidget * w = qobject_cast<CapacityWidget *>(ui->treeCapacities->itemWidget(treeitem, 0));
+        CapacidadPersonaSectorPtr p(new CapacidadPersonaSector());
+        p->IDEmpleado().setValue(m_Empleado->IDEmpleado());
+        p->IDSector().setValue(DataStore::instance()->getSectores()->getSector(w->Sector())->IDSector().value());
+        p->ID_SubSector().setValue(DataStore::instance()->getSubSectores()->getSubSector(p->IDSector().value(), w->SubSector())->IDSubsector().value());
+        p->Capacidad().setValue(w->Capacity());
+        res->push_back(p);
+    }
+
+    return res;
+}
+
+CalendarioPersonaPtr DlgEmployee::getAssignment(AvailabilityWidget *w)
+{
+    CalendarioPersonaPtr p(new CalendarioPersona());
+
+    p->IDEmpleado().setValue(m_Empleado->IDEmpleado().value());
+
+    p->HoraIngreso().setValue(w->FromTime().time());
+    p->HoraEgreso().setValue(w->ToTime().time());
+    p->Dia().setValue(w->Day());
+
+    return p;
+}
+
+CalendarioPersonaLst DlgEmployee::Disponibilidades()
+{
+    CalendarioPersonaLst res(new QList<CalendarioPersonaPtr>());
+
+    res->push_back(getAssignment(ui->TimeSunday));
+    res->push_back(getAssignment(ui->TimeMonday));
+    res->push_back(getAssignment(ui->TimeTuesday));
+    res->push_back(getAssignment(ui->TimeWednesday));
+    res->push_back(getAssignment(ui->TimeThrursday));
+    res->push_back(getAssignment(ui->TimeFriday));
+    res->push_back(getAssignment(ui->TimeSaturday));
+
+    return res;
 }

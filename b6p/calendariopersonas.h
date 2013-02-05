@@ -24,6 +24,7 @@ public:
     virtual bool deleteElement(QVariant ID);
 
     CalendarioPersonaLst getAll(int IDEmpleado);
+    void updateCalendarFromData(CalendarioPersonaPtr dataFrom);
 
 signals:
     

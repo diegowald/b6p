@@ -26,6 +26,7 @@ public:
 
 
     SubSectorPtr getSubSector(int idSubSector);
+    SubSectorPtr getSubSector(int idSector, QString SubSectorName);
 
     SubSectoresLst getAll();
     SubSectoresLst getAll(int IDSector);

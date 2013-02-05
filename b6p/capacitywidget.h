@@ -18,6 +18,10 @@ public:
     void setSector(QString Sector);
     void setSubSector(QString SubSector);
     void setCapacity(int capacity);
+
+    QString Sector();
+    QString SubSector();
+    int Capacity();
 private slots:
     void on_slideCapacity_valueChanged(int value);
 

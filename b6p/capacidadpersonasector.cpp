@@ -76,3 +76,18 @@ SubSectorPtr CapacidadPersonaSector::getSubSector()
 {
     return DataStore::instance()->getSubSectores()->getSubSector(m_ID_SubSector.value());
 }
+
+bool CapacidadPersonaSector::EqualsTo(CapacidadPersonaSectorPtr other)
+{
+    return ((m_IDEmpleado.value() == other->IDEmpleado().value())
+            && (m_IDSector.value() == other->IDSector().value())
+            && (m_ID_SubSector.value() == other->ID_SubSector().value()));
+}
+
+void CapacidadPersonaSector::updateWith(CapacidadPersonaSectorPtr other)
+{
+    if (other->Capacidad().isNull())
+        m_Capacidad.setNull();
+    else
+        m_Capacidad.setValue(other->Capacidad().value());
+}

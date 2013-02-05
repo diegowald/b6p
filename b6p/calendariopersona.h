@@ -6,6 +6,11 @@
 #include <boost/shared_ptr.hpp>
 #include "nullablefield.h"
 
+class CalendarioPersona;
+typedef boost::shared_ptr<CalendarioPersona> CalendarioPersonaPtr;
+typedef boost::shared_ptr<QList<CalendarioPersonaPtr> > CalendarioPersonaLst;
+
+
 class CalendarioPersona : public QObject, public IRecord
 {
     Q_OBJECT
@@ -23,6 +28,8 @@ public:
     void HoraEgreso(NullableField<QTime> value);*/
 
     virtual RecordPtr asRecordPtr();
+    bool EqualsTo(CalendarioPersonaPtr other);
+    void updateWith(CalendarioPersonaPtr other);
 
 signals:
     
@@ -34,8 +41,5 @@ private:
     NullableField<QTime> m_HoraIngreso;
     NullableField<QTime> m_HoraEgreso;
 };
-
-typedef boost::shared_ptr<CalendarioPersona> CalendarioPersonaPtr;
-typedef boost::shared_ptr<QList<CalendarioPersonaPtr> > CalendarioPersonaLst;
 
 #endif // CALENDARIOPERSONA_H

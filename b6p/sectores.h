@@ -23,6 +23,7 @@ public:
     virtual bool deleteElement(QVariant ID);
 
     SectorPtr getSector(int IDSector);
+    SectorPtr getSector(QString SectorName);
 
 signals:
     

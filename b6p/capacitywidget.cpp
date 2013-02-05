@@ -61,3 +61,18 @@ void CapacityWidget::setCapacity(int capacity)
 {
     ui->slideCapacity->setValue(capacity);
 }
+
+QString CapacityWidget::Sector()
+{
+    return ui->lblSector->text();
+}
+
+QString CapacityWidget::SubSector()
+{
+    return ui->lblSubSector->text();
+}
+
+int CapacityWidget::Capacity()
+{
+    return ui->slideCapacity->value();
+}

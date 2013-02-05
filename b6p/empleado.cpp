@@ -84,7 +84,7 @@ void Empleado::FechaIngreso(NullableField<QDate> value)
 }
 */
 
-CapacidadPersonaSectorLst Empleado::getCapacities()
+CapacidadPersonaSectorLst Empleado::Capacities()
 {
     if (IDEmpleado().isNull())
         return CapacidadPersonaSectorLst(new QList<CapacidadPersonaSectorPtr>());
@@ -92,7 +92,23 @@ CapacidadPersonaSectorLst Empleado::getCapacities()
         return DataStore::instance()->getCapacidades()->getAll(IDEmpleado().value());
 }
 
-CalendarioPersonaLst Empleado::getDisponibilidad()
+void Empleado::updateCapacities(CapacidadPersonaSectorLst newCapacities)
+{
+    foreach (CapacidadPersonaSectorPtr c, *newCapacities)
+    {
+        DataStore::instance()->getCapacidades()->updateCapacityfromData(c);
+    }
+}
+
+void Empleado::updateDisponibilidades(CalendarioPersonaLst newDisponibilidades)
+{
+    foreach (CalendarioPersonaPtr c, *newDisponibilidades)
+    {
+        DataStore::instance()->getCalendarios()->updateCalendarFromData(c);
+    }
+}
+
+CalendarioPersonaLst Empleado::Disponibilidades()
 {
     if (IDEmpleado().isNull())
         return CalendarioPersonaLst(new QList<CalendarioPersonaPtr>());

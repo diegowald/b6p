@@ -53,3 +53,49 @@ void AvailabilityWidget::setTo(QTime value)
     dt.setTime(value);
     setTo(dt);
 }
+
+void AvailabilityWidget::setDay(int day)
+{
+    QString lbl;
+    switch(day)
+    {
+    case 0:
+        lbl = tr("Sunday");
+        break;
+    case 1:
+        lbl = tr("Monday");
+        break;
+    case 2:
+        lbl = tr("Tuesday");
+        break;
+    case 3:
+        lbl = tr("Wednesday");
+        break;
+    case 4:
+        lbl = tr("Thursday");
+        break;
+    case 5:
+        lbl = tr("Friday");
+        break;
+    case 6:
+    default:
+        lbl = tr("Saturday");
+        break;
+    }
+    ui->lblDay->setText(lbl);
+}
+
+int AvailabilityWidget::Day()
+{
+    return m_day;
+}
+
+QDateTime AvailabilityWidget::FromTime()
+{
+    return ui->timeFrom->dateTime();
+}
+
+QDateTime AvailabilityWidget::ToTime()
+{
+    return ui->timeTo->dateTime();
+}
