@@ -54,7 +54,17 @@ void PlanificacionDia::IDSupervisor(NullableField<int> value)
     m_IDSupervisor.setValue(value);
 }*/
 
-EmpleadoPtr PlanificacionDia::getSupervisor()
+EmpleadoPtr PlanificacionDia::Supervisor()
 {
     return DataStore::instance()->getEmpleados()->getEmpleado(m_IDSupervisor.value());
+}
+
+EstimacionDiaPtr PlanificacionDia::Estimacion()
+{
+    return DataStore::instance()->getEstimacionesDias()->get(m_Dia.value());
+}
+
+int PlanificacionDia::HorasPlanificadas()
+{
+    return -1;
 }

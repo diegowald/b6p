@@ -115,3 +115,23 @@ bool EstimacionesDias::deleteElement(QVariant ID)
 void EstimacionesDias::refreshID(int newRecordId)
 {
 }
+
+EstimacionDiaLst EstimacionesDias::getAll()
+{
+    EstimacionDiaLst res(new QList<EstimacionDiaPtr>());
+
+    foreach (EstimacionDiaPtr e, m_Estimaciones.values())
+    {
+        res->push_back(e);
+    }
+
+    return res;
+}
+
+EstimacionDiaPtr EstimacionesDias::get(QDate dia)
+{
+    if (m_Estimaciones.find(dia) == m_Estimaciones.end())
+        return EstimacionDiaPtr();
+    else
+        return m_Estimaciones[dia];
+}

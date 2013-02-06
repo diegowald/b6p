@@ -6,6 +6,7 @@
 #include <boost/shared_ptr.hpp>
 #include "nullablefield.h"
 #include "empleado.h"
+#include "estimaciondia.h"
 
 class PlanificacionDia : public QObject, public IRecord
 {
@@ -16,13 +17,9 @@ public:
     NullableField<QDate> &Dia();
     NullableField<QString> &Notas();
     NullableField<int> &IDSupervisor();
-
-    /*void Dia(NullableField<QDate> value);
-    void Notas(NullableField<QString> value);
-    void IDSupervisor(NullableField<int> value);*/
-
-    EmpleadoPtr getSupervisor();
-
+    int HorasPlanificadas();
+    EmpleadoPtr Supervisor();
+    EstimacionDiaPtr Estimacion();
     virtual RecordPtr asRecordPtr();
 
 signals:

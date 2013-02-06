@@ -11,6 +11,7 @@ GenericList::GenericList(boost::shared_ptr<ACollection> Model, QWidget *parent) 
     QStringList headers;
     model->defineHeaders(headers);
     setHeader(headers);
+    ui->treeList->clear();
     model->fillData(*ui->treeList);
 }
 

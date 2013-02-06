@@ -1,4 +1,5 @@
 #include "planificacionesdias.h"
+#include "datastore.h"
 
 PlanificacionesDias::PlanificacionesDias(QObject *parent) :
     ACollection(tr("Days Planifications"), false, parent)
@@ -68,10 +69,24 @@ RecordSet PlanificacionesDias::getRecords(RecordStatus status)
 
 void PlanificacionesDias::defineHeaders(QStringList &list)
 {
+    list << tr("Date") << tr("Supervisor")
+         << tr("Notes") << tr("Estimated hours")
+         << tr("Planned hours");
 }
 
 void PlanificacionesDias::fillData(QTreeWidget &tree)
 {
+    foreach(PlanificacionDiaPtr p, m_Planificaciones.values())
+    {
+        QTreeWidgetItem *item = new QTreeWidgetItem();
+        item->setText(0, p->Dia().value().toString(Qt::TextDate));
+        item->setData(0, Qt::UserRole, p->Dia().value());
+        item->setText(1, p->Supervisor()->Apellido().value());
+        item->setText(2, p->Notas().value());
+        item->setText(3, QString::number(p->Estimacion()->EstimacionHoras().value()));
+        item->setText(4, QString::number(p->HorasPlanificadas()));
+        tree.insertTopLevelItem(0, item);
+    }
 }
 
 bool PlanificacionesDias::addNew()
