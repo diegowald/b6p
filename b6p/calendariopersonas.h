@@ -10,7 +10,7 @@ class CalendarioPersonas : public ACollection
     Q_OBJECT
 public:
     explicit CalendarioPersonas(QObject *parent = 0);
-    
+    virtual ~CalendarioPersonas();
     virtual QString getSqlString();
     virtual void addRecord(Record &record);
     virtual QString getDeleteStatement();
@@ -22,10 +22,14 @@ public:
     virtual bool addNew();
     virtual bool edit(QVariant ID);
     virtual bool deleteElement(QVariant ID);
+    virtual void refreshID(int newRecordId) {}
+    virtual void saveDependants() {}
 
     CalendarioPersonaLst getAll(int IDEmpleado);
     void updateCalendarFromData(CalendarioPersonaPtr dataFrom);
     void updateCalendarFromData(CalendarioPersonaLst dataList);
+
+    void updateCalendarWithNewIDEmpleado(int oldId, int newId);
 signals:
     
 public slots:

@@ -37,7 +37,7 @@ public:
     SubSectorPtr getSubSector();
 
     virtual RecordPtr asRecordPtr();
-
+    void updateIDEmpleado(int newId);
 signals:
     
 public slots:

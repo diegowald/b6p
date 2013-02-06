@@ -53,9 +53,19 @@ public:
     void setValue(T newValue)
     {
         if (isNull())
+        {
             m_Value = new T;
-        (*m_Value) = newValue;
-        SetModified();
+            (*m_Value) = newValue;
+            SetModified();
+        }
+        else
+        {
+            if (*m_Value != newValue)
+            {
+                (*m_Value) = newValue;
+                SetModified();
+            }
+        }
     }
 
     bool isNull()

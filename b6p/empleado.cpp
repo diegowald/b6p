@@ -102,13 +102,29 @@ void Empleado::updateCapacities(CapacidadPersonaSectorLst newCapacities)
 
 void Empleado::updateDisponibilidades(CalendarioPersonaLst newDisponibilidades)
 {
-    DataStore::instance()->getCalendarios()->updateCalendarFromData(newDisponibilidades);
+    CalendarioPersonasPtr ptr = DataStore::instance()->getCalendarios();
+    ptr->updateCalendarFromData(newDisponibilidades);
 }
 
 CalendarioPersonaLst Empleado::Disponibilidades()
 {
-    if (IDEmpleado().isNull() || (IDEmpleado().value() == -1))
+    if (IDEmpleado().isNull() || IDEmpleado().value() == -1)
         return CalendarioPersonaLst(new QList<CalendarioPersonaPtr>());
     else
         return DataStore::instance()->getCalendarios()->getAll(IDEmpleado().value());
+}
+
+void Empleado::updateID(int newId)
+{
+    DataStore::instance()->getCalendarios()->updateCalendarWithNewIDEmpleado(-1, newId);
+
+
+    CapacidadPersonaSectorLst cps = Capacities();
+    foreach (CapacidadPersonaSectorPtr cs, *cps)
+    {
+        cs->updateIDEmpleado(newId);
+    }
+
+    IDEmpleado().setValue(newId);
+    setUnmodified();
 }

@@ -58,6 +58,10 @@ struct IRecord
     {
         status = NEW;
     }
+    void setUnmodified()
+    {
+        status = UNMODIFIED;
+    }
 
 private:
     RecordStatus status;

@@ -16,6 +16,7 @@ class Empleado : public QObject, public IRecord
 public:
     explicit Empleado(bool isNew, QObject *parent = 0);
     
+    void updateID(int newId);
     NullableField<int> &IDEmpleado();
     NullableField<QString> &Apellido();
     NullableField<QString> &Nombre();

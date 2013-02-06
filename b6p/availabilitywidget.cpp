@@ -83,6 +83,7 @@ void AvailabilityWidget::setDay(int day)
         break;
     }
     ui->lblDay->setText(lbl);
+    m_day = day;
 }
 
 int AvailabilityWidget::Day()

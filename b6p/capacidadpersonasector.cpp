@@ -91,3 +91,8 @@ void CapacidadPersonaSector::updateWith(CapacidadPersonaSectorPtr other)
     else
         m_Capacidad.setValue(other->Capacidad().value());
 }
+
+void CapacidadPersonaSector::updateIDEmpleado(int newId)
+{
+    m_IDEmpleado.setValue(newId);
+}

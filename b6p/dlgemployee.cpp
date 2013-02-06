@@ -58,7 +58,6 @@ void DlgEmployee::setData(EmpleadoPtr empleado)
     foreach (CalendarioPersonaPtr cal, *cals.get())
     {
         AvailabilityWidget *w = NULL;
-        w->setDay(cal->Dia().value());
         switch (cal->Dia().value())
         {
         case 0:
@@ -84,6 +83,7 @@ void DlgEmployee::setData(EmpleadoPtr empleado)
             w = ui->TimeSaturday;
             break;
         }
+        w->setDay(cal->Dia().value());
         w->setFrom(cal->HoraIngreso().value());
         w->setTo(cal->HoraEgreso().value());
     }

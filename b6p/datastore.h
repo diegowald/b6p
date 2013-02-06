@@ -43,9 +43,29 @@ signals:
 public slots:
     
 protected:
-    void addElement(QString name, ACollection *newMember);
+    void establishConnections(ACollection *newMember);
 private:
-    QMap<QString, boost::shared_ptr<ACollection> > m_DataCollection;
+
+    ParametrosPtr parametrosPtr;
+    EmpleadosPtr empleadosPtr;
+    EstimacionesDiasPtr estimacionesDiasPtr;
+    PlanificacionesDiasPtr planificacionesDiasPtr;
+    PlanificacionesSubSectoresPtr planificacionesSubSectoresPtr;
+    SectoresPtr sectoresPtr;
+    SubSectoresPtr subSectoresPtr;
+    CalendarioPersonasPtr calendariosPtr;
+    CapacidadesPersonaSectorPtr capacidadesPtr;
+
+    bool parametrosCreated;
+    bool empleadosCreated;
+    bool estimacionesDiasCreated;
+    bool planificacionesDiasCreated;
+    bool planificacionesSubSectoresCreated;
+    bool sectoresCreated;
+    bool subSectoresCreated;
+    bool calendariosCreated;
+    bool capacidadesCreated;
+
     static DataStore* m_Instance;
 };
 

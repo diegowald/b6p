@@ -1,7 +1,7 @@
 #include "parametros.h"
 
 Parametros::Parametros(QObject *parent) :
-    ACollection(tr("Parameters"), parent)
+    ACollection(tr("Parameters"), false, parent)
 {
 }
 

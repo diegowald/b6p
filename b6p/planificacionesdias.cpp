@@ -1,7 +1,7 @@
 #include "planificacionesdias.h"
 
 PlanificacionesDias::PlanificacionesDias(QObject *parent) :
-    ACollection(tr("Days Planifications"), parent)
+    ACollection(tr("Days Planifications"), false, parent)
 {
 }
 
@@ -83,5 +83,9 @@ bool PlanificacionesDias::edit(QVariant ID)
 }
 
 bool PlanificacionesDias::deleteElement(QVariant ID)
+{
+}
+
+void PlanificacionesDias::refreshID(int newRecordId)
 {
 }

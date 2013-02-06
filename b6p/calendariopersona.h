@@ -31,6 +31,8 @@ public:
     bool EqualsTo(CalendarioPersonaPtr other);
     void updateWith(CalendarioPersonaPtr other);
 
+    void updateIDEmpleado(int newId);
+
 signals:
     
 public slots:

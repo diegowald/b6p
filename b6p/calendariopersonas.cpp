@@ -1,7 +1,11 @@
 #include "calendariopersonas.h"
 
 CalendarioPersonas::CalendarioPersonas(QObject *parent) :
-    ACollection(tr("Employee availability"), parent)
+    ACollection(tr("Employee availability"), false, parent)
+{
+}
+
+CalendarioPersonas::~CalendarioPersonas()
 {
 }
 
@@ -15,9 +19,9 @@ void CalendarioPersonas::addRecord(Record &record)
     CalendarioPersonaPtr c(new CalendarioPersona(this));
 
     c->Dia().setValue(record["Dia"].toInt());
-    c->IDEmpleado().setValue(record["IDEmpleado"].toInt());
-    c->HoraIngreso().setValue(record["HoraIngreso"].toTime());
-    c->HoraEgreso().setValue(record["HoraEgreso"].toTime());
+    c->IDEmpleado().setValue(record["IDEmpleado"].toInt());    
+    c->HoraIngreso().setValue(QDateTime::fromMSecsSinceEpoch(record["HoraIngreso"].toLongLong()).time());
+    c->HoraEgreso().setValue(QDateTime::fromMSecsSinceEpoch(record["HoraEgreso"].toLongLong()).time());
     c->setInitialized();
     m_Calendarios.push_back(c);
 }
@@ -110,26 +114,30 @@ void CalendarioPersonas::updateCalendarFromData(CalendarioPersonaLst dataList)
 void CalendarioPersonas::updateCalendarFromData(CalendarioPersonaPtr dataFrom)
 {
     CalendarioPersonaLst cp = getAll(dataFrom->IDEmpleado().value());
-    hay que rehacer todo esto.
-    if (cp->count() > 0)
+    foreach(CalendarioPersonaPtr c, *cp)
     {
-
-        foreach(CalendarioPersonaPtr c, *cp)
+        if (c->EqualsTo(dataFrom))
         {
-            if (c->EqualsTo(dataFrom))
-            {
-                c->updateWith(dataFrom);
-                return;
-            }
+            c->updateWith(dataFrom);
+            return;
         }
     }
-    else
+
+    // Si llega aca es porque no hay un elemento
+    CalendarioPersonaPtr c(new CalendarioPersona(this));
+    c->Dia().setValue(dataFrom->Dia().value());
+    c->IDEmpleado().setValue(dataFrom->IDEmpleado().value());
+    c->updateWith(dataFrom);
+    c->setNew();
+    m_Calendarios.push_back(c);
+    return;
+}
+
+void CalendarioPersonas::updateCalendarWithNewIDEmpleado(int oldId, int newId)
+{
+    CalendarioPersonaLst cal = getAll(oldId);
+    foreach (CalendarioPersonaPtr cp, *cal)
     {
-        CalendarioPersonaPtr c(new CalendarioPersona(this));
-        c->Dia().setValue(dataFrom->Dia().value());
-        c->IDEmpleado().setValue(dataFrom->IDEmpleado().value());
-        c->updateWith(dataFrom);
-        m_Calendarios.push_back(c);
-        return;
+        cp->updateIDEmpleado(newId);
     }
 }

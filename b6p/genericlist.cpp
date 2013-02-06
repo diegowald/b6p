@@ -28,19 +28,22 @@ void GenericList::setHeader(QStringList &headers)
 
 void GenericList::on_actionNew_triggered()
 {
-    qDebug() << "1";
-    qDebug() << model->addNewRecord();
-    qDebug() << "2";
+    if (model->addNewRecord())
+        model->fillData(*ui->treeList);
 }
 
 void GenericList::on_actionEdit_triggered()
 {
     if (ui->treeList->currentItem())
-        model->editRecord(ui->treeList->currentItem()->data(0, Qt::UserRole));
+    {
+        if (model->editRecord(ui->treeList->currentItem()->data(0, Qt::UserRole)))
+            model->fillData(*ui->treeList);
+    }
 }
 
 void GenericList::on_actionDelete_triggered()
 {
     if (ui->treeList->currentItem())
-        model->deleteElement(ui->treeList->currentItem()->data(0, Qt::UserRole));
+        if (model->deleteElement(ui->treeList->currentItem()->data(0, Qt::UserRole)))
+            model->fillData(*ui->treeList);
 }

@@ -22,6 +22,8 @@ public:
     virtual bool addNew();
     virtual bool edit(QVariant ID);
     virtual bool deleteElement(QVariant ID);
+    virtual void refreshID(int) {}
+    virtual void saveDependants() {}
     QString getValue(QString key, QString defaultValue);
 
 signals:

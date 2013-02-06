@@ -11,7 +11,7 @@ public:
     SQLHandler(QString database);
 
     QSqlQuery getAll(QString query);
-    void executeQuery(QString cmd, RecordPtr record);
+    int executeQuery(QString cmd, RecordPtr record, bool returnLastInsertedID);
 
 private:
     QString m_database;

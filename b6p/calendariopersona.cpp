@@ -85,3 +85,8 @@ void CalendarioPersona::updateWith(CalendarioPersonaPtr other)
     else
         m_HoraEgreso.setValue(other->HoraEgreso().value());
 }
+
+void CalendarioPersona::updateIDEmpleado(int newId)
+{
+    m_IDEmpleado.setValue(newId);
+}

@@ -15,7 +15,11 @@ void DataStore::initialize(QObject *parent)
 }
 
 DataStore::DataStore(QObject *parent) :
-    QObject(parent)
+    QObject(parent), parametrosCreated(false),
+    empleadosCreated(false), estimacionesDiasCreated(false),
+    planificacionesDiasCreated(false), planificacionesSubSectoresCreated(false),
+    sectoresCreated(false), subSectoresCreated(false),
+    calendariosCreated(false), capacidadesCreated(false)
 {
 }
 
@@ -23,9 +27,8 @@ DataStore::~DataStore()
 {
 }
 
-void DataStore::addElement(QString name, ACollection* newMember)
+void DataStore::establishConnections(ACollection* newMember)
 {
-    m_DataCollection[name] = boost::shared_ptr<ACollection>(newMember);
     connect(newMember, SIGNAL(loaded(QString)), this, SIGNAL(loaded(QString)));
     connect(newMember, SIGNAL(loading(QString)), this, SIGNAL(loading(QString)));
     connect(newMember, SIGNAL(saved(QString)), this, SIGNAL(saved(QString)));
@@ -35,74 +38,102 @@ void DataStore::addElement(QString name, ACollection* newMember)
 
 ParametrosPtr DataStore::getParametros()
 {
-    QString key = "Parametros";
-    if (m_DataCollection.find(key) == m_DataCollection.end())
-        addElement(key, new Parametros(this));
-    return ParametrosPtr((Parametros*)m_DataCollection[key].get());
+    if (!parametrosCreated)
+    {
+        parametrosPtr = ParametrosPtr(new Parametros(this));
+        establishConnections(parametrosPtr.get());
+        parametrosCreated = true;
+    }
+    return parametrosPtr;
 }
 
 
 EmpleadosPtr DataStore::getEmpleados()
 {
-    QString key = "Empleados";
-    if (m_DataCollection.find(key) == m_DataCollection.end())
-        addElement(key, new Empleados(this));
-    return EmpleadosPtr((Empleados*)m_DataCollection[key].get());
+    if (!empleadosCreated)
+    {
+        empleadosPtr = EmpleadosPtr(new Empleados(this));
+        establishConnections(empleadosPtr.get());
+        empleadosCreated = true;
+    }
+    return empleadosPtr;
 }
 
 EstimacionesDiasPtr DataStore::getEstimacionesDias()
 {
-    QString key = "Estimaciones Dias";
-    if (m_DataCollection.find(key) == m_DataCollection.end())
-        addElement(key, new EstimacionesDias(this));
-    return EstimacionesDiasPtr((EstimacionesDias*)m_DataCollection[key].get());
+    if (!estimacionesDiasCreated)
+    {
+        estimacionesDiasPtr = EstimacionesDiasPtr(new EstimacionesDias(this));
+        establishConnections(estimacionesDiasPtr.get());
+        estimacionesDiasCreated = true;
+    }
+    return estimacionesDiasPtr;
 }
 
 PlanificacionesDiasPtr DataStore::getPlanificacionesDias()
 {
-    QString key = "Planificaciones Dias";
-    if (m_DataCollection.find(key) == m_DataCollection.end())
-        addElement(key, new PlanificacionesDias(this));
-    return PlanificacionesDiasPtr((PlanificacionesDias*)m_DataCollection[key].get());
+    if (!planificacionesDiasCreated)
+    {
+        planificacionesDiasPtr = PlanificacionesDiasPtr(new PlanificacionesDias(this));
+        establishConnections(planificacionesDiasPtr.get());
+        planificacionesDiasCreated = true;
+    }
+    return planificacionesDiasPtr;
 }
 
 PlanificacionesSubSectoresPtr DataStore::getPlanificacionesSubSectores()
 {
-    QString key = "Planificaciones SubSectores";
-    if (m_DataCollection.find(key) == m_DataCollection.end())
-        addElement(key, new PlanificacionesDiasSubSectores(this));
-    return PlanificacionesSubSectoresPtr((PlanificacionesDiasSubSectores*)m_DataCollection[key].get());
+    if (!planificacionesSubSectoresCreated)
+    {
+        planificacionesSubSectoresPtr = PlanificacionesSubSectoresPtr(new PlanificacionesDiasSubSectores(this));
+        establishConnections(planificacionesSubSectoresPtr.get());
+        planificacionesSubSectoresCreated = true;
+    }
+    return planificacionesSubSectoresPtr;
+
 }
 
 SectoresPtr DataStore::getSectores()
 {
-    QString key = "Sectores";
-    if (m_DataCollection.find(key) == m_DataCollection.end())
-        addElement(key, new Sectores(this));
-    return SectoresPtr((Sectores*)m_DataCollection[key].get());
+    if (!sectoresCreated)
+    {
+        sectoresPtr = SectoresPtr(new Sectores(this));
+        establishConnections(sectoresPtr.get());
+        sectoresCreated = true;
+    }
+    return sectoresPtr;
 }
 
 SubSectoresPtr DataStore::getSubSectores()
 {
-    QString key = "SubSectores";
-    if (m_DataCollection.find(key) == m_DataCollection.end())
-        addElement(key, new SubSectores(this));
-    return SubSectoresPtr((SubSectores*)m_DataCollection[key].get());
+    if (!subSectoresCreated)
+    {
+        subSectoresPtr = SubSectoresPtr(new SubSectores(this));
+        establishConnections(subSectoresPtr.get());
+        subSectoresCreated = true;
+    }
+    return subSectoresPtr;
 }
 
 
 CalendarioPersonasPtr DataStore::getCalendarios()
 {
-    QString key = "Calendarios";
-    if (m_DataCollection.find(key) == m_DataCollection.end())
-        addElement(key, new CalendarioPersonas(this));
-    return CalendarioPersonasPtr((CalendarioPersonas*)m_DataCollection[key].get());
+    if (!calendariosCreated)
+    {
+        calendariosPtr = CalendarioPersonasPtr(new CalendarioPersonas(this));
+        establishConnections(calendariosPtr.get());
+        calendariosCreated = true;
+    }
+    return calendariosPtr;
 }
 
 CapacidadesPersonaSectorPtr DataStore::getCapacidades()
 {
-    QString key = "Capacidades";
-    if (m_DataCollection.find(key) == m_DataCollection.end())
-        addElement(key, new CapacidadesPersonaSector(this));
-    return CapacidadesPersonaSectorPtr((CapacidadesPersonaSector*)m_DataCollection[key].get());
+    if (!capacidadesCreated)
+    {
+        capacidadesPtr = CapacidadesPersonaSectorPtr(new CapacidadesPersonaSector(this));
+        establishConnections(capacidadesPtr.get());
+        capacidadesCreated = true;
+    }
+    return capacidadesPtr;
 }

@@ -26,7 +26,7 @@ QSqlQuery SQLHandler::getAll(QString query)
     return q;
 }
 
-void SQLHandler::executeQuery(QString cmd, RecordPtr record)
+int SQLHandler::executeQuery(QString cmd, RecordPtr record, bool returnLastInsertedID)
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
 
@@ -36,7 +36,7 @@ void SQLHandler::executeQuery(QString cmd, RecordPtr record)
     if (!db.open())
     {
         // Error
-        return;
+        return -1;
     }
     qDebug() << cmd;
     QSqlQuery q;
@@ -67,4 +67,8 @@ void SQLHandler::executeQuery(QString cmd, RecordPtr record)
     }
     q.exec();
     qDebug() << q.lastError();
+    if (returnLastInsertedID)
+        return q.lastInsertId().toInt();
+    else
+        return 0;
 }

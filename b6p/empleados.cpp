@@ -1,9 +1,10 @@
 #include "empleados.h"
 #include "genericlist.h"
 #include "dlgemployee.h"
+#include "datastore.h"
 
 Empleados::Empleados(QObject *parent) :
-    ACollection(tr("Employees"), parent)
+    ACollection(tr("Employees"), true, parent)
 {
 }
 
@@ -96,6 +97,7 @@ void Empleados::defineHeaders(QStringList &list)
 
 void Empleados::fillData(QTreeWidget &tree)
 {
+    tree.clear();
     foreach(EmpleadoPtr emp, m_Empleados)
     {
         QTreeWidgetItem *item = new QTreeWidgetItem();
@@ -142,4 +144,18 @@ bool Empleados::edit(QVariant ID)
 
 bool Empleados::deleteElement(QVariant ID)
 {
+}
+
+void Empleados::refreshID(int newRecordId)
+{
+    EmpleadoPtr e = m_Empleados[-1];
+    e->updateID(newRecordId);
+    m_Empleados.remove(-1);
+    m_Empleados[newRecordId] = e;    
+}
+
+void Empleados::saveDependants()
+{
+    DataStore::instance()->getCapacidades()->save();
+    DataStore::instance()->getCalendarios()->save();
 }

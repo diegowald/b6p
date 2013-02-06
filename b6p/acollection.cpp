@@ -4,8 +4,8 @@
 #include <QSqlRecord>
 #include <QSqlField>
 
-ACollection::ACollection(QString Name, QObject *parent) :
-    QObject(parent), m_Name(Name), sqlEngine("./planning.b6p")
+ACollection::ACollection(QString Name, bool useLastInsertId, QObject *parent) :
+    QObject(parent), m_Name(Name), sqlEngine("./planning.b6p"), usesLastInsertedId(useLastInsertId)
 {
 }
 
@@ -41,6 +41,9 @@ void ACollection::save()
 
     // Obtener los registros nuevos
     addNewRecordsToDB();
+
+    saveDependants();
+
     emit saved(m_Name);
 }
 
@@ -64,7 +67,9 @@ void ACollection::executeCommand(QString cmd, RecordStatus status)
     RecordSet set = getRecords(status);
     foreach(RecordPtr r, *set)
     {
-        sqlEngine.executeQuery(cmd, r);
+        int lastId = sqlEngine.executeQuery(cmd, r, usesLastInsertedId);
+        if ((status == NEW) && usesLastInsertedId)
+            refreshID(lastId);
     }
 }
 

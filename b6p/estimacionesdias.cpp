@@ -1,7 +1,7 @@
 #include "estimacionesdias.h"
 
 EstimacionesDias::EstimacionesDias(QObject *parent)
-    : ACollection(tr("Day Estimations"), parent)
+    : ACollection(tr("Day Estimations"), false, parent)
 {
 }
 
@@ -80,5 +80,9 @@ bool EstimacionesDias::edit(QVariant ID)
 }
 
 bool EstimacionesDias::deleteElement(QVariant ID)
+{
+}
+
+void EstimacionesDias::refreshID(int newRecordId)
 {
 }

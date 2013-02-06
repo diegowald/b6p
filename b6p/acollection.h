@@ -12,7 +12,7 @@ class ACollection : public QObject
 {
     Q_OBJECT
 public:
-    explicit ACollection(QString Name, QObject *parent = 0);
+    explicit ACollection(QString Name, bool useLastInsertId, QObject *parent = 0);
     
     virtual void load();
     virtual void save();
@@ -34,6 +34,9 @@ public:
     virtual QString getUpdateStatement() = 0;
     virtual QString getInsertStatement() = 0;
     virtual RecordSet getRecords(RecordStatus status) = 0;
+    virtual void refreshID(int newRecordId) = 0;
+    virtual void saveDependants() = 0;
+
 signals:
     void loaded(QString name);
     void loading(QString name);
@@ -50,6 +53,7 @@ protected:
 private:
     QString m_Name;
     SQLHandler sqlEngine;
+    bool usesLastInsertedId;
 };
 
 #endif // ACOLLECTION_H
