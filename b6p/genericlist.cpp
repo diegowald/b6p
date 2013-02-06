@@ -21,6 +21,7 @@ GenericList::~GenericList()
 
 void GenericList::setHeader(QStringList &headers)
 {
+    Q_ASSERT(headers.size() > 0);
     ui->treeList->clear();
     ui->treeList->setHeaderLabels(headers);
 }

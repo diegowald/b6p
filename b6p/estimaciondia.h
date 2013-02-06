@@ -10,7 +10,7 @@ class EstimacionDia : public QObject, public IRecord
 {
     Q_OBJECT
 public:
-    explicit EstimacionDia(QObject *parent = 0);
+    explicit EstimacionDia(bool isNew, QObject *parent = 0);
 
     NullableField<QDate> &Dia();
     NullableField<int> &EstimacionHoras();

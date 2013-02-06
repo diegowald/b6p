@@ -69,7 +69,8 @@ SOURCES += main.cpp\
     capacitywidget.cpp \
     calendariopersonas.cpp \
     capacidadespersonasector.cpp \
-    sqlhandler.cpp
+    sqlhandler.cpp \
+    dlgestimaciondia.cpp
 
 HEADERS  += mainwindow.h \
     timeassignment.h \
@@ -102,12 +103,14 @@ HEADERS  += mainwindow.h \
     calendariopersonas.h \
     capacidadespersonasector.h \
     sqlhandler.h \
-    IRecord.h
+    IRecord.h \
+    dlgestimaciondia.h
 
 FORMS    += mainwindow.ui \
     genericlist.ui \
     dlgemployee.ui \
     timeassignmentitemedit.ui \
     availabilitywidget.ui \
-    capacitywidget.ui
+    capacitywidget.ui \
+    dlgestimaciondia.ui
 

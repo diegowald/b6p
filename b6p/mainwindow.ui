@@ -48,6 +48,8 @@
     <property name="title">
      <string>Planification</string>
     </property>
+    <addaction name="separator"/>
+    <addaction name="actionSetup_days"/>
     <addaction name="actionOpen"/>
     <addaction name="actionApprove"/>
     <addaction name="separator"/>
@@ -147,6 +149,11 @@
    </property>
    <property name="menuRole">
     <enum>QAction::AboutRole</enum>
+   </property>
+  </action>
+  <action name="actionSetup_days">
+   <property name="text">
+    <string>Setup days...</string>
    </property>
   </action>
  </widget>

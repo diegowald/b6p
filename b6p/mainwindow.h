@@ -34,6 +34,8 @@ private slots:
     void datastore_loading(QString name);
     void datastore_saved(QString name);
     void datastore_saving(QString name);
+    void on_actionSetup_days_triggered();
+
 private:
     Ui::MainWindow *ui;
 };

@@ -1,6 +1,6 @@
 #include "estimaciondia.h"
 
-EstimacionDia::EstimacionDia(QObject *parent) :
+EstimacionDia::EstimacionDia(bool isNew, QObject *parent) :
     QObject(parent)
 {
     m_Dia.setNull();
@@ -8,6 +8,13 @@ EstimacionDia::EstimacionDia(QObject *parent) :
 
     m_Dia.setParent(this);
     m_EstimacionHoras.setParent(this);
+
+    if (isNew)
+    {
+        m_Dia.setValue(QDateTime::fromMSecsSinceEpoch(0).date());
+        m_EstimacionHoras.setValue(0);
+        setNew();
+    }
 }
 
 RecordPtr EstimacionDia::asRecordPtr()
@@ -15,7 +22,7 @@ RecordPtr EstimacionDia::asRecordPtr()
     RecordPtr res(new Record());
 
     (*res)["Dia"] = m_Dia.toVariant();
-    (*res)["EstimacionHoras"] = m_EstimacionHoras.toVariant();
+    (*res)["HorasEstimadas"] = m_EstimacionHoras.toVariant();
 
     return res;
 }

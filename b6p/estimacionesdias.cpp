@@ -1,4 +1,5 @@
 #include "estimacionesdias.h"
+#include "dlgestimaciondia.h"
 
 EstimacionesDias::EstimacionesDias(QObject *parent)
     : ACollection(tr("Day Estimations"), false, parent)
@@ -31,7 +32,7 @@ QString EstimacionesDias::getUpdateStatement()
 
 QString EstimacionesDias::getInsertStatement()
 {
-    return "insert into (Dia, HorasEstimadas) "
+    return "insert into planificaciondias (Dia, HorasEstimadas) "
             " values "
             " (:Dia, :HorasEstimadas);";
 }
@@ -65,18 +66,46 @@ RecordSet EstimacionesDias::getRecords(RecordStatus status)
 
 void EstimacionesDias::defineHeaders(QStringList &list)
 {
+    list << tr("Date") << tr("Hours estimation");
 }
 
 void EstimacionesDias::fillData(QTreeWidget &tree)
 {
+    tree.clear();
+    foreach(EstimacionDiaPtr e, m_Estimaciones.values())
+    {
+        QTreeWidgetItem *item = new QTreeWidgetItem();
+        item->setText(0, e->Dia().value().toString(Qt::TextDate));
+        item->setData(0, Qt::UserRole, e->Dia().value());
+        item->setText(1, QString::number(e->EstimacionHoras().value()));
+        tree.insertTopLevelItem(0, item);
+    }
 }
 
 bool EstimacionesDias::addNew()
 {
+    QDate id = QDateTime::fromMSecsSinceEpoch(0).date();
+    return edit(id);
 }
 
 bool EstimacionesDias::edit(QVariant ID)
 {
+    EstimacionDiaPtr e;
+    if (ID == QDateTime::fromMSecsSinceEpoch(0).date())
+        e = EstimacionDiaPtr(new EstimacionDia(this));
+    else
+        e = m_Estimaciones[ID.toDate()];
+
+    DlgEstimacionDia dlg;
+    dlg.setData(e);
+    if (dlg.exec() == QDialog::Accepted)
+    {
+        e->Dia().setValue(dlg.Dia());
+        e->EstimacionHoras().setValue(dlg.EstimacionHoras());
+        m_Estimaciones[e->Dia().value()] = e;
+        return true;
+    }
+    return false;
 }
 
 bool EstimacionesDias::deleteElement(QVariant ID)
