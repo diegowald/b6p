@@ -71,7 +71,7 @@ void PlanificacionesDias::defineHeaders(QStringList &list)
 {
     list << tr("Date") << tr("Supervisor")
          << tr("Notes") << tr("Estimated hours")
-         << tr("Planned hours");
+         << tr("Planned hours") << tr("Status");
 }
 
 void PlanificacionesDias::fillData(QTreeWidget &tree)
@@ -85,6 +85,7 @@ void PlanificacionesDias::fillData(QTreeWidget &tree)
         item->setText(2, p->Notas().value());
         item->setText(3, QString::number(p->Estimacion()->EstimacionHoras().value()));
         item->setText(4, QString::number(p->HorasPlanificadas()));
+        item->setText(5, p->Estado());
         tree.insertTopLevelItem(0, item);
     }
 }

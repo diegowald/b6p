@@ -7,6 +7,7 @@ PlanificacionDia::PlanificacionDia(QObject *parent) :
     m_Dia.setNull();
     m_Notas.setNull();
     m_IDSupervisor.setNull();
+    m_EstadosPlanificacion.setNull();
 
     m_Dia.setParent(this);
     m_Notas.setParent(this);
@@ -67,4 +68,31 @@ EstimacionDiaPtr PlanificacionDia::Estimacion()
 int PlanificacionDia::HorasPlanificadas()
 {
     return -1;
+}
+
+QString PlanificacionDia::Estado()
+{
+    QString inProgress = tr("In progress");
+    QString finished = tr("Finished");
+    QString approved = tr("Approved");
+    QString res;
+    if (m_EstadosPlanificacion.isNull())
+        res = inProgress;
+    else
+    {
+        switch (m_EstadosPlanificacion.value())
+        {
+        case FINISHED:
+            res = finished;
+            break;
+        case APPROVED:
+            res = approved;
+            break;
+        case INPROGRESS:
+        default:
+            res = inProgress;
+            break;
+        }
+    }
+    return res;
 }

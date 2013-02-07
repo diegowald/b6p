@@ -8,6 +8,13 @@
 #include "empleado.h"
 #include "estimaciondia.h"
 
+enum EstadosPlanificacion
+{
+    INPROGRESS,
+    FINISHED,
+    APPROVED
+};
+
 class PlanificacionDia : public QObject, public IRecord
 {
     Q_OBJECT
@@ -21,6 +28,7 @@ public:
     EmpleadoPtr Supervisor();
     EstimacionDiaPtr Estimacion();
     virtual RecordPtr asRecordPtr();
+    QString Estado();
 
 signals:
     
@@ -30,6 +38,7 @@ private:
     NullableField<QDate> m_Dia;
     NullableField<QString> m_Notas;
     NullableField<int> m_IDSupervisor;
+    NullableField<EstadosPlanificacion> m_EstadosPlanificacion;
 };
 
 typedef boost::shared_ptr<PlanificacionDia> PlanificacionDiaPtr;

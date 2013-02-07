@@ -14,6 +14,11 @@ class GenericList : public QMainWindow
     
 public:
     explicit GenericList(boost::shared_ptr<ACollection> Model, QWidget *parent = 0);
+
+    void AllowAdd(bool status);
+    void AllowEdit(bool status);
+    void AllowDelete(bool status);
+
     ~GenericList();
     void setHeader(QStringList &headers);
 

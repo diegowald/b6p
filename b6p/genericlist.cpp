@@ -49,3 +49,18 @@ void GenericList::on_actionDelete_triggered()
         if (model->deleteElement(ui->treeList->currentItem()->data(0, Qt::UserRole)))
             model->fillData(*ui->treeList);
 }
+
+void GenericList::AllowAdd(bool status)
+{
+    ui->actionNew->setVisible(status);
+}
+
+void GenericList::AllowEdit(bool status)
+{
+    ui->actionEdit->setVisible(status);
+}
+
+void GenericList::AllowDelete(bool status)
+{
+    ui->actionDelete->setVisible(status);
+}
