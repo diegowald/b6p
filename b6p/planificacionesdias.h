@@ -22,6 +22,9 @@ public:
     virtual bool deleteElement(QVariant ID);
     virtual void refreshID(int newRecordId);
     virtual void saveDependants() {}
+
+    PlanificacionDiaLst getAll();
+    PlanificacionDiaPtr getByDay(QDate day);
 signals:
     
 public slots:

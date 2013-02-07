@@ -105,3 +105,21 @@ bool PlanificacionesDias::deleteElement(QVariant ID)
 void PlanificacionesDias::refreshID(int newRecordId)
 {
 }
+
+PlanificacionDiaLst PlanificacionesDias::getAll()
+{
+    PlanificacionDiaLst res(new QList<PlanificacionDiaPtr>());
+    foreach (PlanificacionDiaPtr p, m_Planificaciones.values())
+    {
+        res->push_back(p);
+    }
+    return res;
+}
+
+PlanificacionDiaPtr PlanificacionesDias::getByDay(QDate day)
+{
+    if (m_Planificaciones.find(day) == m_Planificaciones.end())
+        return PlanificacionDiaPtr();
+    else
+        m_Planificaciones[day];
+}

@@ -66,7 +66,7 @@ RecordSet EstimacionesDias::getRecords(RecordStatus status)
 
 void EstimacionesDias::defineHeaders(QStringList &list)
 {
-    list << tr("Date") << tr("Hours estimation");
+    list << tr("Date") << tr("Hours estimation") << tr("Planned");
 }
 
 void EstimacionesDias::fillData(QTreeWidget &tree)
@@ -78,6 +78,7 @@ void EstimacionesDias::fillData(QTreeWidget &tree)
         item->setText(0, e->Dia().value().toString(Qt::TextDate));
         item->setData(0, Qt::UserRole, e->Dia().value());
         item->setText(1, QString::number(e->EstimacionHoras().value()));
+        item->setText(2, e->isPlanned() ? tr("Yes") : tr("No"));
         tree.insertTopLevelItem(0, item);
     }
 }

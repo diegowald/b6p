@@ -1,4 +1,5 @@
 #include "estimaciondia.h"
+#include "datastore.h"
 
 EstimacionDia::EstimacionDia(bool isNew, QObject *parent) :
     QObject(parent)
@@ -47,3 +48,8 @@ void EstimacionDia::EstimacionHoras(NullableField<int> value)
     m_EstimacionHoras.setValue(value);
 }
 */
+
+bool EstimacionDia::isPlanned()
+{
+    return (DataStore::instance()->getPlanificacionesDias()->getByDay(m_Dia.value()) != PlanificacionDiaPtr());
+}
