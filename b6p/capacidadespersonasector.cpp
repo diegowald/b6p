@@ -16,6 +16,16 @@ CapacidadPersonaSectorLst CapacidadesPersonaSector::getAll(int IDEmpleado)
     return res;
 }
 
+CapacidadPersonaSectorPtr CapacidadesPersonaSector::get(int idEmpleado, int IDSector, int IDSubSector)
+{
+    CapacidadPersonaSectorLst all = getAll(idEmpleado);
+    foreach(CapacidadPersonaSectorPtr c, *all)
+    {
+        if (c->canWork(IDSector, IDSubSector))
+            return c;
+    }
+    return CapacidadPersonaSectorPtr();
+}
 
 QString CapacidadesPersonaSector::getSqlString()
 {

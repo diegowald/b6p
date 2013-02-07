@@ -85,6 +85,16 @@ SectorPtr Sectores::getSector(QString SectorName)
     return SectorPtr();
 }
 
+SectorLst Sectores::getAll()
+{
+    SectorLst res(new QList<SectorPtr>());
+    foreach(SectorPtr s, m_Sectores.values())
+    {
+        res->push_back(s);
+    }
+    return res;
+}
+
 void Sectores::defineHeaders(QStringList &list)
 {
 }
@@ -104,3 +114,4 @@ bool Sectores::edit(QVariant ID)
 bool Sectores::deleteElement(QVariant ID)
 {
 }
+

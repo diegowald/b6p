@@ -27,6 +27,8 @@ public:
 
     CapacidadPersonaSectorLst getAll(int IDEmpleado);
     void updateCapacityfromData(CapacidadPersonaSectorPtr dataFrom);
+
+    CapacidadPersonaSectorPtr get(int idEmpleado, int IDSector, int IDSubSector);
 signals:
     
 public slots:

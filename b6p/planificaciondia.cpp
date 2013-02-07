@@ -1,8 +1,23 @@
 #include "planificaciondia.h"
 #include "datastore.h"
 
-PlanificacionDia::PlanificacionDia(QObject *parent) :
+PlanificacionDia::PlanificacionDia(QDate date, QObject *parent) :
     QObject(parent)
+{
+    m_Dia.setValue(date);
+    m_Notas.setNull();
+    m_IDSupervisor.setNull();
+    m_EstadosPlanificacion.setNull();
+
+    m_Dia.setParent(this);
+    m_Notas.setParent(this);
+    m_IDSupervisor.setParent(this);
+    m_EstadosPlanificacion.setParent(this);
+
+    setNew();
+}
+
+PlanificacionDia::PlanificacionDia(QObject *parent) : QObject(parent)
 {
     m_Dia.setNull();
     m_Notas.setNull();
@@ -12,6 +27,7 @@ PlanificacionDia::PlanificacionDia(QObject *parent) :
     m_Dia.setParent(this);
     m_Notas.setParent(this);
     m_IDSupervisor.setParent(this);
+    m_EstadosPlanificacion.setParent(this);
 }
 
 RecordPtr PlanificacionDia::asRecordPtr()

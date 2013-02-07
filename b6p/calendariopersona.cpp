@@ -90,3 +90,17 @@ void CalendarioPersona::updateIDEmpleado(int newId)
 {
     m_IDEmpleado.setValue(newId);
 }
+
+bool CalendarioPersona::canWork(int Dia, QTime HoraInicio, QTime HoraFin)
+{
+    if (m_Dia.value() != Dia)
+        return false;
+
+    if (HoraInicio < m_HoraIngreso.value())
+        return false;
+
+    if (HoraFin > m_HoraEgreso.value())
+        return false;
+
+    return true;
+}

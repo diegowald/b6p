@@ -38,6 +38,8 @@ public:
 
     virtual RecordPtr asRecordPtr();
     void updateIDEmpleado(int newId);
+
+    bool canWork(int IDSector, int IDSubSector);
 signals:
     
 public slots:

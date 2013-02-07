@@ -2,6 +2,7 @@
 #define TIMEASSIGNMENTITEMEDIT_H
 
 #include <QWidget>
+#include <QDateTime>
 
 namespace Ui {
 class TimeAssignmentItemEdit;
@@ -15,6 +16,17 @@ public:
     explicit TimeAssignmentItemEdit(QWidget *parent = 0);
     ~TimeAssignmentItemEdit();
     
+protected:
+    void llenarSectores();
+    void llenarSubSectores(int IDSector);
+    void llenarEmpleados();
+private slots:
+    void on_cboSectores_currentIndexChanged(int index);
+    void on_timeInicio_dateTimeChanged(const QDateTime &dateTime);
+    void on_timeFin_dateTimeChanged(const QDateTime &dateTime);
+
+    void on_cboSubsectores_currentIndexChanged(int index);
+
 private:
     Ui::TimeAssignmentItemEdit *ui;
 };

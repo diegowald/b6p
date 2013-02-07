@@ -36,6 +36,8 @@ public:
 
     virtual RecordPtr asRecordPtr();
 
+    bool canWork(int Dia, int IDSector, int IDSubSector, QTime HoraInicio, QTime HoraFin);
+
 signals:
     
 public slots:

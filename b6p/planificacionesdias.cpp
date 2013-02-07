@@ -1,5 +1,7 @@
 #include "planificacionesdias.h"
 #include "datastore.h"
+#include "dlgselectorbytdate.h"
+#include "dlgplanificaciondia.h"
 
 PlanificacionesDias::PlanificacionesDias(QObject *parent) :
     ACollection(tr("Days Planifications"), false, parent)
@@ -15,7 +17,7 @@ void PlanificacionesDias::addRecord(Record &record)
 {
     PlanificacionDiaPtr p(new PlanificacionDia(this));
 
-    p->Dia().setValue(record["Dia"].toDate());
+    p->Dia().setValue(QDateTime::fromMSecsSinceEpoch(record["Dia"].toLongLong()).date());
     p->Notas().setValue(record["Notas"].toString());
     p->IDSupervisor().setValue(record["IDSupervisor"].toInt());
     p->setInitialized();
@@ -92,10 +94,50 @@ void PlanificacionesDias::fillData(QTreeWidget &tree)
 
 bool PlanificacionesDias::addNew()
 {
+    DlgSelectorBytDate dlg;
+    EstimacionDiaLst diasSinEstimar = DataStore::instance()->getEstimacionesDias()->getUnplanned();
+    QList<QDate> dias;
+    foreach (EstimacionDiaPtr e, *diasSinEstimar)
+    {
+        dias.push_back(e->Dia().value());
+    }
+
+    dlg.setData(dias);
+    dlg.setLabel(tr("Date"));
+    dlg.setTitle(tr("Select a date to plan"));
+
+    if (dlg.exec() == QDialog::Accepted)
+    {
+        QDate dia = dlg.selectedDay();
+        return edit(dia);
+    }
+    return false;
 }
 
 bool PlanificacionesDias::edit(QVariant ID)
 {
+    PlanificacionDiaPtr p;
+    p = getByDay(ID.toDate());
+    if (!p.get())
+        p = PlanificacionDiaPtr(new PlanificacionDia(ID.toDate(), this));
+
+    DlgPlanificacionDia dlg;
+    dlg.setData(p);
+    if (dlg.exec() == QDialog::Accepted)
+    {
+/*        e->Apellido().setValue(dlg.Apellido());
+        e->Nombre().setValue(dlg.Nombres());
+        e->FechaIngreso().setValue(dlg.FechaIngreso());
+        e->Legajo().setValue(dlg.Legajo());
+
+        e->updateCapacities(dlg.Capacities());
+        CalendarioPersonaLst disponibilidades = dlg.Disponibilidades();
+        e->updateDisponibilidades(disponibilidades);
+
+        m_Empleados[e->IDEmpleado().value()] = e;*/
+        return true;
+    }
+    return false;
 }
 
 bool PlanificacionesDias::deleteElement(QVariant ID)

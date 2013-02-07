@@ -32,6 +32,7 @@ public:
     void updateWith(CalendarioPersonaPtr other);
 
     void updateIDEmpleado(int newId);
+    bool canWork(int Dia, QTime HoraInicio, QTime HoraFin);
 
 signals:
     

@@ -103,6 +103,17 @@ CalendarioPersonaLst CalendarioPersonas::getAll(int IDEmpleado)
     return res;
 }
 
+CalendarioPersonaPtr CalendarioPersonas::get(int IDEmpleado, int Dia, QTime HoraInicio, QTime HoraFin)
+{
+    CalendarioPersonaLst all = getAll(IDEmpleado);
+    foreach(CalendarioPersonaPtr c, *all)
+    {
+        if (c->canWork(Dia, HoraInicio, HoraFin))
+            return c;
+    }
+    return CalendarioPersonaPtr();
+}
+
 void CalendarioPersonas::updateCalendarFromData(CalendarioPersonaLst dataList)
 {
     foreach (CalendarioPersonaPtr c, *dataList)

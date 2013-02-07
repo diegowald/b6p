@@ -128,3 +128,18 @@ void Empleado::updateID(int newId)
     IDEmpleado().setValue(newId);
     setUnmodified();
 }
+
+bool Empleado::canWork(int Dia, int IDSector, int IDSubSector, QTime HoraInicio, QTime HoraFin)
+{
+    // Verifico si puede trabajar en el sector y subsector
+    CapacidadPersonaSectorPtr cap =
+            DataStore::instance()->getCapacidades()->get(idEmpleado.value(), IDSector, IDSubSector);
+    if (cap.get() == NULL)
+        return false;
+
+    // Verfico si puede trabajar el dia en la franja horaria.
+    CalendarioPersonaPtr cal = DataStore::instance()->getCalendarios()->get(
+                idEmpleado.value(), Dia, HoraInicio, HoraFin);
+    if (cal.get() == NULL)
+        return false;
+}

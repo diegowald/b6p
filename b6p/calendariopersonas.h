@@ -30,6 +30,8 @@ public:
     void updateCalendarFromData(CalendarioPersonaLst dataList);
 
     void updateCalendarWithNewIDEmpleado(int oldId, int newId);
+
+    CalendarioPersonaPtr get(int IDEmpleado, int Dia, QTime HoraInicio, QTime HoraFin);
 signals:
     
 public slots:

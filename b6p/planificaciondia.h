@@ -19,6 +19,7 @@ class PlanificacionDia : public QObject, public IRecord
 {
     Q_OBJECT
 public:
+    explicit PlanificacionDia(QDate date, QObject *parent = 0);
     explicit PlanificacionDia(QObject *parent = 0);
 
     NullableField<QDate> &Dia();

@@ -14,7 +14,7 @@ QString EstimacionesDias::getSqlString()
 void EstimacionesDias::addRecord(Record &record)
 {
     EstimacionDiaPtr e(new EstimacionDia(this));
-    e->Dia().setValue(record["Dia"].toDate());
+    e->Dia().setValue(QDateTime::fromMSecsSinceEpoch(record["Dia"].toLongLong()).date());
     e->EstimacionHoras().setValue(record["HorasEstimadas"].toInt());
     e->setInitialized();
     m_Estimaciones[e->Dia().value()] = e;
@@ -124,6 +124,19 @@ EstimacionDiaLst EstimacionesDias::getAll()
     foreach (EstimacionDiaPtr e, m_Estimaciones.values())
     {
         res->push_back(e);
+    }
+
+    return res;
+}
+
+EstimacionDiaLst EstimacionesDias::getUnplanned()
+{
+    EstimacionDiaLst res(new QList<EstimacionDiaPtr>());
+
+    foreach(EstimacionDiaPtr e, m_Estimaciones.values())
+    {
+        if (!e->isPlanned())
+            res->push_back(e);
     }
 
     return res;

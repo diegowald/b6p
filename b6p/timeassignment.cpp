@@ -20,10 +20,10 @@ TimeAssignment::TimeAssignment(QWidget *parent) :
     m_FinalTimeline.setDate(QDate::currentDate());
     m_FinalTimeline.setTime(QTime(23, 59, 59, 0));
 
-    m_StartAssignment.setDate(QDate(2013, 1, 1));
+    m_StartAssignment.setDate(QDate::currentDate());
     m_StartAssignment.setTime(QTime(12, 0, 0, 0));
 
-    m_EndAssignment.setDate(QDate(2013, 1, 1));
+    m_EndAssignment.setDate(QDate::currentDate());
     m_EndAssignment.setTime(QTime(16, 0, 0, 0));
 }
 

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>497</width>
+    <width>915</width>
     <height>49</height>
    </rect>
   </property>
@@ -14,20 +14,45 @@
    <string>Form</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
+   <property name="spacing">
+    <number>2</number>
+   </property>
+   <property name="leftMargin">
+    <number>2</number>
+   </property>
+   <property name="topMargin">
+    <number>2</number>
+   </property>
+   <property name="rightMargin">
+    <number>2</number>
+   </property>
+   <property name="bottomMargin">
+    <number>2</number>
+   </property>
    <item>
-    <widget class="QLineEdit" name="lineEdit"/>
+    <widget class="QComboBox" name="cboSectores"/>
    </item>
    <item>
-    <widget class="QTimeEdit" name="timeEdit"/>
+    <widget class="QComboBox" name="cboSubsectores"/>
    </item>
    <item>
-    <widget class="QTimeEdit" name="timeEdit_2"/>
+    <widget class="QTimeEdit" name="timeInicio"/>
    </item>
    <item>
-    <widget class="QComboBox" name="comboBox"/>
+    <widget class="QTimeEdit" name="timeFin"/>
    </item>
    <item>
-    <widget class="TimeAssignment" name="widget" native="true"/>
+    <widget class="QComboBox" name="cboEmpleado"/>
+   </item>
+   <item>
+    <widget class="TimeAssignment" name="widget" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>400</width>
+       <height>0</height>
+      </size>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

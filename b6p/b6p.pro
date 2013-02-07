@@ -71,7 +71,8 @@ SOURCES += main.cpp\
     capacidadespersonasector.cpp \
     sqlhandler.cpp \
     dlgestimaciondia.cpp \
-    wndplanificaciondia.cpp
+    dlgselectorbytdate.cpp \
+    dlgplanificaciondia.cpp
 
 HEADERS  += mainwindow.h \
     timeassignment.h \
@@ -106,7 +107,8 @@ HEADERS  += mainwindow.h \
     sqlhandler.h \
     IRecord.h \
     dlgestimaciondia.h \
-    wndplanificaciondia.h
+    dlgselectorbytdate.h \
+    dlgplanificaciondia.h
 
 FORMS    += mainwindow.ui \
     genericlist.ui \
@@ -115,5 +117,6 @@ FORMS    += mainwindow.ui \
     availabilitywidget.ui \
     capacitywidget.ui \
     dlgestimaciondia.ui \
-    wndplanificaciondia.ui
+    dlgselectorbytdate.ui \
+    dlgplanificaciondia.ui
 

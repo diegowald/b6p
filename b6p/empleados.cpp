@@ -87,6 +87,17 @@ EmpleadosLst Empleados::getAll()
     return res;
 }
 
+EmpleadosLst Empleados::getAll(int IDSector, int IDSubSector, int Dia, QTime HoraInicio, QTime HoraFin)
+{
+    EmpleadosLst res(new QList<EmpleadoPtr>());
+    foreach(EmpleadoPtr e, m_Empleados.values())
+    {
+        if (e->canWork(Dia, IDSector, IDSubSector, HoraInicio, HoraFin))
+            res->push_back(e);
+    }
+    return res;
+}
+
 void Empleados::defineHeaders(QStringList &list)
 {
     list << tr("Lastname")

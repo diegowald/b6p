@@ -27,6 +27,8 @@ public:
     SectorPtr getSector(int IDSector);
     SectorPtr getSector(QString SectorName);
 
+    SectorLst getAll();
+
 signals:
     
 public slots:

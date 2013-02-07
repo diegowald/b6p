@@ -27,6 +27,7 @@ public:
 
     EstimacionDiaLst getAll();
     EstimacionDiaPtr get(QDate dia);
+    EstimacionDiaLst getUnplanned();
 
 private:
     QMap<QDate, EstimacionDiaPtr> m_Estimaciones;
