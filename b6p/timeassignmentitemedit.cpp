@@ -51,7 +51,7 @@ void TimeAssignmentItemEdit::llenarSubSectores(int IDSector)
     }
 }
 
-void TimeAssignmentItemEdit::on_cboSubsectores_currentIndexChanged(int index)
+void TimeAssignmentItemEdit::on_cboSubsectores_currentIndexChanged(int)
 {
     llenarEmpleados();
 }

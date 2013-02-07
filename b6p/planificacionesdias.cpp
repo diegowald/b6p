@@ -163,5 +163,5 @@ PlanificacionDiaPtr PlanificacionesDias::getByDay(QDate day)
     if (m_Planificaciones.find(day) == m_Planificaciones.end())
         return PlanificacionDiaPtr();
     else
-        m_Planificaciones[day];
+        return m_Planificaciones[day];
 }

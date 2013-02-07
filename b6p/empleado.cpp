@@ -116,4 +116,6 @@ bool Empleado::canWork(int Dia, int IDSector, int IDSubSector, QTime HoraInicio,
                 idEmpleado.value(), Dia, HoraInicio, HoraFin);
     if (cal.get() == NULL)
         return false;
+
+    return true;
 }

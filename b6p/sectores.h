@@ -21,7 +21,7 @@ public:
     virtual bool addNew();
     virtual bool edit(QVariant ID);
     virtual bool deleteElement(QVariant ID);
-    virtual void refreshID(int newRecordId) {}
+    virtual void refreshID(int) {}
     virtual void saveDependants() {}
 
     SectorPtr getSector(int IDSector);
