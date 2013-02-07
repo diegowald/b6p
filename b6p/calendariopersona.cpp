@@ -47,26 +47,6 @@ NullableField<QTime> &CalendarioPersona::HoraEgreso()
     return m_HoraEgreso;
 }
 
-/*void CalendarioPersona::Dia(NullableField<int> value)
-{
-    m_Dia.setValue(value);
-}
-
-void CalendarioPersona::IDEmpleado(NullableField<int> value)
-{
-    m_IDEmpleado.setValue(value);
-}
-
-void CalendarioPersona::HoraIngreso(NullableField<QTime> value)
-{
-    m_HoraIngreso.setValue(value);
-}
-
-void CalendarioPersona::HoraEgreso(NullableField<QTime> value)
-{
-    m_HoraEgreso.setValue(value);
-}*/
-
 bool CalendarioPersona::EqualsTo(CalendarioPersonaPtr other)
 {
     return ((m_Dia.value() == other->Dia().value())

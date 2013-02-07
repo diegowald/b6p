@@ -28,11 +28,6 @@ public:
     bool EqualsTo(CapacidadPersonaSectorPtr other);
     void updateWith(CapacidadPersonaSectorPtr other);
 
-    /*void IDSector(NullableField<int> value);
-    void IDSubSector(NullableField<int> value);
-    void IDEmpleado(NullableField<int> value);
-    void Capacidad(NullableField<int> value);*/
-
     SectorPtr getSector();
     SubSectorPtr getSubSector();
 

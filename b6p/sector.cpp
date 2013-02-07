@@ -37,19 +37,3 @@ NullableField<QString> &Sector::Descripcion()
 {
     return m_Descripcion;
 }
-
-/*void Sector::IDSector(NullableField<int> value)
-{
-    m_IDSector.setValue(value);
-}
-
-void Sector::Nombre(NullableField<QString> value)
-{
-    m_Nombre.setValue(value);
-}
-
-void Sector::Descripcion(NullableField<QString> value)
-{
-    m_Descripcion.setValue(value);
-}
-*/

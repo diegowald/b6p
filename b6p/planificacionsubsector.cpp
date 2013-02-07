@@ -63,36 +63,6 @@ NullableField<QTime> &PlanificacionSubSector::HoraFin()
     return m_HoraFin;
 }
 
-/*void PlanificacionSubSector::Dia(NullableField<QDate> value)
-{
-    m_Dia.setValue(value);
-}
-
-void PlanificacionSubSector::IDSector(NullableField<int> value)
-{
-    m_IDSector.setValue(value);
-}
-
-void PlanificacionSubSector::IDSubSector(NullableField<int> value)
-{
-    m_IDSubSector.setValue(value);
-}
-
-void PlanificacionSubSector::IDEmpleado(NullableField<int> value)
-{
-    m_IDEmpleado.setValue(value);
-}
-
-void PlanificacionSubSector::HoraInicio(NullableField<QTime> value)
-{
-    m_HoraInicio.setValue(value);
-}
-
-void PlanificacionSubSector::HoraFin(NullableField<QTime> value)
-{
-    m_HoraFin.setValue(value);
-}*/
-
 SectorPtr PlanificacionSubSector::getSector()
 {
     return DataStore::instance()->getSectores()->getSector(m_IDSector.value());

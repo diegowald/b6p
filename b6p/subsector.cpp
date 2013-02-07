@@ -48,27 +48,6 @@ NullableField<QString> &SubSector::Descripcion()
     return m_Descripcion;
 }
 
-/*void SubSector::IDSector(NullableField<int> value)
-{
-    m_IDSector.setValue(value);
-}
-
-void SubSector::IDSubsector(NullableField<int> value)
-{
-    m_IDSubSector.setValue(value);
-}
-
-void SubSector::Nombre(NullableField<QString> value)
-{
-    m_Nombre.setValue(value);
-}
-
-void SubSector::Descripcion(NullableField<QString> value)
-{
-    m_Descripcion.setValue(value);
-}
-*/
-
 SectorPtr SubSector::getSector()
 {
     return DataStore::instance()->getSectores()->getSector(m_IDSector.value());

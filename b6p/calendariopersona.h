@@ -22,11 +22,6 @@ public:
     NullableField<QTime>& HoraIngreso();
     NullableField<QTime>& HoraEgreso();
 
-/*    void Dia(NullableField<int> value);
-    void IDEmpleado(NullableField<int> value);
-    void HoraIngreso(NullableField<QTime> value);
-    void HoraEgreso(NullableField<QTime> value);*/
-
     virtual RecordPtr asRecordPtr();
     bool EqualsTo(CalendarioPersonaPtr other);
     void updateWith(CalendarioPersonaPtr other);

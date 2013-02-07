@@ -56,21 +56,6 @@ NullableField<int> &PlanificacionDia::IDSupervisor()
     return m_IDSupervisor;
 }
 
-/*void PlanificacionDia::Dia(NullableField<QDate> value)
-{
-    m_Dia.setValue(value);
-}
-
-void PlanificacionDia::Notas(NullableField<QString> value)
-{
-    m_Notas.setValue(value);
-}
-
-void PlanificacionDia::IDSupervisor(NullableField<int> value)
-{
-    m_IDSupervisor.setValue(value);
-}*/
-
 EmpleadoPtr PlanificacionDia::Supervisor()
 {
     return DataStore::instance()->getEmpleados()->getEmpleado(m_IDSupervisor.value());

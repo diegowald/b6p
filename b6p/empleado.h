@@ -23,12 +23,6 @@ public:
     NullableField<QString> &Legajo();
     NullableField<QDate> &FechaIngreso();
 
-    /*void IDEmpleado(NullableField<int> value);
-    void Apellido(NullableField<QString> value);
-    void Nombre(NullableField<QString> value);
-    void Legajo(NullableField<QString> value);
-    void FechaIngreso(NullableField<QDate> value);*/
-
     CapacidadPersonaSectorLst Capacities();
     void updateCapacities(CapacidadPersonaSectorLst newCapacities);
     CalendarioPersonaLst Disponibilidades();

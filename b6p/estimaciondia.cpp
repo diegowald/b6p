@@ -38,17 +38,6 @@ NullableField<int> &EstimacionDia::EstimacionHoras()
     return m_EstimacionHoras;
 }
 
-/*void EstimacionDia::Dia(NullableField<QDate> value)
-{
-    m_Dia.setValue(value);
-}
-
-void EstimacionDia::EstimacionHoras(NullableField<int> value)
-{
-    m_EstimacionHoras.setValue(value);
-}
-*/
-
 bool EstimacionDia::isPlanned()
 {
     return (DataStore::instance()->getPlanificacionesDias()->getByDay(m_Dia.value()) != PlanificacionDiaPtr());

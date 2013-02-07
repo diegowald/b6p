@@ -16,8 +16,6 @@ public:
     NullableField<int> &EstimacionHoras();
     bool isPlanned();
 
-    /*void Dia(NullableField<QDate> value);
-    void EstimacionHoras(NullableField<int> value);*/
 
     virtual RecordPtr asRecordPtr();
 signals:

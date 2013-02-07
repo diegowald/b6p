@@ -16,11 +16,6 @@ public:
     NullableField<QString> &Nombre();
     NullableField<QString> &Descripcion();
 
-    /*void IDSector(NullableField<int> value);
-    void IDSubsector(NullableField<int> value);
-    void Nombre(NullableField<QString> value);
-    void Descripcion(NullableField<QString> value);*/
-
     SectorPtr getSector();
 
     virtual RecordPtr asRecordPtr();

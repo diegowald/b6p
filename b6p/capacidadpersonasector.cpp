@@ -47,26 +47,6 @@ NullableField<int> &CapacidadPersonaSector::Capacidad()
     return m_Capacidad;
 }
 
-/*void CapacidadPersonaSector::IDSector(NullableField<int> value)
-{
-    m_IDSector.setValue(value);
-}
-
-void CapacidadPersonaSector::IDSubSector(NullableField<int> value)
-{
-    m_ID_SubSector.setValue(value);
-}
-
-void CapacidadPersonaSector::IDEmpleado(NullableField<int> value)
-{
-    m_IDEmpleado.setValue(value);
-}
-
-void CapacidadPersonaSector::Capacidad(NullableField<int> value)
-{
-    m_Capacidad.setValue(value);
-}*/
-
 SectorPtr CapacidadPersonaSector::getSector()
 {
     return DataStore::instance()->getSectores()->getSector(m_IDSector.value());

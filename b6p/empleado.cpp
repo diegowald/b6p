@@ -58,32 +58,6 @@ NullableField<QDate>& Empleado::FechaIngreso()
     return fechaIngreso;
 }
 
-/*void Empleado::IDEmpleado(NullableField<int> value)
-{
-    idEmpleado.setValue(value);
-}
-
-void Empleado::Apellido(NullableField<QString> value)
-{
-    apellido.setValue(value);
-}
-
-void Empleado::Nombre(NullableField<QString> value)
-{
-    nombre.setValue(value);
-}
-
-void Empleado::Legajo(NullableField<QString> value)
-{
-    legajo.setValue(value);
-}
-
-void Empleado::FechaIngreso(NullableField<QDate> value)
-{
-    fechaIngreso.setValue(value);
-}
-*/
-
 CapacidadPersonaSectorLst Empleado::Capacities()
 {
     if (IDEmpleado().isNull())
