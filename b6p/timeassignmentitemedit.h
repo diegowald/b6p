@@ -16,6 +16,11 @@ public:
     explicit TimeAssignmentItemEdit(QWidget *parent = 0);
     ~TimeAssignmentItemEdit();
     
+    double CantidadHoras();
+
+signals:
+    void AssignmentChanged(QDateTime from, QDateTime to);
+
 protected:
     void llenarSectores();
     void llenarSubSectores(int IDSector);

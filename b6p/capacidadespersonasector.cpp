@@ -29,7 +29,7 @@ CapacidadPersonaSectorPtr CapacidadesPersonaSector::get(int idEmpleado, int IDSe
 
 QString CapacidadesPersonaSector::getSqlString()
 {
-    return "select IDSector, IDSubSector, IDEmpleado, Capacidad from capacidadespersonasector;";
+    return "select IDSector, IDSubSector, IDEmpleado, Capacidad from capacidadespersonassector;";
 }
 
 void CapacidadesPersonaSector::addRecord(Record &record)
@@ -46,13 +46,13 @@ void CapacidadesPersonaSector::addRecord(Record &record)
 
 QString CapacidadesPersonaSector::getDeleteStatement()
 {
-    return "delete from capacidadespersonasector where IDSector = :IDSector "
+    return "delete from capacidadespersonassector where IDSector = :IDSector "
             " and IDSubSector = :IDSubSector and IDEmpleado = :IDEmpleado;";
 }
 
 QString CapacidadesPersonaSector::getUpdateStatement()
 {
-    return "update capacidadespersonasector set "
+    return "update capacidadespersonassector set "
             " Capacidad = :Capacidad "
             " where "
             " IDSector = :IDSector and IDSubSector = :IDSubSector "
@@ -61,7 +61,7 @@ QString CapacidadesPersonaSector::getUpdateStatement()
 
 QString CapacidadesPersonaSector::getInsertStatement()
 {
-    return "insert into capacidadespersonasector "
+    return "insert into capacidadespersonassector "
             " (IDSector, IDSubSector, IDEmpleado, Capacidad) "
             " values "
             " (:IDSector, :IDSubSector, :IDEmpleado, :Capacidad);";
@@ -113,14 +113,28 @@ bool CapacidadesPersonaSector::deleteElement(QVariant ID)
 {
 }
 
-void CapacidadesPersonaSector::updateCapacityfromData(CapacidadPersonaSectorPtr dataFrom)
+void CapacidadesPersonaSector::updateCapacityfromData(CapacidadPersonaSectorLst dataFrom)
 {
-    foreach (CapacidadPersonaSectorPtr c, m_Capacidades)
+    if (dataFrom->count() > 0)
     {
-        if (c->EqualsTo(dataFrom))
+        CapacidadPersonaSectorLst capsEmpleado = getAll(dataFrom->at(0)->IDEmpleado().value());
+        foreach (CapacidadPersonaSectorPtr nc, *dataFrom)
         {
-            c->updateWith(dataFrom);
-            return;
+            bool found = false;
+            foreach (CapacidadPersonaSectorPtr c, *capsEmpleado)
+            {
+                if (c->EqualsTo(nc))
+                {
+                    c->updateWith(nc);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+            {
+                m_Capacidades.push_back(nc);
+                nc->setNew();
+            }
         }
     }
 }

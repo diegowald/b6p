@@ -15,15 +15,21 @@ public:
     explicit CapacityWidget(QWidget *parent = 0);
     ~CapacityWidget();
 
-    void setSector(QString Sector);
-    void setSubSector(QString SubSector);
+    void setIDSector(int IDSector);
+    void setIDSubSector(int IDSubSector);
+
     void setCapacity(int capacity);
 
-    QString Sector();
-    QString SubSector();
+    int IDSector();
+    int IDSubSector();
     int Capacity();
+protected:
+    void llenarSectores();
+    void llenarSubSectores(int IDSector);
 private slots:
     void on_slideCapacity_valueChanged(int value);
+
+    void on_cboSectores_currentIndexChanged(int index);
 
 private:
     Ui::CapacityWidget *ui;

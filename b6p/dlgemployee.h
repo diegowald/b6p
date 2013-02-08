@@ -31,6 +31,9 @@ protected:
     void setupAssignment(AvailabilityWidget* w, int day);
     CalendarioPersonaPtr getAssignment(AvailabilityWidget *w);
 
+private slots:
+    void on_btnAdd_pressed();
+
 private:
     Ui::DlgEmployee *ui;
     EmpleadoPtr m_Empleado;

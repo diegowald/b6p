@@ -35,6 +35,14 @@ public:
     QDateTime startAssignment() const;
     QDateTime endAssignment() const;
 
+    bool PaintVerticalGrid();
+    void setPaintVerticalGrid(bool paint);
+    bool PaintBackgroundReferences();
+    void setPaintBackgroundReferences(bool paint);
+    bool ShowBackgroundText();
+    bool setShowBackgroundText(bool show);
+
+
 public slots:
     void setStartAssignment(QDateTime value);
     void setEndAssignment(QDateTime value);
@@ -44,6 +52,7 @@ protected:
 
     float time2position(QDateTime time, float w);
     float delta2screen(float delta, float w);
+    int getNumberOfDivisions();
 private:
     QColor m_BackgroundColor;
     QColor m_TimelineColor;
@@ -56,6 +65,9 @@ private:
     QDateTime m_FinalTimeline;
     QDateTime m_StartAssignment;
     QDateTime m_EndAssignment;
+    bool m_paintBackgroundReferences;
+    bool m_showBackgroundText;
+    bool m_paintVerticalGrid;
 };
 
 #endif // TIMEASSIGNMENT_H

@@ -47,8 +47,9 @@ void DlgEmployee::setData(EmpleadoPtr empleado)
         QTreeWidgetItem *item = new QTreeWidgetItem();
         ui->treeCapacities->addTopLevelItem(item);
         CapacityWidget *w = new CapacityWidget();
-        w->setSector(cap->getSector()->Nombre().value());
-        w->setSubSector(cap->getSubSector()->Nombre().value());
+        w->setIDSector(cap->IDSector().value());
+        if (!cap->ID_SubSector().isNull())
+            w->setIDSubSector(cap->ID_SubSector().value());
         w->setCapacity(cap->Capacidad().value());
         ui->treeCapacities->setItemWidget(item, 0, w);
     }
@@ -145,8 +146,8 @@ CapacidadPersonaSectorLst DlgEmployee::Capacities()
         CapacityWidget * w = qobject_cast<CapacityWidget *>(ui->treeCapacities->itemWidget(treeitem, 0));
         CapacidadPersonaSectorPtr p(new CapacidadPersonaSector());
         p->IDEmpleado().setValue(m_Empleado->IDEmpleado());
-        p->IDSector().setValue(DataStore::instance()->getSectores()->getSector(w->Sector())->IDSector().value());
-        p->ID_SubSector().setValue(DataStore::instance()->getSubSectores()->getSubSector(p->IDSector().value(), w->SubSector())->IDSubsector().value());
+        p->IDSector().setValue(w->IDSector());
+        p->ID_SubSector().setValue(w->IDSubSector());
         p->Capacidad().setValue(w->Capacity());
         res->push_back(p);
     }
@@ -180,4 +181,15 @@ CalendarioPersonaLst DlgEmployee::Disponibilidades()
     res->push_back(getAssignment(ui->TimeSaturday));
 
     return res;
+}
+
+void DlgEmployee::on_btnAdd_pressed()
+{
+    QTreeWidgetItem *item = new QTreeWidgetItem();
+    ui->treeCapacities->addTopLevelItem(item);
+    CapacityWidget *w = new CapacityWidget();
+    /*w->setSector(cap->getSector()->Nombre().value());
+    w->setSubSector(cap->getSubSector()->Nombre().value());
+    w->setCapacity(cap->Capacidad().value());*/
+    ui->treeCapacities->setItemWidget(item, 0, w);
 }

@@ -25,10 +25,62 @@ TimeAssignment::TimeAssignment(QWidget *parent) :
 
     m_EndAssignment.setDate(QDate::currentDate());
     m_EndAssignment.setTime(QTime(16, 0, 0, 0));
+
+    m_paintBackgroundReferences = true;
+    m_paintVerticalGrid = false;
+    m_showBackgroundText = false;
+}
+
+bool TimeAssignment::PaintBackgroundReferences()
+{
+    return m_paintBackgroundReferences;
+}
+
+void TimeAssignment::setPaintBackgroundReferences(bool paint)
+{
+    m_paintBackgroundReferences = paint;
+    repaint();
+}
+
+bool TimeAssignment::ShowBackgroundText()
+{
+    return m_showBackgroundText;
+}
+
+bool TimeAssignment::setShowBackgroundText(bool show)
+{
+    m_showBackgroundText = show;
+    repaint();
+}
+
+bool TimeAssignment::PaintVerticalGrid()
+{
+    return m_paintVerticalGrid;
+}
+
+void TimeAssignment::setPaintVerticalGrid(bool paint)
+{
+    m_paintVerticalGrid = paint;
+    repaint();
 }
 
 TimeAssignment::~TimeAssignment()
 {
+}
+
+int TimeAssignment::getNumberOfDivisions()
+{
+    // In msecs:
+    int delta = finalTimeline().toMSecsSinceEpoch() - initialTimeline().toMSecsSinceEpoch();
+    // In secs:
+    delta /= 1000;
+    // In hours
+    delta /= 3600;
+
+    delta ++;
+
+    delta = (delta == 0) ? 1 : delta;
+    return delta;
 }
 
 void TimeAssignment::paintEvent(QPaintEvent */*event*/)
@@ -45,26 +97,44 @@ void TimeAssignment::paintEvent(QPaintEvent */*event*/)
     painter.drawRect(timeline);
     //painter.drawArc(10, 10, 10, 10, 0, 16*360);
 
-    // Paint Background timeline references
-    int timeWidth = timeline.width();
-    // Suponemos que hay 10 divisiones;
-    float slice = timeWidth / 10.0;
-    for (int i = 0; i <= 10; i++)
+    if (m_paintBackgroundReferences || m_paintVerticalGrid)
     {
-        float x1 = timeline.left() + i * slice;
-        int y1 = (height() + m_TimelineHeight) / 2;
-        painter.drawLine(x1, y1, x1, y1 + m_TimelineHeight);
-    }
+        // Paint Background timeline references
+        int timeWidth = timeline.width();
+        // Suponemos que hay 10 divisiones;
+        int numberOfDivisions = getNumberOfDivisions();
+        float slice = timeWidth / numberOfDivisions;
+        for (int i = 0; i <= numberOfDivisions; i++)
+        {
+            float x1 = timeline.left() + i * slice;
+            int y1 = 0;
+            int h = height();
+            if (m_paintBackgroundReferences)
+            {
+                y1 = (height() + m_TimelineHeight) / 2;
+                h = y1 + m_TimelineHeight;
+            }
 
-    // Paint Background times
-    for (int i = 0; i <= 10; i++)
-    {
-        int x1 = timeline.left() + i * slice;
-        int y1 = (height() / 2) + m_TimelineHeight + m_FontSize;
-        QFont f = painter.font();
-        f.setPixelSize(m_FontSize);
-        painter.setFont(f);
-        painter.drawText(x1, y1, QString::number(i));
+            painter.drawLine(x1, y1, x1, h);
+        }
+
+        // Paint Background times
+        if (m_showBackgroundText)
+        {
+            for (int i = 0; i <= numberOfDivisions; i+=2)
+            {
+                qlonglong aux = m_InitialTimeline.toMSecsSinceEpoch();
+                aux += (i * 3600) * 1000;
+                int x1 = timeline.left() + i * slice;
+                int y1 = (height() / 2) + m_TimelineHeight + m_FontSize;
+                QFont f = painter.font();
+                f.setPixelSize(m_FontSize);
+                painter.setFont(f);
+                QDateTime tmp = QDateTime::fromMSecsSinceEpoch(aux);
+                qDebug() << tmp.time().toString("H:mm");
+                painter.drawText(x1, y1, tmp.time().toString("H:mm"));
+            }
+        }
     }
 
     // Paint Time Assignment

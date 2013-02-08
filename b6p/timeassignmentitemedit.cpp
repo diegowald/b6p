@@ -62,6 +62,7 @@ void TimeAssignmentItemEdit::on_timeInicio_dateTimeChanged(const QDateTime &date
 
     ui->widget->setStartAssignment(dateTime);
     llenarEmpleados();
+    emit AssignmentChanged(dateTime, ui->timeFin->dateTime());
 }
 
 void TimeAssignmentItemEdit::on_timeFin_dateTimeChanged(const QDateTime &dateTime)
@@ -71,6 +72,7 @@ void TimeAssignmentItemEdit::on_timeFin_dateTimeChanged(const QDateTime &dateTim
 
     ui->widget->setEndAssignment(dateTime);
     llenarEmpleados();
+    emit AssignmentChanged(ui->timeInicio->dateTime(), dateTime);
 }
 
 void TimeAssignmentItemEdit::llenarEmpleados()
@@ -91,4 +93,11 @@ void TimeAssignmentItemEdit::llenarEmpleados()
         nombre = nombre.arg(e->Apellido().value()).arg(e->Nombre().value());
         ui->cboEmpleado->addItem(nombre, e->IDEmpleado().value());
     }
+}
+
+double TimeAssignmentItemEdit::CantidadHoras()
+{
+    qlonglong delta = ui->timeFin->dateTime().toMSecsSinceEpoch() - ui->timeInicio->dateTime().toMSecsSinceEpoch();
+    double cantHoras = delta / 1000.0 / 3600.0;
+    return cantHoras;
 }

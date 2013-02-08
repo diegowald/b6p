@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>334</width>
-    <height>38</height>
+    <width>619</width>
+    <height>35</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,16 +30,22 @@
     <number>2</number>
    </property>
    <item>
-    <widget class="QLabel" name="lblSector">
-     <property name="text">
-      <string>TextLabel</string>
+    <widget class="QComboBox" name="cboSectores">
+     <property name="minimumSize">
+      <size>
+       <width>150</width>
+       <height>0</height>
+      </size>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="lblSubSector">
-     <property name="text">
-      <string>TextLabel</string>
+    <widget class="QComboBox" name="cboSubSectores">
+     <property name="minimumSize">
+      <size>
+       <width>150</width>
+       <height>0</height>
+      </size>
      </property>
     </widget>
    </item>
@@ -51,11 +57,30 @@
     </widget>
    </item>
    <item>
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
     <widget class="QSlider" name="slideCapacity">
      <property name="minimumSize">
       <size>
-       <width>150</width>
+       <width>200</width>
        <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>200</width>
+       <height>16777215</height>
       </size>
      </property>
      <property name="maximum">

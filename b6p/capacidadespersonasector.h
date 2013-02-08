@@ -26,7 +26,7 @@ public:
     virtual void saveDependants() {}
 
     CapacidadPersonaSectorLst getAll(int IDEmpleado);
-    void updateCapacityfromData(CapacidadPersonaSectorPtr dataFrom);
+    void updateCapacityfromData(CapacidadPersonaSectorLst dataFrom);
 
     CapacidadPersonaSectorPtr get(int idEmpleado, int IDSector, int IDSubSector);
 signals:

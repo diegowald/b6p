@@ -1,14 +1,16 @@
 #include "capacitywidget.h"
 #include "ui_capacitywidget.h"
+#include "datastore.h"
 
 CapacityWidget::CapacityWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CapacityWidget)
 {
     ui->setupUi(this);
-    ui->lblSector->clear();
-    ui->lblSubSector->clear();
+    llenarSectores();
     ui->lblValue->clear();
+    ui->slideCapacity->setValue(0);
+    on_slideCapacity_valueChanged(0);
 }
 
 CapacityWidget::~CapacityWidget()
@@ -47,14 +49,14 @@ void CapacityWidget::on_slideCapacity_valueChanged(int value)
     ui->lblValue->setText(txtValue);
 }
 
-void CapacityWidget::setSector(QString Sector)
+void CapacityWidget::setIDSector(int IDSector)
 {
-    ui->lblSector->setText(Sector);
+    ui->cboSectores->setCurrentIndex(ui->cboSectores->findData(IDSector, Qt::UserRole));
 }
 
-void CapacityWidget::setSubSector(QString SubSector)
+void CapacityWidget::setIDSubSector(int IDSubSector)
 {
-    ui->lblSubSector->setText(SubSector);
+    ui->cboSubSectores->setCurrentIndex(ui->cboSubSectores->findData(IDSubSector, Qt::UserRole));
 }
 
 void CapacityWidget::setCapacity(int capacity)
@@ -62,17 +64,42 @@ void CapacityWidget::setCapacity(int capacity)
     ui->slideCapacity->setValue(capacity);
 }
 
-QString CapacityWidget::Sector()
+int CapacityWidget::IDSector()
 {
-    return ui->lblSector->text();
+    return ui->cboSectores->itemData(ui->cboSectores->currentIndex(), Qt::UserRole).toInt();
 }
 
-QString CapacityWidget::SubSector()
+int CapacityWidget::IDSubSector()
 {
-    return ui->lblSubSector->text();
+    return ui->cboSubSectores->itemData(ui->cboSubSectores->currentIndex(), Qt::UserRole).toInt();
 }
 
 int CapacityWidget::Capacity()
 {
     return ui->slideCapacity->value();
+}
+
+void CapacityWidget::llenarSectores()
+{
+    ui->cboSectores->clear();
+    SectorLst sectores = DataStore::instance()->getSectores()->getAll();
+    foreach(SectorPtr s, *sectores)
+    {
+        ui->cboSectores->addItem(s->Nombre().value(), s->IDSector().value());
+    }
+}
+
+void CapacityWidget::llenarSubSectores(int IDSector)
+{
+    ui->cboSubSectores->clear();
+    SubSectoresLst ss = DataStore::instance()->getSubSectores()->getAll(IDSector);
+    foreach(SubSectorPtr ssp, *ss)
+    {
+        ui->cboSubSectores->addItem(ssp->Nombre().value(), ssp->IDSubsector().value());
+    }
+}
+
+void CapacityWidget::on_cboSectores_currentIndexChanged(int index)
+{
+    llenarSubSectores(ui->cboSectores->itemData(index, Qt::UserRole).toInt());
 }

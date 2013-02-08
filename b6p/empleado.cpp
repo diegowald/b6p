@@ -68,10 +68,8 @@ CapacidadPersonaSectorLst Empleado::Capacities()
 
 void Empleado::updateCapacities(CapacidadPersonaSectorLst newCapacities)
 {
-    foreach (CapacidadPersonaSectorPtr c, *newCapacities)
-    {
-        DataStore::instance()->getCapacidades()->updateCapacityfromData(c);
-    }
+    CapacidadesPersonaSectorPtr ptr = DataStore::instance()->getCapacidades();
+    ptr->updateCapacityfromData(newCapacities);
 }
 
 void Empleado::updateDisponibilidades(CalendarioPersonaLst newDisponibilidades)
