@@ -20,6 +20,11 @@ void DlgPlanificacionDia::setData(PlanificacionDiaPtr data)
     ui->lblHorasEstimadas->setText(tr("Estimation: %1 hs").arg(QString::number(data->Estimacion()->EstimacionHoras().value())));
     ui->lblStatus->setText(tr("Status: %1").arg(data->Estado()));
     displayPlannedHours(data->HorasPlanificadas());
+    m_Dia = data->Dia().value();
+
+    ui->txtNotes->clear();
+    if (!data->Notas().isNull())
+        ui->txtNotes->setText(data->Notas().value());
 }
 
 void DlgPlanificacionDia::on_btnAdd_pressed()
@@ -40,7 +45,7 @@ void DlgPlanificacionDia::displayPlannedHours(double hours)
     ui->lblHorasPlanificadas->setText(tr("Planned: %1 hs").arg(QString::number(hours)));
 }
 
-void DlgPlanificacionDia::slot_AssignmentChanged(QDateTime from, QDateTime to)
+void DlgPlanificacionDia::slot_AssignmentChanged(QDateTime, QDateTime)
 {
     double CantHoras = 0;
     for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
@@ -50,4 +55,44 @@ void DlgPlanificacionDia::slot_AssignmentChanged(QDateTime from, QDateTime to)
         CantHoras += time->CantidadHoras();
     }
     displayPlannedHours(CantHoras);
+}
+
+QDate DlgPlanificacionDia::Dia()
+{
+    return m_Dia;
+}
+
+QString DlgPlanificacionDia::Notas()
+{
+    return ui->txtNotes->text();
+}
+
+int DlgPlanificacionDia::IDSupervisor()
+{
+    return -1;
+}
+
+PlanificacionSubSectorLst DlgPlanificacionDia::Planificaciones()
+{
+    PlanificacionSubSectorLst res(new QList<PlanificacionSubSectorPtr>());
+
+    for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
+    {
+        QTreeWidgetItem *item = ui->treeWidget->topLevelItem(i);
+        TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 0));
+        PlanificacionSubSectorPtr ptr(new PlanificacionSubSector());
+
+        ptr->Dia().setValue(m_Dia);
+        ptr->IDSector().setValue(time->IDSector());
+        if (time->isSubSectorEmpty())
+            ptr->IDSubSector().setNull();
+        else
+            ptr->IDSubSector().setValue(time->IDSubSector());
+        ptr->IDEmpleado().setValue(time->IDEmpleado());
+        ptr->HoraInicio().setValue(time->HoraInicio());
+        ptr->HoraFin().setValue(time->HoraFin());
+
+        res->push_back(ptr);
+    }
+    return res;
 }

@@ -7,6 +7,7 @@
 #include "nullablefield.h"
 #include "empleado.h"
 #include "estimaciondia.h"
+#include "planificacionsubsector.h"
 
 enum EstadosPlanificacion
 {
@@ -30,6 +31,8 @@ public:
     EstimacionDiaPtr Estimacion();
     virtual RecordPtr asRecordPtr();
     QString Estado();
+
+    void updatePlanificaciones(PlanificacionSubSectorLst dataFrom);
 
 signals:
     

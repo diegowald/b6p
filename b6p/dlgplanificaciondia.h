@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "planificaciondia.h"
+#include "planificacionsubsector.h"
 
 namespace Ui {
 class DlgPlanificacionDia;
@@ -16,7 +17,10 @@ public:
     explicit DlgPlanificacionDia(QWidget *parent = 0);
     ~DlgPlanificacionDia();
     void setData(PlanificacionDiaPtr data);
-
+    QDate Dia();
+    QString Notas();
+    int IDSupervisor();
+    PlanificacionSubSectorLst Planificaciones();
 private:
     void displayPlannedHours(double hours);
 
@@ -27,6 +31,7 @@ private slots:
 
 private:
     Ui::DlgPlanificacionDia *ui;
+    QDate m_Dia;
 };
 
 #endif // DLGPLANIFICACIONDIA_H

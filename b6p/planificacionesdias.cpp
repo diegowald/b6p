@@ -125,16 +125,12 @@ bool PlanificacionesDias::edit(QVariant ID)
     dlg.setData(p);
     if (dlg.exec() == QDialog::Accepted)
     {
-/*        e->Apellido().setValue(dlg.Apellido());
-        e->Nombre().setValue(dlg.Nombres());
-        e->FechaIngreso().setValue(dlg.FechaIngreso());
-        e->Legajo().setValue(dlg.Legajo());
+        p->Dia().setValue(dlg.Dia());
+        p->Notas().setValue(dlg.Notas());
+        p->IDSupervisor().setValue(dlg.IDSupervisor());
 
-        e->updateCapacities(dlg.Capacities());
-        CalendarioPersonaLst disponibilidades = dlg.Disponibilidades();
-        e->updateDisponibilidades(disponibilidades);
-
-        m_Empleados[e->IDEmpleado().value()] = e;*/
+        p->updatePlanificaciones(dlg.Planificaciones());
+        m_Planificaciones[p->Dia().value()] = p;
         return true;
     }
     return false;

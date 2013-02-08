@@ -97,3 +97,8 @@ QString PlanificacionDia::Estado()
     }
     return res;
 }
+
+void PlanificacionDia::updatePlanificaciones(PlanificacionSubSectorLst dataFrom)
+{
+    //seguir aca
+}

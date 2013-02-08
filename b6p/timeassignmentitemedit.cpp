@@ -101,3 +101,38 @@ double TimeAssignmentItemEdit::CantidadHoras()
     double cantHoras = delta / 1000.0 / 3600.0;
     return cantHoras;
 }
+
+int TimeAssignmentItemEdit::IDSector()
+{
+    return ui->cboSectores->itemData(ui->cboSectores->currentIndex(), Qt::UserRole).toInt();
+}
+
+bool TimeAssignmentItemEdit::isSubSectorEmpty()
+{
+    return (ui->cboSubsectores->count() == 0);
+}
+
+int TimeAssignmentItemEdit::IDSubSector()
+{
+    return ui->cboSubsectores->itemData(ui->cboSubsectores->currentIndex(), Qt::UserRole).toInt();
+}
+
+bool TimeAssignmentItemEdit::isEmpleadoEmpty()
+{
+    return (ui->cboEmpleado->count() == 0);
+}
+
+int TimeAssignmentItemEdit::IDEmpleado()
+{
+    return ui->cboEmpleado->itemData(ui->cboEmpleado->currentIndex(), Qt::UserRole).toInt();
+}
+
+QTime TimeAssignmentItemEdit::HoraInicio()
+{
+    return ui->timeInicio->time();
+}
+
+QTime TimeAssignmentItemEdit::HoraFin()
+{
+    return ui->timeFin->time();
+}

@@ -18,6 +18,15 @@ public:
     
     double CantidadHoras();
 
+    int IDSector();
+    bool isSubSectorEmpty();
+    int IDSubSector();
+    bool isEmpleadoEmpty();
+    int IDEmpleado();
+    QTime HoraInicio();
+    QTime HoraFin();
+
+
 signals:
     void AssignmentChanged(QDateTime from, QDateTime to);
 
