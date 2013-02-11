@@ -56,6 +56,11 @@ int SQLHandler::executeQuery(QString cmd, RecordPtr record, bool returnLastInser
             case QVariant::Time:
             {
                 QDateTime dt = value.toDateTime();
+                if (value.type() == QVariant::Time)
+                {
+                    dt.setDate(QDateTime::currentDateTime().date());
+                    dt.setTime(value.toTime());
+                }
                 value = dt.toMSecsSinceEpoch();
                 break;
             }

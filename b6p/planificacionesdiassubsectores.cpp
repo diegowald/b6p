@@ -14,12 +14,12 @@ void PlanificacionesDiasSubSectores::addRecord(Record &record)
 {
     PlanificacionSubSectorPtr p(new PlanificacionSubSector(this));
 
-    p->Dia().setValue(record["Dia"].toDate());
+    p->Dia().setValue(QDateTime::fromMSecsSinceEpoch(record["Dia"].toLongLong()).date());
     p->IDSector().setValue(record["IDSector"].toInt());
     p->IDSubSector().setValue(record["IDSubsector"].toInt());
     p->IDEmpleado().setValue(record["IDEmpleado"].toInt());
-    p->HoraInicio().setValue(record["HoraInicio"].toTime());
-    p->HoraFin().setValue(record["HoraFin"].toTime());
+    p->HoraInicio().setValue(QDateTime::fromMSecsSinceEpoch(record["HoraInicio"].toLongLong()).time());
+    p->HoraFin().setValue(QDateTime::fromMSecsSinceEpoch(record["HoraFin"].toLongLong()).time());
     p->setInitialized();
 
     m_Planificacion.push_back(p);
@@ -107,20 +107,28 @@ PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getAll(QDate Dia)
 
 void PlanificacionesDiasSubSectores::updateWithOtherData(PlanificacionSubSectorLst other)
 {
+    if (other->count() == 0)
+        return;
+
     PlanificacionSubSectorLst lista = getAll(other->at(0)->Dia().value());
 
-    foreach(PlanificacionSubSectorPtr ps, *lista)
+    foreach (PlanificacionSubSectorPtr o, *other)
     {
         bool found = false;
-        foreach(PlanificacionSubSectorPtr p, *other)
+        foreach(PlanificacionSubSectorPtr ps, *lista)
         {
-            if (ps->isEqualsTo(p))
+            if (ps->isEqualsTo(o))
             {
-                ps->updateWith(p);
+                ps->updateWith(o);
                 found = true;
+                break;
             }
-            if (!found)
-                m_Planificacion.push_back(ps);
+        }
+        if (!found)
+        {
+            m_Planificacion.push_back(o);
+            o->setParent(this);
+            o->setNew();
         }
     }
 }

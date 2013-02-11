@@ -87,7 +87,7 @@ EmpleadosLst Empleados::getAll()
     return res;
 }
 
-EmpleadosLst Empleados::getAll(int IDSector, int IDSubSector, int Dia, QTime HoraInicio, QTime HoraFin)
+EmpleadosLst Empleados::getAll(int IDSector, int IDSubSector, DAYS Dia, QTime HoraInicio, QTime HoraFin)
 {
     EmpleadosLst res(new QList<EmpleadoPtr>());
     foreach(EmpleadoPtr e, m_Empleados.values())

@@ -112,3 +112,8 @@ void PlanificacionDia::updatePlanificaciones(PlanificacionSubSectorLst dataFrom)
 {
     DataStore::instance()->getPlanificacionesSubSectores()->updateWithOtherData(dataFrom);
 }
+
+PlanificacionSubSectorLst PlanificacionDia::getPlanificaciones()
+{
+    return DataStore::instance()->getPlanificacionesSubSectores()->getAll(m_Dia.value());
+}

@@ -83,7 +83,10 @@ void PlanificacionesDias::fillData(QTreeWidget &tree)
         QTreeWidgetItem *item = new QTreeWidgetItem();
         item->setText(0, p->Dia().value().toString(Qt::TextDate));
         item->setData(0, Qt::UserRole, p->Dia().value());
-        item->setText(1, p->Supervisor()->Apellido().value());
+        if (p->IDSupervisor().isNull() || p->IDSupervisor().value() == -1)
+            item->setText(1, "");
+        else
+            item->setText(1, p->Supervisor()->Apellido().value());
         item->setText(2, p->Notas().value());
         item->setText(3, QString::number(p->Estimacion()->EstimacionHoras().value()));
         item->setText(4, QString::number(p->HorasPlanificadas()));
@@ -131,6 +134,7 @@ bool PlanificacionesDias::edit(QVariant ID)
 
         p->updatePlanificaciones(dlg.Planificaciones());
         m_Planificaciones[p->Dia().value()] = p;
+        p->setParent(this);
         return true;
     }
     return false;
@@ -160,4 +164,9 @@ PlanificacionDiaPtr PlanificacionesDias::getByDay(QDate day)
         return PlanificacionDiaPtr();
     else
         return m_Planificaciones[day];
+}
+
+void PlanificacionesDias::saveDependants()
+{
+    DataStore::instance()->getPlanificacionesSubSectores()->save();
 }

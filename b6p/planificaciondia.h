@@ -33,6 +33,7 @@ public:
     QString Estado();
 
     void updatePlanificaciones(PlanificacionSubSectorLst dataFrom);
+    PlanificacionSubSectorLst getPlanificaciones();
 
 signals:
     

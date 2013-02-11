@@ -9,6 +9,7 @@
 
 #include "capacidadpersonasector.h"
 #include "calendariopersona.h"
+#include "days.h"
 
 class Empleado : public QObject, public IRecord
 {
@@ -30,7 +31,7 @@ public:
 
     virtual RecordPtr asRecordPtr();
 
-    bool canWork(int Dia, int IDSector, int IDSubSector, QTime HoraInicio, QTime HoraFin);
+    bool canWork(DAYS Dia, int IDSector, int IDSubSector, QTime HoraInicio, QTime HoraFin);
 
 signals:
     

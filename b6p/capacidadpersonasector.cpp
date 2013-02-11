@@ -82,7 +82,7 @@ bool CapacidadPersonaSector::canWork(int IDSector, int IDSubSector)
     if (m_IDSector.value() != IDSector)
         return false;
 
-    if ((IDSubSector == -1) && m_ID_SubSector.isNull())
+    if ((IDSubSector == -1) && (m_ID_SubSector.isNull() || m_ID_SubSector.value() == 0))
         return true;
 
     return m_ID_SubSector.value() == IDSubSector;

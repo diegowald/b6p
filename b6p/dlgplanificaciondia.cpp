@@ -25,6 +25,33 @@ void DlgPlanificacionDia::setData(PlanificacionDiaPtr data)
     ui->txtNotes->clear();
     if (!data->Notas().isNull())
         ui->txtNotes->setText(data->Notas().value());
+
+    PlanificacionSubSectorLst planes = data->getPlanificaciones();
+    foreach (PlanificacionSubSectorPtr plan, *planes)
+    {
+        QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget);
+        ui->treeWidget->addTopLevelItem(item);
+        TimeAssignmentItemEdit *time = new TimeAssignmentItemEdit();
+        time->setDate(m_Dia);
+
+        if (plan->IDSector().isNull())
+            time->setIDSectorNull();
+        else
+            time->setIDSector(plan->IDSector().value());
+        if (plan->IDSubSector().isNull())
+            time->setIDSubSectorNull();
+        else
+            time->setIDSubSector(plan->IDSubSector().value());
+        if (plan->IDEmpleado().isNull())
+            time->setIDEmpleadoNull();
+        else
+            time->setIDEmpleado(plan->IDEmpleado().value());
+        time->setHoraInicio(plan->HoraInicio().value());
+        time->setHoraFin(plan->HoraFin().value());
+
+        ui->treeWidget->setItemWidget(item, 0, time);
+        connect(time, SIGNAL(AssignmentChanged(QDateTime,QDateTime)), this, SLOT(slot_AssignmentChanged(QDateTime,QDateTime)));
+    }
 }
 
 void DlgPlanificacionDia::on_btnAdd_pressed()
@@ -32,6 +59,7 @@ void DlgPlanificacionDia::on_btnAdd_pressed()
     QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget);
     ui->treeWidget->addTopLevelItem(item);
     TimeAssignmentItemEdit *time = new TimeAssignmentItemEdit();
+    time->setDate(m_Dia);
     ui->treeWidget->setItemWidget(item, 0, time);
     connect(time, SIGNAL(AssignmentChanged(QDateTime,QDateTime)), this, SLOT(slot_AssignmentChanged(QDateTime, QDateTime)));
 }

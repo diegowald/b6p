@@ -84,8 +84,8 @@ double PlanificacionSubSector::CantidadHoras()
         return 0;
     if (m_HoraInicio.isNull())
         return 0;
-    QDateTime inicio(QDateTime::currentDateTime().date(), m_HoraFin.value());
-    QDateTime fin(QDateTime::currentDateTime().date(), m_HoraInicio.value());
+    QDateTime inicio(QDateTime::currentDateTime().date(), m_HoraInicio.value());
+    QDateTime fin(QDateTime::currentDateTime().date(), m_HoraFin.value());
     qlonglong delta = fin.toMSecsSinceEpoch() - inicio.toMSecsSinceEpoch();
     double cantHoras = delta / 1000.0 / 3600.0;
     return cantHoras;

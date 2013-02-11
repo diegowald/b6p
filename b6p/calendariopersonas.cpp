@@ -19,7 +19,7 @@ void CalendarioPersonas::addRecord(Record &record)
     CalendarioPersonaPtr c(new CalendarioPersona(this));
 
     c->Dia().setValue(record["Dia"].toInt());
-    c->IDEmpleado().setValue(record["IDEmpleado"].toInt());    
+    c->IDEmpleado().setValue(record["IDEmpleado"].toInt());
     c->HoraIngreso().setValue(QDateTime::fromMSecsSinceEpoch(record["HoraIngreso"].toLongLong()).time());
     c->HoraEgreso().setValue(QDateTime::fromMSecsSinceEpoch(record["HoraEgreso"].toLongLong()).time());
     c->setInitialized();

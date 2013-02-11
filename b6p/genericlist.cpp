@@ -13,6 +13,7 @@ GenericList::GenericList(boost::shared_ptr<ACollection> Model, QWidget *parent) 
     setHeader(headers);
     ui->treeList->clear();
     model->fillData(*ui->treeList);
+    setWindowTitle(Model->name());
 }
 
 GenericList::~GenericList()

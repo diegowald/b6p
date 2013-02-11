@@ -26,6 +26,19 @@ public:
     QTime HoraInicio();
     QTime HoraFin();
 
+    void setIDSector(int value);
+    void setIDSectorNull();
+    void setIDSubSector(int value);
+    void setIDSubSectorNull();
+    void setIDEmpleado(int value);
+    void setIDEmpleadoNull();
+    void setHoraInicio(QTime value);
+    void setHoraFin(QTime value);
+
+
+    QDate Date();
+    void setDate(QDate value);
+
 
 signals:
     void AssignmentChanged(QDateTime from, QDateTime to);
@@ -43,6 +56,7 @@ private slots:
 
 private:
     Ui::TimeAssignmentItemEdit *ui;
+    QDate date;
 };
 
 #endif // TIMEASSIGNMENTITEMEDIT_H

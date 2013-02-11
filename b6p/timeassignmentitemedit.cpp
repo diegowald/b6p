@@ -1,6 +1,7 @@
 #include "timeassignmentitemedit.h"
 #include "ui_timeassignmentitemedit.h"
 #include "datastore.h"
+#include "days.h"
 
 TimeAssignmentItemEdit::TimeAssignmentItemEdit(QWidget *parent) :
     QWidget(parent),
@@ -81,7 +82,10 @@ void TimeAssignmentItemEdit::llenarEmpleados()
     int IDSubSector = -1;
     if (ui->cboSubsectores->count() > 0)
         IDSubSector = ui->cboSubsectores->itemData(ui->cboSubsectores->currentIndex(), Qt::UserRole).toInt();
-    int Dia = 0;
+
+
+    DAYS Dia = Days::DayOfWeek2DAYS(date.dayOfWeek());
+
     QTime HoraInicio = ui->timeInicio->time();
     QTime HoraFin = ui->timeFin->time();
 
@@ -135,4 +139,54 @@ QTime TimeAssignmentItemEdit::HoraInicio()
 QTime TimeAssignmentItemEdit::HoraFin()
 {
     return ui->timeFin->time();
+}
+
+void TimeAssignmentItemEdit::setDate(QDate value)
+{
+    date = value;
+}
+
+QDate TimeAssignmentItemEdit::Date()
+{
+    return date;
+}
+
+void TimeAssignmentItemEdit::setIDSector(int value)
+{
+    ui->cboSectores->setCurrentIndex(ui->cboSectores->findData(value, Qt::UserRole));
+}
+
+void TimeAssignmentItemEdit::setIDSectorNull()
+{
+    ui->cboSectores->setCurrentIndex(-1);
+}
+
+void TimeAssignmentItemEdit::setIDSubSector(int value)
+{
+    ui->cboSubsectores->setCurrentIndex(ui->cboSubsectores->findData(value, Qt::UserRole));
+}
+
+void TimeAssignmentItemEdit::setIDSubSectorNull()
+{
+    ui->cboSubsectores->setCurrentIndex(-1);
+}
+
+void TimeAssignmentItemEdit::setIDEmpleado(int value)
+{
+    ui->cboEmpleado->setCurrentIndex(ui->cboEmpleado->findData(value));
+}
+
+void TimeAssignmentItemEdit::setIDEmpleadoNull()
+{
+    ui->cboEmpleado->setCurrentIndex(-1);
+}
+
+void TimeAssignmentItemEdit::setHoraInicio(QTime value)
+{
+    ui->timeInicio->setTime(value);
+}
+
+void TimeAssignmentItemEdit::setHoraFin(QTime value)
+{
+    ui->timeFin->setTime(value);
 }

@@ -51,3 +51,32 @@ DAYS Days::String2Day(QString day)
     else
         return Sunday;
 }
+
+DAYS Days::DayOfWeek2DAYS(int dayOfWeek)
+{
+    switch(dayOfWeek)
+    {
+    case 1:
+        return Monday;
+        break;
+    case 2:
+        return Tuesday;
+        break;
+    case 3:
+        return Wednesday;
+        break;
+    case 4:
+        return Thursday;
+        break;
+    case 5:
+        return Friday;
+        break;
+    case 6:
+        return Saturday;
+        break;
+    case 7:
+    default:
+        return Sunday;
+        break;
+    }
+}
