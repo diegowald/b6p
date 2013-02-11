@@ -90,3 +90,37 @@ bool PlanificacionesDiasSubSectores::edit(QVariant ID)
 bool PlanificacionesDiasSubSectores::deleteElement(QVariant ID)
 {
 }
+
+PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getAll(QDate Dia)
+{
+    PlanificacionSubSectorLst res(new QList<PlanificacionSubSectorPtr>());
+
+    foreach(PlanificacionSubSectorPtr p, m_Planificacion)
+    {
+        if (p->Dia().value() == Dia)
+            res->push_back(p);
+    }
+
+    return res;
+}
+
+
+void PlanificacionesDiasSubSectores::updateWithOtherData(PlanificacionSubSectorLst other)
+{
+    PlanificacionSubSectorLst lista = getAll(other->at(0)->Dia().value());
+
+    foreach(PlanificacionSubSectorPtr ps, *lista)
+    {
+        bool found = false;
+        foreach(PlanificacionSubSectorPtr p, *other)
+        {
+            if (ps->isEqualsTo(p))
+            {
+                ps->updateWith(p);
+                found = true;
+            }
+            if (!found)
+                m_Planificacion.push_back(ps);
+        }
+    }
+}

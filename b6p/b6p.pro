@@ -120,3 +120,6 @@ FORMS    += mainwindow.ui \
     dlgselectorbytdate.ui \
     dlgplanificaciondia.ui
 
+RESOURCES += \
+    resources.qrc
+

@@ -77,3 +77,48 @@ EmpleadoPtr PlanificacionSubSector::getEmpleado()
 {
     return DataStore::instance()->getEmpleados()->getEmpleado(m_IDEmpleado.value());
 }
+
+double PlanificacionSubSector::CantidadHoras()
+{
+    if (m_HoraFin.isNull())
+        return 0;
+    if (m_HoraInicio.isNull())
+        return 0;
+    QDateTime inicio(QDateTime::currentDateTime().date(), m_HoraFin.value());
+    QDateTime fin(QDateTime::currentDateTime().date(), m_HoraInicio.value());
+    qlonglong delta = fin.toMSecsSinceEpoch() - inicio.toMSecsSinceEpoch();
+    double cantHoras = delta / 1000.0 / 3600.0;
+    return cantHoras;
+}
+
+bool PlanificacionSubSector::isEqualsTo(PlanificacionSubSectorPtr other)
+{
+    if (m_Dia.value() != other->Dia().value())
+        return false;
+
+    if (m_IDSector.value() != other->IDSector().value())
+        return false;
+
+    if (m_IDSubSector.value() != other->IDSubSector().value())
+        return false;
+
+    return true;
+}
+
+void PlanificacionSubSector::updateWith(PlanificacionSubSectorPtr other)
+{
+    if (other->IDEmpleado().isNull())
+        m_IDEmpleado.setNull();
+    else
+        m_IDEmpleado.setValue(other->IDEmpleado().value());
+
+    if (other->HoraInicio().isNull())
+        m_HoraInicio.setNull();
+    else
+        m_HoraInicio.setValue(other->HoraInicio().value());
+
+    if (other->HoraFin().isNull())
+        m_HoraFin.setNull();
+    else
+        m_HoraFin.setValue(other->HoraFin().value());
+}

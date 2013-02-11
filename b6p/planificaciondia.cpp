@@ -1,5 +1,6 @@
 #include "planificaciondia.h"
 #include "datastore.h"
+#include "planificacionsubsector.h"
 
 PlanificacionDia::PlanificacionDia(QDate date, QObject *parent) :
     QObject(parent)
@@ -68,7 +69,16 @@ EstimacionDiaPtr PlanificacionDia::Estimacion()
 
 int PlanificacionDia::HorasPlanificadas()
 {
-    return -1;
+    PlanificacionSubSectorLst planificaciones =
+            DataStore::instance()->getPlanificacionesSubSectores()->getAll(this->Dia().value());
+
+    double total = 0;
+
+    foreach(PlanificacionSubSectorPtr p, *planificaciones)
+    {
+        total += p->CantidadHoras();
+    }
+    return total;
 }
 
 QString PlanificacionDia::Estado()
@@ -100,5 +110,5 @@ QString PlanificacionDia::Estado()
 
 void PlanificacionDia::updatePlanificaciones(PlanificacionSubSectorLst dataFrom)
 {
-    //seguir aca
+    DataStore::instance()->getPlanificacionesSubSectores()->updateWithOtherData(dataFrom);
 }

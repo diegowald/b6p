@@ -22,6 +22,10 @@ public:
     virtual bool deleteElement(QVariant ID);
     virtual void refreshID(int) {}
     virtual void saveDependants() {}
+
+    void updateWithOtherData(PlanificacionSubSectorLst other);
+
+    PlanificacionSubSectorLst getAll(QDate Dia);
 signals:
     
 public slots:

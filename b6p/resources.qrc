@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/img">
+        <file>images/glyphicons_037_coins.png</file>
+        <file>images/glyphicons_041_charts.png</file>
+        <file alias="employees">images/glyphicons_043_group.png</file>
+        <file>images/glyphicons_045_calendar.png</file>
+        <file>images/glyphicons_053_alarm.png</file>
+        <file alias="clock">images/glyphicons_054_clock.png</file>
+        <file>images/glyphicons_055_stopwatch.png</file>
+        <file>images/glyphicons_083_random.png</file>
+        <file alias="add">images/glyphicons_190_circle_plus.png</file>
+        <file alias="remove">images/glyphicons_191_circle_minus.png</file>
+        <file>images/glyphicons_192_circle_remove.png</file>
+        <file>images/glyphicons_193_circle_ok.png</file>
+        <file>images/glyphicons_194_circle_question_mark.png</file>
+        <file>images/glyphicons_195_circle_info.png</file>
+        <file>images/glyphicons_206_ok_2.png</file>
+    </qresource>
+</RCC>

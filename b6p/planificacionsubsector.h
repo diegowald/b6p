@@ -9,6 +9,11 @@
 #include "subsector.h"
 #include "empleado.h"
 
+class PlanificacionSubSector;
+typedef boost::shared_ptr<PlanificacionSubSector> PlanificacionSubSectorPtr;
+typedef boost::shared_ptr<QList<PlanificacionSubSectorPtr> > PlanificacionSubSectorLst;
+
+
 class PlanificacionSubSector : public QObject, public IRecord
 {
     Q_OBJECT
@@ -26,7 +31,13 @@ public:
     SubSectorPtr getSubsector();
     EmpleadoPtr getEmpleado();
 
+    bool isEqualsTo(PlanificacionSubSectorPtr other);
+    void updateWith(PlanificacionSubSectorPtr other);
+
     virtual RecordPtr asRecordPtr();
+
+    double CantidadHoras();
+
 signals:
     
 public slots:
@@ -40,7 +51,5 @@ private:
     NullableField<QTime> m_HoraFin;
 };
 
-typedef boost::shared_ptr<PlanificacionSubSector> PlanificacionSubSectorPtr;
-typedef boost::shared_ptr<QList<PlanificacionSubSectorPtr> > PlanificacionSubSectorLst;
 
 #endif // PLANIFICACIONSUBSECTOR_H
