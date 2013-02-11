@@ -97,6 +97,10 @@
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOpen">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/img/images/glyphicons_144_folder_open.png</normaloff>:/img/images/glyphicons_144_folder_open.png</iconset>
+   </property>
    <property name="text">
     <string>Open</string>
    </property>
@@ -108,6 +112,10 @@
    </property>
   </action>
   <action name="actionApprove">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/img/images/glyphicons_206_ok_2.png</normaloff>:/img/images/glyphicons_206_ok_2.png</iconset>
+   </property>
    <property name="text">
     <string>Approve</string>
    </property>
@@ -116,6 +124,10 @@
    </property>
   </action>
   <action name="actionPrint">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/img/images/glyphicons_015_print.png</normaloff>:/img/images/glyphicons_015_print.png</iconset>
+   </property>
    <property name="text">
     <string>Print</string>
    </property>
@@ -135,6 +147,10 @@
    </property>
   </action>
   <action name="actionView">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/img/images/glyphicons_024_parents.png</normaloff>:/img/images/glyphicons_024_parents.png</iconset>
+   </property>
    <property name="text">
     <string>View</string>
    </property>
@@ -143,6 +159,10 @@
    </property>
   </action>
   <action name="actionParameters">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/img/images/glyphicons_139_adjust_alt.png</normaloff>:/img/images/glyphicons_139_adjust_alt.png</iconset>
+   </property>
    <property name="text">
     <string>Parameters</string>
    </property>
@@ -151,6 +171,10 @@
    </property>
   </action>
   <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/img/images/glyphicons_195_circle_info.png</normaloff>:/img/images/glyphicons_195_circle_info.png</iconset>
+   </property>
    <property name="text">
     <string>About...</string>
    </property>
@@ -159,6 +183,10 @@
    </property>
   </action>
   <action name="actionSetup_days">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/img/images/glyphicons_327_sampler.png</normaloff>:/img/images/glyphicons_327_sampler.png</iconset>
+   </property>
    <property name="text">
     <string>Setup days...</string>
    </property>

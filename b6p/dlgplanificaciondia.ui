@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Planning</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/img/images/glyphicons_057_history.png</normaloff>:/img/images/glyphicons_057_history.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -67,12 +71,20 @@
        <property name="text">
         <string>Add</string>
        </property>
+       <property name="icon">
+        <iconset resource="resources.qrc">
+         <normaloff>:/img/add</normaloff>:/img/add</iconset>
+       </property>
       </widget>
      </item>
      <item row="0" column="1">
       <widget class="QToolButton" name="btnEdit">
        <property name="text">
         <string>Edit</string>
+       </property>
+       <property name="icon">
+        <iconset resource="resources.qrc">
+         <normaloff>:/img/images/glyphicons_196_circle_exclamation_mark.png</normaloff>:/img/images/glyphicons_196_circle_exclamation_mark.png</iconset>
        </property>
       </widget>
      </item>
@@ -142,7 +154,7 @@
      <item>
       <widget class="QLabel" name="Notes">
        <property name="text">
-        <string>TextLabel</string>
+        <string>Notes:</string>
        </property>
       </widget>
      </item>
@@ -163,7 +175,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

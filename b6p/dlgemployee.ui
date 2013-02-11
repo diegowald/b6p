@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Employee</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/img/images/glyphicons_024_parents.png</normaloff>:/img/images/glyphicons_024_parents.png</iconset>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
     <number>2</number>
@@ -32,7 +36,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -134,12 +138,20 @@
              <property name="text">
               <string>Edit</string>
              </property>
+             <property name="icon">
+              <iconset resource="resources.qrc">
+               <normaloff>:/img/images/glyphicons_196_circle_exclamation_mark.png</normaloff>:/img/images/glyphicons_196_circle_exclamation_mark.png</iconset>
+             </property>
             </widget>
            </item>
            <item row="0" column="0">
             <widget class="QToolButton" name="btnAdd">
              <property name="text">
               <string>Add</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources.qrc">
+               <normaloff>:/img/add</normaloff>:/img/add</iconset>
              </property>
             </widget>
            </item>
@@ -239,7 +251,9 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>
