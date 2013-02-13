@@ -74,7 +74,8 @@ SOURCES += main.cpp\
     sqlhandler.cpp \
     dlgestimaciondia.cpp \
     dlgselectorbytdate.cpp \
-    dlgplanificaciondia.cpp
+    dlgplanificaciondia.cpp \
+    dlgparametros.cpp
 
 HEADERS  += mainwindow.h \
     timeassignment.h \
@@ -110,7 +111,8 @@ HEADERS  += mainwindow.h \
     IRecord.h \
     dlgestimaciondia.h \
     dlgselectorbytdate.h \
-    dlgplanificaciondia.h
+    dlgplanificaciondia.h \
+    dlgparametros.h
 
 FORMS    += mainwindow.ui \
     genericlist.ui \
@@ -120,7 +122,8 @@ FORMS    += mainwindow.ui \
     capacitywidget.ui \
     dlgestimaciondia.ui \
     dlgselectorbytdate.ui \
-    dlgplanificaciondia.ui
+    dlgplanificaciondia.ui \
+    dlgparametros.ui
 
 RESOURCES += \
     resources.qrc

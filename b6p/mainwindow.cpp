@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "genericlist.h"
 #include "datastore.h"
+#include "dlgparametros.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -87,6 +88,11 @@ void MainWindow::on_actionSetup_days_triggered()
 void MainWindow::on_actionParameters_triggered()
 {
     // Open Parameters
+    DlgParametros dlg(this);
+    if (dlg.exec() == QDialog::Accepted)
+    {
+        // aca hay que guardar los parametros
+    }
 }
 
 void MainWindow::on_actionAbout_triggered()
