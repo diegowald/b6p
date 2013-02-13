@@ -38,6 +38,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = b6p
 TEMPLATE = app
 
+TRANSLATIONS = b6p.ts \
+               b6p_esAR.ts
 
 SOURCES += main.cpp\
         mainwindow.cpp \
