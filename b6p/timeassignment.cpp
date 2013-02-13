@@ -7,12 +7,19 @@
 TimeAssignment::TimeAssignment(QWidget *parent) :
     QWidget(parent)
 {
-    m_BackgroundColor = QColor(255, 255, 50);
-    m_TimelineColor = QColor(100, 100, 100);
-    m_AssignmentColor = QColor(230, 12, 56);
+
+    /*ui->widget->setBackgroundColor(Qt::white);
+    ui->widget->setTimeLineColor(Qt::lightGray);
+    ui->widget->setTimeLineHeight(4);
+    ui->widget->setAssignmentColor(Qt::darkRed);
+    ui->widget->setAssignmentHeight(6);
+*/
+    m_BackgroundColor = QColor(255, 255, 255);
+    m_TimelineColor = Qt::lightGray;
+    m_AssignmentColor = Qt::darkRed;
     m_HorizontalGap = 10;
-    m_TimelineHeight = 6;
-    m_AssignmentHeight = 12;
+    m_TimelineHeight = 4;
+    m_AssignmentHeight = 6;
     m_FontSize = 10;
     m_InitialTimeline.setDate(QDate::currentDate());
     m_InitialTimeline.setTime(QTime(0, 0, 0, 0));

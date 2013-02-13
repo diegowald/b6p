@@ -34,16 +34,12 @@ void ACollection::load()
 void ACollection::save()
 {
     emit saving(m_Name);
-    // Obtener los registros eliminados.
+
     deleteRecordsDB();
-
-    // Obtener los registros modificados
     updateRecordsToDB();
-
-    // Obtener los registros nuevos
     addNewRecordsToDB();
-
     saveDependants();
+    setStatusToUnmodified();
 
     emit saved(m_Name);
 }

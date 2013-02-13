@@ -20,6 +20,9 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(datastore_saved(QString)));
     connect(DataStore::instance(), SIGNAL(saving(QString)),
             this, SLOT(datastore_saving(QString)));
+
+    ui->mainToolBar->hide();
+
     /*ui->widget->setBackgroundColor(Qt::white);
     ui->widget->setTimeLineColor(Qt::lightGray);
     ui->widget->setTimeLineHeight(4);
