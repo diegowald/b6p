@@ -4,12 +4,12 @@
 <context>
     <name>ACollection</name>
     <message>
-        <location filename="acollection.cpp" line="97"/>
+        <location filename="acollection.cpp" line="93"/>
         <source>Delete element</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="acollection.cpp" line="98"/>
+        <location filename="acollection.cpp" line="94"/>
         <source>Do you want to remove it?</source>
         <translation></translation>
     </message>
@@ -113,7 +113,7 @@
     <message>
         <location filename="capacitywidget.cpp" line="45"/>
         <source>Excellent (10)</source>
-        <translation></translation>
+        <translation>Excellent (10)</translation>
     </message>
 </context>
 <context>
@@ -185,6 +185,64 @@
         <location filename="dlgestimaciondia.ui" line="57"/>
         <source>Estimation (hours)</source>
         <translation></translation>
+    </message>
+</context>
+<context>
+    <name>DlgParametros</name>
+    <message>
+        <location filename="dlgparametros.ui" line="17"/>
+        <source>Parameters</source>
+        <translation>Parameters</translation>
+    </message>
+    <message>
+        <location filename="dlgparametros.ui" line="31"/>
+        <source>Estimations &amp; Planifications</source>
+        <translation>Estimations &amp; Planifications</translation>
+    </message>
+    <message>
+        <location filename="dlgparametros.ui" line="42"/>
+        <source>Open</source>
+        <translation>Open</translation>
+    </message>
+    <message>
+        <location filename="dlgparametros.ui" line="52"/>
+        <source>Close</source>
+        <translation>Close</translation>
+    </message>
+    <message>
+        <location filename="dlgparametros.ui" line="62"/>
+        <source>Default Estimation (hs)</source>
+        <translation>Default Estimation (hs)</translation>
+    </message>
+    <message>
+        <location filename="dlgparametros.ui" line="72"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimun Working &lt;/p&gt;&lt;p&gt;hours for a task&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimun Working &lt;/p&gt;&lt;p&gt;hours for a task&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="dlgparametros.ui" line="85"/>
+        <source>Employee</source>
+        <translation>Employee</translation>
+    </message>
+    <message>
+        <location filename="dlgparametros.ui" line="91"/>
+        <source>Minimum Working hours.</source>
+        <translation>Minimum Working hours.</translation>
+    </message>
+    <message>
+        <location filename="dlgparametros.ui" line="101"/>
+        <source>Maximum Working hours</source>
+        <translation>Maximum Working hours</translation>
+    </message>
+    <message>
+        <location filename="dlgparametros.ui" line="111"/>
+        <source>Days between free day.</source>
+        <translation>Days betwee a free day.</translation>
+    </message>
+    <message>
+        <location filename="dlgparametros.ui" line="132"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;This window is useless&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;This window is useless&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -345,7 +403,7 @@
     <message>
         <location filename="mainwindow.ui" line="14"/>
         <source>Big Six Planner</source>
-        <translation></translation>
+        <translation>Big Six Planner</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="56"/>
@@ -438,22 +496,22 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="96"/>
+        <location filename="mainwindow.cpp" line="105"/>
         <source>%1 Loaded.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="101"/>
+        <location filename="mainwindow.cpp" line="110"/>
         <source>Loading %1...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="106"/>
+        <location filename="mainwindow.cpp" line="115"/>
         <source>%1 Saved.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="111"/>
+        <location filename="mainwindow.cpp" line="120"/>
         <source>Saving %1...</source>
         <translation></translation>
     </message>

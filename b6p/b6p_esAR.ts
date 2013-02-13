@@ -4,12 +4,12 @@
 <context>
     <name>ACollection</name>
     <message>
-        <location filename="acollection.cpp" line="97"/>
+        <location filename="acollection.cpp" line="93"/>
         <source>Delete element</source>
         <translation>Borrar elemento</translation>
     </message>
     <message>
-        <location filename="acollection.cpp" line="98"/>
+        <location filename="acollection.cpp" line="94"/>
         <source>Do you want to remove it?</source>
         <translation>Desea borrar el elemento?</translation>
     </message>
@@ -113,7 +113,7 @@
     <message>
         <location filename="capacitywidget.cpp" line="45"/>
         <source>Excellent (10)</source>
-        <translation>Excelente (%1)</translation>
+        <translation>Excelente (10)</translation>
     </message>
 </context>
 <context>
@@ -188,6 +188,64 @@
     </message>
 </context>
 <context>
+    <name>DlgParametros</name>
+    <message>
+        <location filename="dlgparametros.ui" line="17"/>
+        <source>Parameters</source>
+        <translation>Parametros</translation>
+    </message>
+    <message>
+        <location filename="dlgparametros.ui" line="31"/>
+        <source>Estimations &amp; Planifications</source>
+        <translation>Estimaciones y planificaciones</translation>
+    </message>
+    <message>
+        <location filename="dlgparametros.ui" line="42"/>
+        <source>Open</source>
+        <translation>Apertura</translation>
+    </message>
+    <message>
+        <location filename="dlgparametros.ui" line="52"/>
+        <source>Close</source>
+        <translation>Cierre</translation>
+    </message>
+    <message>
+        <location filename="dlgparametros.ui" line="62"/>
+        <source>Default Estimation (hs)</source>
+        <translation>Estimacion inicial (hs)</translation>
+    </message>
+    <message>
+        <location filename="dlgparametros.ui" line="72"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimun Working &lt;/p&gt;&lt;p&gt;hours for a task&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cant. minima de horas&lt;/p&gt;&lt;p&gt;para una tarea&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="dlgparametros.ui" line="85"/>
+        <source>Employee</source>
+        <translation>Empleado</translation>
+    </message>
+    <message>
+        <location filename="dlgparametros.ui" line="91"/>
+        <source>Minimum Working hours.</source>
+        <translation>Cantidad minima de horas a trabajar.</translation>
+    </message>
+    <message>
+        <location filename="dlgparametros.ui" line="101"/>
+        <source>Maximum Working hours</source>
+        <translation>Cantidad maxima de horas a trabajar</translation>
+    </message>
+    <message>
+        <location filename="dlgparametros.ui" line="111"/>
+        <source>Days between free day.</source>
+        <translation>Maximo de dias entre francos.</translation>
+    </message>
+    <message>
+        <location filename="dlgparametros.ui" line="132"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;This window is useless&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;Esta ventana no funciona!!!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+</context>
+<context>
     <name>DlgPlanificacionDia</name>
     <message>
         <location filename="dlgplanificaciondia.ui" line="14"/>
@@ -243,7 +301,7 @@
     <message>
         <location filename="dlgselectorbytdate.ui" line="17"/>
         <source>Select by date.</source>
-        <translation>Seleccion por fecha</translation>
+        <translation>Seleccion por fecha.</translation>
     </message>
     <message>
         <location filename="dlgselectorbytdate.ui" line="50"/>
@@ -438,22 +496,22 @@
         <translation>Preparar estimaciones de dias</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="96"/>
+        <location filename="mainwindow.cpp" line="105"/>
         <source>%1 Loaded.</source>
         <translation>%1 cargado.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="101"/>
+        <location filename="mainwindow.cpp" line="110"/>
         <source>Loading %1...</source>
         <translation>Cargando %1...</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="106"/>
+        <location filename="mainwindow.cpp" line="115"/>
         <source>%1 Saved.</source>
         <translation>%1 guardado.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="111"/>
+        <location filename="mainwindow.cpp" line="120"/>
         <source>Saving %1...</source>
         <translation>Guardando %1...</translation>
     </message>
