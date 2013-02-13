@@ -155,6 +155,10 @@ bool Empleados::edit(QVariant ID)
 
 bool Empleados::deleteElement(QVariant ID)
 {
+    if (m_Empleados.find(ID.toInt()) == m_Empleados.end())
+        return false;
+    else
+        m_Empleados[ID.toInt()]->setDeleted();
 }
 
 void Empleados::refreshID(int newRecordId)
@@ -169,4 +173,12 @@ void Empleados::saveDependants()
 {
     DataStore::instance()->getCapacidades()->save();
     DataStore::instance()->getCalendarios()->save();
+}
+
+void Empleados::setStatusToUnmodified()
+{
+    foreach (EmpleadoPtr e, m_Empleados.values())
+    {
+        e->setUnmodified();
+    }
 }

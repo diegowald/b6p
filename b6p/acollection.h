@@ -28,6 +28,7 @@ public:
     virtual bool addNew() = 0;
     virtual bool editRecord(QVariant ID);
     virtual bool edit(QVariant ID) = 0;
+    bool deleteRecord(QVariant ID);
     virtual bool deleteElement(QVariant ID) = 0;
 
     virtual QString getDeleteStatement() = 0;
@@ -36,6 +37,7 @@ public:
     virtual RecordSet getRecords(RecordStatus status) = 0;
     virtual void refreshID(int newRecordId) = 0;
     virtual void saveDependants() = 0;
+    virtual void setStatusToUnmodified() = 0;
 
 signals:
     void loaded(QString name);

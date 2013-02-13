@@ -115,3 +115,10 @@ bool Sectores::deleteElement(QVariant ID)
 {
 }
 
+void Sectores::setStatusToUnmodified()
+{
+    foreach(SectorPtr s, m_Sectores.values())
+    {
+        s->setUnmodified();
+    }
+}

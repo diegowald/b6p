@@ -122,3 +122,11 @@ bool SubSectores::edit(QVariant ID)
 bool SubSectores::deleteElement(QVariant ID)
 {
 }
+
+void SubSectores::setStatusToUnmodified()
+{
+    foreach(SubSectorPtr s, m_SubSectores.values())
+    {
+        s->setUnmodified();
+    }
+}

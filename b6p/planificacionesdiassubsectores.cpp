@@ -132,3 +132,11 @@ void PlanificacionesDiasSubSectores::updateWithOtherData(PlanificacionSubSectorL
         }
     }
 }
+
+void PlanificacionesDiasSubSectores::setStatusToUnmodified()
+{
+    foreach(PlanificacionSubSectorPtr p, m_Planificacion)
+    {
+        p->setUnmodified();
+    }
+}

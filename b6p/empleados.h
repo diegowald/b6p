@@ -23,6 +23,7 @@ public:
     virtual bool deleteElement(QVariant ID);
     virtual void refreshID(int newRecordId);
     virtual void saveDependants();
+    virtual void setStatusToUnmodified();
 
 
     virtual QString getDeleteStatement();

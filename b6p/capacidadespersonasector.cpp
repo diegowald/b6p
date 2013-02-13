@@ -93,11 +93,11 @@ RecordSet CapacidadesPersonaSector::getRecords(RecordStatus status)
     return res;
 }
 
-void CapacidadesPersonaSector::defineHeaders(QStringList &list)
+void CapacidadesPersonaSector::defineHeaders(QStringList &)
 {
 }
 
-void CapacidadesPersonaSector::fillData(QTreeWidget &tree)
+void CapacidadesPersonaSector::fillData(QTreeWidget &)
 {
 }
 
@@ -136,5 +136,13 @@ void CapacidadesPersonaSector::updateCapacityfromData(CapacidadPersonaSectorLst 
                 nc->setNew();
             }
         }
+    }
+}
+
+void CapacidadesPersonaSector::setStatusToUnmodified()
+{
+    foreach(CapacidadPersonaSectorPtr c, m_Capacidades)
+    {
+        c->setUnmodified();
     }
 }

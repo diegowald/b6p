@@ -24,6 +24,7 @@ public:
     virtual bool deleteElement(QVariant ID);
     virtual void refreshID(int newRecordId);
     virtual void saveDependants() {}
+    virtual void setStatusToUnmodified();
 
     EstimacionDiaLst getAll();
     EstimacionDiaPtr get(QDate dia);

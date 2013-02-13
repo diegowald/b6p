@@ -152,3 +152,11 @@ void CalendarioPersonas::updateCalendarWithNewIDEmpleado(int oldId, int newId)
         cp->updateIDEmpleado(newId);
     }
 }
+
+void CalendarioPersonas::setStatusToUnmodified()
+{
+    foreach(CalendarioPersonaPtr c, m_Calendarios)
+    {
+        c->setUnmodified();
+    }
+}

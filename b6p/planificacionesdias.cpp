@@ -170,3 +170,11 @@ void PlanificacionesDias::saveDependants()
 {
     DataStore::instance()->getPlanificacionesSubSectores()->save();
 }
+
+void PlanificacionesDias::setStatusToUnmodified()
+{
+    foreach(PlanificacionDiaPtr p, m_Planificaciones.values())
+    {
+        p->setUnmodified();
+    }
+}

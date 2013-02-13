@@ -25,6 +25,7 @@ public:
     virtual bool deleteElement(QVariant ID);
     virtual void refreshID(int) {}
     virtual void saveDependants() {}
+    virtual void setStatusToUnmodified();
 
 
     SubSectorPtr getSubSector(int idSubSector);

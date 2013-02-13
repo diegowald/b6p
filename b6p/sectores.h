@@ -23,6 +23,7 @@ public:
     virtual bool deleteElement(QVariant ID);
     virtual void refreshID(int) {}
     virtual void saveDependants() {}
+    virtual void setStatusToUnmodified();
 
     SectorPtr getSector(int IDSector);
     SectorPtr getSector(QString SectorName);

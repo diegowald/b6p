@@ -149,3 +149,11 @@ EstimacionDiaPtr EstimacionesDias::get(QDate dia)
     else
         return m_Estimaciones[dia];
 }
+
+void EstimacionesDias::setStatusToUnmodified()
+{
+    foreach (EstimacionDiaPtr e, m_Estimaciones.values())
+    {
+        e->setUnmodified();
+    }
+}

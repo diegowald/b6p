@@ -3,6 +3,7 @@
 
 #include <QSqlRecord>
 #include <QSqlField>
+#include <QMessageBox>
 
 ACollection::ACollection(QString Name, bool useLastInsertId, QObject *parent) :
     QObject(parent), m_Name(Name), sqlEngine("./planning.b6p"), usesLastInsertedId(useLastInsertId)
@@ -86,7 +87,22 @@ bool ACollection::editRecord(QVariant ID)
     bool result = edit(ID);
     if (result)
         save();
+    setStatusToUnmodified();
     return result;
+}
+
+bool ACollection::deleteRecord(QVariant ID)
+{
+    QMessageBox msg;
+    msg.setText(tr("Delete element"));
+    msg.setInformativeText(tr("Do you want to remove it?"));
+    msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msg.setDefaultButton(QMessageBox::No);
+    if (msg.exec() == QMessageBox::Yes)
+    {
+        return deleteElement(ID);
+    }
+    return false;
 }
 
 QString ACollection::name() const
