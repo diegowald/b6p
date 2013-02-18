@@ -32,6 +32,8 @@ private slots:
 
     void on_actionDelete_triggered();
 
+    void on_treeList_doubleClicked(const QModelIndex &index);
+
 private:
     Ui::GenericList *ui;
     boost::shared_ptr<ACollection> model;

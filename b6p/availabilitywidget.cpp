@@ -1,5 +1,7 @@
 #include "availabilitywidget.h"
 #include "ui_availabilitywidget.h"
+#include "datastore.h"
+
 
 AvailabilityWidget::AvailabilityWidget(QWidget *parent) :
     QWidget(parent),
@@ -8,6 +10,14 @@ AvailabilityWidget::AvailabilityWidget(QWidget *parent) :
     ui->setupUi(this);
     connect(ui->timeFrom, SIGNAL(dateTimeChanged(QDateTime)), ui->widget, SLOT(setStartAssignment(QDateTime)));
     connect(ui->timeTo, SIGNAL(dateTimeChanged(QDateTime)), ui->widget, SLOT(setEndAssignment(QDateTime)));
+
+    ui->widget->setInitialTimeline(
+                QDateTime(QDate::currentDate(),
+                          DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE)));
+
+    ui->widget->setFinalTimeline(
+                QDateTime(QDate::currentDate(),
+                          DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE)));
 }
 
 AvailabilityWidget::~AvailabilityWidget()

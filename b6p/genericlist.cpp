@@ -65,3 +65,8 @@ void GenericList::AllowDelete(bool status)
 {
     ui->actionDelete->setVisible(status);
 }
+
+void GenericList::on_treeList_doubleClicked(const QModelIndex &index)
+{
+    on_actionEdit_triggered();
+}

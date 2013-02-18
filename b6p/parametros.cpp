@@ -1,4 +1,6 @@
 #include "parametros.h"
+#include <QTime>
+
 
 const QString Parametros::OPEN_STORE("openStore");
 const QString Parametros::CLOSE_STORE("closeStore");
@@ -21,7 +23,7 @@ QString Parametros::getSqlString()
 
 void Parametros::addRecord(Record &record)
 {
-    m_Dictionary["Key"] = record["Key"].toString();
+    m_Dictionary[record["Key"].toString()] = record["Value"].toString();
 }
 
 QString Parametros::getDeleteStatement()
@@ -87,4 +89,33 @@ QString Parametros::getValue(QString key, QString defaultValue)
 void Parametros::setValue(QString key, QString value)
 {
     m_Dictionary[key] = value;
+}
+
+QTime Parametros::getValue(QString key)
+{
+    QString v = getValue(key, "");
+    QTime t(0, 0, 0, 0);
+    t = t.addSecs(v.toInt());
+    return t;
+}
+
+void Parametros::setValue(QString key, QTime value)
+{
+    int secs = value.hour() * 3600;
+    secs += value.minute() * 60;
+    secs += value.second();
+    setValue(key, secs);
+}
+
+int Parametros::getValue(QString key, int defaultValue)
+{
+    QString v = getValue(key, "");
+    if (v == "")
+        return defaultValue;
+    return v.toInt();
+}
+
+void Parametros::setValue(QString key, int value)
+{
+    setValue(key, QString::number(value));
 }

@@ -29,6 +29,13 @@ public:
     QString getValue(QString key, QString defaultValue);
     void setValue(QString key, QString value);
 
+    QTime getValue(QString key);
+    void setValue(QString key, QTime value);
+
+    int getValue(QString key, int defaultValue);
+    void setValue(QString key, int value);
+
+
     static const QString OPEN_STORE;
     static const QString CLOSE_STORE;
     static const QString MIN_WORKING_HOURS;
