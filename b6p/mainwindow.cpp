@@ -92,6 +92,7 @@ void MainWindow::on_actionParameters_triggered()
     if (dlg.exec() == QDialog::Accepted)
     {
         // aca hay que guardar los parametros
+        DataStore::instance()->getParametros()->save();
     }
 }
 

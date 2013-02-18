@@ -44,7 +44,7 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QTimeEdit" name="timeEdit"/>
+          <widget class="QTimeEdit" name="timeOpen"/>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_3">
@@ -54,27 +54,17 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QTimeEdit" name="timeEdit_2"/>
+          <widget class="QTimeEdit" name="timeClose"/>
          </item>
          <item row="2" column="0">
-          <widget class="QLabel" name="label_4">
-           <property name="text">
-            <string>Default Estimation (hs)</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QLineEdit" name="lineEdit"/>
-         </item>
-         <item row="3" column="0">
           <widget class="QLabel" name="label_5">
            <property name="text">
             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimun Working &lt;/p&gt;&lt;p&gt;hours for a task&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
-         <item row="3" column="1">
-          <widget class="QLineEdit" name="lineEdit_2"/>
+         <item row="2" column="1">
+          <widget class="QLineEdit" name="MinWorkingHours"/>
          </item>
         </layout>
        </item>
@@ -93,7 +83,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="lineEdit_3"/>
+        <widget class="QLineEdit" name="employeeMinWorkingHours"/>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_7">
@@ -103,7 +93,7 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLineEdit" name="lineEdit_4"/>
+        <widget class="QLineEdit" name="employeeMaxWorkingHours"/>
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="label_8">
@@ -113,7 +103,7 @@
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QLineEdit" name="lineEdit_5"/>
+        <widget class="QLineEdit" name="employeeDaysBetweenFreeDay"/>
        </item>
       </layout>
      </widget>

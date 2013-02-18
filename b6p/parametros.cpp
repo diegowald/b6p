@@ -1,5 +1,14 @@
 #include "parametros.h"
 
+const QString Parametros::OPEN_STORE("openStore");
+const QString Parametros::CLOSE_STORE("closeStore");
+const QString Parametros::MIN_WORKING_HOURS("MinWorkingHours");
+const QString Parametros::EMPLOYEE_MIN_HOURS("Employee_minHours");
+const QString Parametros::EMPLOYEE_MAX_HOURS("Employee_maxHours");
+const QString Parametros::MAX_DAYS_BETWEEN_FREE_DAY("MaxDaysBetweenFreeDay");
+
+
+
 Parametros::Parametros(QObject *parent) :
     ACollection(tr("Parameters"), false, parent)
 {
@@ -32,10 +41,10 @@ QString Parametros::getInsertStatement()
 
 RecordSet Parametros::getRecords(RecordStatus status)
 {
-    if ((status == NEW) || (status == DELETED))
-        return RecordSet();
-
     RecordSet rs(new QList<RecordPtr>());
+    if ((status == NEW) || (status == DELETED))
+        return rs;
+
     foreach(QString key, m_Dictionary)
     {
         RecordPtr r(new Record());
@@ -73,4 +82,9 @@ QString Parametros::getValue(QString key, QString defaultValue)
         return defaultValue;
     else
         return m_Dictionary[key];
+}
+
+void Parametros::setValue(QString key, QString value)
+{
+    m_Dictionary[key] = value;
 }

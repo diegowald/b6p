@@ -15,6 +15,7 @@ public:
     explicit DlgParametros(QWidget *parent = 0);
     ~DlgParametros();
     
+    virtual void accept();
 private:
     Ui::DlgParametros *ui;
 };

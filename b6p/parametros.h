@@ -25,7 +25,16 @@ public:
     virtual void refreshID(int) {}
     virtual void saveDependants() {}
     virtual void setStatusToUnmodified() {};
+
     QString getValue(QString key, QString defaultValue);
+    void setValue(QString key, QString value);
+
+    static const QString OPEN_STORE;
+    static const QString CLOSE_STORE;
+    static const QString MIN_WORKING_HOURS;
+    static const QString EMPLOYEE_MIN_HOURS;
+    static const QString EMPLOYEE_MAX_HOURS;
+    static const QString MAX_DAYS_BETWEEN_FREE_DAY;
 
 signals:
     
