@@ -47,7 +47,7 @@ RecordSet Parametros::getRecords(RecordStatus status)
     if ((status == NEW) || (status == DELETED))
         return rs;
 
-    foreach(QString key, m_Dictionary)
+    foreach(QString key, m_Dictionary.keys())
     {
         RecordPtr r(new Record());
         (*r)["Key"] = key;
