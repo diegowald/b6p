@@ -274,6 +274,14 @@ void TimeAssignment::setStartAssignment(QDateTime value)
     repaint();
 }
 
+void TimeAssignment::setStartAssignment(QTime value)
+{
+    qDebug() << value.toString();
+    m_StartAssignment.setDate(QDate::currentDate());
+    m_StartAssignment.setTime(value);
+    repaint();
+}
+
 QDateTime TimeAssignment::startAssignment() const
 {
     return m_StartAssignment;
@@ -282,6 +290,13 @@ QDateTime TimeAssignment::startAssignment() const
 void TimeAssignment::setEndAssignment(QDateTime value)
 {
     m_EndAssignment = value;
+    repaint();
+}
+
+void TimeAssignment::setEndAssignment(QTime value)
+{
+    m_EndAssignment.setDate(QDate::currentDate());
+    m_EndAssignment.setTime(value);
     repaint();
 }
 

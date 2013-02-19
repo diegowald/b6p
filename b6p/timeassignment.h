@@ -46,6 +46,8 @@ public:
 public slots:
     void setStartAssignment(QDateTime value);
     void setEndAssignment(QDateTime value);
+    void setStartAssignment(QTime value);
+    void setEndAssignment(QTime value);
 
 protected:
     void paintEvent(QPaintEvent *event);

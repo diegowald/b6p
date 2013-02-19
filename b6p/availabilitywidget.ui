@@ -37,10 +37,10 @@
     </widget>
    </item>
    <item>
-    <widget class="QTimeEdit" name="timeFrom"/>
+    <widget class="TimeEditor" name="timeFrom" native="true"/>
    </item>
    <item>
-    <widget class="QTimeEdit" name="timeTo"/>
+    <widget class="TimeEditor" name="timeTo" native="true"/>
    </item>
    <item>
     <widget class="TimeAssignment" name="widget" native="true"/>
@@ -52,6 +52,12 @@
    <class>TimeAssignment</class>
    <extends>QWidget</extends>
    <header location="global">timeassignment.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>TimeEditor</class>
+   <extends>QWidget</extends>
+   <header location="global">timeeditor.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

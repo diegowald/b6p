@@ -78,7 +78,8 @@ SOURCES += main.cpp\
     dlgestimaciondia.cpp \
     dlgselectorbytdate.cpp \
     dlgplanificaciondia.cpp \
-    dlgparametros.cpp
+    dlgparametros.cpp \
+    timeeditor.cpp
 
 HEADERS  += mainwindow.h \
     timeassignment.h \
@@ -115,7 +116,8 @@ HEADERS  += mainwindow.h \
     dlgestimaciondia.h \
     dlgselectorbytdate.h \
     dlgplanificaciondia.h \
-    dlgparametros.h
+    dlgparametros.h \
+    timeeditor.h
 
 FORMS    += mainwindow.ui \
     genericlist.ui \
@@ -126,7 +128,8 @@ FORMS    += mainwindow.ui \
     dlgestimaciondia.ui \
     dlgselectorbytdate.ui \
     dlgplanificaciondia.ui \
-    dlgparametros.ui
+    dlgparametros.ui \
+    timeeditor.ui
 
 RESOURCES += \
     resources.qrc
