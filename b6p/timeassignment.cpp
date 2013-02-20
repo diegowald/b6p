@@ -1,5 +1,6 @@
 #include "timeassignment.h"
 
+//#include <QDateTime>
 #include <QTime>
 #include <QPainter>
 #include <QDebug>
@@ -21,17 +22,10 @@ TimeAssignment::TimeAssignment(QWidget *parent) :
     m_TimelineHeight = 4;
     m_AssignmentHeight = 6;
     m_FontSize = 10;
-    m_InitialTimeline.setDate(QDate::currentDate());
-    m_InitialTimeline.setTime(QTime(0, 0, 0, 0));
-
-    m_FinalTimeline.setDate(QDate::currentDate());
-    m_FinalTimeline.setTime(QTime(23, 59, 59, 0));
-
-    m_StartAssignment.setDate(QDate::currentDate());
-    m_StartAssignment.setTime(QTime(12, 0, 0, 0));
-
-    m_EndAssignment.setDate(QDate::currentDate());
-    m_EndAssignment.setTime(QTime(16, 0, 0, 0));
+    m_InitialTimeline = 0;
+    m_FinalTimeline = 86400;
+    m_StartAssignment = 12 * 3600;
+    m_EndAssignment = 16 * 3600;
 
     m_paintBackgroundReferences = true;
     m_paintVerticalGrid = false;
@@ -78,9 +72,7 @@ TimeAssignment::~TimeAssignment()
 int TimeAssignment::getNumberOfDivisions()
 {
     // In msecs:
-    int delta = finalTimeline().toMSecsSinceEpoch() - initialTimeline().toMSecsSinceEpoch();
-    // In secs:
-    delta /= 1000;
+    int delta = finalTimeline() - initialTimeline();
     // In hours
     delta /= 3600;
 
@@ -130,16 +122,18 @@ void TimeAssignment::paintEvent(QPaintEvent */*event*/)
         {
             for (int i = 0; i <= numberOfDivisions; i+=2)
             {
-                qlonglong aux = m_InitialTimeline.toMSecsSinceEpoch();
-                aux += (i * 3600) * 1000;
+                int aux = m_InitialTimeline;
+                aux += (i * 3600);
                 int x1 = timeline.left() + i * slice;
                 int y1 = (height() / 2) + m_TimelineHeight + m_FontSize;
                 QFont f = painter.font();
                 f.setPixelSize(m_FontSize);
                 painter.setFont(f);
-                QDateTime tmp = QDateTime::fromMSecsSinceEpoch(aux);
-                qDebug() << tmp.time().toString("H:mm");
-                painter.drawText(x1, y1, tmp.time().toString("H:mm"));
+                QTime tmp;
+                tmp.setHMS(0, 0, 0);
+                tmp = tmp.addSecs(aux);
+                qDebug() << tmp.toString("H:mm");
+                painter.drawText(x1, y1, tmp.toString("H:mm"));
             }
         }
     }
@@ -149,7 +143,7 @@ void TimeAssignment::paintEvent(QPaintEvent */*event*/)
     //QRectF assignment(m_HorizontalGap + slice * 3, (height() / 2) - 5, slice * (6 - 3), 10);
     QRectF assignment(m_HorizontalGap + time2position(m_StartAssignment, timeline.width()),
                       (height() - m_AssignmentHeight) / 2,
-                      delta2screen(m_EndAssignment.toMSecsSinceEpoch() - m_StartAssignment.toMSecsSinceEpoch(), timeline.width()),
+                      delta2screen(m_EndAssignment - m_StartAssignment, timeline.width()),
                       m_AssignmentHeight);
 
     painter.fillRect(assignment, m_AssignmentColor);
@@ -157,14 +151,14 @@ void TimeAssignment::paintEvent(QPaintEvent */*event*/)
     painter.drawRect(assignment);
 }
 
-float TimeAssignment::time2position(QDateTime time, float w)
+float TimeAssignment::time2position(int seconds, float w)
 {
-    return delta2screen(time.toMSecsSinceEpoch() - m_InitialTimeline.toMSecsSinceEpoch(), w);
+    return delta2screen(seconds - m_InitialTimeline, w);
 }
 
 float TimeAssignment::delta2screen(float delta, float w)
 {
-    return delta * w / (m_FinalTimeline.toMSecsSinceEpoch() - m_InitialTimeline.toMSecsSinceEpoch());
+    return delta * w / (m_FinalTimeline - m_InitialTimeline);
 }
 
 
@@ -245,62 +239,49 @@ int TimeAssignment::fontSize() const
     return m_FontSize;
 }
 
-void TimeAssignment::setInitialTimeline(QDateTime value)
+void TimeAssignment::setInitialTimeline(int seconds)
 {
-    m_InitialTimeline = value;
+    m_InitialTimeline = seconds;
     repaint();
 }
 
-QDateTime TimeAssignment::initialTimeline() const
+
+int TimeAssignment::initialTimeline() const
 {
     return m_InitialTimeline;
 }
 
-void TimeAssignment::setFinalTimeline(QDateTime value)
+void TimeAssignment::setFinalTimeline(int seconds)
 {
-    m_FinalTimeline = value;
+    m_FinalTimeline = seconds;
     repaint();
 }
 
-QDateTime TimeAssignment::finalTimeline() const
+int TimeAssignment::finalTimeline() const
 {
     return m_FinalTimeline;
 }
 
-void TimeAssignment::setStartAssignment(QDateTime value)
+void TimeAssignment::setStartAssignment(int seconds)
 {
-    qDebug() << value.toString();
-    m_StartAssignment = value;
+    qDebug() << seconds;
+    m_StartAssignment = seconds;
     repaint();
 }
 
-void TimeAssignment::setStartAssignment(QTime value)
-{
-    qDebug() << value.toString();
-    m_StartAssignment.setDate(QDate::currentDate());
-    m_StartAssignment.setTime(value);
-    repaint();
-}
 
-QDateTime TimeAssignment::startAssignment() const
+int TimeAssignment::startAssignment() const
 {
     return m_StartAssignment;
 }
 
-void TimeAssignment::setEndAssignment(QDateTime value)
+void TimeAssignment::setEndAssignment(int seconds)
 {
-    m_EndAssignment = value;
+    m_EndAssignment = seconds;
     repaint();
 }
 
-void TimeAssignment::setEndAssignment(QTime value)
-{
-    m_EndAssignment.setDate(QDate::currentDate());
-    m_EndAssignment.setTime(value);
-    repaint();
-}
-
-QDateTime TimeAssignment::endAssignment() const
+int TimeAssignment::endAssignment() const
 {
     return m_EndAssignment;
 }

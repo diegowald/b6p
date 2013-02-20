@@ -37,12 +37,12 @@ NullableField<int> &CalendarioPersona::IDEmpleado()
     return m_IDEmpleado;
 }
 
-NullableField<QTime> &CalendarioPersona::HoraIngreso()
+NullableField<int> &CalendarioPersona::HoraIngreso()
 {
     return m_HoraIngreso;
 }
 
-NullableField<QTime> &CalendarioPersona::HoraEgreso()
+NullableField<int> &CalendarioPersona::HoraEgreso()
 {
     return m_HoraEgreso;
 }
@@ -71,7 +71,7 @@ void CalendarioPersona::updateIDEmpleado(int newId)
     m_IDEmpleado.setValue(newId);
 }
 
-bool CalendarioPersona::canWork(int Dia, QTime HoraInicio, QTime HoraFin)
+bool CalendarioPersona::canWork(int Dia, int HoraInicio, int HoraFin)
 {
     if (m_Dia.value() != Dia)
         return false;

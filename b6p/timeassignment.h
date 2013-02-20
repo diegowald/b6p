@@ -4,7 +4,6 @@
 #include <QWidget>
 #include <QPaintEvent>
 #include <QColor>
-#include <QDateTime>
 
 class TimeAssignment : public QWidget
 {
@@ -16,24 +15,33 @@ public:
     
     void setBackgroundColor(QColor color);
     QColor backgroundColor() const;
+
     void setTimeLineColor(QColor color);
     QColor timeLineColor() const;
+
     void setAssignmentColor(QColor color);
     QColor assignmentColor() const;
+
     void setAssignmentHeight(int value);
     int AssignmentHeight() const;
+
     void setHorizontalGap(int value);
     int horizontalGap() const;
+
     void setTimeLineHeight(int value);
     int timelineHeight() const;
+
     void setFontSize(int value);
     int fontSize() const;
-    void setInitialTimeline(QDateTime value);
-    QDateTime initialTimeline() const;
-    void setFinalTimeline(QDateTime value);
-    QDateTime finalTimeline() const;
-    QDateTime startAssignment() const;
-    QDateTime endAssignment() const;
+
+    void setInitialTimeline(int seconds);
+    int initialTimeline() const;
+
+    void setFinalTimeline(int seconds);
+    int finalTimeline() const;
+
+    int startAssignment() const;
+    int endAssignment() const;
 
     bool PaintVerticalGrid();
     void setPaintVerticalGrid(bool paint);
@@ -44,15 +52,13 @@ public:
 
 
 public slots:
-    void setStartAssignment(QDateTime value);
-    void setEndAssignment(QDateTime value);
-    void setStartAssignment(QTime value);
-    void setEndAssignment(QTime value);
+    void setStartAssignment(int seconds);
+    void setEndAssignment(int seconds);
 
 protected:
     void paintEvent(QPaintEvent *event);
 
-    float time2position(QDateTime time, float w);
+    float time2position(int seconds, float w);
     float delta2screen(float delta, float w);
     int getNumberOfDivisions();
 private:
@@ -63,10 +69,10 @@ private:
     int m_TimelineHeight;
     int m_AssignmentHeight;
     int m_FontSize;
-    QDateTime m_InitialTimeline;
-    QDateTime m_FinalTimeline;
-    QDateTime m_StartAssignment;
-    QDateTime m_EndAssignment;
+    int m_InitialTimeline;
+    int m_FinalTimeline;
+    int m_StartAssignment;
+    int m_EndAssignment;
     bool m_paintBackgroundReferences;
     bool m_showBackgroundText;
     bool m_paintVerticalGrid;

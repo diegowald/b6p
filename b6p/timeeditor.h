@@ -2,7 +2,6 @@
 #define TIMEEDITOR_H
 
 #include <QWidget>
-#include <QTime>
 #include <QSpinBox>
 
 namespace Ui {
@@ -18,31 +17,34 @@ public:
     ~TimeEditor();
 
     void setTime(int hh, int mm, int ss);
-    void setTime(QTime time);
-    QTime time();
+    void setTime(int seconds);
+    int timeSeconds();
 
     void setMinTime(int hh, int mm, int ss);
-    void setMinTime(QTime time);
-    QTime minTime();
+    void setMinTime(int seconds);
+    int minTimeSeconds();
 
     void setMaxTime(int hh, int mm, int ss);
-    void setMaxTime(QTime time);
-    QTime maxTime();
+    void setMaxTime(int seconds);
+    int maxTimeSeconds();
 
     void setValidRange(int hh1, int mm1, int ss1, int hh2, int mm2, int ss2);
-    void setValidRange(QTime from, QTime To);
+    void setValidRange(int secondsFrom, int secondsTo);
 
-    void SetSecondsVisisbility(bool visible);
+    void SetSecondsVisibility(bool visible);
     bool secondsVisibility();
 
 private:
     bool checkTime(int hh, int mm, int ss);
+    bool checkTime(int seconds);
     int HHMMSS2Seconds(int hh, int mm, int ss);
-    QTime Seconds2Time(int seconds);
+    int getHours(int seconds);
+    int getMinutes(int seconds);
+    int getSeconds(int seconds);
     void onValueChanged(QSpinBox *control, int arg1);
-    
+    void setDefaultValues();
 signals:
-    void timeChanged(QTime newTime);
+    void timeChanged(int newTime);
 
 private slots:
     void on_spinHours_valueChanged(int arg1);

@@ -53,12 +53,12 @@ NullableField<int> &PlanificacionSubSector::IDEmpleado()
     return m_IDEmpleado;
 }
 
-NullableField<QTime> &PlanificacionSubSector::HoraInicio()
+NullableField<int> &PlanificacionSubSector::HoraInicio()
 {
     return m_HoraInicio;
 }
 
-NullableField<QTime> &PlanificacionSubSector::HoraFin()
+NullableField<int> &PlanificacionSubSector::HoraFin()
 {
     return m_HoraFin;
 }
@@ -84,11 +84,7 @@ double PlanificacionSubSector::CantidadHoras()
         return 0;
     if (m_HoraInicio.isNull())
         return 0;
-    QDateTime inicio(QDateTime::currentDateTime().date(), m_HoraInicio.value());
-    QDateTime fin(QDateTime::currentDateTime().date(), m_HoraFin.value());
-    qlonglong delta = fin.toMSecsSinceEpoch() - inicio.toMSecsSinceEpoch();
-    double cantHoras = delta / 1000.0 / 3600.0;
-    return cantHoras;
+    return m_HoraFin.value() - m_HoraInicio.value();
 }
 
 bool PlanificacionSubSector::isEqualsTo(PlanificacionSubSectorPtr other)
@@ -121,4 +117,5 @@ void PlanificacionSubSector::updateWith(PlanificacionSubSectorPtr other)
         m_HoraFin.setNull();
     else
         m_HoraFin.setValue(other->HoraFin().value());
+    setNew();
 }

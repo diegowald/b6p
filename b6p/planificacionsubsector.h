@@ -24,8 +24,8 @@ public:
     NullableField<int> &IDSector();
     NullableField<int> &IDSubSector();
     NullableField<int> &IDEmpleado();
-    NullableField<QTime> &HoraInicio();
-    NullableField<QTime> &HoraFin();
+    NullableField<int> &HoraInicio();
+    NullableField<int> &HoraFin();
 
     SectorPtr getSector();
     SubSectorPtr getSubsector();
@@ -47,8 +47,8 @@ private:
     NullableField<int> m_IDSector;
     NullableField<int> m_IDSubSector;
     NullableField<int> m_IDEmpleado;
-    NullableField<QTime> m_HoraInicio;
-    NullableField<QTime> m_HoraFin;
+    NullableField<int> m_HoraInicio;
+    NullableField<int> m_HoraFin;
 };
 
 

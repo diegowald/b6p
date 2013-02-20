@@ -2,7 +2,6 @@
 #define CALENDARIOPERSONA_H
 
 #include <QObject>
-#include <QTime>
 #include <boost/shared_ptr.hpp>
 #include "nullablefield.h"
 
@@ -19,15 +18,15 @@ public:
     
     NullableField<int>& Dia();
     NullableField<int>& IDEmpleado();
-    NullableField<QTime>& HoraIngreso();
-    NullableField<QTime>& HoraEgreso();
+    NullableField<int>& HoraIngreso();
+    NullableField<int>& HoraEgreso();
 
     virtual RecordPtr asRecordPtr();
     bool EqualsTo(CalendarioPersonaPtr other);
     void updateWith(CalendarioPersonaPtr other);
 
     void updateIDEmpleado(int newId);
-    bool canWork(int Dia, QTime HoraInicio, QTime HoraFin);
+    bool canWork(int Dia, int HoraInicio, int HoraFin);
 
 signals:
     
@@ -36,8 +35,8 @@ public slots:
 private:
     NullableField<int> m_Dia;
     NullableField<int> m_IDEmpleado;
-    NullableField<QTime> m_HoraIngreso;
-    NullableField<QTime> m_HoraEgreso;
+    NullableField<int> m_HoraIngreso;
+    NullableField<int> m_HoraEgreso;
 };
 
 #endif // CALENDARIOPERSONA_H

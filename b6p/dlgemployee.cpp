@@ -93,12 +93,8 @@ void DlgEmployee::setData(EmpleadoPtr empleado)
 void DlgEmployee::setupAssignment(AvailabilityWidget *w, int day)
 {
     w->setDay(day);
-    QDateTime dt;
-    dt.setDate(QDate::currentDate());
-    dt.setTime(QTime(9, 0, 0, 0));
-    w->setFrom(dt);
-    dt.setTime(QTime(18, 0, 0, 0));
-    w->setTo(dt);
+    w->setFrom(9 * 3600);
+    w->setTo(18 * 3600);
 }
 
 void DlgEmployee::setupScreen()
@@ -161,8 +157,8 @@ CalendarioPersonaPtr DlgEmployee::getAssignment(AvailabilityWidget *w)
 
     p->IDEmpleado().setValue(m_Empleado->IDEmpleado().value());
 
-    p->HoraIngreso().setValue(w->FromTime().time());
-    p->HoraEgreso().setValue(w->ToTime().time());
+    p->HoraIngreso().setValue(w->FromTime());
+    p->HoraEgreso().setValue(w->ToTime());
     p->Dia().setValue(w->Day());
 
     return p;

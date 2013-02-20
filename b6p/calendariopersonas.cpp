@@ -20,8 +20,8 @@ void CalendarioPersonas::addRecord(Record &record)
 
     c->Dia().setValue(record["Dia"].toInt());
     c->IDEmpleado().setValue(record["IDEmpleado"].toInt());
-    c->HoraIngreso().setValue(QDateTime::fromMSecsSinceEpoch(record["HoraIngreso"].toLongLong()).time());
-    c->HoraEgreso().setValue(QDateTime::fromMSecsSinceEpoch(record["HoraEgreso"].toLongLong()).time());
+    c->HoraIngreso().setValue(record["HoraIngreso"].toInt());
+    c->HoraEgreso().setValue(record["HoraEgreso"].toInt());
     c->setInitialized();
     m_Calendarios.push_back(c);
 }
@@ -103,7 +103,7 @@ CalendarioPersonaLst CalendarioPersonas::getAll(int IDEmpleado)
     return res;
 }
 
-CalendarioPersonaPtr CalendarioPersonas::get(int IDEmpleado, int Dia, QTime HoraInicio, QTime HoraFin)
+CalendarioPersonaPtr CalendarioPersonas::get(int IDEmpleado, int Dia, int HoraInicio, int HoraFin)
 {
     CalendarioPersonaLst all = getAll(IDEmpleado);
     foreach(CalendarioPersonaPtr c, *all)

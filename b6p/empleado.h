@@ -31,7 +31,7 @@ public:
 
     virtual RecordPtr asRecordPtr();
 
-    bool canWork(DAYS Dia, int IDSector, int IDSubSector, QTime HoraInicio, QTime HoraFin);
+    bool canWork(DAYS Dia, int IDSector, int IDSubSector, int HoraInicio, int HoraFin);
 
 signals:
     

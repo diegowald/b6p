@@ -101,7 +101,7 @@ void Empleado::updateID(int newId)
     setUnmodified();
 }
 
-bool Empleado::canWork(DAYS Dia, int IDSector, int IDSubSector, QTime HoraInicio, QTime HoraFin)
+bool Empleado::canWork(DAYS Dia, int IDSector, int IDSubSector, int HoraInicio, int HoraFin)
 {
     // Verifico si puede trabajar en el sector y subsector
     CapacidadPersonaSectorPtr cap =

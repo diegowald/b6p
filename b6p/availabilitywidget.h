@@ -2,7 +2,8 @@
 #define AVAILABILITYWIDGET_H
 
 #include <QWidget>
-#include <QDateTime>
+
+
 namespace Ui {
 class AvailabilityWidget;
 }
@@ -15,17 +16,13 @@ public:
     explicit AvailabilityWidget(QWidget *parent = 0);
     ~AvailabilityWidget();
     void setLabel(QString value);
-    void setAvailableFrom(QDateTime value);
-    void setAvailableTo(QDateTime value);
-    void setFrom(QDateTime value);
-    void setFrom(QTime value);
-    void setTo(QDateTime value);
-    void setTo(QTime value);
+    void setFrom(int value);
+    void setTo(int value);
 
     void setDay(int day);
     int Day();
-    QDateTime FromTime();
-    QDateTime ToTime();
+    int FromTime();
+    int ToTime();
 
 private:
     Ui::AvailabilityWidget *ui;

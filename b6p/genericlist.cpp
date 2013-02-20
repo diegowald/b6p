@@ -32,7 +32,10 @@ void GenericList::setHeader(QStringList &headers)
 void GenericList::on_actionNew_triggered()
 {
     if (model->addNewRecord())
+    {
+        ui->treeList->clear();
         model->fillData(*ui->treeList);
+    }
 }
 
 void GenericList::on_actionEdit_triggered()
@@ -40,7 +43,10 @@ void GenericList::on_actionEdit_triggered()
     if (ui->treeList->currentItem())
     {
         if (model->editRecord(ui->treeList->currentItem()->data(0, Qt::UserRole)))
+        {
+            ui->treeList->clear();
             model->fillData(*ui->treeList);
+        }
     }
 }
 

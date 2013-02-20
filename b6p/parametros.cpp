@@ -1,5 +1,4 @@
 #include "parametros.h"
-#include <QTime>
 
 
 const QString Parametros::OPEN_STORE("openStore");
@@ -14,6 +13,7 @@ const QString Parametros::MAX_DAYS_BETWEEN_FREE_DAY("MaxDaysBetweenFreeDay");
 Parametros::Parametros(QObject *parent) :
     ACollection(tr("Parameters"), false, parent)
 {
+    m_recordsWereCreated = false;
 }
 
 QString Parametros::getSqlString()
@@ -23,6 +23,7 @@ QString Parametros::getSqlString()
 
 void Parametros::addRecord(Record &record)
 {
+    m_recordsWereCreated = true;
     m_Dictionary[record["Key"].toString()] = record["Value"].toString();
 }
 
@@ -44,7 +45,13 @@ QString Parametros::getInsertStatement()
 RecordSet Parametros::getRecords(RecordStatus status)
 {
     RecordSet rs(new QList<RecordPtr>());
-    if ((status == NEW) || (status == DELETED))
+    if (status == DELETED)
+        return rs;
+
+    if ((status == NEW) && m_recordsWereCreated)
+        return rs;
+
+    if ((status == MODIFIED) && !m_recordsWereCreated)
         return rs;
 
     foreach(QString key, m_Dictionary.keys())
@@ -54,6 +61,7 @@ RecordSet Parametros::getRecords(RecordStatus status)
         (*r)["Value"] = m_Dictionary[key];
         rs->push_back(r);
     }
+    m_recordsWereCreated = true;
     return rs;
 }
 
@@ -89,22 +97,6 @@ QString Parametros::getValue(QString key, QString defaultValue)
 void Parametros::setValue(QString key, QString value)
 {
     m_Dictionary[key] = value;
-}
-
-QTime Parametros::getValue(QString key)
-{
-    QString v = getValue(key, "");
-    QTime t(0, 0, 0, 0);
-    t = t.addSecs(v.toInt());
-    return t;
-}
-
-void Parametros::setValue(QString key, QTime value)
-{
-    int secs = value.hour() * 3600;
-    secs += value.minute() * 60;
-    secs += value.second();
-    setValue(key, secs);
 }
 
 int Parametros::getValue(QString key, int defaultValue)

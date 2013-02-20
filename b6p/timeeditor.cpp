@@ -1,18 +1,14 @@
 #include "timeeditor.h"
 #include "ui_timeeditor.h"
+#include <QDebug>
+
 
 TimeEditor::TimeEditor(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::TimeEditor)
 {
     ui->setupUi(this);
-    currentTime = 0;
-    minValue = 0;
-    maxValue = 0;
-    ui->spinMinutes->setMinimum(0);
-    ui->spinSeconds->setMinimum(0);
-    ui->spinMinutes->setMaximum(59);
-    ui->spinSeconds->setMaximum(59);
+    setDefaultValues();
 }
 
 TimeEditor::~TimeEditor()
@@ -25,8 +21,10 @@ void TimeEditor::onValueChanged(QSpinBox *control, int arg1)
     if (checkTime(ui->spinHours->value(), ui->spinMinutes->value(), ui->spinSeconds->value()))
     {
         currentTime = HHMMSS2Seconds(ui->spinHours->value(), ui->spinMinutes->value(), ui->spinSeconds->value());
-        emit timeChanged(Seconds2Time(currentTime));
+        emit timeChanged(currentTime);
     }
+    else
+        qDebug() << "MAL";
 
     if (arg1 > 9)
         control->setPrefix("");
@@ -51,52 +49,56 @@ void TimeEditor::on_spinSeconds_valueChanged(int arg1)
 
 void TimeEditor::setTime(int hh, int mm, int ss)
 {
-    currentTime = HHMMSS2Seconds(hh, mm, ss);
-    ui->spinHours->setValue(hh);
-    ui->spinMinutes->setValue(mm);
-    ui->spinSeconds->setValue(ss);
+    setTime(HHMMSS2Seconds(hh, mm, ss));
 }
 
-void TimeEditor::setTime(QTime time)
+void TimeEditor::setTime(int seconds)
 {
-    setTime(time.hour(), time.minute(), time.second());
+    if (checkTime(seconds))
+    {
+        currentTime = seconds;
+        ui->spinHours->setValue(getHours(seconds));
+        ui->spinMinutes->setValue(getMinutes(seconds));
+        ui->spinSeconds->setValue(getSeconds(seconds));
+        emit timeChanged(currentTime);
+    }
 }
 
-QTime TimeEditor::time()
+int TimeEditor::timeSeconds()
 {
-    return Seconds2Time(currentTime);
+    return currentTime;
 }
 
 void TimeEditor::setMinTime(int hh, int mm, int ss)
 {
-    minValue = HHMMSS2Seconds(hh, mm, ss);
-    ui->spinHours->setMinimum(hh);
+    setMinTime(HHMMSS2Seconds(hh, mm, ss));
 }
 
-void TimeEditor::setMinTime(QTime time)
+void TimeEditor::setMinTime(int seconds)
 {
-    setMinTime(time.hour(), time.minute(), time.second());
+    minValue = seconds;
+    ui->spinHours->setMinimum(getHours(seconds));
 }
 
-QTime TimeEditor::minTime()
+int TimeEditor::minTimeSeconds()
 {
-    return Seconds2Time(minValue);
+    return minValue;
 }
 
 void TimeEditor::setMaxTime(int hh, int mm, int ss)
 {
-    maxValue = HHMMSS2Seconds(hh, mm, ss);
-    ui->spinHours->setMaximum(hh);
+    setMaxTime(HHMMSS2Seconds(hh, mm, ss));
 }
 
-void TimeEditor::setMaxTime(QTime time)
+void TimeEditor::setMaxTime(int seconds)
 {
-    setMaxTime(time.hour(), time.minute(), time.second());
+    maxValue = seconds;
+    ui->spinHours->setMaximum(getHours(seconds));
 }
 
-QTime TimeEditor::maxTime()
+int TimeEditor::maxTimeSeconds()
 {
-    return Seconds2Time(maxValue);
+    return maxValue;
 }
 
 void TimeEditor::setValidRange(int hh1, int mm1, int ss1, int hh2, int mm2, int ss2)
@@ -105,13 +107,13 @@ void TimeEditor::setValidRange(int hh1, int mm1, int ss1, int hh2, int mm2, int 
     setMaxTime(hh2, mm2, ss2);
 }
 
-void TimeEditor::setValidRange(QTime from, QTime To)
+void TimeEditor::setValidRange(int secondsFrom, int secondsTo)
 {
-    setMinTime(from);
-    setMaxTime(To);
+    setMinTime(secondsFrom);
+    setMaxTime(secondsTo);
 }
 
-void TimeEditor::SetSecondsVisisbility(bool visible)
+void TimeEditor::SetSecondsVisibility(bool visible)
 {
     ui->spinSeconds->setVisible(visible);
     int w = ui->spinHours->width() + ui->spinMinutes->width() + (visible ? ui->spinSeconds->width() : 0);
@@ -132,19 +134,42 @@ int TimeEditor::HHMMSS2Seconds(int hh, int mm, int ss)
     return seconds;
 }
 
-QTime TimeEditor::Seconds2Time(int seconds)
+bool TimeEditor::checkTime(int seconds)
 {
-    int t = seconds;
-    int hh = t / 3600;
-    t -= hh * 3600;
-    int mm = t / 60;
-    t -= mm * 60;
-    int ss = t;
-    return QTime(hh, mm, ss);
+    return (minValue <= seconds) && (seconds <= maxValue);
 }
 
 bool TimeEditor::checkTime(int hh, int mm, int ss)
 {
-    int secondsToCheck = HHMMSS2Seconds(hh, mm, ss);
-    return (minValue <= secondsToCheck) && (secondsToCheck <= maxValue);
+    return checkTime(HHMMSS2Seconds(hh, mm, ss));
+}
+
+int TimeEditor::getHours(int seconds)
+{
+    return seconds / 3600;
+}
+
+int TimeEditor::getMinutes(int seconds)
+{
+    int hh = getHours(seconds);
+    return (seconds - hh * 3600) / 60;
+}
+
+int TimeEditor::getSeconds(int seconds)
+{
+    return seconds % 60;
+}
+
+
+void TimeEditor::setDefaultValues()
+{
+    currentTime = 0;
+    minValue = 0;
+    maxValue = 24 * 3600;
+    ui->spinHours->setMinimum(getHours(minValue));
+    ui->spinHours->setMaximum(getHours(maxValue));
+    ui->spinMinutes->setMinimum(0);
+    ui->spinSeconds->setMinimum(0);
+    ui->spinMinutes->setMaximum(59);
+    ui->spinSeconds->setMaximum(59);
 }

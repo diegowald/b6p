@@ -8,27 +8,23 @@ AvailabilityWidget::AvailabilityWidget(QWidget *parent) :
     ui(new Ui::AvailabilityWidget)
 {
     ui->setupUi(this);
-    connect(ui->timeFrom, SIGNAL(timeChanged(QTime)), ui->widget, SLOT(setStartAssignment(QTime)));
-    connect(ui->timeTo, SIGNAL(timeChanged(QTime)), ui->widget, SLOT(setEndAssignment(QTime)));
+    connect(ui->timeFrom, SIGNAL(timeChanged(int)), ui->widget, SLOT(setStartAssignment(int)));
+    connect(ui->timeTo, SIGNAL(timeChanged(int)),ui->widget, SLOT(setEndAssignment(int)));
 
-    ui->timeFrom->SetSecondsVisisbility(false);
-    ui->timeTo->SetSecondsVisisbility(false);
+    ui->timeFrom->SetSecondsVisibility(false);
+    ui->timeTo->SetSecondsVisibility(false);
 
     ui->timeFrom->setValidRange(
-                DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE),
-                DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE));
+                DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0),
+                DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
     ui->timeTo->setValidRange(
-                DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE),
-                DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE));
+                DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0),
+                DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
 
 
-    ui->widget->setInitialTimeline(
-                QDateTime(QDate::currentDate(),
-                          DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE)));
+    ui->widget->setInitialTimeline(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0));
 
-    ui->widget->setFinalTimeline(
-                QDateTime(QDate::currentDate(),
-                          DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE)));
+    ui->widget->setFinalTimeline(DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
 }
 
 AvailabilityWidget::~AvailabilityWidget()
@@ -41,38 +37,14 @@ void AvailabilityWidget::setLabel(QString value)
     ui->lblDay->setText(value);
 }
 
-void AvailabilityWidget::setAvailableFrom(QDateTime value)
+void AvailabilityWidget::setFrom(int value)
 {
+    ui->timeFrom->setTime(value);
 }
 
-void AvailabilityWidget::setAvailableTo(QDateTime value)
+void AvailabilityWidget::setTo(int value)
 {
-}
-
-void AvailabilityWidget::setFrom(QDateTime value)
-{
-    ui->timeFrom->setTime(value.time());
-}
-
-void AvailabilityWidget::setFrom(QTime value)
-{
-    QDateTime dt;
-    dt.setDate(QDate::currentDate());
-    dt.setTime(value);
-    setFrom(dt);
-}
-
-void AvailabilityWidget::setTo(QDateTime value)
-{
-    ui->timeTo->setTime(value.time());
-}
-
-void AvailabilityWidget::setTo(QTime value)
-{
-    QDateTime dt;
-    dt.setDate(QDate::currentDate());
-    dt.setTime(value);
-    setTo(dt);
+    ui->timeTo->setTime(value);
 }
 
 void AvailabilityWidget::setDay(int day)
@@ -112,12 +84,12 @@ int AvailabilityWidget::Day()
     return m_day;
 }
 
-QDateTime AvailabilityWidget::FromTime()
+int AvailabilityWidget::FromTime()
 {
-    return QDateTime(QDate::currentDate(), ui->timeFrom->time());
+    return ui->timeFrom->timeSeconds();
 }
 
-QDateTime AvailabilityWidget::ToTime()
+int AvailabilityWidget::ToTime()
 {
-    return QDateTime(QDate::currentDate(), ui->timeTo->time());
+    return ui->timeTo->timeSeconds();
 }

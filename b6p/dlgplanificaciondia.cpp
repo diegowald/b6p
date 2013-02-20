@@ -119,7 +119,7 @@ PlanificacionSubSectorLst DlgPlanificacionDia::Planificaciones()
         ptr->IDEmpleado().setValue(time->IDEmpleado());
         ptr->HoraInicio().setValue(time->HoraInicio());
         ptr->HoraFin().setValue(time->HoraFin());
-
+        ptr->setNew();
         res->push_back(ptr);
     }
     return res;

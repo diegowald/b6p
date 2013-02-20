@@ -2,7 +2,7 @@
 #define TIMEASSIGNMENTITEMEDIT_H
 
 #include <QWidget>
-#include <QDateTime>
+#include <QDate>
 
 namespace Ui {
 class TimeAssignmentItemEdit;
@@ -23,8 +23,8 @@ public:
     int IDSubSector();
     bool isEmpleadoEmpty();
     int IDEmpleado();
-    QTime HoraInicio();
-    QTime HoraFin();
+    int HoraInicio();
+    int HoraFin();
 
     void setIDSector(int value);
     void setIDSectorNull();
@@ -32,8 +32,8 @@ public:
     void setIDSubSectorNull();
     void setIDEmpleado(int value);
     void setIDEmpleadoNull();
-    void setHoraInicio(QTime value);
-    void setHoraFin(QTime value);
+    void setHoraInicio(int value);
+    void setHoraFin(int value);
 
 
     QDate Date();
@@ -41,7 +41,7 @@ public:
 
 
 signals:
-    void AssignmentChanged(QDateTime from, QDateTime to);
+    void AssignmentChanged(int fromSeconds, int toSeconds);
 
 protected:
     void llenarSectores();
@@ -49,8 +49,8 @@ protected:
     void llenarEmpleados();
 private slots:
     void on_cboSectores_currentIndexChanged(int index);
-    void on_timeInicio_dateTimeChanged(const QDateTime &dateTime);
-    void on_timeFin_dateTimeChanged(const QDateTime &dateTime);
+    void on_timeInicio_TimeChanged(int newTime);
+    void on_timeFin_TimeChanged(int newTime);
 
     void on_cboSubsectores_currentIndexChanged(int index);
 

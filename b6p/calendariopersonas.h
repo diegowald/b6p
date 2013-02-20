@@ -32,7 +32,7 @@ public:
 
     void updateCalendarWithNewIDEmpleado(int oldId, int newId);
 
-    CalendarioPersonaPtr get(int IDEmpleado, int Dia, QTime HoraInicio, QTime HoraFin);
+    CalendarioPersonaPtr get(int IDEmpleado, int Dia, int HoraInicio, int HoraFin);
 signals:
     
 public slots:

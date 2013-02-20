@@ -29,9 +29,6 @@ public:
     QString getValue(QString key, QString defaultValue);
     void setValue(QString key, QString value);
 
-    QTime getValue(QString key);
-    void setValue(QString key, QTime value);
-
     int getValue(QString key, int defaultValue);
     void setValue(QString key, int value);
 
@@ -48,6 +45,7 @@ signals:
 public slots:
 private:
     QMap<QString, QString> m_Dictionary;
+    bool m_recordsWereCreated;
 };
 
 typedef boost::shared_ptr<Parametros> ParametrosPtr;

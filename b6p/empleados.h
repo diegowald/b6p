@@ -33,7 +33,7 @@ public:
 
     EmpleadoPtr getEmpleado(int idEmpleado);
     EmpleadosLst getAll();
-    EmpleadosLst getAll(int IDSector, int IDSubSector, DAYS Dia, QTime HoraInicio, QTime HoraFin);
+    EmpleadosLst getAll(int IDSector, int IDSubSector, DAYS Dia, int HoraInicio, int HoraFin);
 signals:
     
 public slots:

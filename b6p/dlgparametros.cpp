@@ -7,10 +7,12 @@ DlgParametros::DlgParametros(QWidget *parent) :
     ui(new Ui::DlgParametros)
 {
     ui->setupUi(this);
-    ui->timeOpen->SetSecondsVisisbility(false);
-    ui->timeClose->SetSecondsVisisbility(false);
-    ui->timeOpen->setTime(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE));
-    ui->timeClose->setTime(DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE));
+    ui->timeOpen->SetSecondsVisibility(false);
+    ui->timeClose->SetSecondsVisibility(false);
+    ui->timeOpen->setValidRange(0, 0, 0, 24, 0, 0);
+    ui->timeClose->setValidRange(0, 0, 0, 24, 0, 0);
+    ui->timeOpen->setTime(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0));
+    ui->timeClose->setTime(DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 24 * 3600));
     ui->MinWorkingHours->setText(QString::number(DataStore::instance()->getParametros()->getValue(Parametros::MIN_WORKING_HOURS, 4)));
     ui->employeeMinWorkingHours->setText(QString::number(DataStore::instance()->getParametros()->getValue(Parametros::EMPLOYEE_MIN_HOURS, 4)));
     ui->employeeMaxWorkingHours->setText(QString::number(DataStore::instance()->getParametros()->getValue(Parametros::EMPLOYEE_MAX_HOURS, 8)));
@@ -24,8 +26,8 @@ DlgParametros::~DlgParametros()
 
 void DlgParametros::accept()
 {
-    DataStore::instance()->getParametros()->setValue(Parametros::OPEN_STORE, ui->timeOpen->time());
-    DataStore::instance()->getParametros()->setValue(Parametros::CLOSE_STORE, ui->timeClose->time());
+    DataStore::instance()->getParametros()->setValue(Parametros::OPEN_STORE, ui->timeOpen->timeSeconds());
+    DataStore::instance()->getParametros()->setValue(Parametros::CLOSE_STORE, ui->timeClose->timeSeconds());
     DataStore::instance()->getParametros()->setValue(Parametros::MIN_WORKING_HOURS, ui->MinWorkingHours->text().toInt());
     DataStore::instance()->getParametros()->setValue(Parametros::EMPLOYEE_MIN_HOURS, ui->employeeMinWorkingHours->text().toInt());
     DataStore::instance()->getParametros()->setValue(Parametros::EMPLOYEE_MAX_HOURS, ui->employeeMaxWorkingHours->text().toInt());

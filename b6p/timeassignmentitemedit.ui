@@ -36,10 +36,10 @@
     <widget class="QComboBox" name="cboSubsectores"/>
    </item>
    <item>
-    <widget class="QTimeEdit" name="timeInicio"/>
+    <widget class="TimeEditor" name="timeInicio" native="true"/>
    </item>
    <item>
-    <widget class="QTimeEdit" name="timeFin"/>
+    <widget class="TimeEditor" name="timeFin" native="true"/>
    </item>
    <item>
     <widget class="QComboBox" name="cboEmpleado"/>
@@ -61,6 +61,12 @@
    <class>TimeAssignment</class>
    <extends>QWidget</extends>
    <header location="global">timeassignment.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>TimeEditor</class>
+   <extends>QWidget</extends>
+   <header location="global">timeeditor.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

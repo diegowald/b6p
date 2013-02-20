@@ -9,14 +9,20 @@ TimeAssignmentItemEdit::TimeAssignmentItemEdit(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->timeInicio->SetSecondsVisibility(false);
+    ui->timeFin->SetSecondsVisibility(false);
 
-    ui->widget->setInitialTimeline(QDateTime(QDate::currentDate(),
-                                             QTime(0, 0, 0, 0)));
-    ui->widget->setFinalTimeline(QDateTime(QDate::currentDate(),
-                                           QTime(23, 59, 59, 999)));
+    ui->timeInicio->setValidRange(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0),
+                                  DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
+    ui->timeFin->setValidRange(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0),
+                               DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
 
-    ui->timeInicio->setDate(QDate::currentDate());
-    ui->timeFin->setDate(QDate::currentDate());
+
+    connect(ui->timeInicio, SIGNAL(timeChanged(int)), this, SLOT(on_timeInicio_TimeChanged(int)));
+    connect(ui->timeFin, SIGNAL(timeChanged(int)), this, SLOT(on_timeFin_TimeChanged(int)));
+
+    ui->widget->setInitialTimeline(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0));
+    ui->widget->setFinalTimeline(DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
 
     llenarSectores();
 }
@@ -56,24 +62,26 @@ void TimeAssignmentItemEdit::on_cboSubsectores_currentIndexChanged(int)
 {
     llenarEmpleados();
 }
-void TimeAssignmentItemEdit::on_timeInicio_dateTimeChanged(const QDateTime &dateTime)
-{
-    if (ui->timeFin->dateTime().toMSecsSinceEpoch() < dateTime.toMSecsSinceEpoch())
-        ui->timeFin->setDateTime(dateTime);
 
-    ui->widget->setStartAssignment(dateTime);
+
+void TimeAssignmentItemEdit::on_timeInicio_TimeChanged(int newTime)
+{
+    if (ui->timeFin->timeSeconds() < newTime)
+        ui->timeFin->setTime(newTime);
+
+    ui->widget->setStartAssignment(newTime);
     llenarEmpleados();
-    emit AssignmentChanged(dateTime, ui->timeFin->dateTime());
+    emit AssignmentChanged(newTime, ui->timeFin->timeSeconds());
 }
 
-void TimeAssignmentItemEdit::on_timeFin_dateTimeChanged(const QDateTime &dateTime)
+void TimeAssignmentItemEdit::on_timeFin_TimeChanged(int newTime)
 {
-    if (ui->timeInicio->dateTime().toMSecsSinceEpoch() > dateTime.toMSecsSinceEpoch())
-        ui->timeInicio->setDateTime(dateTime);
+    if (ui->timeInicio->timeSeconds() > newTime)
+        ui->timeInicio->setTime(newTime);
 
-    ui->widget->setEndAssignment(dateTime);
+    ui->widget->setEndAssignment(newTime);
     llenarEmpleados();
-    emit AssignmentChanged(ui->timeInicio->dateTime(), dateTime);
+    emit AssignmentChanged(ui->timeInicio->timeSeconds(), newTime);
 }
 
 void TimeAssignmentItemEdit::llenarEmpleados()
@@ -86,8 +94,8 @@ void TimeAssignmentItemEdit::llenarEmpleados()
 
     DAYS Dia = Days::DayOfWeek2DAYS(date.dayOfWeek());
 
-    QTime HoraInicio = ui->timeInicio->time();
-    QTime HoraFin = ui->timeFin->time();
+    int HoraInicio = ui->timeInicio->timeSeconds();
+    int HoraFin = ui->timeFin->timeSeconds();
 
     EmpleadosLst emps = DataStore::instance()->getEmpleados()->getAll(IDSector, IDSubSector, Dia, HoraInicio, HoraFin);
     ui->cboEmpleado->clear();
@@ -101,8 +109,8 @@ void TimeAssignmentItemEdit::llenarEmpleados()
 
 double TimeAssignmentItemEdit::CantidadHoras()
 {
-    qlonglong delta = ui->timeFin->dateTime().toMSecsSinceEpoch() - ui->timeInicio->dateTime().toMSecsSinceEpoch();
-    double cantHoras = delta / 1000.0 / 3600.0;
+    int delta = ui->timeFin->timeSeconds() - ui->timeInicio->timeSeconds();
+    double cantHoras = delta / 3600.0;
     return cantHoras;
 }
 
@@ -131,14 +139,14 @@ int TimeAssignmentItemEdit::IDEmpleado()
     return ui->cboEmpleado->itemData(ui->cboEmpleado->currentIndex(), Qt::UserRole).toInt();
 }
 
-QTime TimeAssignmentItemEdit::HoraInicio()
+int TimeAssignmentItemEdit::HoraInicio()
 {
-    return ui->timeInicio->time();
+    return ui->timeInicio->timeSeconds();
 }
 
-QTime TimeAssignmentItemEdit::HoraFin()
+int TimeAssignmentItemEdit::HoraFin()
 {
-    return ui->timeFin->time();
+    return ui->timeFin->timeSeconds();
 }
 
 void TimeAssignmentItemEdit::setDate(QDate value)
@@ -181,12 +189,12 @@ void TimeAssignmentItemEdit::setIDEmpleadoNull()
     ui->cboEmpleado->setCurrentIndex(-1);
 }
 
-void TimeAssignmentItemEdit::setHoraInicio(QTime value)
+void TimeAssignmentItemEdit::setHoraInicio(int value)
 {
     ui->timeInicio->setTime(value);
 }
 
-void TimeAssignmentItemEdit::setHoraFin(QTime value)
+void TimeAssignmentItemEdit::setHoraFin(int value)
 {
     ui->timeFin->setTime(value);
 }

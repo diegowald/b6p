@@ -18,8 +18,8 @@ void PlanificacionesDiasSubSectores::addRecord(Record &record)
     p->IDSector().setValue(record["IDSector"].toInt());
     p->IDSubSector().setValue(record["IDSubsector"].toInt());
     p->IDEmpleado().setValue(record["IDEmpleado"].toInt());
-    p->HoraInicio().setValue(QDateTime::fromMSecsSinceEpoch(record["HoraInicio"].toLongLong()).time());
-    p->HoraFin().setValue(QDateTime::fromMSecsSinceEpoch(record["HoraFin"].toLongLong()).time());
+    p->HoraInicio().setValue(record["HoraInicio"].toInt());
+    p->HoraFin().setValue(record["HoraFin"].toInt());
     p->setInitialized();
 
     m_Planificacion.push_back(p);
