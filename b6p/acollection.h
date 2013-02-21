@@ -24,12 +24,13 @@ public:
 
     virtual void defineHeaders(QStringList &list) = 0;
     virtual void fillData(QTreeWidget &tree) = 0;
-    virtual bool addNewRecord();
-    virtual bool addNew() = 0;
-    virtual bool editRecord(QVariant ID);
-    virtual bool edit(QVariant ID) = 0;
+    virtual bool isColumnEditable(int column) { return false; }
+    bool addNewRecord();
+    bool addNewRecord(QTreeWidgetItem *item);
+    bool editRecord(QVariant ID);
+    bool editRecord(QTreeWidgetItem *item, QVariant ID);
     bool deleteRecord(QVariant ID);
-    virtual bool deleteElement(QVariant ID) = 0;
+
 
     virtual QString getDeleteStatement() = 0;
     virtual QString getUpdateStatement() = 0;
@@ -38,6 +39,13 @@ public:
     virtual void refreshID(int newRecordId) = 0;
     virtual void saveDependants() = 0;
     virtual void setStatusToUnmodified() = 0;
+
+protected:
+    virtual bool addNew() = 0;
+    virtual bool addNew(QTreeWidgetItem *item) = 0;
+    virtual bool edit(QVariant ID) = 0;
+    virtual bool edit(QTreeWidgetItem *item, QVariant ID) = 0;
+    virtual bool deleteElement(QVariant ID) = 0;
 
 signals:
     void loaded(QString name);

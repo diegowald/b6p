@@ -10,6 +10,11 @@
     <height>504</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <pointsize>16</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Big Six Planner</string>
   </property>
@@ -48,7 +53,7 @@
      <x>0</x>
      <y>0</y>
      <width>675</width>
-     <height>24</height>
+     <height>37</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuPlanification">

@@ -69,6 +69,11 @@ void EstimacionesDias::defineHeaders(QStringList &list)
     list << tr("Date") << tr("Hours estimation") << tr("Planned");
 }
 
+bool EstimacionesDias::isColumnEditable(int column)
+{
+    return column == 1;
+}
+
 void EstimacionesDias::fillData(QTreeWidget &tree)
 {
     tree.clear();
@@ -79,14 +84,28 @@ void EstimacionesDias::fillData(QTreeWidget &tree)
         item->setData(0, Qt::UserRole, e->Dia().value());
         item->setText(1, QString::number(e->EstimacionHoras().value()));
         item->setText(2, e->isPlanned() ? tr("Yes") : tr("No"));
+        item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled);
         tree.insertTopLevelItem(0, item);
     }
+}
+
+bool EstimacionesDias::addNew(QTreeWidgetItem *item)
+{
+    QDate id = QDateTime::fromMSecsSinceEpoch(0).date();
+    return edit(item, id);
 }
 
 bool EstimacionesDias::addNew()
 {
     QDate id = QDateTime::fromMSecsSinceEpoch(0).date();
     return edit(id);
+}
+
+bool EstimacionesDias::edit(QTreeWidgetItem *item, QVariant ID)
+{
+    EstimacionDiaPtr e = m_Estimaciones[ID.toDate()];
+    e->EstimacionHoras().setValue(item->text(1).toInt());
+    return true;
 }
 
 bool EstimacionesDias::edit(QVariant ID)

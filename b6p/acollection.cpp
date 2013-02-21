@@ -70,9 +70,25 @@ void ACollection::executeCommand(QString cmd, RecordStatus status)
     }
 }
 
+bool ACollection::addNewRecord(QTreeWidgetItem *item)
+{
+    bool result = addNew(item);
+    if (result)
+        save();
+    return result;
+}
+
 bool ACollection::addNewRecord()
 {
     bool result = addNew();
+    if (result)
+        save();
+    return result;
+}
+
+bool ACollection::editRecord(QTreeWidgetItem *item, QVariant ID)
+{
+    bool result = edit(item, ID);
     if (result)
         save();
     return result;
@@ -83,7 +99,6 @@ bool ACollection::editRecord(QVariant ID)
     bool result = edit(ID);
     if (result)
         save();
-    setStatusToUnmodified();
     return result;
 }
 

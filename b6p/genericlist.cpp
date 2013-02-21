@@ -17,6 +17,8 @@ GenericList::GenericList(boost::shared_ptr<ACollection> Model, bool inPlaceEdit,
         ui->treeList->resizeColumnToContents(i);
     setWindowTitle(Model->name());
     m_InPlaceEdit = inPlaceEdit;
+    /*if (inPlaceEdit)
+        ui->treeList->setEditTriggers(QAbstractItemView::EditKeyPressed | QAbstractItemView::SelectedClicked);*/
 }
 
 GenericList::~GenericList()
@@ -35,10 +37,12 @@ void GenericList::setHeader(QStringList &headers)
 void GenericList::on_actionNew_triggered()
 {
     bool result = false;
+    QTreeWidgetItem *item = new QTreeWidgetItem();
+    ui->treeList->insertTopLevelItem(0, item);
     if (m_InPlaceEdit)
-        result = model->addnew(item);
+        result = model->addNewRecord(item);
     else
-        result = model->addNew();
+        result = model->addNewRecord();
 
     if (result)
     {
@@ -68,7 +72,7 @@ void GenericList::on_actionEdit_triggered()
 void GenericList::on_actionDelete_triggered()
 {
     if (ui->treeList->currentItem())
-        if (model->deleteElement(ui->treeList->currentItem()->data(0, Qt::UserRole)))
+        if (model->deleteRecord(ui->treeList->currentItem()->data(0, Qt::UserRole)))
             model->fillData(*ui->treeList);
 }
 
@@ -90,4 +94,21 @@ void GenericList::AllowDelete(bool status)
 void GenericList::on_treeList_doubleClicked(const QModelIndex &index)
 {
     on_actionEdit_triggered();
+}
+
+void GenericList::on_treeList_itemClicked(QTreeWidgetItem *item, int column)
+{
+    if (m_InPlaceEdit && model->isColumnEditable(column))
+        ui->treeList->editItem(item, column);
+}
+
+void GenericList::on_treeList_itemChanged(QTreeWidgetItem *item, int column)
+{
+    if (m_InPlaceEdit)
+    {
+        if (model->editRecord(item, ui->treeList->currentItem()->data(0, Qt::UserRole)))
+        {
+            model->fillData(*ui->treeList);
+        }
+    }
 }

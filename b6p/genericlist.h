@@ -33,6 +33,9 @@ private slots:
     void on_actionDelete_triggered();
 
     void on_treeList_doubleClicked(const QModelIndex &index);
+    void on_treeList_itemClicked(QTreeWidgetItem *item, int column);
+
+    void on_treeList_itemChanged(QTreeWidgetItem *item, int column);
 
 private:
     Ui::GenericList *ui;
