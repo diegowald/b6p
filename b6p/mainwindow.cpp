@@ -45,7 +45,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_actionOpen_triggered()
 {
     // Open Planification List
-    GenericList *wnd = new GenericList(DataStore::instance()->getPlanificacionesDias(), this);
+    GenericList *wnd = new GenericList(DataStore::instance()->getPlanificacionesDias(), false, this);
     ui->mdiArea->addSubWindow(wnd);
     wnd->show();
     wnd->activateWindow();
@@ -70,7 +70,7 @@ void MainWindow::on_actionExit_triggered()
 void MainWindow::on_actionView_triggered()
 {
     // Open Employees list
-    GenericList *wnd = new GenericList(DataStore::instance()->getEmpleados(), this);
+    GenericList *wnd = new GenericList(DataStore::instance()->getEmpleados(), false, this);
     ui->mdiArea->addSubWindow(wnd);
     wnd->show();
     wnd->activateWindow();
@@ -79,7 +79,7 @@ void MainWindow::on_actionView_triggered()
 void MainWindow::on_actionSetup_days_triggered()
 {
     // Open days setup list.
-    GenericList *wnd = new GenericList(DataStore::instance()->getEstimacionesDias(), this);
+    GenericList *wnd = new GenericList(DataStore::instance()->getEstimacionesDias(), true, this);
     ui->mdiArea->addSubWindow(wnd);
     wnd->show();
     wnd->activateWindow();

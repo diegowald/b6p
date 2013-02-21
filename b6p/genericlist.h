@@ -13,7 +13,7 @@ class GenericList : public QMainWindow
     Q_OBJECT
     
 public:
-    explicit GenericList(boost::shared_ptr<ACollection> Model, QWidget *parent = 0);
+    explicit GenericList(boost::shared_ptr<ACollection> Model, bool inPlaceEdit, QWidget *parent /*= 0*/);
 
     void AllowAdd(bool status);
     void AllowEdit(bool status);
@@ -37,6 +37,7 @@ private slots:
 private:
     Ui::GenericList *ui;
     boost::shared_ptr<ACollection> model;
+    bool m_InPlaceEdit;
 };
 
 #endif // GENERICLIST_H

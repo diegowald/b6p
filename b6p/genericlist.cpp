@@ -2,7 +2,7 @@
 #include "ui_genericlist.h"
 #include <QDebug>
 
-GenericList::GenericList(boost::shared_ptr<ACollection> Model, QWidget *parent) :
+GenericList::GenericList(boost::shared_ptr<ACollection> Model, bool inPlaceEdit, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::GenericList)
 {
@@ -13,7 +13,10 @@ GenericList::GenericList(boost::shared_ptr<ACollection> Model, QWidget *parent) 
     setHeader(headers);
     ui->treeList->clear();
     model->fillData(*ui->treeList);
+    for (int i = 0; i < headers.count(); i++)
+        ui->treeList->resizeColumnToContents(i);
     setWindowTitle(Model->name());
+    m_InPlaceEdit = inPlaceEdit;
 }
 
 GenericList::~GenericList()
@@ -31,7 +34,13 @@ void GenericList::setHeader(QStringList &headers)
 
 void GenericList::on_actionNew_triggered()
 {
-    if (model->addNewRecord())
+    bool result = false;
+    if (m_InPlaceEdit)
+        result = model->addnew(item);
+    else
+        result = model->addNew();
+
+    if (result)
     {
         ui->treeList->clear();
         model->fillData(*ui->treeList);
@@ -40,9 +49,15 @@ void GenericList::on_actionNew_triggered()
 
 void GenericList::on_actionEdit_triggered()
 {
+    bool result = false;
+
     if (ui->treeList->currentItem())
     {
-        if (model->editRecord(ui->treeList->currentItem()->data(0, Qt::UserRole)))
+        if (m_InPlaceEdit)
+            result = model->editRecord(ui->treeList->currentItem(), ui->treeList->currentItem()->data(0, Qt::UserRole));
+        else
+            result =  model->editRecord(ui->treeList->currentItem()->data(0, Qt::UserRole));
+        if (result)
         {
             ui->treeList->clear();
             model->fillData(*ui->treeList);
