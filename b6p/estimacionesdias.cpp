@@ -1,5 +1,6 @@
 #include "estimacionesdias.h"
 #include "dlgestimaciondia.h"
+#include "dlgaddmanyestimationdays.h"
 
 EstimacionesDias::EstimacionesDias(QObject *parent)
     : ACollection(tr("Day Estimations"), false, parent)
@@ -62,6 +63,22 @@ RecordSet EstimacionesDias::getRecords(RecordStatus status)
     }
     return res;
 
+}
+
+boost::shared_ptr<QList<QAction*> > EstimacionesDias::getActions()
+{
+    boost::shared_ptr<QList<QAction*> >actions = boost::make_shared<QList<QAction*> >();
+
+    QAction* action = new QAction(tr("Add Range"), NULL);
+
+    QIcon icon;
+    icon.addFile(QString::fromUtf8(":/img/calendar"), QSize(), QIcon::Normal, QIcon::Off);
+    action->setIcon(icon);
+    connect(action, SIGNAL(triggered()), this, SLOT(addManyDays()));
+
+    actions->push_back(action);
+
+    return actions;
 }
 
 void EstimacionesDias::defineHeaders(QStringList &list)
@@ -174,5 +191,28 @@ void EstimacionesDias::setStatusToUnmodified()
     foreach (EstimacionDiaPtr e, m_Estimaciones.values())
     {
         e->setUnmodified();
+    }
+}
+
+void EstimacionesDias::addManyDays()
+{
+    DlgAddManyEstimationDays dlg;
+    dlg.setFrom(QDate::currentDate());
+    dlg.setTo(QDate::currentDate().addMonths(1));
+    if (dlg.exec() == QDialog::Accepted)
+    {
+        QDate from = dlg.From();
+        QDate To = dlg.To();
+        int delta = from.daysTo(To);
+        for (int i = 0; i < delta; ++i)
+        {
+            QDate date = from.addDays(i);
+            if (m_Estimaciones.find(date) == m_Estimaciones.end())
+            {
+                EstimacionDiaPtr e = boost::make_shared<EstimacionDia>(true, this);
+                e->Dia().setValue(date);
+                m_Estimaciones[e->Dia().value()] = e;
+            }
+        }
     }
 }

@@ -20,6 +20,7 @@ public:
     virtual void defineHeaders(QStringList &list);
     virtual void fillData(QTreeWidget &tree);
     virtual bool isColumnEditable(int column);
+    virtual boost::shared_ptr<QList<QAction *> > getActions();
 
     virtual bool addNew();
     virtual bool addNew(QTreeWidgetItem *item);
@@ -33,6 +34,9 @@ public:
     EstimacionDiaLst getAll();
     EstimacionDiaPtr get(QDate dia);
     EstimacionDiaLst getUnplanned();
+
+public slots:
+    void addManyDays();
 
 private:
     QMap<QDate, EstimacionDiaPtr> m_Estimaciones;

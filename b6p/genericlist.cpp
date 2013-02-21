@@ -9,6 +9,16 @@ GenericList::GenericList(boost::shared_ptr<ACollection> Model, bool inPlaceEdit,
     ui->setupUi(this);
     model = Model;
     QStringList headers;
+
+    boost::shared_ptr<QList<QAction *> > customActions = model->getActions();
+    addActions(*customActions);
+    foreach(QAction *action, *customActions)
+    {
+        action->setParent(this);
+        ui->toolBar->addAction(action);
+        connect(action, SIGNAL(triggered()), this, SLOT(customActionTriggered()));
+    }
+
     model->defineHeaders(headers);
     setHeader(headers);
     ui->treeList->clear();
@@ -111,4 +121,10 @@ void GenericList::on_treeList_itemChanged(QTreeWidgetItem *item, int column)
             model->fillData(*ui->treeList);
         }
     }
+}
+
+
+void GenericList::customActionTriggered()
+{
+    model->fillData(*ui->treeList);
 }

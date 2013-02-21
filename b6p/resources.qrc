@@ -3,7 +3,7 @@
         <file>images/glyphicons_037_coins.png</file>
         <file>images/glyphicons_041_charts.png</file>
         <file alias="employees">images/glyphicons_043_group.png</file>
-        <file>images/glyphicons_045_calendar.png</file>
+        <file alias="calendar">images/glyphicons_045_calendar.png</file>
         <file>images/glyphicons_053_alarm.png</file>
         <file alias="clock">images/glyphicons_054_clock.png</file>
         <file>images/glyphicons_055_stopwatch.png</file>

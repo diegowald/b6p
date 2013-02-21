@@ -3,9 +3,12 @@
 
 #include <QObject>
 #include <boost/shared_ptr.hpp>
+#include <boost/make_shared.hpp>
 #include <QTreeWidget>
 #include "sqlhandler.h"
 #include "IRecord.h"
+#include <QAction>
+#include <QList>
 
 
 class ACollection : public QObject
@@ -25,6 +28,7 @@ public:
     virtual void defineHeaders(QStringList &list) = 0;
     virtual void fillData(QTreeWidget &tree) = 0;
     virtual bool isColumnEditable(int column) { return false; }
+    virtual boost::shared_ptr<QList<QAction*> > getActions() { return boost::make_shared<QList<QAction*> >(); }
     bool addNewRecord();
     bool addNewRecord(QTreeWidgetItem *item);
     bool editRecord(QVariant ID);
