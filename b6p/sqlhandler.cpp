@@ -2,7 +2,7 @@
 #include <QSqlError>
 #include <QDateTime>
 #include <QVariant>
-
+#include <QMessageBox>
 SQLHandler::SQLHandler(QString database)
 {
     m_database = database;
@@ -17,6 +17,7 @@ QSqlQuery SQLHandler::getAll(QString query)
 
     if (!db.open())
     {
+        QMessageBox::information(NULL, QObject::tr("DB Error"), QObject::tr("Can't open Database"));
         // Error
         return QSqlQuery();
     }
@@ -35,6 +36,7 @@ int SQLHandler::executeQuery(QString cmd, RecordPtr record, bool returnLastInser
 
     if (!db.open())
     {
+        QMessageBox::information(NULL, QObject::tr("DB Error"), QObject::tr("Can't open Database"));
         // Error
         return -1;
     }
@@ -71,6 +73,10 @@ int SQLHandler::executeQuery(QString cmd, RecordPtr record, bool returnLastInser
         }
     }
     q.exec();
+    if (q.lastError().type() != QSqlError::NoError)
+    {
+        QMessageBox::information(NULL, QObject::tr("SQL Error"), q.lastError().text());
+    }
     qDebug() << q.lastError();
     if (returnLastInsertedID)
         return q.lastInsertId().toInt();
