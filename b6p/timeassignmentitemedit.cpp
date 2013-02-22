@@ -198,3 +198,13 @@ void TimeAssignmentItemEdit::setHoraFin(int value)
 {
     ui->timeFin->setTime(value);
 }
+
+void TimeAssignmentItemEdit::setData(QVariant data)
+{
+    m_Data = data;
+}
+
+QVariant TimeAssignmentItemEdit::data()
+{
+    return m_Data;
+}

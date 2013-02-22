@@ -27,7 +27,7 @@ public:
 
     virtual void defineHeaders(QStringList &list) = 0;
     virtual void fillData(QTreeWidget &tree) = 0;
-    virtual bool isColumnEditable(int column) { return false; }
+    virtual bool isColumnEditable(int) { return false; }
     virtual boost::shared_ptr<QList<QAction*> > getActions() { return boost::make_shared<QList<QAction*> >(); }
     bool addNewRecord();
     bool addNewRecord(QTreeWidgetItem *item);
@@ -40,7 +40,7 @@ public:
     virtual QString getUpdateStatement() = 0;
     virtual QString getInsertStatement() = 0;
     virtual RecordSet getRecords(RecordStatus status) = 0;
-    virtual void refreshID(int newRecordId) = 0;
+    virtual void refreshID(int oldID, int newRecordId) = 0;
     virtual void saveDependants() = 0;
     virtual void setStatusToUnmodified() = 0;
 

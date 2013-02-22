@@ -4,6 +4,7 @@
 PlanificacionSubSector::PlanificacionSubSector(QObject *parent) :
     QObject(parent)
 {
+    m_IDRecord.setNull();
     m_Dia.setNull();
     m_IDSector.setNull();
     m_IDSubSector.setNull();
@@ -23,6 +24,7 @@ RecordPtr PlanificacionSubSector::asRecordPtr()
 {
     RecordPtr res(new Record());
 
+    (*res)["IDRecord"] = m_IDRecord.toVariant();
     (*res)["Dia"] = m_Dia.toVariant();
     (*res)["IDSector"] = m_IDSector.toVariant();
     (*res)["IDSubSector"] = m_IDSubSector.toVariant();
@@ -30,7 +32,14 @@ RecordPtr PlanificacionSubSector::asRecordPtr()
     (*res)["HoraInicio"] = m_HoraInicio.toVariant();
     (*res)["HoraFin"] = m_HoraFin.toVariant();
 
+    (*res)[RECORD_ID] = m_IDRecord.toVariant();
+
     return res;
+}
+
+NullableField<int> &PlanificacionSubSector::IDRecord()
+{
+    return m_IDRecord;
 }
 
 NullableField<QDate> &PlanificacionSubSector::Dia()
@@ -89,20 +98,26 @@ double PlanificacionSubSector::CantidadHoras()
 
 bool PlanificacionSubSector::isEqualsTo(PlanificacionSubSectorPtr other)
 {
-    if (m_Dia.value() != other->Dia().value())
-        return false;
-
-    if (m_IDSector.value() != other->IDSector().value())
-        return false;
-
-    if (m_IDSubSector.value() != other->IDSubSector().value())
-        return false;
-
-    return true;
+    return (m_IDRecord.value() == other->IDRecord().value());
 }
 
 void PlanificacionSubSector::updateWith(PlanificacionSubSectorPtr other)
 {
+    if (other->Dia().isNull())
+        m_Dia.setNull();
+    else
+        m_Dia.setValue(other->Dia().value());
+
+    if (other->IDSector().isNull())
+        m_IDSector.setNull();
+    else
+        m_IDSector.setValue(other->IDSector().value());
+
+    if (other->IDSubSector().isNull())
+        m_IDSubSector.setNull();
+    else
+        m_IDSubSector.setValue(other->IDSubSector().value());
+
     if (other->IDEmpleado().isNull())
         m_IDEmpleado.setNull();
     else
@@ -117,5 +132,11 @@ void PlanificacionSubSector::updateWith(PlanificacionSubSectorPtr other)
         m_HoraFin.setNull();
     else
         m_HoraFin.setValue(other->HoraFin().value());
-    setNew();
+//    setNew();
+}
+
+void PlanificacionSubSector::updateID(int newID)
+{
+    m_IDRecord.setValue(newID);
+    setUnmodified();
 }

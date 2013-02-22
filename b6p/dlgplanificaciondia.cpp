@@ -7,6 +7,7 @@ DlgPlanificacionDia::DlgPlanificacionDia(QWidget *parent) :
     ui(new Ui::DlgPlanificacionDia)
 {
     ui->setupUi(this);
+    newID = 0;
 }
 
 DlgPlanificacionDia::~DlgPlanificacionDia()
@@ -33,6 +34,7 @@ void DlgPlanificacionDia::setData(PlanificacionDiaPtr data)
         ui->treeWidget->addTopLevelItem(item);
         TimeAssignmentItemEdit *time = new TimeAssignmentItemEdit();
         time->setDate(m_Dia);
+        time->setData(plan->IDRecord().value());
 
         if (plan->IDSector().isNull())
             time->setIDSectorNull();
@@ -60,6 +62,8 @@ void DlgPlanificacionDia::on_btnAdd_pressed()
     ui->treeWidget->addTopLevelItem(item);
     TimeAssignmentItemEdit *time = new TimeAssignmentItemEdit();
     time->setDate(m_Dia);
+    newID++;
+    time->setData(-newID);
     ui->treeWidget->setItemWidget(item, 0, time);
     connect(time, SIGNAL(AssignmentChanged(QDateTime,QDateTime)), this, SLOT(slot_AssignmentChanged(QDateTime, QDateTime)));
 }
@@ -110,6 +114,7 @@ PlanificacionSubSectorLst DlgPlanificacionDia::Planificaciones()
         TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 0));
         PlanificacionSubSectorPtr ptr(new PlanificacionSubSector());
 
+        ptr->IDRecord().setValue(time->data().toInt());
         ptr->Dia().setValue(m_Dia);
         ptr->IDSector().setValue(time->IDSector());
         if (time->isSubSectorEmpty())
@@ -119,7 +124,10 @@ PlanificacionSubSectorLst DlgPlanificacionDia::Planificaciones()
         ptr->IDEmpleado().setValue(time->IDEmpleado());
         ptr->HoraInicio().setValue(time->HoraInicio());
         ptr->HoraFin().setValue(time->HoraFin());
-        ptr->setNew();
+        if (ptr->IDRecord().value() < 0)
+            ptr->setNew();
+        else
+            ptr->setModified();
         res->push_back(ptr);
     }
     return res;

@@ -144,7 +144,7 @@ bool PlanificacionesDias::deleteElement(QVariant ID)
 {
 }
 
-void PlanificacionesDias::refreshID(int newRecordId)
+void PlanificacionesDias::refreshID(int oldID, int newRecordId)
 {
 }
 

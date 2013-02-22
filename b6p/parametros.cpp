@@ -76,14 +76,17 @@ void Parametros::fillData(QTreeWidget &)
 
 bool Parametros::addNew()
 {
+    return false;
 }
 
 bool Parametros::edit(QVariant)
 {
+    return false;
 }
 
 bool Parametros::deleteElement(QVariant)
 {
+    return false;
 }
 
 QString Parametros::getValue(QString key, QString defaultValue)

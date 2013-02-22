@@ -4,6 +4,8 @@
 #include <QMap>
 #include <QDebug>
 
+#define RECORD_ID "RECORD_ID"
+
 typedef QMap<QString, QVariant> Record;
 typedef boost::shared_ptr<Record> RecordPtr;
 typedef boost::shared_ptr<QList<RecordPtr> > RecordSet;

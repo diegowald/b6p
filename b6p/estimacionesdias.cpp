@@ -149,7 +149,7 @@ bool EstimacionesDias::deleteElement(QVariant ID)
 {
 }
 
-void EstimacionesDias::refreshID(int newRecordId)
+void EstimacionesDias::refreshID(int oldID, int newRecordId)
 {
 }
 

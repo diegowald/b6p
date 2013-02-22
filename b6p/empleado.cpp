@@ -30,6 +30,7 @@ RecordPtr Empleado::asRecordPtr()
     (*res)["Nombres"] = nombre.toVariant();
     (*res)["FechaIngreso"] = fechaIngreso.toVariant();
 
+    (*res)[RECORD_ID] = idEmpleado.toVariant();
     return res;
 }
 

@@ -64,9 +64,9 @@ void ACollection::executeCommand(QString cmd, RecordStatus status)
     RecordSet set = getRecords(status);
     foreach(RecordPtr r, *set)
     {
-        int lastId = sqlEngine.executeQuery(cmd, r, usesLastInsertedId);
+        int newID = sqlEngine.executeQuery(cmd, r, usesLastInsertedId);
         if ((status == NEW) && usesLastInsertedId)
-            refreshID(lastId);
+            refreshID((*r)[RECORD_ID].toInt(), newID);
     }
 }
 

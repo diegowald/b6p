@@ -1,19 +1,20 @@
 #include "planificacionesdiassubsectores.h"
 
 PlanificacionesDiasSubSectores::PlanificacionesDiasSubSectores(QObject *parent) :
-    ACollection(tr("Planifications of Sectors and subsectors for a day"), false, parent)
+    ACollection(tr("Planifications of Sectors and subsectors for a day"), true, parent)
 {
 }
 
 QString PlanificacionesDiasSubSectores::getSqlString()
 {
-    return "select Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin from planificacionsubsector;";
+    return "select IDRecord, Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin from planificacionsubsector;";
 }
 
 void PlanificacionesDiasSubSectores::addRecord(Record &record)
 {
     PlanificacionSubSectorPtr p(new PlanificacionSubSector(this));
 
+    p->IDRecord().setValue(record["IDRecord"].toInt());
     p->Dia().setValue(QDateTime::fromMSecsSinceEpoch(record["Dia"].toLongLong()).date());
     p->IDSector().setValue(record["IDSector"].toInt());
     p->IDSubSector().setValue(record["IDSubsector"].toInt());
@@ -22,19 +23,22 @@ void PlanificacionesDiasSubSectores::addRecord(Record &record)
     p->HoraFin().setValue(record["HoraFin"].toInt());
     p->setInitialized();
 
-    m_Planificacion.push_back(p);
+    m_Planificacion[p->IDRecord().value()] = p;
 }
 
 QString PlanificacionesDiasSubSectores::getDeleteStatement()
 {
-    return "delete from planificacionsubsector where "
-            " Dia = :Dia, IDSector = :IDSector, IDSubSector = :IDSubSector, "
-            " IDEmpleado = :IDEmpleado, HoraInicio = :HoraInicio, HoraFin = :HoraFin;";
+    return "delete from planificacionsubsector where IDRecord = :IDRecord";
 }
 
 QString PlanificacionesDiasSubSectores::getUpdateStatement()
 {
-    return "";
+    return "update planificacionsubsector "
+            " set Dia = :Dia, IDSector = :IDSector, "
+            " IDSubsector = :IDSubSector, "
+            " IDEmpleado = :IDEmpleado, "
+            " HoraInicio = :HoraInicio, HoraFin = :HoraFin "
+            " where IDRecord = :IDRecord;";
 }
 
 QString PlanificacionesDiasSubSectores::getInsertStatement()
@@ -95,7 +99,7 @@ PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getAll(QDate Dia)
 {
     PlanificacionSubSectorLst res(new QList<PlanificacionSubSectorPtr>());
 
-    foreach(PlanificacionSubSectorPtr p, m_Planificacion)
+    foreach(PlanificacionSubSectorPtr p, m_Planificacion.values())
     {
         if (p->Dia().value() == Dia)
             res->push_back(p);
@@ -126,7 +130,7 @@ void PlanificacionesDiasSubSectores::updateWithOtherData(PlanificacionSubSectorL
         }
         if (!found)
         {
-            m_Planificacion.push_back(o);
+            m_Planificacion[o->IDRecord().value()] = o;
             o->setParent(this);
             o->setNew();
         }
@@ -139,4 +143,12 @@ void PlanificacionesDiasSubSectores::setStatusToUnmodified()
     {
         p->setUnmodified();
     }
+}
+
+void PlanificacionesDiasSubSectores::refreshID(int oldID, int newID)
+{
+    PlanificacionSubSectorPtr p = m_Planificacion[oldID];
+    p->updateID(newID);
+    m_Planificacion.remove(-1);
+    m_Planificacion[newID] = p;
 }

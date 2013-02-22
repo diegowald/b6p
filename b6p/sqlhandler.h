@@ -10,8 +10,8 @@ class SQLHandler
 public:
     SQLHandler(QString database);
 
-    QSqlQuery getAll(QString query);
-    int executeQuery(QString cmd, RecordPtr record, bool returnLastInsertedID);
+    QSqlQuery getAll(QString &query);
+    int executeQuery(QString &cmd, RecordPtr record, bool returnLastInsertedID);
 
 private:
     QString m_database;

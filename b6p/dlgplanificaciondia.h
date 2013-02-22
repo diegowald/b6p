@@ -32,6 +32,7 @@ private slots:
 private:
     Ui::DlgPlanificacionDia *ui;
     QDate m_Dia;
+    int newID;
 };
 
 #endif // DLGPLANIFICACIONDIA_H

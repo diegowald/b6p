@@ -24,7 +24,7 @@ public:
     virtual bool edit(QVariant ID);
     virtual bool edit(QTreeWidgetItem *, QVariant) {return false; }
     virtual bool deleteElement(QVariant ID);
-    virtual void refreshID(int) {}
+    virtual void refreshID(int, int) {}
     virtual void saveDependants() {}
     virtual void setStatusToUnmodified();
 

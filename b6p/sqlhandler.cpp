@@ -8,7 +8,7 @@ SQLHandler::SQLHandler(QString database)
     m_database = database;
 }
 
-QSqlQuery SQLHandler::getAll(QString query)
+QSqlQuery SQLHandler::getAll(QString &query)
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
 
@@ -27,7 +27,7 @@ QSqlQuery SQLHandler::getAll(QString query)
     return q;
 }
 
-int SQLHandler::executeQuery(QString cmd, RecordPtr record, bool returnLastInsertedID)
+int SQLHandler::executeQuery(QString &cmd, RecordPtr record, bool returnLastInsertedID)
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
 

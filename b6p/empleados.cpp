@@ -161,11 +161,11 @@ bool Empleados::deleteElement(QVariant ID)
         m_Empleados[ID.toInt()]->setDeleted();
 }
 
-void Empleados::refreshID(int newRecordId)
+void Empleados::refreshID(int oldID, int newRecordId)
 {
-    EmpleadoPtr e = m_Empleados[-1];
+    EmpleadoPtr e = m_Empleados[oldID];
     e->updateID(newRecordId);
-    m_Empleados.remove(-1);
+    m_Empleados.remove(oldID);
     m_Empleados[newRecordId] = e;    
 }
 

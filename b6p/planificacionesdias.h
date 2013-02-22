@@ -22,7 +22,7 @@ public:
     virtual bool edit(QVariant ID);
     virtual bool edit(QTreeWidgetItem *, QVariant) { return false;}
     virtual bool deleteElement(QVariant ID);
-    virtual void refreshID(int newRecordId);
+    virtual void refreshID(int oldID, int newRecordId);
     virtual void saveDependants();
     virtual void setStatusToUnmodified();
 

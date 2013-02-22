@@ -48,7 +48,7 @@ bool TimeAssignment::ShowBackgroundText()
     return m_showBackgroundText;
 }
 
-bool TimeAssignment::setShowBackgroundText(bool show)
+void TimeAssignment::setShowBackgroundText(bool show)
 {
     m_showBackgroundText = show;
     repaint();

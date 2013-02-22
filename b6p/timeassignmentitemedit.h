@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QDate>
+#include <QVariant>
 
 namespace Ui {
 class TimeAssignmentItemEdit;
@@ -35,6 +36,8 @@ public:
     void setHoraInicio(int value);
     void setHoraFin(int value);
 
+    void setData(QVariant data);
+    QVariant data();
 
     QDate Date();
     void setDate(QDate value);
@@ -57,6 +60,7 @@ private slots:
 private:
     Ui::TimeAssignmentItemEdit *ui;
     QDate date;
+    QVariant m_Data;
 };
 
 #endif // TIMEASSIGNMENTITEMEDIT_H

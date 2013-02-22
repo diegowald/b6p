@@ -48,7 +48,7 @@ public:
     bool PaintBackgroundReferences();
     void setPaintBackgroundReferences(bool paint);
     bool ShowBackgroundText();
-    bool setShowBackgroundText(bool show);
+    void setShowBackgroundText(bool show);
 
 
 public slots:

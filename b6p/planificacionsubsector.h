@@ -20,6 +20,7 @@ class PlanificacionSubSector : public QObject, public IRecord
 public:
     explicit PlanificacionSubSector(QObject *parent = 0);
 
+    NullableField<int> &IDRecord();
     NullableField<QDate> &Dia();
     NullableField<int> &IDSector();
     NullableField<int> &IDSubSector();
@@ -30,6 +31,8 @@ public:
     SectorPtr getSector();
     SubSectorPtr getSubsector();
     EmpleadoPtr getEmpleado();
+
+    void updateID(int newID);
 
     bool isEqualsTo(PlanificacionSubSectorPtr other);
     void updateWith(PlanificacionSubSectorPtr other);
@@ -43,6 +46,7 @@ signals:
 public slots:
     
 private:
+    NullableField<int> m_IDRecord;
     NullableField<QDate> m_Dia;
     NullableField<int> m_IDSector;
     NullableField<int> m_IDSubSector;
