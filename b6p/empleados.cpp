@@ -155,10 +155,13 @@ bool Empleados::edit(QVariant ID)
 
 bool Empleados::deleteElement(QVariant ID)
 {
-    if (m_Empleados.find(ID.toInt()) == m_Empleados.end())
-        return false;
-    else
+    bool result = false;
+    if (m_Empleados.find(ID.toInt()) != m_Empleados.end())
+    {
         m_Empleados[ID.toInt()]->setDeleted();
+        result = true;
+    }
+    return result;
 }
 
 void Empleados::refreshID(int oldID, int newRecordId)

@@ -56,7 +56,8 @@ signals:
     void loading(QString name);
     void saved(QString name);
     void saving(QString name);
-    
+    void dataUpdated();
+
 public slots:
 
 protected:

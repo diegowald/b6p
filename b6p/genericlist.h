@@ -19,6 +19,7 @@ public:
     void AllowEdit(bool status);
     void AllowDelete(bool status);
 
+
     ~GenericList();
     void setHeader(QStringList &headers);
 
@@ -37,6 +38,7 @@ private slots:
 
     void on_treeList_itemChanged(QTreeWidgetItem *item, int column);
     void customActionTriggered();
+    void on_dataUpdated();
 private:
     Ui::GenericList *ui;
     boost::shared_ptr<ACollection> model;

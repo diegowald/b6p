@@ -147,6 +147,13 @@ bool EstimacionesDias::edit(QVariant ID)
 
 bool EstimacionesDias::deleteElement(QVariant ID)
 {
+/*    bool result = false;
+    if (m_Empleados.find(ID.toInt()) != m_Empleados.end())
+    {
+        m_Empleados[ID.toInt()]->setDeleted();
+        result = true;
+    }
+    return result;*/
 }
 
 void EstimacionesDias::refreshID(int oldID, int newRecordId)

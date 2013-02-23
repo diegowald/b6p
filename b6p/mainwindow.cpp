@@ -80,6 +80,7 @@ void MainWindow::on_actionSetup_days_triggered()
 {
     // Open days setup list.
     GenericList *wnd = new GenericList(DataStore::instance()->getEstimacionesDias(), true, this);
+    wnd->AllowAdd(false);
     ui->mdiArea->addSubWindow(wnd);
     wnd->show();
     wnd->activateWindow();

@@ -142,6 +142,13 @@ bool PlanificacionesDias::edit(QVariant ID)
 
 bool PlanificacionesDias::deleteElement(QVariant ID)
 {
+/*    bool result = false;
+    if (m_Empleados.find(ID.toInt()) != m_Empleados.end())
+    {
+        m_Empleados[ID.toInt()]->setDeleted();
+        result = true;
+    }
+    return result;*/
 }
 
 void PlanificacionesDias::refreshID(int oldID, int newRecordId)
