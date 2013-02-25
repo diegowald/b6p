@@ -40,5 +40,5 @@ NullableField<int> &EstimacionDia::EstimacionHoras()
 
 bool EstimacionDia::isPlanned()
 {
-    return (DataStore::instance()->getPlanificacionesDias()->getByDay(m_Dia.value()) != PlanificacionDiaPtr());
+    return (DataStore::instance()->getPlanificacionesDias()->getByDay(m_Dia.value(), false) != PlanificacionDiaPtr());
 }

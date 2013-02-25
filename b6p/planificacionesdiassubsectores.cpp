@@ -7,7 +7,8 @@ PlanificacionesDiasSubSectores::PlanificacionesDiasSubSectores(QObject *parent) 
 
 QString PlanificacionesDiasSubSectores::getSqlString()
 {
-    return "select IDRecord, Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin from planificacionsubsector;";
+    return QString("select IDRecord, Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin from planificacionsubsector ")
+            + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
 void PlanificacionesDiasSubSectores::addRecord(Record &record)
@@ -95,14 +96,22 @@ bool PlanificacionesDiasSubSectores::deleteElement(QVariant ID)
 {
 }
 
-PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getAll(QDate Dia)
+PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getAll(QDate Dia, bool includeDeleted)
 {
     PlanificacionSubSectorLst res(new QList<PlanificacionSubSectorPtr>());
 
     foreach(PlanificacionSubSectorPtr p, m_Planificacion.values())
     {
         if (p->Dia().value() == Dia)
-            res->push_back(p);
+        {
+            if (!p->isDeleted())
+                res->push_back(p);
+            else
+            {
+                if (includeDeleted)
+                    res->push_back(p);
+            }
+        }
     }
 
     return res;
@@ -114,7 +123,7 @@ void PlanificacionesDiasSubSectores::updateWithOtherData(PlanificacionSubSectorL
     if (other->count() == 0)
         return;
 
-    PlanificacionSubSectorLst lista = getAll(other->at(0)->Dia().value());
+    PlanificacionSubSectorLst lista = getAll(other->at(0)->Dia().value(), false);
 
     foreach (PlanificacionSubSectorPtr o, *other)
     {
@@ -137,11 +146,19 @@ void PlanificacionesDiasSubSectores::updateWithOtherData(PlanificacionSubSectorL
     }
 }
 
-void PlanificacionesDiasSubSectores::setStatusToUnmodified()
+void PlanificacionesDiasSubSectores::setStatusToUnmodified(bool removeDeleted)
 {
+    QList<int> toDelete;
     foreach(PlanificacionSubSectorPtr p, m_Planificacion)
     {
-        p->setUnmodified();
+        if (removeDeleted && p->isDeleted())
+            toDelete.push_back(p->IDRecord().value());
+        else
+            p->setUnmodified();
+    }
+    foreach(int id, toDelete)
+    {
+        m_Planificacion.remove(id);
     }
 }
 

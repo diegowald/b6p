@@ -25,12 +25,12 @@ public:
     virtual bool deleteElement(QVariant ID);
     virtual void refreshID(int, int) {}
     virtual void saveDependants() {}
-    virtual void setStatusToUnmodified();
+    virtual void setStatusToUnmodified(bool removeDeleted);
 
     SectorPtr getSector(int IDSector);
     SectorPtr getSector(QString SectorName);
 
-    SectorLst getAll();
+    SectorLst getAll(bool includeDeleted);
 
 signals:
     

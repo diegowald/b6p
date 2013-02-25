@@ -26,15 +26,15 @@ public:
     virtual bool deleteElement(QVariant ID);
     virtual void refreshID(int, int) {}
     virtual void saveDependants() {}
-    virtual void setStatusToUnmodified();
+    virtual void setStatusToUnmodified(bool removeDeleted);
 
-    CalendarioPersonaLst getAll(int IDEmpleado);
+    CalendarioPersonaLst getAll(int IDEmpleado, bool includeDeleted);
     void updateCalendarFromData(CalendarioPersonaPtr dataFrom);
     void updateCalendarFromData(CalendarioPersonaLst dataList);
 
     void updateCalendarWithNewIDEmpleado(int oldId, int newId);
 
-    CalendarioPersonaPtr get(int IDEmpleado, int Dia, int HoraInicio, int HoraFin);
+    CalendarioPersonaPtr get(int IDEmpleado, int Dia, int HoraInicio, int HoraFin, bool includeDeleted);
 signals:
     
 public slots:

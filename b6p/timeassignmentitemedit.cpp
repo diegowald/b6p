@@ -35,7 +35,7 @@ TimeAssignmentItemEdit::~TimeAssignmentItemEdit()
 void TimeAssignmentItemEdit::llenarSectores()
 {
     ui->cboSectores->clear();
-    SectorLst sectores = DataStore::instance()->getSectores()->getAll();
+    SectorLst sectores = DataStore::instance()->getSectores()->getAll(false);
     foreach(SectorPtr s, *sectores)
     {
         ui->cboSectores->addItem(s->Nombre().value(), s->IDSector().value());
@@ -97,7 +97,7 @@ void TimeAssignmentItemEdit::llenarEmpleados()
     int HoraInicio = ui->timeInicio->timeSeconds();
     int HoraFin = ui->timeFin->timeSeconds();
 
-    EmpleadosLst emps = DataStore::instance()->getEmpleados()->getAll(IDSector, IDSubSector, Dia, HoraInicio, HoraFin);
+    EmpleadosLst emps = DataStore::instance()->getEmpleados()->getAll(IDSector, IDSubSector, Dia, HoraInicio, HoraFin, false);
     ui->cboEmpleado->clear();
     foreach(EmpleadoPtr e, *emps)
     {

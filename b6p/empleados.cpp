@@ -14,7 +14,8 @@ Empleados::~Empleados()
 
 QString Empleados::getSqlString()
 {
-    return "select ID, Apellido, Nombres, Legajo, FechaIngreso from empleados";
+    return QString("select ID, Apellido, Nombres, Legajo, FechaIngreso from empleados")
+            + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
 void Empleados::addRecord(Record &record)
@@ -31,20 +32,20 @@ void Empleados::addRecord(Record &record)
 
 QString Empleados::getDeleteStatement()
 {
-    return "delete from empleados where ID = :ID;";
+    return QString("update empleados set RecordStatus = %1 where ID = :ID;").arg(RECORD_DELETED);
 }
 
 QString Empleados::getUpdateStatement()
 {
-    return "update empleados set Apellido = :Apellido, Nombres = :Nombres, "
-            " Legajo = :Legajo, FechaIngreso = :FechaIngreso where ID = :ID;";
+    return QString("update empleados set Apellido = :Apellido, Nombres = :Nombres, "
+                   " Legajo = :Legajo, FechaIngreso = :FechaIngreso, RecordStatus = %1  where ID = :ID;").arg(RECORD_MODIFIED);
 }
 
 QString Empleados::getInsertStatement()
 {
-    return "insert into empleados (Apellido, Nombres, Legajo, FechaIngreso) "
+    return QString("insert into empleados (Apellido, Nombres, Legajo, FechaIngreso, RecordStatus) "
             " values "
-            "(:Apellido, :Nombres, :Legajo, :FechaIngreso);";
+            "(:Apellido, :Nombres, :Legajo, :FechaIngreso, %1);").arg(RECORD_NEW);
 }
 
 RecordSet Empleados::getRecords(RecordStatus status)
@@ -73,27 +74,47 @@ RecordSet Empleados::getRecords(RecordStatus status)
     return res;
 }
 
-EmpleadoPtr Empleados::getEmpleado(int idEmpleado)
+EmpleadoPtr Empleados::getEmpleado(int idEmpleado, bool includeDeleted)
 {
     if (m_Empleados.find(idEmpleado) == m_Empleados.end())
         return EmpleadoPtr();
     else
-        return m_Empleados[idEmpleado];
+    {
+        EmpleadoPtr e = m_Empleados[idEmpleado];
+        if (e->isDeleted() && !includeDeleted)
+            return EmpleadoPtr();
+        return e;
+    }
 }
 
-EmpleadosLst Empleados::getAll()
+EmpleadosLst Empleados::getAll(bool includeDeleted)
 {
-    EmpleadosLst res(new QList<EmpleadoPtr>(m_Empleados.values()));
+    EmpleadosLst res(new QList<EmpleadoPtr>());
+    foreach(EmpleadoPtr e, m_Empleados.values())
+    {
+        if (!e->isDeleted())
+            res->push_back(e);
+        else
+            if (includeDeleted)
+                res->push_back(e);
+    }
+
     return res;
 }
 
-EmpleadosLst Empleados::getAll(int IDSector, int IDSubSector, DAYS Dia, int HoraInicio, int HoraFin)
+EmpleadosLst Empleados::getAll(int IDSector, int IDSubSector, DAYS Dia, int HoraInicio, int HoraFin, bool includeDeleted)
 {
     EmpleadosLst res(new QList<EmpleadoPtr>());
     foreach(EmpleadoPtr e, m_Empleados.values())
     {
         if (e->canWork(Dia, IDSector, IDSubSector, HoraInicio, HoraFin))
-            res->push_back(e);
+        {
+            if (!e->isDeleted())
+                res->push_back(e);
+            else
+                if (includeDeleted)
+                    res->push_back(e);
+        }
     }
     return res;
 }
@@ -109,7 +130,8 @@ void Empleados::defineHeaders(QStringList &list)
 void Empleados::fillData(QTreeWidget &tree)
 {
     tree.clear();
-    foreach(EmpleadoPtr emp, m_Empleados)
+    EmpleadosLst emps = getAll(false);
+    foreach(EmpleadoPtr emp, *emps)
     {
         QTreeWidgetItem *item = new QTreeWidgetItem();
         item->setText(0, emp->Apellido().value());
@@ -133,7 +155,7 @@ bool Empleados::edit(QVariant ID)
     if (ID == -1)
         e = EmpleadoPtr(new Empleado(true, this));
     else
-        e = getEmpleado(ID.toInt());
+        e = getEmpleado(ID.toInt(), false);
     DlgEmployee dlg;
     dlg.setData(e);
     if (dlg.exec() == QDialog::Accepted)
@@ -178,10 +200,16 @@ void Empleados::saveDependants()
     DataStore::instance()->getCalendarios()->save();
 }
 
-void Empleados::setStatusToUnmodified()
+void Empleados::setStatusToUnmodified(bool removeDeleted)
 {
+    QList<int> toDelete;
     foreach (EmpleadoPtr e, m_Empleados.values())
     {
-        e->setUnmodified();
+        if (removeDeleted && e->isDeleted())
+            toDelete.push_back(e->IDEmpleado().value());
+        else
+            e->setUnmodified();
     }
+    foreach(int id, toDelete)
+        m_Empleados.remove(id);
 }

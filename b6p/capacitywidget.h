@@ -23,6 +23,9 @@ public:
     int IDSector();
     int IDSubSector();
     int Capacity();
+
+    void setAlreadyCreated();
+    bool alreadyCreated();
 protected:
     void llenarSectores();
     void llenarSubSectores(int IDSector);
@@ -33,6 +36,7 @@ private slots:
 
 private:
     Ui::CapacityWidget *ui;
+    bool m_AlreadyCreated;
 };
 
 #endif // CAPACITYWIDGET_H

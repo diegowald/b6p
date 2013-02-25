@@ -7,7 +7,8 @@ SubSectores::SubSectores(QObject *parent) :
 
 QString SubSectores::getSqlString()
 {
-    return "select ID, IDSector, Nombre, Descripcion from subsectores;";
+    return QString("select ID, IDSector, Nombre, Descripcion from subsectores ")
+            + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
 void SubSectores::addRecord(Record &record)
@@ -86,19 +87,36 @@ SubSectorPtr SubSectores::getSubSector(int idSector, QString SubSectorName)
     return SubSectorPtr();
 }
 
-SubSectoresLst SubSectores::getAll()
+SubSectoresLst SubSectores::getAll(bool includeDeleted)
 {
-    SubSectoresLst res(new QList<SubSectorPtr>(m_SubSectores.values()));
+    SubSectoresLst res(new QList<SubSectorPtr>());
+    foreach(SubSectorPtr s, m_SubSectores.values())
+    {
+        if (!s->isDeleted())
+            res->push_back(s);
+        else
+        {
+            if (includeDeleted)
+                res->push_back(s);
+        }
+    }
+
     return res;
 }
 
-SubSectoresLst SubSectores::getAll(int IDSector)
+SubSectoresLst SubSectores::getAll(int IDSector, bool includeDeleted)
 {
     SubSectoresLst res(new QList<SubSectorPtr>());
     foreach(SubSectorPtr subsector, m_SubSectores.values())
     {
         if (subsector->IDSector().value() == IDSector)
-            res->push_back(subsector);
+        {
+            if (!subsector->isDeleted())
+                res->push_back(subsector);
+            else
+                if (includeDeleted)
+                    res->push_back(subsector);
+        }
     }
     return res;
 }
@@ -123,10 +141,18 @@ bool SubSectores::deleteElement(QVariant ID)
 {
 }
 
-void SubSectores::setStatusToUnmodified()
+void SubSectores::setStatusToUnmodified(bool removeDeleted)
 {
+    QList<int> toDelete;
     foreach(SubSectorPtr s, m_SubSectores.values())
     {
-        s->setUnmodified();
+        if (removeDeleted && s->isDeleted())
+            toDelete.push_back(s->IDSubsector().value());
+        else
+            s->setUnmodified();
+    }
+    foreach(int id, toDelete)
+    {
+        m_SubSectores.remove(id);
     }
 }

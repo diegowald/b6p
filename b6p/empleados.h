@@ -25,7 +25,7 @@ public:
     virtual bool deleteElement(QVariant ID);
     virtual void refreshID(int oldID, int newRecordId);
     virtual void saveDependants();
-    virtual void setStatusToUnmodified();
+    virtual void setStatusToUnmodified(bool removeDeleted);
 
 
     virtual QString getDeleteStatement();
@@ -33,9 +33,9 @@ public:
     virtual QString getInsertStatement();
     virtual RecordSet getRecords(RecordStatus status);
 
-    EmpleadoPtr getEmpleado(int idEmpleado);
-    EmpleadosLst getAll();
-    EmpleadosLst getAll(int IDSector, int IDSubSector, DAYS Dia, int HoraInicio, int HoraFin);
+    EmpleadoPtr getEmpleado(int idEmpleado, bool includeDeleted);
+    EmpleadosLst getAll(bool includeDeleted);
+    EmpleadosLst getAll(int IDSector, int IDSubSector, DAYS Dia, int HoraInicio, int HoraFin, bool includeDeleted);
 signals:
     
 public slots:

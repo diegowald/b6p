@@ -59,18 +59,18 @@ NullableField<int> &PlanificacionDia::IDSupervisor()
 
 EmpleadoPtr PlanificacionDia::Supervisor()
 {
-    return DataStore::instance()->getEmpleados()->getEmpleado(m_IDSupervisor.value());
+    return DataStore::instance()->getEmpleados()->getEmpleado(m_IDSupervisor.value(), false);
 }
 
 EstimacionDiaPtr PlanificacionDia::Estimacion()
 {
-    return DataStore::instance()->getEstimacionesDias()->get(m_Dia.value());
+    return DataStore::instance()->getEstimacionesDias()->get(m_Dia.value(), false);
 }
 
 int PlanificacionDia::HorasPlanificadas()
 {
     PlanificacionSubSectorLst planificaciones =
-            DataStore::instance()->getPlanificacionesSubSectores()->getAll(this->Dia().value());
+            DataStore::instance()->getPlanificacionesSubSectores()->getAll(this->Dia().value(), false);
 
     double total = 0;
 
@@ -115,5 +115,5 @@ void PlanificacionDia::updatePlanificaciones(PlanificacionSubSectorLst dataFrom)
 
 PlanificacionSubSectorLst PlanificacionDia::getPlanificaciones()
 {
-    return DataStore::instance()->getPlanificacionesSubSectores()->getAll(m_Dia.value());
+    return DataStore::instance()->getPlanificacionesSubSectores()->getAll(m_Dia.value(), false);
 }

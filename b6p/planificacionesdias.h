@@ -24,10 +24,10 @@ public:
     virtual bool deleteElement(QVariant ID);
     virtual void refreshID(int oldID, int newRecordId);
     virtual void saveDependants();
-    virtual void setStatusToUnmodified();
+    virtual void setStatusToUnmodified(bool removeDeleted);
 
-    PlanificacionDiaLst getAll();
-    PlanificacionDiaPtr getByDay(QDate day);
+    PlanificacionDiaLst getAll(bool includeDeleted);
+    PlanificacionDiaPtr getByDay(QDate day, bool includeDeleted);
 signals:
     
 public slots:

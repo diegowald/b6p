@@ -9,7 +9,8 @@ EstimacionesDias::EstimacionesDias(QObject *parent)
 
 QString EstimacionesDias::getSqlString()
 {
-    return "select Dia, HorasEstimadas from planificaciondias;";
+    return QString("select Dia, HorasEstimadas from planificaciondias ")
+            + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
 void EstimacionesDias::addRecord(Record &record)
@@ -160,44 +161,73 @@ void EstimacionesDias::refreshID(int oldID, int newRecordId)
 {
 }
 
-EstimacionDiaLst EstimacionesDias::getAll()
+EstimacionDiaLst EstimacionesDias::getAll(bool includeDeleted)
 {
     EstimacionDiaLst res(new QList<EstimacionDiaPtr>());
 
     foreach (EstimacionDiaPtr e, m_Estimaciones.values())
     {
-        res->push_back(e);
+        if (!e->isDeleted())
+            res->push_back(e);
+        else
+            if (includeDeleted)
+                res->push_back(e);
     }
 
     return res;
 }
 
-EstimacionDiaLst EstimacionesDias::getUnplanned()
+EstimacionDiaLst EstimacionesDias::getUnplanned(bool includeDeleted)
 {
     EstimacionDiaLst res(new QList<EstimacionDiaPtr>());
 
     foreach(EstimacionDiaPtr e, m_Estimaciones.values())
     {
         if (!e->isPlanned())
-            res->push_back(e);
+        {
+            if (!e->isDeleted())
+                res->push_back(e);
+            else
+                if (includeDeleted)
+                    res->push_back(e);
+        }
     }
 
     return res;
 }
 
-EstimacionDiaPtr EstimacionesDias::get(QDate dia)
+EstimacionDiaPtr EstimacionesDias::get(QDate dia, bool includeDeleted)
 {
     if (m_Estimaciones.find(dia) == m_Estimaciones.end())
         return EstimacionDiaPtr();
     else
-        return m_Estimaciones[dia];
+    {
+        EstimacionDiaPtr e = m_Estimaciones[dia];
+        if (!e->isDeleted())
+            return e;
+        else
+        {
+            if (includeDeleted)
+                return e;
+            else
+                return EstimacionDiaPtr();
+        }
+    }
 }
 
-void EstimacionesDias::setStatusToUnmodified()
+void EstimacionesDias::setStatusToUnmodified(bool removeDeleted)
 {
+    QList<QDate> toDelete;
     foreach (EstimacionDiaPtr e, m_Estimaciones.values())
     {
-        e->setUnmodified();
+        if (removeDeleted && e->isDeleted())
+            toDelete.push_back(e->Dia().value());
+        else
+            e->setUnmodified();
+    }
+    foreach(QDate dt, toDelete)
+    {
+        m_Estimaciones.remove(dt);
     }
 }
 

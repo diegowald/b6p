@@ -5,20 +5,26 @@ CapacidadesPersonaSector::CapacidadesPersonaSector(QObject *parent) :
 {
 }
 
-CapacidadPersonaSectorLst CapacidadesPersonaSector::getAll(int IDEmpleado)
+CapacidadPersonaSectorLst CapacidadesPersonaSector::getAll(int IDEmpleado, bool includeDeleted)
 {
     CapacidadPersonaSectorLst res(new QList<CapacidadPersonaSectorPtr>());
     foreach(CapacidadPersonaSectorPtr cap, m_Capacidades)
     {
         if (cap->IDEmpleado().value() == IDEmpleado)
-            res->push_back(cap);
+        {
+            if (!cap->isDeleted())
+                res->push_back(cap);
+            else
+                if (includeDeleted)
+                    res->push_back(cap);
+        }
     }
     return res;
 }
 
-CapacidadPersonaSectorPtr CapacidadesPersonaSector::get(int idEmpleado, int IDSector, int IDSubSector)
+CapacidadPersonaSectorPtr CapacidadesPersonaSector::get(int idEmpleado, int IDSector, int IDSubSector, bool includeDeleted)
 {
-    CapacidadPersonaSectorLst all = getAll(idEmpleado);
+    CapacidadPersonaSectorLst all = getAll(idEmpleado, includeDeleted);
     foreach(CapacidadPersonaSectorPtr c, *all)
     {
         if (c->canWork(IDSector, IDSubSector))
@@ -29,7 +35,8 @@ CapacidadPersonaSectorPtr CapacidadesPersonaSector::get(int idEmpleado, int IDSe
 
 QString CapacidadesPersonaSector::getSqlString()
 {
-    return "select IDSector, IDSubSector, IDEmpleado, Capacidad from capacidadespersonassector;";
+    return QString("select IDSector, IDSubSector, IDEmpleado, Capacidad from capacidadespersonassector ")
+            + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
 void CapacidadesPersonaSector::addRecord(Record &record)
@@ -46,25 +53,25 @@ void CapacidadesPersonaSector::addRecord(Record &record)
 
 QString CapacidadesPersonaSector::getDeleteStatement()
 {
-    return "delete from capacidadespersonassector where IDSector = :IDSector "
-            " and IDSubSector = :IDSubSector and IDEmpleado = :IDEmpleado;";
+    return QString("update capacidadespersonassector set RecordStatus = %1 where IDSector = :IDSector "
+                   " and IDSubSector = :IDSubSector and IDEmpleado = :IDEmpleado;").arg(RECORD_DELETED);
 }
 
 QString CapacidadesPersonaSector::getUpdateStatement()
 {
-    return "update capacidadespersonassector set "
-            " Capacidad = :Capacidad "
-            " where "
-            " IDSector = :IDSector and IDSubSector = :IDSubSector "
-            " and IDEmpleado = :IDEmpleado;";
+    return QString("update capacidadespersonassector set "
+                   " Capacidad = :Capacidad, RecordStatus = %1 "
+                   " where "
+                   " IDSector = :IDSector and IDSubSector = :IDSubSector "
+                   " and IDEmpleado = :IDEmpleado;").arg(RECORD_MODIFIED);
 }
 
 QString CapacidadesPersonaSector::getInsertStatement()
 {
-    return "insert into capacidadespersonassector "
-            " (IDSector, IDSubSector, IDEmpleado, Capacidad) "
-            " values "
-            " (:IDSector, :IDSubSector, :IDEmpleado, :Capacidad);";
+    return QString("insert into capacidadespersonassector "
+                   " (IDSector, IDSubSector, IDEmpleado, Capacidad, RecordStatus) "
+                   " values "
+                   " (:IDSector, :IDSubSector, :IDEmpleado, :Capacidad, %1);").arg(RECORD_NEW);
 }
 
 RecordSet CapacidadesPersonaSector::getRecords(RecordStatus status)
@@ -117,7 +124,7 @@ void CapacidadesPersonaSector::updateCapacityfromData(CapacidadPersonaSectorLst 
 {
     if (dataFrom->count() > 0)
     {
-        CapacidadPersonaSectorLst capsEmpleado = getAll(dataFrom->at(0)->IDEmpleado().value());
+        CapacidadPersonaSectorLst capsEmpleado = getAll(dataFrom->at(0)->IDEmpleado().value(), false);
         foreach (CapacidadPersonaSectorPtr nc, *dataFrom)
         {
             bool found = false;
@@ -139,10 +146,18 @@ void CapacidadesPersonaSector::updateCapacityfromData(CapacidadPersonaSectorLst 
     }
 }
 
-void CapacidadesPersonaSector::setStatusToUnmodified()
+void CapacidadesPersonaSector::setStatusToUnmodified(bool removeDeleted)
 {
+    QList<CapacidadPersonaSectorPtr> toDelete;
     foreach(CapacidadPersonaSectorPtr c, m_Capacidades)
     {
-        c->setUnmodified();
+        if (removeDeleted && c->isDeleted())
+            toDelete.push_back(c);
+        else
+            c->setUnmodified();
+    }
+    foreach(CapacidadPersonaSectorPtr c, toDelete)
+    {
+        m_Capacidades.removeOne(c);
     }
 }

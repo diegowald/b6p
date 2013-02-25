@@ -26,12 +26,12 @@ public:
     virtual bool deleteElement(QVariant ID);
     virtual void refreshID(int, int) {}
     virtual void saveDependants() {}
-    virtual void setStatusToUnmodified();
+    virtual void setStatusToUnmodified(bool removeDeleted);
 
-    CapacidadPersonaSectorLst getAll(int IDEmpleado);
+    CapacidadPersonaSectorLst getAll(int IDEmpleado, bool includeDeleted);
     void updateCapacityfromData(CapacidadPersonaSectorLst dataFrom);
 
-    CapacidadPersonaSectorPtr get(int idEmpleado, int IDSector, int IDSubSector);
+    CapacidadPersonaSectorPtr get(int idEmpleado, int IDSector, int IDSubSector, bool includeDeleted);
 signals:
     
 public slots:

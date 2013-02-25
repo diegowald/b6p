@@ -39,7 +39,7 @@ void ACollection::save()
     updateRecordsToDB();
     addNewRecordsToDB();
     saveDependants();
-    setStatusToUnmodified();
+    setStatusToUnmodified(true);
     emit dataUpdated();
     emit saved(m_Name);
 }

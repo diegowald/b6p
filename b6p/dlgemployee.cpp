@@ -48,6 +48,7 @@ void DlgEmployee::setData(EmpleadoPtr empleado)
         ui->treeCapacities->addTopLevelItem(item);
         CapacityWidget *w = new CapacityWidget();
         w->setIDSector(cap->IDSector().value());
+        w->setAlreadyCreated();
         if (!cap->ID_SubSector().isNull())
             w->setIDSubSector(cap->ID_SubSector().value());
         w->setCapacity(cap->Capacidad().value());
@@ -188,4 +189,22 @@ void DlgEmployee::on_btnAdd_pressed()
     w->setSubSector(cap->getSubSector()->Nombre().value());
     w->setCapacity(cap->Capacidad().value());*/
     ui->treeCapacities->setItemWidget(item, 0, w);
+}
+
+void DlgEmployee::on_btnDelete_pressed()
+{
+    QTreeWidgetItem *item = ui->treeCapacities->currentItem();
+    if (item)
+    {
+        CapacityWidget *w = qobject_cast<CapacityWidget *>(ui->treeCapacities->itemWidget(item, 0));
+        if (w->alreadyCreated())
+        {
+            CapacidadPersonaSectorPtr c = DataStore::instance()->getCapacidades()->get(
+                        m_Empleado->IDEmpleado().value(),
+                        w->IDSector(),
+                        w->IDSubSector(), false);
+            c->setDeleted();
+        }
+        delete item;
+    }
 }

@@ -11,6 +11,7 @@ CapacityWidget::CapacityWidget(QWidget *parent) :
     ui->lblValue->clear();
     ui->slideCapacity->setValue(0);
     on_slideCapacity_valueChanged(0);
+    m_AlreadyCreated = false;
 }
 
 CapacityWidget::~CapacityWidget()
@@ -82,7 +83,7 @@ int CapacityWidget::Capacity()
 void CapacityWidget::llenarSectores()
 {
     ui->cboSectores->clear();
-    SectorLst sectores = DataStore::instance()->getSectores()->getAll();
+    SectorLst sectores = DataStore::instance()->getSectores()->getAll(false);
     foreach(SectorPtr s, *sectores)
     {
         ui->cboSectores->addItem(s->Nombre().value(), s->IDSector().value());
@@ -102,4 +103,14 @@ void CapacityWidget::llenarSubSectores(int IDSector)
 void CapacityWidget::on_cboSectores_currentIndexChanged(int index)
 {
     llenarSubSectores(ui->cboSectores->itemData(index, Qt::UserRole).toInt());
+}
+
+void CapacityWidget::setAlreadyCreated()
+{
+    m_AlreadyCreated = true;
+}
+
+bool CapacityWidget::alreadyCreated()
+{
+    return m_AlreadyCreated;
 }

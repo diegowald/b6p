@@ -29,11 +29,11 @@ public:
     virtual bool deleteElement(QVariant ID);
     virtual void refreshID(int oldID, int newRecordId);
     virtual void saveDependants() {}
-    virtual void setStatusToUnmodified();
+    virtual void setStatusToUnmodified(bool removeDeleted);
 
-    EstimacionDiaLst getAll();
-    EstimacionDiaPtr get(QDate dia);
-    EstimacionDiaLst getUnplanned();
+    EstimacionDiaLst getAll(bool includeDeleted);
+    EstimacionDiaPtr get(QDate dia, bool includeDeleted);
+    EstimacionDiaLst getUnplanned(bool includeDeleted);
 
 public slots:
     void addManyDays();

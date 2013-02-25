@@ -64,7 +64,7 @@ CapacidadPersonaSectorLst Empleado::Capacities()
     if (IDEmpleado().isNull())
         return CapacidadPersonaSectorLst(new QList<CapacidadPersonaSectorPtr>());
     else
-        return DataStore::instance()->getCapacidades()->getAll(IDEmpleado().value());
+        return DataStore::instance()->getCapacidades()->getAll(IDEmpleado().value(), false);
 }
 
 void Empleado::updateCapacities(CapacidadPersonaSectorLst newCapacities)
@@ -84,7 +84,7 @@ CalendarioPersonaLst Empleado::Disponibilidades()
     if (IDEmpleado().isNull() || IDEmpleado().value() == -1)
         return CalendarioPersonaLst(new QList<CalendarioPersonaPtr>());
     else
-        return DataStore::instance()->getCalendarios()->getAll(IDEmpleado().value());
+        return DataStore::instance()->getCalendarios()->getAll(IDEmpleado().value(), false);
 }
 
 void Empleado::updateID(int newId)
@@ -106,13 +106,13 @@ bool Empleado::canWork(DAYS Dia, int IDSector, int IDSubSector, int HoraInicio, 
 {
     // Verifico si puede trabajar en el sector y subsector
     CapacidadPersonaSectorPtr cap =
-            DataStore::instance()->getCapacidades()->get(idEmpleado.value(), IDSector, IDSubSector);
+            DataStore::instance()->getCapacidades()->get(idEmpleado.value(), IDSector, IDSubSector, false);
     if (cap.get() == NULL)
         return false;
 
     // Verfico si puede trabajar el dia en la franja horaria.
     CalendarioPersonaPtr cal = DataStore::instance()->getCalendarios()->get(
-                idEmpleado.value(), Dia, HoraInicio, HoraFin);
+                idEmpleado.value(), Dia, HoraInicio, HoraFin, false);
     if (cal.get() == NULL)
         return false;
 

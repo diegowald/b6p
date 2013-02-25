@@ -27,14 +27,14 @@ public:
     virtual bool deleteElement(QVariant ID);
     virtual void refreshID(int, int) {}
     virtual void saveDependants() {}
-    virtual void setStatusToUnmodified();
+    virtual void setStatusToUnmodified(bool removeDeleted);
 
 
     SubSectorPtr getSubSector(int idSubSector);
     SubSectorPtr getSubSector(int idSector, QString SubSectorName);
 
-    SubSectoresLst getAll();
-    SubSectoresLst getAll(int IDSector);
+    SubSectoresLst getAll(bool includeDeleted);
+    SubSectoresLst getAll(int IDSector, bool includeDeleted);
 
 signals:
     

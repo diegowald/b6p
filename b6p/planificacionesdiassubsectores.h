@@ -24,11 +24,11 @@ public:
     virtual bool deleteElement(QVariant ID);
     virtual void refreshID(int oldID, int newID);
     virtual void saveDependants() {}
-    virtual void setStatusToUnmodified();
+    virtual void setStatusToUnmodified(bool removeDeleted);
 
     void updateWithOtherData(PlanificacionSubSectorLst other);
 
-    PlanificacionSubSectorLst getAll(QDate Dia);
+    PlanificacionSubSectorLst getAll(QDate Dia, bool includeDeleted);
 signals:
     
 public slots:

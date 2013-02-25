@@ -10,7 +10,8 @@ PlanificacionesDias::PlanificacionesDias(QObject *parent) :
 
 QString PlanificacionesDias::getSqlString()
 {
-    return "select Dia, Notas, IDSupervisor from planificaciondia;";
+    return QString("select Dia, Notas, IDSupervisor from planificaciondia ")
+            + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
 void PlanificacionesDias::addRecord(Record &record)
@@ -98,7 +99,7 @@ void PlanificacionesDias::fillData(QTreeWidget &tree)
 bool PlanificacionesDias::addNew()
 {
     DlgSelectorBytDate dlg;
-    EstimacionDiaLst diasSinEstimar = DataStore::instance()->getEstimacionesDias()->getUnplanned();
+    EstimacionDiaLst diasSinEstimar = DataStore::instance()->getEstimacionesDias()->getUnplanned(false);
     QList<QDate> dias;
     foreach (EstimacionDiaPtr e, *diasSinEstimar)
     {
@@ -120,7 +121,7 @@ bool PlanificacionesDias::addNew()
 bool PlanificacionesDias::edit(QVariant ID)
 {
     PlanificacionDiaPtr p;
-    p = getByDay(ID.toDate());
+    p = getByDay(ID.toDate(), false);
     if (!p.get())
         p = PlanificacionDiaPtr(new PlanificacionDia(ID.toDate(), this));
 
@@ -155,22 +156,37 @@ void PlanificacionesDias::refreshID(int oldID, int newRecordId)
 {
 }
 
-PlanificacionDiaLst PlanificacionesDias::getAll()
+PlanificacionDiaLst PlanificacionesDias::getAll(bool includeDeleted)
 {
     PlanificacionDiaLst res(new QList<PlanificacionDiaPtr>());
     foreach (PlanificacionDiaPtr p, m_Planificaciones.values())
     {
-        res->push_back(p);
+        if (!p->isDeleted())
+            res->push_back(p);
+        else
+            if (includeDeleted)
+                res->push_back(p);
     }
     return res;
 }
 
-PlanificacionDiaPtr PlanificacionesDias::getByDay(QDate day)
+PlanificacionDiaPtr PlanificacionesDias::getByDay(QDate day, bool includeDeleted)
 {
     if (m_Planificaciones.find(day) == m_Planificaciones.end())
         return PlanificacionDiaPtr();
     else
-        return m_Planificaciones[day];
+    {
+        PlanificacionDiaPtr p = m_Planificaciones[day];
+        if (!p->isDeleted())
+            return p;
+        else
+        {
+            if (includeDeleted)
+                return p;
+            else
+                return PlanificacionDiaPtr();
+        }
+    }
 }
 
 void PlanificacionesDias::saveDependants()
@@ -178,10 +194,18 @@ void PlanificacionesDias::saveDependants()
     DataStore::instance()->getPlanificacionesSubSectores()->save();
 }
 
-void PlanificacionesDias::setStatusToUnmodified()
+void PlanificacionesDias::setStatusToUnmodified(bool removeDeleted)
 {
+    QList<QDate> toDelete;
     foreach(PlanificacionDiaPtr p, m_Planificaciones.values())
     {
-        p->setUnmodified();
+        if (removeDeleted && p->isDeleted())
+            toDelete.push_back(p->Dia().value());
+        else
+            p->setUnmodified();
+    }
+    foreach(QDate dt, toDelete)
+    {
+        m_Planificaciones.remove(dt);
     }
 }

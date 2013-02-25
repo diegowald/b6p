@@ -7,7 +7,8 @@ Sectores::Sectores(QObject *parent) :
 
 QString Sectores::getSqlString()
 {
-    return "select ID, Nombre, Descripcion from sectores;";
+    return QString("select ID, Nombre, Descripcion from sectores ")
+            + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
 void Sectores::addRecord(Record &record)
@@ -85,12 +86,18 @@ SectorPtr Sectores::getSector(QString SectorName)
     return SectorPtr();
 }
 
-SectorLst Sectores::getAll()
+SectorLst Sectores::getAll(bool includeDeleted)
 {
     SectorLst res(new QList<SectorPtr>());
     foreach(SectorPtr s, m_Sectores.values())
     {
-        res->push_back(s);
+        if (!s->isDeleted())
+            res->push_back(s);
+        else
+        {
+            if (includeDeleted)
+                res->push_back(s);
+        }
     }
     return res;
 }
@@ -115,10 +122,18 @@ bool Sectores::deleteElement(QVariant ID)
 {
 }
 
-void Sectores::setStatusToUnmodified()
+void Sectores::setStatusToUnmodified(bool removeDeleted)
 {
+    QList<int> toDelete;
     foreach(SectorPtr s, m_Sectores.values())
     {
-        s->setUnmodified();
+        if (removeDeleted && s->isDeleted())
+            toDelete.push_back(s->IDSector().value());
+        else
+            s->setUnmodified();
+    }
+    foreach(int id, toDelete)
+    {
+        m_Sectores.remove(id);
     }
 }

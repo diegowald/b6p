@@ -11,7 +11,8 @@ CalendarioPersonas::~CalendarioPersonas()
 
 QString CalendarioPersonas::getSqlString()
 {
-    return "select Dia, IDEmpleado, HoraIngreso, HoraEgreso from calendariopersonas;";
+    return QString("select Dia, IDEmpleado, HoraIngreso, HoraEgreso from calendariopersonas ")
+            + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
 void CalendarioPersonas::addRecord(Record &record)
@@ -28,7 +29,7 @@ void CalendarioPersonas::addRecord(Record &record)
 
 QString CalendarioPersonas::getDeleteStatement()
 {
-    return "delete from calendariopersonas where Dia = :Dia and IDEmpleado = :IDEmpleado;";
+    return QString("update calendariopersonas set RecordStatus = %1 where Dia = :Dia and IDEmpleado = :IDEmpleado;").arg(RECORD_DELETED);
 }
 
 QString CalendarioPersonas::getUpdateStatement()
@@ -91,25 +92,39 @@ bool CalendarioPersonas::deleteElement(QVariant ID)
 {
 }
 
-CalendarioPersonaLst CalendarioPersonas::getAll(int IDEmpleado)
+CalendarioPersonaLst CalendarioPersonas::getAll(int IDEmpleado, bool includeDeleted)
 {
     CalendarioPersonaLst res(new QList<CalendarioPersonaPtr>());
     foreach (CalendarioPersonaPtr cal, m_Calendarios)
     {
         qDebug() << cal->IDEmpleado().value();
         if (cal->IDEmpleado().value() == IDEmpleado)
-            res->push_back(cal);
+        {
+            if (!cal->isDeleted())
+                res->push_back(cal);
+            else
+                if (includeDeleted)
+                    res->push_back(cal);
+        }
     }
     return res;
 }
 
-CalendarioPersonaPtr CalendarioPersonas::get(int IDEmpleado, int Dia, int HoraInicio, int HoraFin)
+CalendarioPersonaPtr CalendarioPersonas::get(int IDEmpleado, int Dia, int HoraInicio, int HoraFin, bool includeDeleted)
 {
-    CalendarioPersonaLst all = getAll(IDEmpleado);
+    CalendarioPersonaLst all = getAll(IDEmpleado, false);
     foreach(CalendarioPersonaPtr c, *all)
     {
         if (c->canWork(Dia, HoraInicio, HoraFin))
-            return c;
+        {
+            if (!c->isDeleted())
+                return c;
+            else
+            {
+                if (includeDeleted)
+                    return c;
+            }
+        }
     }
     return CalendarioPersonaPtr();
 }
@@ -124,7 +139,7 @@ void CalendarioPersonas::updateCalendarFromData(CalendarioPersonaLst dataList)
 
 void CalendarioPersonas::updateCalendarFromData(CalendarioPersonaPtr dataFrom)
 {
-    CalendarioPersonaLst cp = getAll(dataFrom->IDEmpleado().value());
+    CalendarioPersonaLst cp = getAll(dataFrom->IDEmpleado().value(), false);
     foreach(CalendarioPersonaPtr c, *cp)
     {
         if (c->EqualsTo(dataFrom))
@@ -146,17 +161,25 @@ void CalendarioPersonas::updateCalendarFromData(CalendarioPersonaPtr dataFrom)
 
 void CalendarioPersonas::updateCalendarWithNewIDEmpleado(int oldId, int newId)
 {
-    CalendarioPersonaLst cal = getAll(oldId);
+    CalendarioPersonaLst cal = getAll(oldId, false);
     foreach (CalendarioPersonaPtr cp, *cal)
     {
         cp->updateIDEmpleado(newId);
     }
 }
 
-void CalendarioPersonas::setStatusToUnmodified()
+void CalendarioPersonas::setStatusToUnmodified(bool removeDeleted)
 {
+    QList<CalendarioPersonaPtr> toDelete;
     foreach(CalendarioPersonaPtr c, m_Calendarios)
     {
-        c->setUnmodified();
+        if (removeDeleted && c->isDeleted())
+            toDelete.push_back(c);
+        else
+            c->setUnmodified();
+    }
+    foreach(CalendarioPersonaPtr c, toDelete)
+    {
+        m_Calendarios.removeOne(c);
     }
 }

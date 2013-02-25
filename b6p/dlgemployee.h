@@ -34,6 +34,8 @@ protected:
 private slots:
     void on_btnAdd_pressed();
 
+    void on_btnDelete_pressed();
+
 private:
     Ui::DlgEmployee *ui;
     EmpleadoPtr m_Empleado;

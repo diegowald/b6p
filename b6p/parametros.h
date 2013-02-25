@@ -26,7 +26,7 @@ public:
     virtual bool deleteElement(QVariant ID);
     virtual void refreshID(int, int) {}
     virtual void saveDependants() {}
-    virtual void setStatusToUnmodified() {}
+    virtual void setStatusToUnmodified(bool) {}
 
     QString getValue(QString key, QString defaultValue);
     void setValue(QString key, QString value);

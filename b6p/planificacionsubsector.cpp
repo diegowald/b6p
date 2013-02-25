@@ -84,7 +84,7 @@ SubSectorPtr PlanificacionSubSector::getSubsector()
 
 EmpleadoPtr PlanificacionSubSector::getEmpleado()
 {
-    return DataStore::instance()->getEmpleados()->getEmpleado(m_IDEmpleado.value());
+    return DataStore::instance()->getEmpleados()->getEmpleado(m_IDEmpleado.value(), false);
 }
 
 double PlanificacionSubSector::CantidadHoras()

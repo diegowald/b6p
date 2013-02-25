@@ -11,10 +11,19 @@
 #include <QList>
 
 
+
 class ACollection : public QObject
 {
     Q_OBJECT
 public:
+    enum RECORD_STATUS
+    {
+        RECORD_UNMODIFIED,
+        RECORD_NEW,
+        RECORD_MODIFIED,
+        RECORD_DELETED
+    };
+
     explicit ACollection(QString Name, bool useLastInsertId, QObject *parent = 0);
     
     virtual void load();
@@ -42,7 +51,7 @@ public:
     virtual RecordSet getRecords(RecordStatus status) = 0;
     virtual void refreshID(int oldID, int newRecordId) = 0;
     virtual void saveDependants() = 0;
-    virtual void setStatusToUnmodified() = 0;
+    virtual void setStatusToUnmodified(bool removeDeleted) = 0;
 
 protected:
     virtual bool addNew() = 0;
