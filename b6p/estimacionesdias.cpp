@@ -15,7 +15,7 @@ QString EstimacionesDias::getSqlString()
 
 void EstimacionesDias::addRecord(Record &record)
 {
-    EstimacionDiaPtr e(new EstimacionDia(this));
+    EstimacionDiaPtr e = boost::make_shared<EstimacionDia>(this);
     e->Dia().setValue(QDateTime::fromMSecsSinceEpoch(record["Dia"].toLongLong()).date());
     e->EstimacionHoras().setValue(record["HorasEstimadas"].toInt());
     e->setInitialized();
@@ -43,7 +43,7 @@ QString EstimacionesDias::getInsertStatement()
 
 RecordSet EstimacionesDias::getRecords(RecordStatus status)
 {
-    RecordSet res(new QList<RecordPtr>());
+    RecordSet res = boost::make_shared<QList<RecordPtr> >();
     foreach(EstimacionDiaPtr e, m_Estimaciones.values())
     {
         switch (status)
@@ -132,7 +132,7 @@ bool EstimacionesDias::edit(QVariant ID)
 {
     EstimacionDiaPtr e;
     if (ID == QDateTime::fromMSecsSinceEpoch(0).date())
-        e = EstimacionDiaPtr(new EstimacionDia(this));
+        e = boost::make_shared<EstimacionDia>(this);
     else
         e = m_Estimaciones[ID.toDate()];
 
@@ -165,7 +165,7 @@ void EstimacionesDias::refreshID(int oldID, int newRecordId)
 
 EstimacionDiaLst EstimacionesDias::getAll(bool includeDeleted)
 {
-    EstimacionDiaLst res(new QList<EstimacionDiaPtr>());
+    EstimacionDiaLst res = boost::make_shared<QList<EstimacionDiaPtr> >();
 
     foreach (EstimacionDiaPtr e, m_Estimaciones.values())
     {
@@ -181,7 +181,7 @@ EstimacionDiaLst EstimacionesDias::getAll(bool includeDeleted)
 
 EstimacionDiaLst EstimacionesDias::getUnplanned(bool includeDeleted)
 {
-    EstimacionDiaLst res(new QList<EstimacionDiaPtr>());
+    EstimacionDiaLst res = boost::make_shared<QList<EstimacionDiaPtr> >();
 
     foreach(EstimacionDiaPtr e, m_Estimaciones.values())
     {

@@ -1,6 +1,7 @@
 #include "dlgplanificaciondia.h"
 #include "ui_dlgplanificaciondia.h"
 #include "timeassignmentitemedit.h"
+#include <boost/make_shared.hpp>
 
 DlgPlanificacionDia::DlgPlanificacionDia(QWidget *parent) :
     QDialog(parent),
@@ -109,13 +110,13 @@ int DlgPlanificacionDia::IDSupervisor()
 
 PlanificacionSubSectorLst DlgPlanificacionDia::Planificaciones()
 {
-    PlanificacionSubSectorLst res(new QList<PlanificacionSubSectorPtr>());
+    PlanificacionSubSectorLst res = boost::make_shared<QList<PlanificacionSubSectorPtr> >();
 
     for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = ui->treeWidget->topLevelItem(i);
         TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 0));
-        PlanificacionSubSectorPtr ptr(new PlanificacionSubSector());
+        PlanificacionSubSectorPtr ptr = boost::make_shared<PlanificacionSubSector>();
 
         ptr->IDRecord().setValue(time->data().toInt());
         ptr->Dia().setValue(m_Dia);
@@ -136,7 +137,7 @@ PlanificacionSubSectorLst DlgPlanificacionDia::Planificaciones()
 
     foreach(int id, SubsectorsToDelete)
     {
-        PlanificacionSubSectorPtr ptr(new PlanificacionSubSector());
+        PlanificacionSubSectorPtr ptr = boost::make_shared<PlanificacionSubSector>();
         ptr->IDRecord().setValue(id);
         ptr->Dia().setValue(m_Dia);
         ptr->setDeleted();

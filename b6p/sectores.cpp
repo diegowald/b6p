@@ -13,7 +13,7 @@ QString Sectores::getSqlString()
 
 void Sectores::addRecord(Record &record)
 {
-    SectorPtr s(new Sector(this));
+    SectorPtr s = boost::make_shared<Sector>(this);
 
     s->IDSector().setValue(record["ID"].toInt());
     s->Nombre().setValue(record["Nombre"].toString());
@@ -43,7 +43,7 @@ QString Sectores::getInsertStatement()
 
 RecordSet Sectores::getRecords(RecordStatus status)
 {
-    RecordSet res(new QList<RecordPtr>());
+    RecordSet res = boost::make_shared<QList<RecordPtr> >();
     foreach(SectorPtr s, m_Sectores.values())
     {
         switch (status)
@@ -88,7 +88,7 @@ SectorPtr Sectores::getSector(QString SectorName)
 
 SectorLst Sectores::getAll(bool includeDeleted)
 {
-    SectorLst res(new QList<SectorPtr>());
+    SectorLst res = boost::make_shared<QList<SectorPtr> >();
     foreach(SectorPtr s, m_Sectores.values())
     {
         if (!s->isDeleted())

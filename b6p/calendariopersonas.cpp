@@ -17,7 +17,7 @@ QString CalendarioPersonas::getSqlString()
 
 void CalendarioPersonas::addRecord(Record &record)
 {
-    CalendarioPersonaPtr c(new CalendarioPersona(this));
+    CalendarioPersonaPtr c = boost::make_shared<CalendarioPersona>(this);
 
     c->Dia().setValue(record["Dia"].toInt());
     c->IDEmpleado().setValue(record["IDEmpleado"].toInt());
@@ -49,7 +49,7 @@ QString CalendarioPersonas::getInsertStatement()
 
 RecordSet CalendarioPersonas::getRecords(RecordStatus status)
 {
-    RecordSet res(new QList<RecordPtr>());
+    RecordSet res = boost::make_shared<QList<RecordPtr> >();
     foreach(CalendarioPersonaPtr c, m_Calendarios)
     {
         switch (status)
@@ -95,7 +95,7 @@ bool CalendarioPersonas::deleteElement(QVariant ID)
 
 CalendarioPersonaLst CalendarioPersonas::getAll(int IDEmpleado, bool includeDeleted)
 {
-    CalendarioPersonaLst res(new QList<CalendarioPersonaPtr>());
+    CalendarioPersonaLst res = boost::make_shared<QList<CalendarioPersonaPtr> >();
     foreach (CalendarioPersonaPtr cal, m_Calendarios)
     {
         qDebug() << cal->IDEmpleado().value();
@@ -151,7 +151,7 @@ void CalendarioPersonas::updateCalendarFromData(CalendarioPersonaPtr dataFrom)
     }
 
     // Si llega aca es porque no hay un elemento
-    CalendarioPersonaPtr c(new CalendarioPersona(this));
+    CalendarioPersonaPtr c = boost::make_shared<CalendarioPersona>(this);
     c->Dia().setValue(dataFrom->Dia().value());
     c->IDEmpleado().setValue(dataFrom->IDEmpleado().value());
     c->updateWith(dataFrom);

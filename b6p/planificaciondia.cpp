@@ -33,7 +33,7 @@ PlanificacionDia::PlanificacionDia(QObject *parent) : QObject(parent)
 
 RecordPtr PlanificacionDia::asRecordPtr()
 {
-    RecordPtr res(new Record());
+    RecordPtr res = boost::make_shared<Record>();
 
     (*res)["Dia"] = m_Dia.toVariant();
     (*res)["Notas"] = m_Notas.toVariant();

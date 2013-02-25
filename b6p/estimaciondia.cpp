@@ -20,7 +20,7 @@ EstimacionDia::EstimacionDia(bool isNew, QObject *parent) :
 
 RecordPtr EstimacionDia::asRecordPtr()
 {
-    RecordPtr res(new Record());
+    RecordPtr res = boost::make_shared<Record>();
 
     (*res)["Dia"] = m_Dia.toVariant();
     (*res)["HorasEstimadas"] = m_EstimacionHoras.toVariant();

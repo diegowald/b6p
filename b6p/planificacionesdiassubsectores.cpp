@@ -13,7 +13,7 @@ QString PlanificacionesDiasSubSectores::getSqlString()
 
 void PlanificacionesDiasSubSectores::addRecord(Record &record)
 {
-    PlanificacionSubSectorPtr p(new PlanificacionSubSector(this));
+    PlanificacionSubSectorPtr p = boost::make_shared<PlanificacionSubSector>(this);
 
     p->IDRecord().setValue(record["IDRecord"].toInt());
     p->Dia().setValue(QDateTime::fromMSecsSinceEpoch(record["Dia"].toLongLong()).date());
@@ -55,7 +55,7 @@ QString PlanificacionesDiasSubSectores::getInsertStatement()
 
 RecordSet PlanificacionesDiasSubSectores::getRecords(RecordStatus status)
 {
-    RecordSet res(new QList<RecordPtr>());
+    RecordSet res = boost::make_shared<QList<RecordPtr> >();
     foreach(PlanificacionSubSectorPtr p, m_Planificacion)
     {
         switch (status)
@@ -101,7 +101,7 @@ bool PlanificacionesDiasSubSectores::deleteElement(QVariant ID)
 
 PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getAll(QDate Dia, bool includeDeleted)
 {
-    PlanificacionSubSectorLst res(new QList<PlanificacionSubSectorPtr>());
+    PlanificacionSubSectorLst res = boost::make_shared<QList<PlanificacionSubSectorPtr> >();
 
     foreach(PlanificacionSubSectorPtr p, m_Planificacion.values())
     {

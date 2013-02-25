@@ -7,7 +7,7 @@ CapacidadesPersonaSector::CapacidadesPersonaSector(QObject *parent) :
 
 CapacidadPersonaSectorLst CapacidadesPersonaSector::getAll(int IDEmpleado, bool includeDeleted)
 {
-    CapacidadPersonaSectorLst res(new QList<CapacidadPersonaSectorPtr>());
+    CapacidadPersonaSectorLst res = boost::make_shared<QList<CapacidadPersonaSectorPtr> >();
     foreach(CapacidadPersonaSectorPtr cap, m_Capacidades)
     {
         if (cap->IDEmpleado().value() == IDEmpleado)
@@ -41,7 +41,7 @@ QString CapacidadesPersonaSector::getSqlString()
 
 void CapacidadesPersonaSector::addRecord(Record &record)
 {
-    CapacidadPersonaSectorPtr c(new CapacidadPersonaSector(this));
+    CapacidadPersonaSectorPtr c = boost::make_shared<CapacidadPersonaSector>(this);
 
     c->IDSector().setValue(record["IDSector"].toInt());
     c->ID_SubSector().setValue(record["IDSubSector"].toInt());
@@ -76,7 +76,7 @@ QString CapacidadesPersonaSector::getInsertStatement()
 
 RecordSet CapacidadesPersonaSector::getRecords(RecordStatus status)
 {
-    RecordSet res(new QList<RecordPtr>());
+    RecordSet res = boost::make_shared<QList<RecordPtr> >();
     foreach(CapacidadPersonaSectorPtr c, m_Capacidades)
     {
         switch (status)

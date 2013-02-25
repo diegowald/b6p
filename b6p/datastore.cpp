@@ -40,7 +40,7 @@ ParametrosPtr DataStore::getParametros()
 {
     if (!parametrosCreated)
     {
-        parametrosPtr = ParametrosPtr(new Parametros(this));
+        parametrosPtr = boost::make_shared<Parametros>(this);
         establishConnections(parametrosPtr.get());
         parametrosCreated = true;
     }
@@ -52,7 +52,7 @@ EmpleadosPtr DataStore::getEmpleados()
 {
     if (!empleadosCreated)
     {
-        empleadosPtr = EmpleadosPtr(new Empleados(this));
+        empleadosPtr = boost::make_shared<Empleados>(this);
         establishConnections(empleadosPtr.get());
         empleadosCreated = true;
     }
@@ -63,7 +63,7 @@ EstimacionesDiasPtr DataStore::getEstimacionesDias()
 {
     if (!estimacionesDiasCreated)
     {
-        estimacionesDiasPtr = EstimacionesDiasPtr(new EstimacionesDias(this));
+        estimacionesDiasPtr = boost::make_shared<EstimacionesDias>(this);
         establishConnections(estimacionesDiasPtr.get());
         estimacionesDiasCreated = true;
     }
@@ -74,7 +74,7 @@ PlanificacionesDiasPtr DataStore::getPlanificacionesDias()
 {
     if (!planificacionesDiasCreated)
     {
-        planificacionesDiasPtr = PlanificacionesDiasPtr(new PlanificacionesDias(this));
+        planificacionesDiasPtr = boost::make_shared<PlanificacionesDias>(this);
         establishConnections(planificacionesDiasPtr.get());
         planificacionesDiasCreated = true;
     }
@@ -85,7 +85,7 @@ PlanificacionesSubSectoresPtr DataStore::getPlanificacionesSubSectores()
 {
     if (!planificacionesSubSectoresCreated)
     {
-        planificacionesSubSectoresPtr = PlanificacionesSubSectoresPtr(new PlanificacionesDiasSubSectores(this));
+        planificacionesSubSectoresPtr = boost::make_shared<PlanificacionesDiasSubSectores>(this);
         establishConnections(planificacionesSubSectoresPtr.get());
         planificacionesSubSectoresCreated = true;
     }
@@ -97,7 +97,7 @@ SectoresPtr DataStore::getSectores()
 {
     if (!sectoresCreated)
     {
-        sectoresPtr = SectoresPtr(new Sectores(this));
+        sectoresPtr = boost::make_shared<Sectores>(this);
         establishConnections(sectoresPtr.get());
         sectoresCreated = true;
     }
@@ -108,7 +108,7 @@ SubSectoresPtr DataStore::getSubSectores()
 {
     if (!subSectoresCreated)
     {
-        subSectoresPtr = SubSectoresPtr(new SubSectores(this));
+        subSectoresPtr = boost::make_shared<SubSectores>(this);
         establishConnections(subSectoresPtr.get());
         subSectoresCreated = true;
     }
@@ -120,7 +120,7 @@ CalendarioPersonasPtr DataStore::getCalendarios()
 {
     if (!calendariosCreated)
     {
-        calendariosPtr = CalendarioPersonasPtr(new CalendarioPersonas(this));
+        calendariosPtr = boost::make_shared<CalendarioPersonas>(this);
         establishConnections(calendariosPtr.get());
         calendariosCreated = true;
     }
@@ -131,7 +131,7 @@ CapacidadesPersonaSectorPtr DataStore::getCapacidades()
 {
     if (!capacidadesCreated)
     {
-        capacidadesPtr = CapacidadesPersonaSectorPtr(new CapacidadesPersonaSector(this));
+        capacidadesPtr = boost::make_shared<CapacidadesPersonaSector>(this);
         establishConnections(capacidadesPtr.get());
         capacidadesCreated = true;
     }

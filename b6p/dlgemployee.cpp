@@ -135,13 +135,13 @@ QString DlgEmployee::Legajo()
 
 CapacidadPersonaSectorLst DlgEmployee::Capacities()
 {
-    CapacidadPersonaSectorLst res(new QList<CapacidadPersonaSectorPtr>());
+    CapacidadPersonaSectorLst res = boost::make_shared<QList<CapacidadPersonaSectorPtr> >();
 
     for (int i = 0; i < ui->treeCapacities->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *treeitem = ui->treeCapacities->topLevelItem(i);
         CapacityWidget * w = qobject_cast<CapacityWidget *>(ui->treeCapacities->itemWidget(treeitem, 0));
-        CapacidadPersonaSectorPtr p(new CapacidadPersonaSector());
+        CapacidadPersonaSectorPtr p = boost::make_shared<CapacidadPersonaSector>();
         p->IDEmpleado().setValue(m_Empleado->IDEmpleado());
         p->IDSector().setValue(w->IDSector());
         p->ID_SubSector().setValue(w->IDSubSector());
@@ -154,7 +154,7 @@ CapacidadPersonaSectorLst DlgEmployee::Capacities()
 
 CalendarioPersonaPtr DlgEmployee::getAssignment(AvailabilityWidget *w)
 {
-    CalendarioPersonaPtr p(new CalendarioPersona());
+    CalendarioPersonaPtr p = boost::make_shared<CalendarioPersona>();
 
     p->IDEmpleado().setValue(m_Empleado->IDEmpleado().value());
 
@@ -167,7 +167,7 @@ CalendarioPersonaPtr DlgEmployee::getAssignment(AvailabilityWidget *w)
 
 CalendarioPersonaLst DlgEmployee::Disponibilidades()
 {
-    CalendarioPersonaLst res(new QList<CalendarioPersonaPtr>());
+    CalendarioPersonaLst res = boost::make_shared<QList<CalendarioPersonaPtr> >();
 
     res->push_back(getAssignment(ui->TimeSunday));
     res->push_back(getAssignment(ui->TimeMonday));

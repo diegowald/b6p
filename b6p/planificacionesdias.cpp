@@ -16,7 +16,7 @@ QString PlanificacionesDias::getSqlString()
 
 void PlanificacionesDias::addRecord(Record &record)
 {
-    PlanificacionDiaPtr p(new PlanificacionDia(this));
+    PlanificacionDiaPtr p = boost::make_shared<PlanificacionDia>(this);
 
     p->Dia().setValue(QDateTime::fromMSecsSinceEpoch(record["Dia"].toLongLong()).date());
     p->Notas().setValue(record["Notas"].toString());
@@ -52,7 +52,7 @@ QString PlanificacionesDias::getInsertStatement()
 
 RecordSet PlanificacionesDias::getRecords(RecordStatus status)
 {
-    RecordSet res(new QList<RecordPtr>());
+    RecordSet res = boost::make_shared<QList<RecordPtr> >();
     foreach(PlanificacionDiaPtr p, m_Planificaciones.values())
     {
         switch (status)
@@ -129,7 +129,7 @@ bool PlanificacionesDias::edit(QVariant ID)
     PlanificacionDiaPtr p;
     p = getByDay(ID.toDate(), false);
     if (!p.get())
-        p = PlanificacionDiaPtr(new PlanificacionDia(ID.toDate(), this));
+        p = boost::make_shared<PlanificacionDia>(ID.toDate(), this);
 
     DlgPlanificacionDia dlg;
     dlg.setData(p);
@@ -164,7 +164,7 @@ void PlanificacionesDias::refreshID(int oldID, int newRecordId)
 
 PlanificacionDiaLst PlanificacionesDias::getAll(bool includeDeleted)
 {
-    PlanificacionDiaLst res(new QList<PlanificacionDiaPtr>());
+    PlanificacionDiaLst res = boost::make_shared<QList<PlanificacionDiaPtr> >();
     foreach (PlanificacionDiaPtr p, m_Planificaciones.values())
     {
         if (!p->isDeleted())

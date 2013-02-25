@@ -1,4 +1,5 @@
 #include "sector.h"
+#include <boost/make_shared.hpp>
 
 Sector::Sector(QObject *parent) :
     QObject(parent)
@@ -14,7 +15,7 @@ Sector::Sector(QObject *parent) :
 
 RecordPtr Sector::asRecordPtr()
 {
-    RecordPtr res(new Record());
+    RecordPtr res = boost::make_shared<Record>();
 
     (*res)["IDSector"] = m_IDSector.toVariant();
     (*res)["Nombre"] = m_Nombre.toVariant();

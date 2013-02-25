@@ -17,7 +17,7 @@ CapacidadPersonaSector::CapacidadPersonaSector(QObject *parent) :
 
 RecordPtr CapacidadPersonaSector::asRecordPtr()
 {
-    RecordPtr res(new Record());
+    RecordPtr res = boost::make_shared<Record>();
 
     (*res)["IDSector"] = m_IDSector.toVariant();
     (*res)["IDSubSector"] = m_ID_SubSector.toVariant();

@@ -13,7 +13,7 @@ QString SubSectores::getSqlString()
 
 void SubSectores::addRecord(Record &record)
 {
-    SubSectorPtr s(new SubSector(this));
+    SubSectorPtr s = boost::make_shared<SubSector>(this);
 
     s->IDSubsector().setValue(record["ID"].toInt());
     s->IDSector().setValue(record["IDSector"].toInt());
@@ -44,7 +44,7 @@ QString SubSectores::getInsertStatement()
 
 RecordSet SubSectores::getRecords(RecordStatus status)
 {
-    RecordSet res(new QList<RecordPtr>());
+    RecordSet res = boost::make_shared<QList<RecordPtr> >();
     foreach(SubSectorPtr s, m_SubSectores.values())
     {
         switch (status)
@@ -89,7 +89,7 @@ SubSectorPtr SubSectores::getSubSector(int idSector, QString SubSectorName)
 
 SubSectoresLst SubSectores::getAll(bool includeDeleted)
 {
-    SubSectoresLst res(new QList<SubSectorPtr>());
+    SubSectoresLst res = boost::make_shared<QList<SubSectorPtr> >();
     foreach(SubSectorPtr s, m_SubSectores.values())
     {
         if (!s->isDeleted())
@@ -106,7 +106,7 @@ SubSectoresLst SubSectores::getAll(bool includeDeleted)
 
 SubSectoresLst SubSectores::getAll(int IDSector, bool includeDeleted)
 {
-    SubSectoresLst res(new QList<SubSectorPtr>());
+    SubSectoresLst res = boost::make_shared<QList<SubSectorPtr> >();
     foreach(SubSectorPtr subsector, m_SubSectores.values())
     {
         if (subsector->IDSector().value() == IDSector)

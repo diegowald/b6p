@@ -18,7 +18,7 @@ SubSector::SubSector(QObject *parent) :
 
 RecordPtr SubSector::asRecordPtr()
 {
-    RecordPtr res(new Record());
+    RecordPtr res = boost::make_shared<Record>();
 
     (*res)["IDSector"] = m_IDSector.toVariant();
     (*res)["ID"] = m_IDSubSector.toVariant();

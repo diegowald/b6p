@@ -23,7 +23,7 @@ Empleado::Empleado(bool isNew, QObject *parent) :
 
 RecordPtr Empleado::asRecordPtr()
 {
-    RecordPtr res(new Record());
+    RecordPtr res = boost::make_shared<Record>();
 
     (*res)["ID"] = idEmpleado.toVariant();
     (*res)["Apellido"] = apellido.toVariant();
@@ -62,7 +62,7 @@ NullableField<QDate>& Empleado::FechaIngreso()
 CapacidadPersonaSectorLst Empleado::Capacities()
 {
     if (IDEmpleado().isNull())
-        return CapacidadPersonaSectorLst(new QList<CapacidadPersonaSectorPtr>());
+        return boost::make_shared<QList<CapacidadPersonaSectorPtr> >();
     else
         return DataStore::instance()->getCapacidades()->getAll(IDEmpleado().value(), false);
 }
@@ -82,7 +82,7 @@ void Empleado::updateDisponibilidades(CalendarioPersonaLst newDisponibilidades)
 CalendarioPersonaLst Empleado::Disponibilidades()
 {
     if (IDEmpleado().isNull() || IDEmpleado().value() == -1)
-        return CalendarioPersonaLst(new QList<CalendarioPersonaPtr>());
+        return boost::make_shared<QList<CalendarioPersonaPtr> >();
     else
         return DataStore::instance()->getCalendarios()->getAll(IDEmpleado().value(), false);
 }

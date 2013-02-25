@@ -44,7 +44,7 @@ QString Parametros::getInsertStatement()
 
 RecordSet Parametros::getRecords(RecordStatus status)
 {
-    RecordSet rs(new QList<RecordPtr>());
+    RecordSet rs = boost::make_shared<QList<RecordPtr> >();
     if (status == DELETED)
         return rs;
 
@@ -56,7 +56,7 @@ RecordSet Parametros::getRecords(RecordStatus status)
 
     foreach(QString key, m_Dictionary.keys())
     {
-        RecordPtr r(new Record());
+        RecordPtr r = boost::make_shared<Record>();
         (*r)["Key"] = key;
         (*r)["Value"] = m_Dictionary[key];
         rs->push_back(r);

@@ -22,7 +22,7 @@ PlanificacionSubSector::PlanificacionSubSector(QObject *parent) :
 
 RecordPtr PlanificacionSubSector::asRecordPtr()
 {
-    RecordPtr res(new Record());
+    RecordPtr res = boost::make_shared<Record>();
 
     (*res)["IDRecord"] = m_IDRecord.toVariant();
     (*res)["Dia"] = m_Dia.toVariant();

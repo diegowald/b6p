@@ -20,7 +20,7 @@ QString Empleados::getSqlString()
 
 void Empleados::addRecord(Record &record)
 {
-    EmpleadoPtr e(new Empleado(false, this));
+    EmpleadoPtr e = boost::make_shared<Empleado>(false, this);
     e->IDEmpleado().setValue(record["ID"].toInt());
     e->Apellido().setValue(record["Apellido"].toString());
     e->Nombre().setValue(record["Nombres"].toString());
@@ -50,7 +50,7 @@ QString Empleados::getInsertStatement()
 
 RecordSet Empleados::getRecords(RecordStatus status)
 {
-    RecordSet res(new QList<RecordPtr>());
+    RecordSet res = boost::make_shared<QList<RecordPtr> >();
     foreach(EmpleadoPtr e, m_Empleados.values())
     {
         switch (status)
@@ -89,7 +89,7 @@ EmpleadoPtr Empleados::getEmpleado(int idEmpleado, bool includeDeleted)
 
 EmpleadosLst Empleados::getAll(bool includeDeleted)
 {
-    EmpleadosLst res(new QList<EmpleadoPtr>());
+    EmpleadosLst res = boost::make_shared<QList<EmpleadoPtr> >();
     foreach(EmpleadoPtr e, m_Empleados.values())
     {
         if (!e->isDeleted())
@@ -104,7 +104,7 @@ EmpleadosLst Empleados::getAll(bool includeDeleted)
 
 EmpleadosLst Empleados::getAll(int IDSector, int IDSubSector, DAYS Dia, int HoraInicio, int HoraFin, bool includeDeleted)
 {
-    EmpleadosLst res(new QList<EmpleadoPtr>());
+    EmpleadosLst res = boost::make_shared<QList<EmpleadoPtr> >();
     foreach(EmpleadoPtr e, m_Empleados.values())
     {
         if (e->canWork(Dia, IDSector, IDSubSector, HoraInicio, HoraFin))
@@ -153,7 +153,7 @@ bool Empleados::edit(QVariant ID)
 {
     EmpleadoPtr e;
     if (ID == -1)
-        e = EmpleadoPtr(new Empleado(true, this));
+        e = boost::make_shared<Empleado>(true, this);
     else
         e = getEmpleado(ID.toInt(), false);
     DlgEmployee dlg;
