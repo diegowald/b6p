@@ -8,6 +8,7 @@ DlgPlanificacionDia::DlgPlanificacionDia(QWidget *parent) :
 {
     ui->setupUi(this);
     newID = 0;
+    SubsectorsToDelete.clear();
 }
 
 DlgPlanificacionDia::~DlgPlanificacionDia()
@@ -44,15 +45,17 @@ void DlgPlanificacionDia::setData(PlanificacionDiaPtr data)
             time->setIDSubSectorNull();
         else
             time->setIDSubSector(plan->IDSubSector().value());
+
+        time->setHoraInicio(plan->HoraInicio().value());
+        time->setHoraFin(plan->HoraFin().value());
+
         if (plan->IDEmpleado().isNull())
             time->setIDEmpleadoNull();
         else
             time->setIDEmpleado(plan->IDEmpleado().value());
-        time->setHoraInicio(plan->HoraInicio().value());
-        time->setHoraFin(plan->HoraFin().value());
 
         ui->treeWidget->setItemWidget(item, 0, time);
-        connect(time, SIGNAL(AssignmentChanged(QDateTime,QDateTime)), this, SLOT(slot_AssignmentChanged(QDateTime,QDateTime)));
+        connect(time, SIGNAL(AssignmentChanged(int,int)), this, SLOT(slot_AssignmentChanged(int,int)));
     }
 }
 
@@ -65,7 +68,7 @@ void DlgPlanificacionDia::on_btnAdd_pressed()
     newID++;
     time->setData(-newID);
     ui->treeWidget->setItemWidget(item, 0, time);
-    connect(time, SIGNAL(AssignmentChanged(QDateTime,QDateTime)), this, SLOT(slot_AssignmentChanged(QDateTime, QDateTime)));
+    connect(time, SIGNAL(AssignmentChanged(int,int)), this, SLOT(slot_AssignmentChanged(int, int)));
 }
 
 void DlgPlanificacionDia::on_btnEdit_pressed()
@@ -77,7 +80,7 @@ void DlgPlanificacionDia::displayPlannedHours(double hours)
     ui->lblHorasPlanificadas->setText(tr("Planned: %1 hs").arg(QString::number(hours)));
 }
 
-void DlgPlanificacionDia::slot_AssignmentChanged(QDateTime, QDateTime)
+void DlgPlanificacionDia::slot_AssignmentChanged(int, int)
 {
     double CantHoras = 0;
     for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
@@ -130,5 +133,29 @@ PlanificacionSubSectorLst DlgPlanificacionDia::Planificaciones()
             ptr->setModified();
         res->push_back(ptr);
     }
+
+    foreach(int id, SubsectorsToDelete)
+    {
+        PlanificacionSubSectorPtr ptr(new PlanificacionSubSector());
+        ptr->IDRecord().setValue(id);
+        ptr->Dia().setValue(m_Dia);
+        ptr->setDeleted();
+        res->push_back(ptr);
+    }
+
     return res;
+}
+
+void DlgPlanificacionDia::on_btnDelete_pressed()
+{
+    QTreeWidgetItem *item = ui->treeWidget->currentItem();
+    if (item)
+    {
+        TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 0));
+        if (time->data().toInt() > 0)
+        {
+            SubsectorsToDelete.push_back(time->data().toInt());
+        }
+        delete item;
+    }
 }

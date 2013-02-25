@@ -93,7 +93,7 @@ double PlanificacionSubSector::CantidadHoras()
         return 0;
     if (m_HoraInicio.isNull())
         return 0;
-    return m_HoraFin.value() - m_HoraInicio.value();
+    return (m_HoraFin.value() - m_HoraInicio.value()) / 3600;
 }
 
 bool PlanificacionSubSector::isEqualsTo(PlanificacionSubSectorPtr other)

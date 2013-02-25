@@ -28,20 +28,26 @@ void PlanificacionesDias::addRecord(Record &record)
 
 QString PlanificacionesDias::getDeleteStatement()
 {
-    return "delete from planificaciondia where Dia = :Dia;";
+    return QString("update planificaciondia "
+                   " set RecordStatus = %1 "
+                   " where Dia = :Dia;").arg(RECORD_DELETED);
 }
 
 QString PlanificacionesDias::getUpdateStatement()
 {
-    return "update planificaciondia set Notas = :Notas, IDSupervisor = :IDSupervisor where Dia = :Dia;";
+    return QString("update planificaciondia "
+                   " set Notas = :Notas, IDSupervisor = :IDSupervisor, "
+                   " RecordStatus = %1 "
+                   " where Dia = :Dia;").arg(RECORD_MODIFIED);
+
 }
 
 QString PlanificacionesDias::getInsertStatement()
 {
-    return "insert into planificaciondia "
-            " (Dia, Notas, IDSupervisor) "
-            " values "
-            " (:Dia, :Notas, :IDSupervisor);";
+    return QString("insert into planificaciondia "
+                   " (Dia, Notas, IDSupervisor, RecordStatus) "
+                   " values "
+                   " (:Dia, :Notas, :IDSupervisor, %1);").arg(RECORD_NEW);
 }
 
 RecordSet PlanificacionesDias::getRecords(RecordStatus status)
@@ -143,13 +149,13 @@ bool PlanificacionesDias::edit(QVariant ID)
 
 bool PlanificacionesDias::deleteElement(QVariant ID)
 {
-/*    bool result = false;
-    if (m_Empleados.find(ID.toInt()) != m_Empleados.end())
+    bool result = false;
+    if (m_Planificaciones.find(ID.toDate()) != m_Planificaciones.end())
     {
-        m_Empleados[ID.toInt()]->setDeleted();
+        m_Planificaciones[ID.toDate()]->setDeleted();
         result = true;
     }
-    return result;*/
+    return result;
 }
 
 void PlanificacionesDias::refreshID(int oldID, int newRecordId)

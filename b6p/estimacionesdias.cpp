@@ -24,19 +24,21 @@ void EstimacionesDias::addRecord(Record &record)
 
 QString EstimacionesDias::getDeleteStatement()
 {
-    return "delete from planificaciondias where Dia = :Dia;";
+    return QString("update planificacionDias set RecordStatus = %1 where Dia = :Dia;").arg(RECORD_DELETED);
 }
 
 QString EstimacionesDias::getUpdateStatement()
 {
-    return "update planificaciondias set HorasEstimadas = :HorasEstimadas where Dia = :Dia;";
+    return QString("update planificaciondias set HorasEstimadas = :HorasEstimadas "
+                   " , RecordStatus = %1 "
+                   " where Dia = :Dia;").arg(RECORD_MODIFIED);
 }
 
 QString EstimacionesDias::getInsertStatement()
 {
-    return "insert into planificaciondias (Dia, HorasEstimadas) "
-            " values "
-            " (:Dia, :HorasEstimadas);";
+    return QString("insert into planificaciondias (Dia, HorasEstimadas, RecordStatus) "
+                   " values "
+                   " (:Dia, :HorasEstimadas, %1);").arg(RECORD_NEW);
 }
 
 RecordSet EstimacionesDias::getRecords(RecordStatus status)
@@ -148,13 +150,13 @@ bool EstimacionesDias::edit(QVariant ID)
 
 bool EstimacionesDias::deleteElement(QVariant ID)
 {
-/*    bool result = false;
-    if (m_Empleados.find(ID.toInt()) != m_Empleados.end())
+    bool result = false;
+    if (m_Estimaciones.find(ID.toDate()) != m_Estimaciones.end())
     {
-        m_Empleados[ID.toInt()]->setDeleted();
+        m_Estimaciones[ID.toDate()]->setDeleted();
         result = true;
     }
-    return result;*/
+    return result;
 }
 
 void EstimacionesDias::refreshID(int oldID, int newRecordId)
@@ -251,5 +253,6 @@ void EstimacionesDias::addManyDays()
                 m_Estimaciones[e->Dia().value()] = e;
             }
         }
+        save();
     }
 }

@@ -51,7 +51,7 @@ void TimeAssignmentItemEdit::on_cboSectores_currentIndexChanged(int index)
 void TimeAssignmentItemEdit::llenarSubSectores(int IDSector)
 {
     ui->cboSubsectores->clear();
-    SubSectoresLst ss = DataStore::instance()->getSubSectores()->getAll(IDSector);
+    SubSectoresLst ss = DataStore::instance()->getSubSectores()->getAll(IDSector, false);
     foreach(SubSectorPtr ssp, *ss)
     {
         ui->cboSubsectores->addItem(ssp->Nombre().value(), ssp->IDSubsector().value());
@@ -181,6 +181,8 @@ void TimeAssignmentItemEdit::setIDSubSectorNull()
 
 void TimeAssignmentItemEdit::setIDEmpleado(int value)
 {
+    qDebug() << ui->cboEmpleado->count();
+    qDebug() << ui->cboEmpleado->findData(value);
     ui->cboEmpleado->setCurrentIndex(ui->cboEmpleado->findData(value));
 }
 

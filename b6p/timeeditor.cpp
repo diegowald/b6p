@@ -26,10 +26,10 @@ void TimeEditor::onValueChanged(QSpinBox *control, int arg1)
     else
         qDebug() << "MAL";
 
-    if (arg1 > 9)
+/*    if (arg1 > 9)
         control->setPrefix("");
     else
-        control->setPrefix("0");
+        control->setPrefix("0");*/
 }
 
 void TimeEditor::on_spinHours_valueChanged(int arg1)

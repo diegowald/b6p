@@ -29,25 +29,28 @@ void PlanificacionesDiasSubSectores::addRecord(Record &record)
 
 QString PlanificacionesDiasSubSectores::getDeleteStatement()
 {
-    return "delete from planificacionsubsector where IDRecord = :IDRecord";
+    return QString("update planificacionsubsector "
+                   " set RecordStatus = %1 "
+                   " where IDRecord = :IDRecord;").arg(RECORD_DELETED);
 }
 
 QString PlanificacionesDiasSubSectores::getUpdateStatement()
 {
-    return "update planificacionsubsector "
-            " set Dia = :Dia, IDSector = :IDSector, "
-            " IDSubsector = :IDSubSector, "
-            " IDEmpleado = :IDEmpleado, "
-            " HoraInicio = :HoraInicio, HoraFin = :HoraFin "
-            " where IDRecord = :IDRecord;";
+    return QString("update planificacionsubsector "
+                   " set Dia = :Dia, IDSector = :IDSector, "
+                   " IDSubsector = :IDSubSector, "
+                   " IDEmpleado = :IDEmpleado, "
+                   " HoraInicio = :HoraInicio, HoraFin = :HoraFin, "
+                   " RecordStatus = %1 "
+                   " where IDRecord = :IDRecord;").arg(RECORD_MODIFIED);
 }
 
 QString PlanificacionesDiasSubSectores::getInsertStatement()
 {
-    return "insert into planificacionsubsector "
-            " (Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin) "
-            " values "
-            " (:Dia, :IDSector, :IDSubsector, :IDEmpleado, :HoraInicio, :HoraFin);";
+    return QString("insert into planificacionsubsector "
+            " (Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, RecordStatus) "
+                   " values "
+                   " (:Dia, :IDSector, :IDSubsector, :IDEmpleado, :HoraInicio, :HoraFin, %1);").arg(RECORD_NEW);
 }
 
 RecordSet PlanificacionesDiasSubSectores::getRecords(RecordStatus status)
@@ -132,7 +135,10 @@ void PlanificacionesDiasSubSectores::updateWithOtherData(PlanificacionSubSectorL
         {
             if (ps->isEqualsTo(o))
             {
-                ps->updateWith(o);
+                if (o->isDeleted())
+                    ps->setDeleted();
+                else
+                    ps->updateWith(o);
                 found = true;
                 break;
             }

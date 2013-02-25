@@ -11,8 +11,8 @@ CalendarioPersonas::~CalendarioPersonas()
 
 QString CalendarioPersonas::getSqlString()
 {
-    return QString("select Dia, IDEmpleado, HoraIngreso, HoraEgreso from calendariopersonas ")
-            + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
+    return QString("select Dia, IDEmpleado, HoraIngreso, HoraEgreso from calendariopersonas "
+            " where RecordStatus <> %1;").arg(RECORD_DELETED);
 }
 
 void CalendarioPersonas::addRecord(Record &record)
@@ -34,16 +34,17 @@ QString CalendarioPersonas::getDeleteStatement()
 
 QString CalendarioPersonas::getUpdateStatement()
 {
-    return "update calendariopersonas set HoraIngreso = :HoraIngreso, HoraEgreso = :HoraEgreso "
-            " where Dia = :Dia and IDEmpleado = :IDEmpleado;";
+    return QString("update calendariopersonas set HoraIngreso = :HoraIngreso, HoraEgreso = :HoraEgreso, "
+                   " RecordStatus = %1 "
+                   " where Dia = :Dia and IDEmpleado = :IDEmpleado;").arg(RECORD_MODIFIED);
 }
 
 QString CalendarioPersonas::getInsertStatement()
 {
-    return "insert into calendariopersonas "
-            " (Dia, IDEmpleado, HoraIngreso, HoraEgreso) "
+    return QString("insert into calendariopersonas "
+            " (Dia, IDEmpleado, HoraIngreso, HoraEgreso, RecordStatus) "
             " values "
-            " (:Dia, :IDEmpleado, :HoraIngreso, :HoraEgreso);";
+            " (:Dia, :IDEmpleado, :HoraIngreso, :HoraEgreso, %1);").arg(RECORD_NEW);
 }
 
 RecordSet CalendarioPersonas::getRecords(RecordStatus status)

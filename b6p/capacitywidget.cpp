@@ -93,7 +93,7 @@ void CapacityWidget::llenarSectores()
 void CapacityWidget::llenarSubSectores(int IDSector)
 {
     ui->cboSubSectores->clear();
-    SubSectoresLst ss = DataStore::instance()->getSubSectores()->getAll(IDSector);
+    SubSectoresLst ss = DataStore::instance()->getSubSectores()->getAll(IDSector, false);
     foreach(SubSectorPtr ssp, *ss)
     {
         ui->cboSubSectores->addItem(ssp->Nombre().value(), ssp->IDSubsector().value());

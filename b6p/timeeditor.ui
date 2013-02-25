@@ -68,7 +68,7 @@
       <enum>QAbstractSpinBox::UpDownArrows</enum>
      </property>
      <property name="prefix">
-      <string>0</string>
+      <string/>
      </property>
     </widget>
    </item>
@@ -87,7 +87,7 @@
       </size>
      </property>
      <property name="prefix">
-      <string>0</string>
+      <string/>
      </property>
      <property name="maximum">
       <number>59</number>
@@ -109,7 +109,7 @@
       </size>
      </property>
      <property name="prefix">
-      <string>0</string>
+      <string/>
      </property>
      <property name="maximum">
       <number>59</number>

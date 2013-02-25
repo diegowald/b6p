@@ -27,12 +27,15 @@ private:
 private slots:
     void on_btnAdd_pressed();
     void on_btnEdit_pressed();
-    void slot_AssignmentChanged(QDateTime from, QDateTime to);
+    void slot_AssignmentChanged(int from, int to);
+
+    void on_btnDelete_pressed();
 
 private:
     Ui::DlgPlanificacionDia *ui;
     QDate m_Dia;
     int newID;
+    QList<int> SubsectorsToDelete;
 };
 
 #endif // DLGPLANIFICACIONDIA_H

@@ -104,6 +104,7 @@ bool ACollection::editRecord(QVariant ID)
 
 bool ACollection::deleteRecord(QVariant ID)
 {
+    bool result = false;
     QMessageBox msg;
     msg.setText(tr("Delete element"));
     msg.setInformativeText(tr("Do you want to remove it?"));
@@ -111,9 +112,11 @@ bool ACollection::deleteRecord(QVariant ID)
     msg.setDefaultButton(QMessageBox::No);
     if (msg.exec() == QMessageBox::Yes)
     {
-        return deleteElement(ID);
+        result = deleteElement(ID);
+        if (result)
+            save();
     }
-    return false;
+    return result;
 }
 
 QString ACollection::name() const
