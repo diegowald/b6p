@@ -141,6 +141,10 @@ bool SubSectores::deleteElement(QVariant ID)
 {
 }
 
+bool SubSectores::canBeDeleted(QVariant ID)
+{
+}
+
 void SubSectores::setStatusToUnmodified(bool removeDeleted)
 {
     QList<int> toDelete;

@@ -93,6 +93,10 @@ bool CalendarioPersonas::deleteElement(QVariant ID)
 {
 }
 
+bool CalendarioPersonas::canBeDeleted(QVariant ID)
+{
+}
+
 CalendarioPersonaLst CalendarioPersonas::getAll(int IDEmpleado, bool includeDeleted)
 {
     CalendarioPersonaLst res = boost::make_shared<QList<CalendarioPersonaPtr> >();

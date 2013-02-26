@@ -52,6 +52,7 @@ public:
     virtual void refreshID(int oldID, int newRecordId) = 0;
     virtual void saveDependants() = 0;
     virtual void setStatusToUnmodified(bool removeDeleted) = 0;
+    virtual bool canBeDeleted(QVariant ID) = 0;
 
 protected:
     virtual bool addNew() = 0;

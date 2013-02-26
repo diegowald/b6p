@@ -42,3 +42,8 @@ bool EstimacionDia::isPlanned()
 {
     return (DataStore::instance()->getPlanificacionesDias()->getByDay(m_Dia.value(), false) != PlanificacionDiaPtr());
 }
+
+bool EstimacionDia::canBeDeleted()
+{
+    return true;
+}

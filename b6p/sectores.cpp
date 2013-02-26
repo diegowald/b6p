@@ -122,6 +122,10 @@ bool Sectores::deleteElement(QVariant ID)
 {
 }
 
+bool Sectores::canBeDeleted(QVariant ID)
+{
+}
+
 void Sectores::setStatusToUnmodified(bool removeDeleted)
 {
     QList<int> toDelete;

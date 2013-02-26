@@ -158,6 +158,14 @@ bool PlanificacionesDias::deleteElement(QVariant ID)
     return result;
 }
 
+bool PlanificacionesDias::canBeDeleted(QVariant ID)
+{
+    bool result = false;
+    if (m_Planificaciones.find(ID.toDate()) != m_Planificaciones.end())
+        result = m_Planificaciones[ID.toDate()];
+    return result;
+}
+
 void PlanificacionesDias::refreshID(int oldID, int newRecordId)
 {
 }

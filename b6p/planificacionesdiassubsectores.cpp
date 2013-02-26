@@ -99,6 +99,10 @@ bool PlanificacionesDiasSubSectores::deleteElement(QVariant ID)
 {
 }
 
+bool PlanificacionesDiasSubSectores::canBeDeleted(QVariant ID)
+{
+}
+
 PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getAll(QDate Dia, bool includeDeleted)
 {
     PlanificacionSubSectorLst res = boost::make_shared<QList<PlanificacionSubSectorPtr> >();

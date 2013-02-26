@@ -118,3 +118,8 @@ bool Empleado::canWork(DAYS Dia, int IDSector, int IDSubSector, int HoraInicio, 
 
     return true;
 }
+
+bool Empleado::canBeDeleted()
+{
+    return true;
+}

@@ -175,6 +175,16 @@ bool Empleados::edit(QVariant ID)
     return false;
 }
 
+bool Empleados::canBeDeleted(QVariant ID)
+{
+    bool result = false;
+    if (m_Empleados.find(ID.toInt()) != m_Empleados.end())
+    {
+        result = m_Empleados[ID.toInt()]->canBeDeleted();
+    }
+    return result;
+}
+
 bool Empleados::deleteElement(QVariant ID)
 {
     bool result = false;

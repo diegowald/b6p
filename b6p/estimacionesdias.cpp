@@ -159,6 +159,14 @@ bool EstimacionesDias::deleteElement(QVariant ID)
     return result;
 }
 
+bool EstimacionesDias::canBeDeleted(QVariant ID)
+{
+    bool result = false;
+    if (m_Estimaciones.find(ID.toDate()) != m_Estimaciones.end())
+        result = m_Estimaciones[ID.toDate()]->canBeDeleted();
+    return result;
+}
+
 void EstimacionesDias::refreshID(int oldID, int newRecordId)
 {
 }

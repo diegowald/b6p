@@ -26,6 +26,7 @@ public:
     virtual void refreshID(int oldID, int newRecordId);
     virtual void saveDependants();
     virtual void setStatusToUnmodified(bool removeDeleted);
+    virtual bool canBeDeleted(QVariant ID);
 
 
     virtual QString getDeleteStatement();

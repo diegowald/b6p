@@ -16,6 +16,7 @@ public:
     NullableField<int> &EstimacionHoras();
     bool isPlanned();
 
+    bool canBeDeleted();
 
     virtual RecordPtr asRecordPtr();
 signals:

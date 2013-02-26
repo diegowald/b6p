@@ -17,6 +17,8 @@ public:
     virtual QString getInsertStatement();
     virtual RecordSet getRecords(RecordStatus status);
 
+    virtual bool canBeDeleted(QVariant) { return false; }
+
     virtual void defineHeaders(QStringList &list);
     virtual void fillData(QTreeWidget &tree);
     virtual bool addNew();

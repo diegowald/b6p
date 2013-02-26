@@ -105,16 +105,29 @@ bool ACollection::editRecord(QVariant ID)
 bool ACollection::deleteRecord(QVariant ID)
 {
     bool result = false;
-    QMessageBox msg;
-    msg.setText(tr("Delete element"));
-    msg.setInformativeText(tr("Do you want to remove it?"));
-    msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-    msg.setDefaultButton(QMessageBox::No);
-    if (msg.exec() == QMessageBox::Yes)
+    if (canBeDeleted(ID))
     {
-        result = deleteElement(ID);
-        if (result)
-            save();
+        QMessageBox msg;
+        msg.setText(tr("Delete element"));
+        msg.setInformativeText(tr("Do you want to remove it?"));
+        msg.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        msg.setDefaultButton(QMessageBox::No);
+        if (msg.exec() == QMessageBox::Yes)
+        {
+            result = deleteElement(ID);
+            if (result)
+                save();
+        }
+    }
+    else
+    {
+        QMessageBox msg;
+        msg.setText(tr("Delete element"));
+        msg.setInformativeText(tr("Unable to delete element."));
+        msg.setStandardButtons(QMessageBox::Ok);
+        msg.setDefaultButton(QMessageBox::Ok);
+        msg.exec();
+        result = false;
     }
     return result;
 }

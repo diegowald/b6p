@@ -120,6 +120,10 @@ bool CapacidadesPersonaSector::deleteElement(QVariant ID)
 {
 }
 
+bool CapacidadesPersonaSector::canBeDeleted(QVariant ID)
+{
+}
+
 void CapacidadesPersonaSector::updateCapacityfromData(CapacidadPersonaSectorLst dataFrom)
 {
     if (dataFrom->count() > 0)
