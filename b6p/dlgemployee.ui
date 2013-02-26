@@ -164,7 +164,7 @@
              </property>
              <property name="icon">
               <iconset resource="resources.qrc">
-               <normaloff>:/img/images/glyphicons_196_circle_exclamation_mark.png</normaloff>:/img/images/glyphicons_196_circle_exclamation_mark.png</iconset>
+               <normaloff>:/img/images/glyphicons_150_edit.png</normaloff>:/img/images/glyphicons_150_edit.png</iconset>
              </property>
             </widget>
            </item>

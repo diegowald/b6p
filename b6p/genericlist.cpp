@@ -139,3 +139,7 @@ void GenericList::on_dataUpdated()
     for (int i = 0; i < ui->treeList->columnCount(); i++)
         ui->treeList->resizeColumnToContents(i);
 }
+
+void GenericList::on_actionExport_triggered()
+{
+}

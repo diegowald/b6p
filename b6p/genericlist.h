@@ -39,6 +39,8 @@ private slots:
     void on_treeList_itemChanged(QTreeWidgetItem *item, int column);
     void customActionTriggered();
     void on_dataUpdated();
+    void on_actionExport_triggered();
+
 private:
     Ui::GenericList *ui;
     boost::shared_ptr<ACollection> model;
