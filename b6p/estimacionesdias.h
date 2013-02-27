@@ -19,7 +19,7 @@ public:
 
     virtual void defineHeaders(QStringList &list);
     virtual void fillData(QTreeWidget &tree);
-    virtual bool isColumnEditable(int column);
+    virtual bool isColumnEditable(QVariant ID, int column);
     virtual boost::shared_ptr<QList<QAction *> > getActions();
 
     virtual bool addNew();

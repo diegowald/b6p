@@ -111,7 +111,7 @@ void GenericList::on_treeList_doubleClicked(const QModelIndex &)
 
 void GenericList::on_treeList_itemClicked(QTreeWidgetItem *item, int column)
 {
-    if (m_InPlaceEdit && model->isColumnEditable(column))
+    if (m_InPlaceEdit && model->isColumnEditable(item->data(0, Qt::UserRole), column))
         ui->treeList->editItem(item, column);
 }
 

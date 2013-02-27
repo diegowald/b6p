@@ -36,7 +36,7 @@ public:
 
     virtual void defineHeaders(QStringList &list) = 0;
     virtual void fillData(QTreeWidget &tree) = 0;
-    virtual bool isColumnEditable(int) { return false; }
+    virtual bool isColumnEditable(QVariant, int) { return false; }
     virtual boost::shared_ptr<QList<QAction*> > getActions() { return boost::make_shared<QList<QAction*> >(); }
     bool addNewRecord();
     bool addNewRecord(QTreeWidgetItem *item);

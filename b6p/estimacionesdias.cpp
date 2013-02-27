@@ -89,9 +89,10 @@ void EstimacionesDias::defineHeaders(QStringList &list)
     list << tr("Date") << tr("Hours estimation") << tr("Planned");
 }
 
-bool EstimacionesDias::isColumnEditable(int column)
+bool EstimacionesDias::isColumnEditable(QVariant ID, int column)
 {
-    return column == 1;
+    EstimacionDiaPtr ptr = m_Estimaciones[ID.toDate()];
+    return ((column == 1) && (!ptr->isPlanned()));
 }
 
 void EstimacionesDias::fillData(QTreeWidget &tree)
