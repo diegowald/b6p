@@ -8,7 +8,7 @@ class Synchronization : public QObject
     Q_OBJECT
 public:
     explicit Synchronization(QObject *parent = 0);
-    
+
 signals:
     
 public slots:
