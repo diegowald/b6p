@@ -3,6 +3,7 @@
 #include "genericlist.h"
 #include "datastore.h"
 #include "dlgparametros.h"
+#include "qmysql.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -23,6 +24,8 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(datastore_saving(QString)));
 
     ui->mainToolBar->hide();
+
+    QMysql x;
 
     /*ui->widget->setBackgroundColor(Qt::white);
     ui->widget->setTimeLineColor(Qt::lightGray);

@@ -80,7 +80,9 @@ SOURCES += main.cpp\
     dlgplanificaciondia.cpp \
     dlgparametros.cpp \
     timeeditor.cpp \
-    dlgaddmanyestimationdays.cpp
+    dlgaddmanyestimationdays.cpp \
+    qmysql.cpp \
+    synchronization.cpp
 
 HEADERS  += mainwindow.h \
     timeassignment.h \
@@ -119,7 +121,9 @@ HEADERS  += mainwindow.h \
     dlgplanificaciondia.h \
     dlgparametros.h \
     timeeditor.h \
-    dlgaddmanyestimationdays.h
+    dlgaddmanyestimationdays.h \
+    qmysql.h \
+    synchronization.h
 
 FORMS    += mainwindow.ui \
     genericlist.ui \
