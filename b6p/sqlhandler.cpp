@@ -46,6 +46,7 @@ int SQLHandler::executeQuery(QString &cmd, RecordPtr record, bool returnLastInse
 
     foreach(QString key, record->keys())
     {
+        qDebug() << key << ": " << (*record)[key];
         QString param(":" + key);
         if (cmd.contains(param))
         {

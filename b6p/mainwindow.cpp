@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->mainToolBar->hide();
 
-    QMysql x;
+    //QMysql x;
 
     /*ui->widget->setBackgroundColor(Qt::white);
     ui->widget->setTimeLineColor(Qt::lightGray);

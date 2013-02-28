@@ -175,7 +175,10 @@ void PlanificacionesDiasSubSectores::setStatusToUnmodified(bool removeDeleted)
 void PlanificacionesDiasSubSectores::refreshID(int oldID, int newID)
 {
     PlanificacionSubSectorPtr p = m_Planificacion[oldID];
-    p->updateID(newID);
-    m_Planificacion.remove(-1);
-    m_Planificacion[newID] = p;
+    if (p)
+    {
+        p->updateID(newID);
+        m_Planificacion.remove(oldID);
+        m_Planificacion[newID] = p;
+    }
 }
