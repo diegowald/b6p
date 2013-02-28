@@ -50,7 +50,7 @@ QString PlanificacionesDiasSubSectores::getInsertStatement()
     return QString("insert into planificacionsubsector "
             " (Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, RecordStatus) "
                    " values "
-                   " (:Dia, :IDSector, :IDSubsector, :IDEmpleado, :HoraInicio, :HoraFin, %1);").arg(RECORD_NEW);
+                   " (:Dia, :IDSector, :IDSubSector, :IDEmpleado, :HoraInicio, :HoraFin, %1);").arg(RECORD_NEW);
 }
 
 RecordSet PlanificacionesDiasSubSectores::getRecords(RecordStatus status)

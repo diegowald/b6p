@@ -126,6 +126,7 @@ bool TimeAssignmentItemEdit::isSubSectorEmpty()
 
 int TimeAssignmentItemEdit::IDSubSector()
 {
+    qDebug() << ui->cboSubsectores->currentIndex();
     return ui->cboSubsectores->itemData(ui->cboSubsectores->currentIndex(), Qt::UserRole).toInt();
 }
 
@@ -171,6 +172,7 @@ void TimeAssignmentItemEdit::setIDSectorNull()
 
 void TimeAssignmentItemEdit::setIDSubSector(int value)
 {
+    qDebug() << ui->cboSubsectores->findData(value, Qt::UserRole);
     ui->cboSubsectores->setCurrentIndex(ui->cboSubsectores->findData(value, Qt::UserRole));
 }
 
