@@ -1,7 +1,8 @@
 #include "capacidadespersonasector.h"
 
 CapacidadesPersonaSector::CapacidadesPersonaSector(QObject *parent) :
-    ACollection(tr("Employee capacity by Sector"), false, parent)
+    ACollection(tr("Employee capacity by Sector"),
+                "Employee capacity by Sector", false, parent)
 {
 }
 

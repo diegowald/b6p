@@ -1,7 +1,8 @@
 #include "subsectores.h"
 
 SubSectores::SubSectores(QObject *parent) :
-    ACollection(tr("SubSectors"), false, parent)
+    ACollection(tr("SubSectors"),
+                "SubSectors", false, parent)
 {
 }
 

@@ -1,12 +1,14 @@
 #include "genericlist.h"
 #include "ui_genericlist.h"
 #include <QDebug>
+#include "datastore.h"
 
-GenericList::GenericList(boost::shared_ptr<ACollection> Model, bool inPlaceEdit, QWidget *parent) :
+GenericList::GenericList(int LoggedUser, boost::shared_ptr<ACollection> Model, bool inPlaceEdit, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::GenericList)
 {
     ui->setupUi(this);
+    m_LoggedUser = LoggedUser;
     model = Model;
     QStringList headers;
 
@@ -27,6 +29,7 @@ GenericList::GenericList(boost::shared_ptr<ACollection> Model, bool inPlaceEdit,
     /*if (inPlaceEdit)
         ui->treeList->setEditTriggers(QAbstractItemView::EditKeyPressed | QAbstractItemView::SelectedClicked);*/
     connect(model.get(), SIGNAL(dataUpdated()), this, SLOT(on_dataUpdated()));
+    enableButtonsBasedOnAccess();
 }
 
 GenericList::~GenericList()
@@ -142,4 +145,23 @@ void GenericList::on_dataUpdated()
 
 void GenericList::on_actionExport_triggered()
 {
+}
+
+void GenericList::enableButtonsBasedOnAccess()
+{
+    if (m_LoggedUser > 0)
+    {
+        QString feature = model->invariableName();
+        ui->actionDelete->setEnabled(DataStore::instance()->getAccesos()->canDelete(m_LoggedUser, feature));
+        ui->actionEdit->setEnabled(DataStore::instance()->getAccesos()->canUpdate(m_LoggedUser, feature));
+        ui->actionExport->setEnabled(DataStore::instance()->getAccesos()->canRead(m_LoggedUser, feature));
+        ui->actionNew->setEnabled(DataStore::instance()->getAccesos()->canCreate(m_LoggedUser, feature));
+    }
+    else
+    {
+        ui->actionDelete->setEnabled(true);
+        ui->actionEdit->setEnabled(true);
+        ui->actionExport->setEnabled(true);
+        ui->actionNew->setEnabled(true);
+    }
 }

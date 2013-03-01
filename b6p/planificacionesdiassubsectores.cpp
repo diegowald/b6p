@@ -1,7 +1,8 @@
 #include "planificacionesdiassubsectores.h"
 
 PlanificacionesDiasSubSectores::PlanificacionesDiasSubSectores(QObject *parent) :
-    ACollection(tr("Planifications of Sectors and subsectors for a day"), true, parent)
+    ACollection(tr("Planifications of Sectors and subsectors for a day"),
+                "Planifications of Sectors and subsectors for a day", true, parent)
 {
 }
 

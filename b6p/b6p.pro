@@ -84,7 +84,8 @@ SOURCES += main.cpp\
     qmysql.cpp \
     synchronization.cpp \
     accesos.cpp \
-    acceso.cpp
+    acceso.cpp \
+    dlglogin.cpp
 
 HEADERS  += mainwindow.h \
     timeassignment.h \
@@ -127,7 +128,8 @@ HEADERS  += mainwindow.h \
     qmysql.h \
     synchronization.h \
     accesos.h \
-    acceso.h
+    acceso.h \
+    dlglogin.h
 
 FORMS    += mainwindow.ui \
     genericlist.ui \
@@ -140,7 +142,8 @@ FORMS    += mainwindow.ui \
     dlgplanificaciondia.ui \
     dlgparametros.ui \
     timeeditor.ui \
-    dlgaddmanyestimationdays.ui
+    dlgaddmanyestimationdays.ui \
+    dlglogin.ui
 
 RESOURCES += \
     resources.qrc

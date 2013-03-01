@@ -4,7 +4,8 @@
 #include "dlgplanificaciondia.h"
 
 PlanificacionesDias::PlanificacionesDias(QObject *parent) :
-    ACollection(tr("Days Planifications"), false, parent)
+    ACollection(tr("Days Planifications"),
+                "Days Planifications", false, parent)
 {
 }
 

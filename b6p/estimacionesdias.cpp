@@ -3,7 +3,8 @@
 #include "dlgaddmanyestimationdays.h"
 
 EstimacionesDias::EstimacionesDias(QObject *parent)
-    : ACollection(tr("Day Estimations"), false, parent)
+    : ACollection(tr("Day Estimations"),
+                  "Day Estimations",false, parent)
 {
 }
 

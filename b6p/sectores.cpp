@@ -1,7 +1,8 @@
 #include "sectores.h"
 
 Sectores::Sectores(QObject *parent) :
-    ACollection(tr("Sectors"), false, parent)
+    ACollection(tr("Sectors"),
+                "Sectors", false, parent)
 {
 }
 

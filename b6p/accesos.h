@@ -10,8 +10,23 @@
 class Accesos : public ACollection
 {
     Q_OBJECT
+private:
+    enum ACCESS
+    {
+        CAN_READ,
+        CAN_CREATE,
+        CAN_UPDATE,
+        CAN_DELETE
+    };
+
 public:
     explicit Accesos(QObject *parent = 0);
+
+    bool canRead(int IDUser, QString &feature);
+    bool canCreate(int IDUser, QString &feature);
+    bool canUpdate(int IDUser, QString &feature);
+    bool canDelete(int IDUser, QString &feature);
+    bool canAccessApplication(int IDUser);
 
     virtual QString getSqlString();
     virtual void addRecord(Record &record);
@@ -28,6 +43,7 @@ public:
     virtual void setStatusToUnmodified(bool removeDeleted);
     virtual bool canBeDeleted(QVariant ID);
 
+
 protected:
     virtual bool addNew();
     virtual bool addNew(QTreeWidgetItem *item);
@@ -36,6 +52,7 @@ protected:
     virtual bool deleteElement(QVariant ID);
 
 private:
+    bool get(int IDUser, QString &feature, ACCESS access);
     QMap<std::pair<int, QString>, AccesoPtr> m_AccessList;
 };
 

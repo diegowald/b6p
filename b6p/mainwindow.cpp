@@ -5,7 +5,7 @@
 #include "dlgparametros.h"
 #include "qmysql.h"
 
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(int LoggedUser, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow())
 {
@@ -24,6 +24,9 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(datastore_saving(QString)));
 
     ui->mainToolBar->hide();
+
+    m_LoggedUser = LoggedUser;
+    EnableActions();
 
     //QMysql x;
 
@@ -48,7 +51,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_actionOpen_triggered()
 {
     // Open Planification List
-    GenericList *wnd = new GenericList(DataStore::instance()->getPlanificacionesDias(), false, this);
+    GenericList *wnd = new GenericList(m_LoggedUser, DataStore::instance()->getPlanificacionesDias(), false, this);
     ui->mdiArea->addSubWindow(wnd);
     wnd->show();
     wnd->activateWindow();
@@ -73,7 +76,7 @@ void MainWindow::on_actionExit_triggered()
 void MainWindow::on_actionView_triggered()
 {
     // Open Employees list
-    GenericList *wnd = new GenericList(DataStore::instance()->getEmpleados(), false, this);
+    GenericList *wnd = new GenericList(m_LoggedUser, DataStore::instance()->getEmpleados(), false, this);
     ui->mdiArea->addSubWindow(wnd);
     wnd->show();
     wnd->activateWindow();
@@ -82,7 +85,7 @@ void MainWindow::on_actionView_triggered()
 void MainWindow::on_actionSetup_days_triggered()
 {
     // Open days setup list.
-    GenericList *wnd = new GenericList(DataStore::instance()->getEstimacionesDias(), true, this);
+    GenericList *wnd = new GenericList(m_LoggedUser, DataStore::instance()->getEstimacionesDias(), true, this);
     wnd->AllowAdd(false);
     ui->mdiArea->addSubWindow(wnd);
     wnd->show();
@@ -125,3 +128,28 @@ void MainWindow::datastore_saving(QString name)
     ui->statusBar->showMessage(tr("Saving %1...").arg(name));
 }
 
+
+void MainWindow::EnableActions()
+{
+    if (m_LoggedUser > 0)
+    {
+        QString feature = DataStore::instance()->getAccesos()->invariableName();
+        ui->actionView->setEnabled(DataStore::instance()->getAccesos()->canRead(m_LoggedUser, feature));
+
+        feature = DataStore::instance()->getPlanificacionesDias()->invariableName();
+        ui->actionOpen->setEnabled(DataStore::instance()->getAccesos()->canRead(m_LoggedUser, feature));
+        ui->actionApprove->setEnabled(DataStore::instance()->getAccesos()->canRead(m_LoggedUser, feature));
+        ui->actionSetup_days->setEnabled(DataStore::instance()->getAccesos()->canRead(m_LoggedUser, feature));
+
+        feature = DataStore::instance()->getParametros()->invariableName();
+        ui->actionParameters->setEnabled(DataStore::instance()->getAccesos()->canRead(m_LoggedUser, feature));
+    }
+    else
+    {
+        ui->actionView->setEnabled(true);
+        ui->actionOpen->setEnabled(true);
+        ui->actionAbout->setEnabled(true);
+        ui->actionSetup_days->setEnabled(true);
+        ui->actionParameters->setEnabled(true);
+    }
+}

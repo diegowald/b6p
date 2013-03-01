@@ -12,9 +12,11 @@ class MainWindow : public QMainWindow
     Q_OBJECT
     
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(int LoggedUser, QWidget *parent = 0);
     ~MainWindow();
     
+protected:
+    void EnableActions();
 private slots:
     void on_actionOpen_triggered();
 
@@ -38,6 +40,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    int m_LoggedUser;
 };
 
 #endif // MAINWINDOW_H

@@ -4,7 +4,7 @@
 #include "datastore.h"
 
 Empleados::Empleados(QObject *parent) :
-    ACollection(tr("Employees"), true, parent)
+    ACollection(tr("Employees"), "Employees", true, parent)
 {
 }
 

@@ -11,7 +11,8 @@ const QString Parametros::MAX_DAYS_BETWEEN_FREE_DAY("MaxDaysBetweenFreeDay");
 
 
 Parametros::Parametros(QObject *parent) :
-    ACollection(tr("Parameters"), false, parent)
+    ACollection(tr("Parameters"),
+                "Parameters", false, parent)
 {
     m_recordsWereCreated = false;
 }

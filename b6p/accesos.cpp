@@ -1,7 +1,8 @@
 #include "accesos.h"
+#include "datastore.h"
 
 Accesos::Accesos(QObject *parent)
-    : ACollection(tr("Access"), false, parent)
+    : ACollection(tr("Access"), "Access", false, parent)
 {
 }
 
@@ -75,4 +76,73 @@ bool Accesos::canBeDeleted(QVariant)
 
 void Accesos::setStatusToUnmodified(bool)
 {
+}
+
+bool Accesos::canRead(int IDUser, QString &feature)
+{
+    return get(IDUser, feature, CAN_READ);
+}
+
+bool Accesos::canCreate(int IDUser, QString &feature)
+{
+    return get(IDUser, feature, CAN_CREATE);
+}
+
+bool Accesos::canUpdate(int IDUser, QString &feature)
+{
+    return get(IDUser, feature, CAN_UPDATE);
+}
+
+bool Accesos::canDelete(int IDUser, QString &feature)
+{
+    return get(IDUser, feature, CAN_DELETE);
+}
+
+bool Accesos::get(int IDUser, QString &feature, ACCESS access)
+{
+    CapacidadPersonaSectorLst caps = DataStore::instance()->getCapacidades()->getAll(IDUser, false);
+
+    bool res = false;
+
+    foreach (CapacidadPersonaSectorPtr c, *caps)
+    {
+        std::pair<int, QString> id = std::make_pair(c->IDSector().value(), feature);
+        if (m_AccessList.find(id) != m_AccessList.end())
+        {
+            AccesoPtr a = m_AccessList[id];
+            switch(access)
+            {
+            case CAN_READ:
+                res = a->CanRead();
+                break;
+            case CAN_CREATE:
+                res = a->CanCreate();
+                break;
+            case CAN_UPDATE:
+                res = a->CanUpdate();
+                break;
+            case CAN_DELETE:
+                res = a->CanDelete();
+                break;
+            default:
+                res = false;
+                break;
+            }
+        }
+        if (res)
+            return res;
+    }
+    return res;
+}
+
+bool Accesos::canAccessApplication(int IDUser)
+{
+    QString feature = "whole application";
+    CapacidadPersonaSectorLst caps = DataStore::instance()->getCapacidades()->getAll(IDUser, false);
+    foreach(CapacidadPersonaSectorPtr c, *caps)
+    {
+        if (canRead(c->IDSector().value(), feature))
+            return true;
+    }
+    return false;
 }

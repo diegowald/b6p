@@ -1,7 +1,8 @@
 #include "calendariopersonas.h"
 
 CalendarioPersonas::CalendarioPersonas(QObject *parent) :
-    ACollection(tr("Employee availability"), false, parent)
+    ACollection(tr("Employee availability"),
+                "Employee availability", false, parent)
 {
 }
 

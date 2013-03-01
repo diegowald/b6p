@@ -5,8 +5,8 @@
 #include <QSqlField>
 #include <QMessageBox>
 
-ACollection::ACollection(QString Name, bool useLastInsertId, QObject *parent) :
-    QObject(parent), m_Name(Name), sqlEngine("./planning.b6p"), usesLastInsertedId(useLastInsertId)
+ACollection::ACollection(QString Name, QString InvariableName, bool useLastInsertId, QObject *parent) :
+    QObject(parent), m_Name(Name), m_InvariableName(InvariableName), sqlEngine("./planning.b6p"), usesLastInsertedId(useLastInsertId)
 {
 }
 
@@ -135,4 +135,9 @@ bool ACollection::deleteRecord(QVariant ID)
 QString ACollection::name() const
 {
     return m_Name;
+}
+
+QString ACollection::invariableName() const
+{
+    return m_InvariableName;
 }

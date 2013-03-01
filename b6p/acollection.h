@@ -24,12 +24,13 @@ public:
         RECORD_DELETED
     };
 
-    explicit ACollection(QString Name, bool useLastInsertId, QObject *parent = 0);
+    explicit ACollection(QString Name, QString InvariableName, bool useLastInsertId, QObject *parent = 0);
     
     virtual void load();
     virtual void save();
 
     QString name() const;
+    QString invariableName() const;
 
     virtual QString getSqlString() = 0;
     virtual void addRecord(Record &record) = 0;
@@ -77,6 +78,7 @@ protected:
     virtual void executeCommand(QString cmd, RecordStatus status);
 private:
     QString m_Name;
+    QString m_InvariableName;
     SQLHandler sqlEngine;
     bool usesLastInsertedId;
 };
