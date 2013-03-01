@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <boost/shared_ptr.hpp>
+#include "accesos.h"
 #include "empleados.h"
 #include "parametros.h"
 #include "estimacionesdias.h"
@@ -21,6 +22,7 @@ public:
     static DataStore* instance();
     void initialize(QObject *parent);
 
+    AccesosPtr getAccesos();
     ParametrosPtr getParametros();
     EmpleadosPtr getEmpleados();
     EstimacionesDiasPtr getEstimacionesDias();
@@ -46,6 +48,7 @@ protected:
     void establishConnections(ACollection *newMember);
 private:
 
+    AccesosPtr accessosPtr;
     ParametrosPtr parametrosPtr;
     EmpleadosPtr empleadosPtr;
     EstimacionesDiasPtr estimacionesDiasPtr;
@@ -56,6 +59,7 @@ private:
     CalendarioPersonasPtr calendariosPtr;
     CapacidadesPersonaSectorPtr capacidadesPtr;
 
+    bool accesosCreated;
     bool parametrosCreated;
     bool empleadosCreated;
     bool estimacionesDiasCreated;

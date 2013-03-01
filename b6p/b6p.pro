@@ -82,7 +82,9 @@ SOURCES += main.cpp\
     timeeditor.cpp \
     dlgaddmanyestimationdays.cpp \
     qmysql.cpp \
-    synchronization.cpp
+    synchronization.cpp \
+    accesos.cpp \
+    acceso.cpp
 
 HEADERS  += mainwindow.h \
     timeassignment.h \
@@ -123,7 +125,9 @@ HEADERS  += mainwindow.h \
     timeeditor.h \
     dlgaddmanyestimationdays.h \
     qmysql.h \
-    synchronization.h
+    synchronization.h \
+    accesos.h \
+    acceso.h
 
 FORMS    += mainwindow.ui \
     genericlist.ui \

@@ -14,6 +14,7 @@ void DataStore::initialize(QObject *parent)
     setParent(parent);
 }
 
+
 DataStore::DataStore(QObject *parent) :
     QObject(parent), parametrosCreated(false),
     empleadosCreated(false), estimacionesDiasCreated(false),
@@ -35,6 +36,18 @@ void DataStore::establishConnections(ACollection* newMember)
     connect(newMember, SIGNAL(saving(QString)), this, SIGNAL(saving(QString)));
     newMember->load();
 }
+
+AccesosPtr DataStore::getAccesos()
+{
+    if (!accesosCreated)
+    {
+        accessosPtr = boost::make_shared<Accesos>(this);
+        establishConnections(accessosPtr.get());
+        accesosCreated = true;
+    }
+    return accessosPtr;
+}
+
 
 ParametrosPtr DataStore::getParametros()
 {

@@ -1,0 +1,43 @@
+#ifndef ACCESOS_H
+#define ACCESOS_H
+
+#include <QObject>
+#include <boost/shared_ptr.hpp>
+#include "acollection.h"
+#include "acceso.h"
+
+
+class Accesos : public ACollection
+{
+    Q_OBJECT
+public:
+    explicit Accesos(QObject *parent = 0);
+
+    virtual QString getSqlString();
+    virtual void addRecord(Record &record);
+
+    virtual void defineHeaders(QStringList &list);
+    virtual void fillData(QTreeWidget &tree);
+    virtual QString getDeleteStatement() { return ""; }
+    virtual QString getUpdateStatement() { return ""; }
+    virtual QString getInsertStatement() { return ""; }
+
+    virtual RecordSet getRecords(RecordStatus);
+    virtual void refreshID(int, int) {}
+    virtual void saveDependants() {}
+    virtual void setStatusToUnmodified(bool removeDeleted);
+    virtual bool canBeDeleted(QVariant ID);
+
+protected:
+    virtual bool addNew();
+    virtual bool addNew(QTreeWidgetItem *item);
+    virtual bool edit(QVariant ID);
+    virtual bool edit(QTreeWidgetItem *item, QVariant ID);
+    virtual bool deleteElement(QVariant ID);
+
+private:
+    QMap<std::pair<int, QString>, AccesoPtr> m_AccessList;
+};
+
+typedef boost::shared_ptr<Accesos> AccesosPtr;
+#endif // ACCESOS_H
