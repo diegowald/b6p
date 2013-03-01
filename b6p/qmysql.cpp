@@ -29,3 +29,36 @@ QMysql::QMysql(QObject *parent) :
  * -> Aplico esos cambios en el servidor central
  * -> Guardo en la db local la fecha de la ultima actualizacion
  */
+
+/**
+ * Obtengo las actualizaciones desde la DB central y aplico los cambios
+ *
+ * Para cada tabla de la lista
+ * Obtengo los cambios.
+ * Aplico los cambios localmente.
+ * Estos cambios se aplican:
+ * if A -> Insert
+ * if B -> Delete
+ * if M -> si Existe -> Update
+ *      -> si no Existe -> Insert
+ *
+ */
+
+/**
+ * Verifico que lo que voy a enviar es correcto.
+ * Basicamente la idea es verificar que las grillas planificadas sigan siendo coherentes.
+ */
+
+/** Si no es coherente corrijo los problemas.
+ * Aca lo que hay que hacer es chequear mostrar de alguna manera los cambios
+ * que se puedan producir en la grilla
+ */
+
+/**
+ * Envio mis datos. y los voy aplicando en el servidor central
+ * Aca se van enviando, tabla por tabla, los cambios que se han producido localmente.
+ */
+
+/**
+ * Guardo en la db local la fecha/hora de la ultima actualizacion.
+ */
