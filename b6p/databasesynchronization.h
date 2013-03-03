@@ -12,7 +12,7 @@ class DatabaseSynchronization : public QObject
 {
     Q_OBJECT
 public:
-    explicit DatabaseSynchronization(QObject *parent = 0);
+    explicit DatabaseSynchronization(QString Name, QObject *parent = 0);
 
     void getDataFromDB();
     void applyChanges();
@@ -28,6 +28,8 @@ signals:
 
 public slots:
     
+private:
+    QString name;
 };
 
 #endif // DATABASESYNCHRONIZATION_H
