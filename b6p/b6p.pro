@@ -85,7 +85,8 @@ SOURCES += main.cpp\
     synchronization.cpp \
     accesos.cpp \
     acceso.cpp \
-    dlglogin.cpp
+    dlglogin.cpp \
+    databasesynchronization.cpp
 
 HEADERS  += mainwindow.h \
     timeassignment.h \
@@ -129,7 +130,8 @@ HEADERS  += mainwindow.h \
     synchronization.h \
     accesos.h \
     acceso.h \
-    dlglogin.h
+    dlglogin.h \
+    databasesynchronization.h
 
 FORMS    += mainwindow.ui \
     genericlist.ui \

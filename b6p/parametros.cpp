@@ -1,6 +1,7 @@
 #include "parametros.h"
 
 
+const QString Parametros::LAST_SYNCHRO("LastSynchronization");
 const QString Parametros::OPEN_STORE("openStore");
 const QString Parametros::CLOSE_STORE("closeStore");
 const QString Parametros::MIN_WORKING_HOURS("MinWorkingHours");

@@ -36,7 +36,7 @@ public:
     int getValue(QString key, int defaultValue);
     void setValue(QString key, int value);
 
-
+    static const QString LAST_SYNCHRO;
     static const QString OPEN_STORE;
     static const QString CLOSE_STORE;
     static const QString MIN_WORKING_HOURS;

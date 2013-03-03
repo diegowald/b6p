@@ -28,7 +28,7 @@ MainWindow::MainWindow(int LoggedUser, QWidget *parent) :
     m_LoggedUser = LoggedUser;
     EnableActions();
 
-    //QMysql x;
+    QMysql x;
 
     /*ui->widget->setBackgroundColor(Qt::white);
     ui->widget->setTimeLineColor(Qt::lightGray);
