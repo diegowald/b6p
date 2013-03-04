@@ -3,19 +3,28 @@
 #include <QDateTime>
 #include <QVariant>
 #include <QMessageBox>
+
+
 SQLHandler::SQLHandler(QString database)
 {
     m_database = database;
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setHostName("localhost");
+    db.setDatabaseName(m_database);
+}
+
+SQLHandler::SQLHandler(QString Server, QString Database, QString User, QString Password)
+{
+    m_Server = Server;
+    m_database = Database;
+    m_User = User;
+    m_Password = Password;
+    db = QSqlDatabase::addDatabase("QMYSQL");
 }
 
 QSqlQuery SQLHandler::getAll(QString &query)
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-
-    db.setHostName("localhost");
-    db.setDatabaseName(m_database);
-
-    if (!db.open())
+    if (!db.isOpen() && !db.open())
     {
         QMessageBox::information(NULL, QObject::tr("DB Error"), QObject::tr("Can't open Database"));
         // Error
@@ -24,31 +33,36 @@ QSqlQuery SQLHandler::getAll(QString &query)
 
     QSqlQuery q(query);
     q.exec();
+    db.close();
     return q;
 }
 
-int SQLHandler::executeQuery(QString &cmd, RecordPtr record, bool returnLastInsertedID)
+QSqlQuery SQLHandler::getAll(QString &query, RecordPtr record)
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-
-    db.setHostName("localhost");
-    db.setDatabaseName(m_database);
-
-    if (!db.open())
+    if (!db.isOpen() && !db.open())
     {
-        QMessageBox::information(NULL, QObject::tr("DB Error"), QObject::tr("Can't open Database"));
-        // Error
-        return -1;
+        QMessageBox::critical(NULL, QObject::tr("DB Error"), QObject::tr("Can't open database"));
+        return QSqlQuery();
     }
-    qDebug() << cmd;
-    QSqlQuery q;
-    q.prepare(cmd);
 
+    qDebug() << query;
+    QSqlQuery q;
+    q.prepare(query);
+
+    addParameters(q, query, record);
+    q.exec();
+
+    db.close();
+    return q;
+}
+
+void SQLHandler::addParameters(QSqlQuery &query, QString SQL, RecordPtr record)
+{
     foreach(QString key, record->keys())
     {
         qDebug() << key << ": " << (*record)[key];
         QString param(":" + key);
-        if (cmd.contains(param))
+        if (SQL.contains(param))
         {
             qDebug() << param << " = " << (*record)[key];
             QVariant value = (*record)[key];
@@ -70,15 +84,30 @@ int SQLHandler::executeQuery(QString &cmd, RecordPtr record, bool returnLastInse
             default:
                 break;
             }
-            q.bindValue(param, value);
+            query.bindValue(param, value);
         }
     }
+}
+
+int SQLHandler::executeQuery(QString &cmd, RecordPtr record, bool returnLastInsertedID)
+{
+    if (!db.isOpen() && !db.open())
+    {
+        QMessageBox::information(NULL, QObject::tr("DB Error"), QObject::tr("Can't open Database"));
+        // Error
+        return -1;
+    }
+    qDebug() << cmd;
+    QSqlQuery q;
+    q.prepare(cmd);
+    addParameters(q, cmd, record);
     q.exec();
     if (q.lastError().type() != QSqlError::NoError)
     {
         QMessageBox::information(NULL, QObject::tr("SQL Error"), q.lastError().text());
     }
     qDebug() << q.lastError();
+    db.close();
     if (returnLastInsertedID)
         return q.lastInsertId().toInt();
     else

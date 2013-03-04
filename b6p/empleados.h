@@ -34,6 +34,8 @@ public:
     virtual QString getInsertStatement();
     virtual RecordSet getRecords(RecordStatus status);
 
+    virtual QString getSelectFromMainDB();
+
     EmpleadoPtr getEmpleado(int idEmpleado, bool includeDeleted);
     EmpleadosLst getAll(bool includeDeleted);
     EmpleadosLst getAll(int IDSector, int IDSubSector, DAYS Dia, int HoraInicio, int HoraFin, bool includeDeleted);

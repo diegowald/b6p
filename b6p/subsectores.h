@@ -17,6 +17,7 @@ public:
     virtual QString getUpdateStatement();
     virtual QString getInsertStatement();
     virtual RecordSet getRecords(RecordStatus status);
+    virtual QString getSelectFromMainDB();
 
     virtual void defineHeaders(QStringList &list);
     virtual void fillData(QTreeWidget &tree);

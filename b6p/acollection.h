@@ -29,7 +29,7 @@ public:
     virtual void load();
     virtual void save();
 
-    QString name() const;
+    QString &name();
     QString invariableName() const;
 
     virtual QString getSqlString() = 0;
@@ -54,6 +54,8 @@ public:
     virtual void saveDependants() = 0;
     virtual void setStatusToUnmodified(bool removeDeleted) = 0;
     virtual bool canBeDeleted(QVariant ID) = 0;
+
+    virtual QString getSelectFromMainDB() = 0;
 
 protected:
     virtual bool addNew() = 0;

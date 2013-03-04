@@ -30,6 +30,8 @@ public:
     virtual void saveDependants() {}
     virtual void setStatusToUnmodified(bool) {}
 
+    virtual QString getSelectFromMainDB();
+
     QString getValue(QString key, QString defaultValue);
     void setValue(QString key, QString value);
 

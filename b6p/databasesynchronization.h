@@ -12,9 +12,9 @@ class DatabaseSynchronization : public QObject
 {
     Q_OBJECT
 public:
-    explicit DatabaseSynchronization(boost::shared_ptr<ACollection> data, QObject *parent = 0);
+    explicit DatabaseSynchronization(boost::shared_ptr<ACollection> data, boost::shared_ptr<SQLHandler> sqlHandler, QObject *parent = 0);
 
-    void getDataFromDB();
+    void getDataFromDB(QString dateFrom);
     void applyChanges();
     void checkConsistency();
 
@@ -32,6 +32,8 @@ public slots:
     
 private:
     boost::shared_ptr<ACollection> m_Data;
+    boost::shared_ptr<SQLHandler> m_SQLHandler;
+    QSqlQuery M_QueryResult;
 };
 
 #endif // DATABASESYNCHRONIZATION_H

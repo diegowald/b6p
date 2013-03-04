@@ -43,6 +43,7 @@ public:
     virtual void setStatusToUnmodified(bool removeDeleted);
     virtual bool canBeDeleted(QVariant ID);
 
+    virtual QString getSelectFromMainDB();
 
 protected:
     virtual bool addNew();

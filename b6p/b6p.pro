@@ -81,13 +81,13 @@ SOURCES += main.cpp\
     dlgparametros.cpp \
     timeeditor.cpp \
     dlgaddmanyestimationdays.cpp \
-    qmysql.cpp \
     synchronization.cpp \
     accesos.cpp \
     acceso.cpp \
     dlglogin.cpp \
     databasesynchronization.cpp \
-    dlgsynchronization.cpp
+    dlgsynchronization.cpp \
+    SincroManager.cpp
 
 HEADERS  += mainwindow.h \
     timeassignment.h \
@@ -127,13 +127,13 @@ HEADERS  += mainwindow.h \
     dlgparametros.h \
     timeeditor.h \
     dlgaddmanyestimationdays.h \
-    qmysql.h \
     synchronization.h \
     accesos.h \
     acceso.h \
     dlglogin.h \
     databasesynchronization.h \
-    dlgsynchronization.h
+    dlgsynchronization.h \
+    SincroManager.h
 
 FORMS    += mainwindow.ui \
     genericlist.ui \

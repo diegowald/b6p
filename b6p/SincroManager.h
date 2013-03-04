@@ -1,15 +1,16 @@
-#ifndef QMYSQL_H
-#define QMYSQL_H
+#ifndef SINCROMANAGER_H
+#define SINCROMANAGER_H
 
 #include <QObject>
 #include "databasesynchronization.h"
 #include <boost/shared_ptr.hpp>
+#include "sqlhandler.h"
 
-class QMysql : public QObject
+class SincroManager : public QObject
 {
     Q_OBJECT
 public:
-    explicit QMysql(QObject *parent = 0);
+    explicit SincroManager(QObject *parent = 0);
 
     void runSincro();
     QStringList getSincroTableNames();
@@ -37,6 +38,7 @@ public slots:
 private:
     QString m_FechaUltimaSincronizacion;
     QList<DatabaseSynchronizationPtr> m_Synchronizationtables;
+    boost::shared_ptr<SQLHandler> m_SQL;
 };
 
 #endif // QMYSQL_H

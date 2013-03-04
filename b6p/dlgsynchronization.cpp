@@ -1,14 +1,14 @@
 #include "dlgsynchronization.h"
 #include "ui_dlgsynchronization.h"
 #include "datastore.h"
-#include "qmysql.h"
+#include "SincroManager.h"
 
 DlgSynchronization::DlgSynchronization(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DlgSynchronization)
 {
     ui->setupUi(this);
-    sincro = boost::make_shared<QMysql>(this);
+    sincro = boost::make_shared<SincroManager>(this);
     fillData();
 }
 

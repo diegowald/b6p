@@ -1,36 +1,37 @@
-#include "qmysql.h"
+#include "SincroManager.h"
 #include <QtSql>
 #include <QMessageBox>
 #include "datastore.h"
 
-QMysql::QMysql(QObject *parent) :
+SincroManager::SincroManager(QObject *parent) :
     QObject(parent)
 {
-    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getSectores(), this));
-    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getSubSectores(), this));
-    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getEmpleados(), this));
-    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getCalendarios(), this));
-    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getCapacidades(), this));
-    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getEstimacionesDias(), this));
-    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getPlanificacionesDias(), this));
-    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getPlanificacionesSubSectores(), this));
+    m_SQL = boost::make_shared<SQLHandler>(
+                DataStore::instance()->getParametros()->getValue(Parametros::SERVER_NAME, "127.0.0.1"),
+                DataStore::instance()->getParametros()->getValue(Parametros::DATABASE_NAME, "b6p"),
+                DataStore::instance()->getParametros()->getValue(Parametros::USER_NAME, "root"),
+                DataStore::instance()->getParametros()->getValue(Parametros::PASSWORD, "mic1492"));
+
+    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getSectores(), m_SQL, this));
+    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getSubSectores(), m_SQL, this));
+    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getEmpleados(), m_SQL, this));
+    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getCalendarios(), m_SQL, this));
+    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getCapacidades(), m_SQL, this));
+    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getEstimacionesDias(), m_SQL, this));
+    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getPlanificacionesDias(), m_SQL, this));
+    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getPlanificacionesSubSectores(), m_SQL, this));
 
     establishConnections();
 
-    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-    db.setHostName(DataStore::instance()->getParametros()->getValue(Parametros::SERVER_NAME, "127.0.0.1"));
-    db.setDatabaseName(DataStore::instance()->getParametros()->getValue(Parametros::DATABASE_NAME, "b6p"));
-    db.setUserName(DataStore::instance()->getParametros()->getValue(Parametros::USER_NAME, "root"));
-    db.setPassword(DataStore::instance()->getParametros()->getValue(Parametros::PASSWORD, "mic1492"));
 
-    if (!db.open())
+    /*if (!db.open())
         QMessageBox::critical(0, QObject::tr("Database Error"),
                       db.lastError().text());
 
-    db.close();
+    db.close();*/
 }
 
-void QMysql::runSincro()
+void SincroManager::runSincro()
 {
     emit startingSynchro();
     obtenerFechaUltimaSincronizacion();
@@ -54,22 +55,22 @@ void QMysql::runSincro()
 }
 
 
-void QMysql::obtenerFechaUltimaSincronizacion()
+void SincroManager::obtenerFechaUltimaSincronizacion()
 {
     m_FechaUltimaSincronizacion = DataStore::instance()->getParametros()->getValue(Parametros::LAST_SYNCHRO, "");
 }
 
-void QMysql::obtenerActualizacionesDeBaseCentral()
+void SincroManager::obtenerActualizacionesDeBaseCentral()
 {
     foreach(DatabaseSynchronizationPtr db, m_Synchronizationtables)
     {
-        db->getDataFromDB();
+        db->getDataFromDB(m_FechaUltimaSincronizacion);
         db->applyChanges();
         db->checkConsistency();
     }
 }
 
-void QMysql::enviarDatosADBCentral()
+void SincroManager::enviarDatosADBCentral()
 {
     foreach(DatabaseSynchronizationPtr db, m_Synchronizationtables)
     {
@@ -78,13 +79,13 @@ void QMysql::enviarDatosADBCentral()
 }
 
 
-void QMysql::grabarFechaUltimaSincronizacion()
+void SincroManager::grabarFechaUltimaSincronizacion()
 {
     QString UltimaSincro;
     DataStore::instance()->getParametros()->setValue(Parametros::LAST_SYNCHRO, UltimaSincro);
 }
 
-void QMysql::establishConnections()
+void SincroManager::establishConnections()
 {
     foreach(DatabaseSynchronizationPtr dbPtr, m_Synchronizationtables)
     {
@@ -92,7 +93,7 @@ void QMysql::establishConnections()
     }
 }
 
-void QMysql::establishConnections(DatabaseSynchronizationPtr db)
+void SincroManager::establishConnections(DatabaseSynchronizationPtr db)
 {
     connect(db.get(), SIGNAL(gettingDataFromCentralDB(QString &)), this, SIGNAL(gettingDataFromCentralDB(QString&)));
     connect(db.get(), SIGNAL(applyingChanges(QString &)), this, SIGNAL(applyingChanges(QString&)));
@@ -100,7 +101,7 @@ void QMysql::establishConnections(DatabaseSynchronizationPtr db)
     connect(db.get(), SIGNAL(sendingData(QString &)), this, SIGNAL(sendingData(QString&)));
 }
 
-QStringList QMysql::getSincroTableNames()
+QStringList SincroManager::getSincroTableNames()
 {
     QStringList res;
     foreach(DatabaseSynchronizationPtr dbPtr, m_Synchronizationtables)
