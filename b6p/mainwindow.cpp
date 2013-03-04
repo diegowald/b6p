@@ -3,7 +3,7 @@
 #include "genericlist.h"
 #include "datastore.h"
 #include "dlgparametros.h"
-#include "qmysql.h"
+#include "dlgsynchronization.h"
 
 MainWindow::MainWindow(int LoggedUser, QWidget *parent) :
     QMainWindow(parent),
@@ -27,8 +27,6 @@ MainWindow::MainWindow(int LoggedUser, QWidget *parent) :
 
     m_LoggedUser = LoggedUser;
     EnableActions();
-
-    QMysql x;
 
     /*ui->widget->setBackgroundColor(Qt::white);
     ui->widget->setTimeLineColor(Qt::lightGray);
@@ -152,4 +150,10 @@ void MainWindow::EnableActions()
         ui->actionSetup_days->setEnabled(true);
         ui->actionParameters->setEnabled(true);
     }
+}
+
+void MainWindow::on_actionSynchronize_triggered()
+{
+    DlgSynchronization dlg;
+    dlg.exec();
 }

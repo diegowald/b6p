@@ -1,7 +1,7 @@
 #include "parametros.h"
 
 
-const QString Parametros::LAST_SYNCHRO("LastSynchronization");
+
 const QString Parametros::OPEN_STORE("openStore");
 const QString Parametros::CLOSE_STORE("closeStore");
 const QString Parametros::MIN_WORKING_HOURS("MinWorkingHours");
@@ -9,7 +9,11 @@ const QString Parametros::EMPLOYEE_MIN_HOURS("Employee_minHours");
 const QString Parametros::EMPLOYEE_MAX_HOURS("Employee_maxHours");
 const QString Parametros::MAX_DAYS_BETWEEN_FREE_DAY("MaxDaysBetweenFreeDay");
 
-
+const QString Parametros::LAST_SYNCHRO("LastSynchronization");
+const QString Parametros::SERVER_NAME("Server Name");
+const QString Parametros::DATABASE_NAME("Database Name");
+const QString Parametros::USER_NAME("User Name");
+const QString Parametros::PASSWORD("Password");
 
 Parametros::Parametros(QObject *parent) :
     ACollection(tr("Parameters"),

@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <boost/shared_ptr.hpp>
-
+#include "acollection.h"
 class DatabaseSynchronization;
 typedef boost::shared_ptr<DatabaseSynchronization> DatabaseSynchronizationPtr;
 
@@ -12,13 +12,15 @@ class DatabaseSynchronization : public QObject
 {
     Q_OBJECT
 public:
-    explicit DatabaseSynchronization(QString Name, QObject *parent = 0);
+    explicit DatabaseSynchronization(boost::shared_ptr<ACollection> data, QObject *parent = 0);
 
     void getDataFromDB();
     void applyChanges();
     void checkConsistency();
 
     void sendData();
+
+    QString &name();
     
 signals:
     void gettingDataFromCentralDB(QString &tableName);
@@ -29,7 +31,7 @@ signals:
 public slots:
     
 private:
-    QString name;
+    boost::shared_ptr<ACollection> m_Data;
 };
 
 #endif // DATABASESYNCHRONIZATION_H

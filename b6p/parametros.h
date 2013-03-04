@@ -36,13 +36,19 @@ public:
     int getValue(QString key, int defaultValue);
     void setValue(QString key, int value);
 
-    static const QString LAST_SYNCHRO;
+
     static const QString OPEN_STORE;
     static const QString CLOSE_STORE;
     static const QString MIN_WORKING_HOURS;
     static const QString EMPLOYEE_MIN_HOURS;
     static const QString EMPLOYEE_MAX_HOURS;
     static const QString MAX_DAYS_BETWEEN_FREE_DAY;
+
+    static const QString LAST_SYNCHRO;
+    static const QString SERVER_NAME;
+    static const QString DATABASE_NAME;
+    static const QString USER_NAME;
+    static const QString PASSWORD;
 
 signals:
     

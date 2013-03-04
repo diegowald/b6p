@@ -12,6 +12,7 @@ public:
     explicit QMysql(QObject *parent = 0);
 
     void runSincro();
+    QStringList getSincroTableNames();
 protected:
     void obtenerFechaUltimaSincronizacion();
     void obtenerActualizacionesDeBaseCentral();
@@ -20,6 +21,7 @@ protected:
 
     void grabarFechaUltimaSincronizacion();
 
+    void establishConnections();
     void establishConnections(DatabaseSynchronizationPtr db);
 
 signals:

@@ -86,7 +86,8 @@ SOURCES += main.cpp\
     accesos.cpp \
     acceso.cpp \
     dlglogin.cpp \
-    databasesynchronization.cpp
+    databasesynchronization.cpp \
+    dlgsynchronization.cpp
 
 HEADERS  += mainwindow.h \
     timeassignment.h \
@@ -131,7 +132,8 @@ HEADERS  += mainwindow.h \
     accesos.h \
     acceso.h \
     dlglogin.h \
-    databasesynchronization.h
+    databasesynchronization.h \
+    dlgsynchronization.h
 
 FORMS    += mainwindow.ui \
     genericlist.ui \
@@ -145,7 +147,8 @@ FORMS    += mainwindow.ui \
     dlgparametros.ui \
     timeeditor.ui \
     dlgaddmanyestimationdays.ui \
-    dlglogin.ui
+    dlglogin.ui \
+    dlgsynchronization.ui
 
 RESOURCES += \
     resources.qrc

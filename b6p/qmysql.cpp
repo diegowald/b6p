@@ -6,14 +6,22 @@
 QMysql::QMysql(QObject *parent) :
     QObject(parent)
 {
+    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getSectores(), this));
+    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getSubSectores(), this));
+    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getEmpleados(), this));
+    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getCalendarios(), this));
+    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getCapacidades(), this));
+    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getEstimacionesDias(), this));
+    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getPlanificacionesDias(), this));
+    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getPlanificacionesSubSectores(), this));
 
-    //DatabaseSynchronizationPtr dbs = boost::make_shared<DatabaseSynchronization>();
+    establishConnections();
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-    db.setHostName("127.0.0.1");
-    db.setDatabaseName("b6p");
-    db.setUserName("root");
-    db.setPassword("mic1492");
+    db.setHostName(DataStore::instance()->getParametros()->getValue(Parametros::SERVER_NAME, "127.0.0.1"));
+    db.setDatabaseName(DataStore::instance()->getParametros()->getValue(Parametros::DATABASE_NAME, "b6p"));
+    db.setUserName(DataStore::instance()->getParametros()->getValue(Parametros::USER_NAME, "root"));
+    db.setPassword(DataStore::instance()->getParametros()->getValue(Parametros::PASSWORD, "mic1492"));
 
     if (!db.open())
         QMessageBox::critical(0, QObject::tr("Database Error"),
@@ -76,6 +84,13 @@ void QMysql::grabarFechaUltimaSincronizacion()
     DataStore::instance()->getParametros()->setValue(Parametros::LAST_SYNCHRO, UltimaSincro);
 }
 
+void QMysql::establishConnections()
+{
+    foreach(DatabaseSynchronizationPtr dbPtr, m_Synchronizationtables)
+    {
+        establishConnections(dbPtr);
+    }
+}
 
 void QMysql::establishConnections(DatabaseSynchronizationPtr db)
 {
@@ -83,6 +98,16 @@ void QMysql::establishConnections(DatabaseSynchronizationPtr db)
     connect(db.get(), SIGNAL(applyingChanges(QString &)), this, SIGNAL(applyingChanges(QString&)));
     connect(db.get(), SIGNAL(checkingChanges(QString &)), this, SIGNAL(checkingChanges(QString&)));
     connect(db.get(), SIGNAL(sendingData(QString &)), this, SIGNAL(sendingData(QString&)));
+}
+
+QStringList QMysql::getSincroTableNames()
+{
+    QStringList res;
+    foreach(DatabaseSynchronizationPtr dbPtr, m_Synchronizationtables)
+    {
+        res.push_back(dbPtr->name());
+    }
+    return res;
 }
 
 /**

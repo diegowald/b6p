@@ -38,6 +38,8 @@ private slots:
     void datastore_saving(QString name);
     void on_actionSetup_days_triggered();
 
+    void on_actionSynchronize_triggered();
+
 private:
     Ui::MainWindow *ui;
     int m_LoggedUser;

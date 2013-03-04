@@ -25,7 +25,7 @@
    <string>Big Six Planner</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="resources.qrc">
+   <iconset>
     <normaloff>:/img/images/glyphicons_055_stopwatch.png</normaloff>:/img/images/glyphicons_055_stopwatch.png</iconset>
   </property>
   <property name="autoFillBackground">
@@ -93,9 +93,16 @@
     </property>
     <addaction name="actionAbout"/>
    </widget>
+   <widget class="QMenu" name="menuSynchronization">
+    <property name="title">
+     <string>Synchronization</string>
+    </property>
+    <addaction name="actionSynchronize"/>
+   </widget>
    <addaction name="menuPlanification"/>
    <addaction name="menuEmployees"/>
    <addaction name="menuCustomization"/>
+   <addaction name="menuSynchronization"/>
    <addaction name="menuAbout"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
@@ -109,7 +116,7 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOpen">
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset>
      <normaloff>:/img/images/glyphicons_144_folder_open.png</normaloff>:/img/images/glyphicons_144_folder_open.png</iconset>
    </property>
    <property name="text">
@@ -124,7 +131,7 @@
   </action>
   <action name="actionApprove">
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset>
      <normaloff>:/img/images/glyphicons_206_ok_2.png</normaloff>:/img/images/glyphicons_206_ok_2.png</iconset>
    </property>
    <property name="text">
@@ -136,7 +143,7 @@
   </action>
   <action name="actionPrint">
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset>
      <normaloff>:/img/images/glyphicons_015_print.png</normaloff>:/img/images/glyphicons_015_print.png</iconset>
    </property>
    <property name="text">
@@ -159,7 +166,7 @@
   </action>
   <action name="actionView">
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset>
      <normaloff>:/img/images/glyphicons_024_parents.png</normaloff>:/img/images/glyphicons_024_parents.png</iconset>
    </property>
    <property name="text">
@@ -171,7 +178,7 @@
   </action>
   <action name="actionParameters">
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset>
      <normaloff>:/img/images/glyphicons_139_adjust_alt.png</normaloff>:/img/images/glyphicons_139_adjust_alt.png</iconset>
    </property>
    <property name="text">
@@ -183,7 +190,7 @@
   </action>
   <action name="actionAbout">
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset>
      <normaloff>:/img/images/glyphicons_195_circle_info.png</normaloff>:/img/images/glyphicons_195_circle_info.png</iconset>
    </property>
    <property name="text">
@@ -195,17 +202,24 @@
   </action>
   <action name="actionSetup_days">
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset>
      <normaloff>:/img/images/glyphicons_327_sampler.png</normaloff>:/img/images/glyphicons_327_sampler.png</iconset>
    </property>
    <property name="text">
     <string>Setup days...</string>
    </property>
   </action>
+  <action name="actionSynchronize">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/img/images/glyphicons_082_roundabout.png</normaloff>:/img/images/glyphicons_082_roundabout.png</iconset>
+   </property>
+   <property name="text">
+    <string>Synchronize...</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
