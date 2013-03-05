@@ -29,7 +29,7 @@ public:
     bool canAccessApplication(int IDUser);
 
     virtual QString getSqlString();
-    virtual void addRecord(Record &record);
+    virtual void addRecord(RecordPtr record);
 
     virtual void defineHeaders(QStringList &list);
     virtual void fillData(QTreeWidget &tree);

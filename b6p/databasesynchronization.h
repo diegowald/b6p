@@ -4,6 +4,7 @@
 #include <QObject>
 #include <boost/shared_ptr.hpp>
 #include "acollection.h"
+
 class DatabaseSynchronization;
 typedef boost::shared_ptr<DatabaseSynchronization> DatabaseSynchronizationPtr;
 
@@ -33,7 +34,7 @@ public slots:
 private:
     boost::shared_ptr<ACollection> m_Data;
     boost::shared_ptr<SQLHandler> m_SQLHandler;
-    QSqlQuery M_QueryResult;
+    RecordSet m_QueryResult;
 };
 
 #endif // DATABASESYNCHRONIZATION_H

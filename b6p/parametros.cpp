@@ -22,15 +22,20 @@ Parametros::Parametros(QObject *parent) :
     m_recordsWereCreated = false;
 }
 
+QString Parametros::getSelectFromMainDB()
+{
+    return "";
+}
+
 QString Parametros::getSqlString()
 {
     return "select Key, Value from parametros;";
 }
 
-void Parametros::addRecord(Record &record)
+void Parametros::addRecord(RecordPtr record)
 {
     m_recordsWereCreated = true;
-    m_Dictionary[record["Key"].toString()] = record["Value"].toString();
+    m_Dictionary[(*record)["Key"].toString()] = (*record)["Value"].toString();
 }
 
 QString Parametros::getDeleteStatement()

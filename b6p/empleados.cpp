@@ -12,20 +12,26 @@ Empleados::~Empleados()
 {
 }
 
+QString Empleados::getSelectFromMainDB()
+{
+    return QString("select ID, Apellido, Nombres, Legajo, FechaIngreso, Estado from empleados "
+                   " where LastUpdate >= :LastUpdate;");
+}
+
 QString Empleados::getSqlString()
 {
     return QString("select ID, Apellido, Nombres, Legajo, FechaIngreso from empleados")
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
-void Empleados::addRecord(Record &record)
+void Empleados::addRecord(RecordPtr record)
 {
     EmpleadoPtr e = boost::make_shared<Empleado>(false, this);
-    e->IDEmpleado().setValue(record["ID"].toInt());
-    e->Apellido().setValue(record["Apellido"].toString());
-    e->Nombre().setValue(record["Nombres"].toString());
-    e->Legajo().setValue(record["Legajo"].toString());
-    e->FechaIngreso().setValue(QDateTime::fromMSecsSinceEpoch(record["FechaIngreso"].toLongLong()).date());
+    e->IDEmpleado().setValue((*record)["ID"].toInt());
+    e->Apellido().setValue((*record)["Apellido"].toString());
+    e->Nombre().setValue((*record)["Nombres"].toString());
+    e->Legajo().setValue((*record)["Legajo"].toString());
+    e->FechaIngreso().setValue(QDateTime::fromMSecsSinceEpoch((*record)["FechaIngreso"].toLongLong()).date());
     e->setInitialized();
     m_Empleados[e->IDEmpleado().value()] = e;
 }

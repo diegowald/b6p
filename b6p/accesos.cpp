@@ -6,22 +6,27 @@ Accesos::Accesos(QObject *parent)
 {
 }
 
+QString Accesos::getSelectFromMainDB()
+{
+    return "";
+}
+
 QString Accesos::getSqlString()
 {
     return QString("select IDSector, Feature, canRead, canCreate, canUpdate, canDelete from accesos ");
 //            + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
-void Accesos::addRecord(Record &record)
+void Accesos::addRecord(RecordPtr record)
 {
     AccesoPtr a = boost::make_shared<Acceso>(this);
 
-    a->IDSector().setValue(record["IDSector"].toInt());
-    a->Feature().setValue(record["Feature"].toString());
-    a->canCreate().setValue(record["canCreate"].toBool());
-    a->canRead().setValue(record["canRead"].toBool());
-    a->canUpdate().setValue(record["canUpdate"].toBool());
-    a->canDelete().setValue(record["canDelete"].toBool());
+    a->IDSector().setValue((*record)["IDSector"].toInt());
+    a->Feature().setValue((*record)["Feature"].toString());
+    a->canCreate().setValue((*record)["canCreate"].toBool());
+    a->canRead().setValue((*record)["canRead"].toBool());
+    a->canUpdate().setValue((*record)["canUpdate"].toBool());
+    a->canDelete().setValue((*record)["canDelete"].toBool());
 
     a->setInitialized();
 

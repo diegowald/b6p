@@ -6,20 +6,25 @@ SubSectores::SubSectores(QObject *parent) :
 {
 }
 
+QString SubSectores::getSelectFromMainDB()
+{
+    return "";
+}
+
 QString SubSectores::getSqlString()
 {
     return QString("select ID, IDSector, Nombre, Descripcion from subsectores ")
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
-void SubSectores::addRecord(Record &record)
+void SubSectores::addRecord(RecordPtr record)
 {
     SubSectorPtr s = boost::make_shared<SubSector>(this);
 
-    s->IDSubsector().setValue(record["ID"].toInt());
-    s->IDSector().setValue(record["IDSector"].toInt());
-    s->Nombre().setValue(record["Nombre"].toString());
-    s->Descripcion().setValue(record["Descripcion"].toString());
+    s->IDSubsector().setValue((*record)["ID"].toInt());
+    s->IDSector().setValue((*record)["IDSector"].toInt());
+    s->Nombre().setValue((*record)["Nombre"].toString());
+    s->Descripcion().setValue((*record)["Descripcion"].toString());
     s->setInitialized();
 
     m_SubSectores[s->IDSubsector().value()] = s;

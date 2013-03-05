@@ -10,20 +10,25 @@ CalendarioPersonas::~CalendarioPersonas()
 {
 }
 
+QString CalendarioPersonas::getSelectFromMainDB()
+{
+    return "";
+}
+
 QString CalendarioPersonas::getSqlString()
 {
     return QString("select Dia, IDEmpleado, HoraIngreso, HoraEgreso from calendariopersonas "
             " where RecordStatus <> %1;").arg(RECORD_DELETED);
 }
 
-void CalendarioPersonas::addRecord(Record &record)
+void CalendarioPersonas::addRecord(RecordPtr record)
 {
     CalendarioPersonaPtr c = boost::make_shared<CalendarioPersona>(this);
 
-    c->Dia().setValue(record["Dia"].toInt());
-    c->IDEmpleado().setValue(record["IDEmpleado"].toInt());
-    c->HoraIngreso().setValue(record["HoraIngreso"].toInt());
-    c->HoraEgreso().setValue(record["HoraEgreso"].toInt());
+    c->Dia().setValue((*record)["Dia"].toInt());
+    c->IDEmpleado().setValue((*record)["IDEmpleado"].toInt());
+    c->HoraIngreso().setValue((*record)["HoraIngreso"].toInt());
+    c->HoraEgreso().setValue((*record)["HoraEgreso"].toInt());
     c->setInitialized();
     m_Calendarios.push_back(c);
 }

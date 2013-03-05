@@ -6,19 +6,24 @@ Sectores::Sectores(QObject *parent) :
 {
 }
 
+QString Sectores::getSelectFromMainDB()
+{
+    return "";
+}
+
 QString Sectores::getSqlString()
 {
     return QString("select ID, Nombre, Descripcion from sectores ")
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
-void Sectores::addRecord(Record &record)
+void Sectores::addRecord(RecordPtr record)
 {
     SectorPtr s = boost::make_shared<Sector>(this);
 
-    s->IDSector().setValue(record["ID"].toInt());
-    s->Nombre().setValue(record["Nombre"].toString());
-    s->Descripcion().setValue(record["Descripcion"].toString());
+    s->IDSector().setValue((*record)["ID"].toInt());
+    s->Nombre().setValue((*record)["Nombre"].toString());
+    s->Descripcion().setValue((*record)["Descripcion"].toString());
     s->setInitialized();
 
     m_Sectores[s->IDSector().value()] = s;

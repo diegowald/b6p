@@ -9,19 +9,24 @@ PlanificacionesDias::PlanificacionesDias(QObject *parent) :
 {
 }
 
+QString PlanificacionesDias::getSelectFromMainDB()
+{
+    return "";
+}
+
 QString PlanificacionesDias::getSqlString()
 {
     return QString("select Dia, Notas, IDSupervisor from planificaciondia ")
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
-void PlanificacionesDias::addRecord(Record &record)
+void PlanificacionesDias::addRecord(RecordPtr record)
 {
     PlanificacionDiaPtr p = boost::make_shared<PlanificacionDia>(this);
 
-    p->Dia().setValue(QDateTime::fromMSecsSinceEpoch(record["Dia"].toLongLong()).date());
-    p->Notas().setValue(record["Notas"].toString());
-    p->IDSupervisor().setValue(record["IDSupervisor"].toInt());
+    p->Dia().setValue(QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date());
+    p->Notas().setValue((*record)["Notas"].toString());
+    p->IDSupervisor().setValue((*record)["IDSupervisor"].toInt());
     p->setInitialized();
 
     m_Planificaciones[p->Dia().value()] = p;

@@ -21,15 +21,10 @@ void ACollection::load()
 
     QString sqlString = getSqlString();
 
-    QSqlQuery query = sqlEngine.getAll(sqlString);
-    while (query.next())
+    RecordSet resp = sqlEngine.getAll(sqlString);
+
+    foreach (RecordPtr record, *resp)
     {
-        QSqlRecord rec = query.record();
-        Record record;
-        for (int i = 0; i < rec.count(); i++)
-        {
-            record[rec.fieldName(i)] = rec.field(i).value();
-        }
         addRecord(record);
     }
     emit loaded(m_Name);

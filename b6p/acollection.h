@@ -33,7 +33,7 @@ public:
     QString invariableName() const;
 
     virtual QString getSqlString() = 0;
-    virtual void addRecord(Record &record) = 0;
+    virtual void addRecord(RecordPtr record) = 0;
 
     virtual void defineHeaders(QStringList &list) = 0;
     virtual void fillData(QTreeWidget &tree) = 0;

@@ -13,7 +13,7 @@ void DatabaseSynchronization::getDataFromDB(QString dateFrom)
     QString SQL = m_Data->getSelectFromMainDB();
     RecordPtr r = boost::make_shared<Record>();
     (*r)["LASTUPDATE"] = dateFrom;
-    M_QueryResult = m_SQLHandler->getAll(SQL, r);
+    m_QueryResult = m_SQLHandler->getAll(SQL, r);
 }
 
 void DatabaseSynchronization::applyChanges()

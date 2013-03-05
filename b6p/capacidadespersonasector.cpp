@@ -34,20 +34,25 @@ CapacidadPersonaSectorPtr CapacidadesPersonaSector::get(int idEmpleado, int IDSe
     return CapacidadPersonaSectorPtr();
 }
 
+QString CapacidadesPersonaSector::getSelectFromMainDB()
+{
+    return "";
+}
+
 QString CapacidadesPersonaSector::getSqlString()
 {
     return QString("select IDSector, IDSubSector, IDEmpleado, Capacidad from capacidadespersonassector ")
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
-void CapacidadesPersonaSector::addRecord(Record &record)
+void CapacidadesPersonaSector::addRecord(RecordPtr record)
 {
     CapacidadPersonaSectorPtr c = boost::make_shared<CapacidadPersonaSector>(this);
 
-    c->IDSector().setValue(record["IDSector"].toInt());
-    c->ID_SubSector().setValue(record["IDSubSector"].toInt());
-    c->IDEmpleado().setValue(record["IDEmpleado"].toInt());
-    c->Capacidad().setValue(record["Capacidad"].toInt());
+    c->IDSector().setValue((*record)["IDSector"].toInt());
+    c->ID_SubSector().setValue((*record)["IDSubSector"].toInt());
+    c->IDEmpleado().setValue((*record)["IDEmpleado"].toInt());
+    c->Capacidad().setValue((*record)["Capacidad"].toInt());
     c->setInitialized();
     m_Capacidades.push_back(c);
 }

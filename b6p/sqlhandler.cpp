@@ -3,7 +3,9 @@
 #include <QDateTime>
 #include <QVariant>
 #include <QMessageBox>
-
+#include <boost/make_shared.hpp>
+#include <QSqlRecord>
+#include <QSqlField>
 
 SQLHandler::SQLHandler(QString database)
 {
@@ -22,27 +24,43 @@ SQLHandler::SQLHandler(QString Server, QString Database, QString User, QString P
     db = QSqlDatabase::addDatabase("QMYSQL");
 }
 
-QSqlQuery SQLHandler::getAll(QString &query)
+RecordSet SQLHandler::getAll(QString &query)
 {
+    RecordSet response = boost::make_shared<QList<RecordPtr> >();
+
     if (!db.isOpen() && !db.open())
     {
         QMessageBox::information(NULL, QObject::tr("DB Error"), QObject::tr("Can't open Database"));
         // Error
-        return QSqlQuery();
+        return response;
     }
 
     QSqlQuery q(query);
     q.exec();
     db.close();
-    return q;
+
+    while (q.next())
+    {
+        QSqlRecord rec = q.record();
+        RecordPtr record = boost::make_shared<Record>();
+        for (int i = 0; i < rec.count(); i++)
+        {
+            (*record)[rec.fieldName(i)] = rec.field(i).value();
+        }
+        response->push_back(record);
+    }
+
+    return response;
 }
 
-QSqlQuery SQLHandler::getAll(QString &query, RecordPtr record)
+RecordSet SQLHandler::getAll(QString &query, RecordPtr record)
 {
+    RecordSet response = boost::make_shared<QList<RecordPtr> >();
+
     if (!db.isOpen() && !db.open())
     {
         QMessageBox::critical(NULL, QObject::tr("DB Error"), QObject::tr("Can't open database"));
-        return QSqlQuery();
+        return response;
     }
 
     qDebug() << query;
@@ -53,7 +71,19 @@ QSqlQuery SQLHandler::getAll(QString &query, RecordPtr record)
     q.exec();
 
     db.close();
-    return q;
+
+    while (q.next())
+    {
+        QSqlRecord rec = q.record();
+        RecordPtr record = boost::make_shared<Record>();
+        for (int i = 0; i < rec.count(); i++)
+        {
+            (*record)[rec.fieldName(i)] = rec.field(i).value();
+        }
+        response->push_back(record);
+    }
+
+    return response;
 }
 
 void SQLHandler::addParameters(QSqlQuery &query, QString SQL, RecordPtr record)

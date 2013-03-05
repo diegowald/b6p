@@ -6,23 +6,28 @@ PlanificacionesDiasSubSectores::PlanificacionesDiasSubSectores(QObject *parent) 
 {
 }
 
+QString PlanificacionesDiasSubSectores::getSelectFromMainDB()
+{
+    return "";
+}
+
 QString PlanificacionesDiasSubSectores::getSqlString()
 {
     return QString("select IDRecord, Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin from planificacionsubsector ")
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
-void PlanificacionesDiasSubSectores::addRecord(Record &record)
+void PlanificacionesDiasSubSectores::addRecord(RecordPtr record)
 {
     PlanificacionSubSectorPtr p = boost::make_shared<PlanificacionSubSector>(this);
 
-    p->IDRecord().setValue(record["IDRecord"].toInt());
-    p->Dia().setValue(QDateTime::fromMSecsSinceEpoch(record["Dia"].toLongLong()).date());
-    p->IDSector().setValue(record["IDSector"].toInt());
-    p->IDSubSector().setValue(record["IDSubsector"].toInt());
-    p->IDEmpleado().setValue(record["IDEmpleado"].toInt());
-    p->HoraInicio().setValue(record["HoraInicio"].toInt());
-    p->HoraFin().setValue(record["HoraFin"].toInt());
+    p->IDRecord().setValue((*record)["IDRecord"].toInt());
+    p->Dia().setValue(QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date());
+    p->IDSector().setValue((*record)["IDSector"].toInt());
+    p->IDSubSector().setValue((*record)["IDSubsector"].toInt());
+    p->IDEmpleado().setValue((*record)["IDEmpleado"].toInt());
+    p->HoraInicio().setValue((*record)["HoraInicio"].toInt());
+    p->HoraFin().setValue((*record)["HoraFin"].toInt());
     p->setInitialized();
 
     m_Planificacion[p->IDRecord().value()] = p;

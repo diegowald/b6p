@@ -12,7 +12,7 @@ public:
     explicit CapacidadesPersonaSector(QObject *parent = 0);
 
     QString getSqlString();
-    void addRecord(Record &record);
+    void addRecord(RecordPtr record);
     virtual QString getDeleteStatement();
     virtual QString getUpdateStatement();
     virtual QString getInsertStatement();

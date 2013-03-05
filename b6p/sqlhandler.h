@@ -11,8 +11,8 @@ public:
     SQLHandler(QString database);
     SQLHandler(QString Server, QString Database, QString User, QString Password);
 
-    QSqlQuery getAll(QString &query);
-    QSqlQuery getAll(QString &query, RecordPtr record);
+    RecordSet getAll(QString &query);
+    RecordSet getAll(QString &query, RecordPtr record);
     int executeQuery(QString &cmd, RecordPtr record, bool returnLastInsertedID);
 
 protected:

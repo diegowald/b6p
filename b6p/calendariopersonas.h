@@ -12,7 +12,7 @@ public:
     explicit CalendarioPersonas(QObject *parent = 0);
     virtual ~CalendarioPersonas();
     virtual QString getSqlString();
-    virtual void addRecord(Record &record);
+    virtual void addRecord(RecordPtr record);
     virtual QString getDeleteStatement();
     virtual QString getUpdateStatement();
     virtual QString getInsertStatement();
