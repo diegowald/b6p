@@ -32,7 +32,7 @@ public:
     SectorPtr getSector(int IDSector);
     SectorPtr getSector(QString SectorName);
 
-    SectorLst getAll(bool includeDeleted);
+    SectorLst getAll(bool includeShowInPlanification, bool includeDeleted);
 
 signals:
     

@@ -83,7 +83,7 @@ int CapacityWidget::Capacity()
 void CapacityWidget::llenarSectores()
 {
     ui->cboSectores->clear();
-    SectorLst sectores = DataStore::instance()->getSectores()->getAll(false);
+    SectorLst sectores = DataStore::instance()->getSectores()->getAll(true, false);
     foreach(SectorPtr s, *sectores)
     {
         ui->cboSectores->addItem(s->Nombre().value(), s->IDSector().value());

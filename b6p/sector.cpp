@@ -7,10 +7,12 @@ Sector::Sector(QObject *parent) :
     m_IDSector.setNull();
     m_Nombre.setNull();
     m_Descripcion.setNull();
+    m_ShowInPlanification.setNull();
 
     m_IDSector.setParent(this);
     m_Nombre.setParent(this);
     m_Descripcion.setParent(this);
+    m_ShowInPlanification.setParent(this);
 }
 
 RecordPtr Sector::asRecordPtr()
@@ -37,4 +39,9 @@ NullableField<QString> &Sector::Nombre()
 NullableField<QString> &Sector::Descripcion()
 {
     return m_Descripcion;
+}
+
+NullableField<bool> &Sector::ShowInPlanification()
+{
+    return m_ShowInPlanification;
 }

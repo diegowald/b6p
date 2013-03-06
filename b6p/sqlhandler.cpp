@@ -37,7 +37,6 @@ RecordSet SQLHandler::getAll(QString &query)
 
     QSqlQuery q(query);
     q.exec();
-    db.close();
 
     while (q.next())
     {
@@ -50,6 +49,7 @@ RecordSet SQLHandler::getAll(QString &query)
         response->push_back(record);
     }
 
+    db.close();
     return response;
 }
 
@@ -70,8 +70,6 @@ RecordSet SQLHandler::getAll(QString &query, RecordPtr record)
     addParameters(q, query, record);
     q.exec();
 
-    db.close();
-
     while (q.next())
     {
         QSqlRecord rec = q.record();
@@ -82,6 +80,8 @@ RecordSet SQLHandler::getAll(QString &query, RecordPtr record)
         }
         response->push_back(record);
     }
+
+    db.close();
 
     return response;
 }

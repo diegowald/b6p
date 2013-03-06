@@ -13,7 +13,7 @@ QString Sectores::getSelectFromMainDB()
 
 QString Sectores::getSqlString()
 {
-    return QString("select ID, Nombre, Descripcion from sectores ")
+    return QString("select ID, Nombre, Descripcion, showInPlanificaciones from sectores ")
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
@@ -24,6 +24,7 @@ void Sectores::addRecord(RecordPtr record)
     s->IDSector().setValue((*record)["ID"].toInt());
     s->Nombre().setValue((*record)["Nombre"].toString());
     s->Descripcion().setValue((*record)["Descripcion"].toString());
+    s->ShowInPlanification().setValue((*record)["showInPlanificaciones"].toBool());
     s->setInitialized();
 
     m_Sectores[s->IDSector().value()] = s;
@@ -92,18 +93,17 @@ SectorPtr Sectores::getSector(QString SectorName)
     return SectorPtr();
 }
 
-SectorLst Sectores::getAll(bool includeDeleted)
+SectorLst Sectores::getAll(bool includeShowInPlanification, bool includeDeleted)
 {
     SectorLst res = boost::make_shared<QList<SectorPtr> >();
     foreach(SectorPtr s, m_Sectores.values())
     {
-        if (!s->isDeleted())
+        bool add = false;
+        add = (s->isDeleted() ? (includeDeleted ? true : false) : true);
+        add &= s->ShowInPlanification().value();
+
+        if (add)
             res->push_back(s);
-        else
-        {
-            if (includeDeleted)
-                res->push_back(s);
-        }
     }
     return res;
 }

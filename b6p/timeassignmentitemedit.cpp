@@ -35,7 +35,7 @@ TimeAssignmentItemEdit::~TimeAssignmentItemEdit()
 void TimeAssignmentItemEdit::llenarSectores()
 {
     ui->cboSectores->clear();
-    SectorLst sectores = DataStore::instance()->getSectores()->getAll(false);
+    SectorLst sectores = DataStore::instance()->getSectores()->getAll(false, false);
     foreach(SectorPtr s, *sectores)
     {
         ui->cboSectores->addItem(s->Nombre().value(), s->IDSector().value());

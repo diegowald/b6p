@@ -16,6 +16,7 @@ public:
     NullableField<int> &IDSector();
     NullableField<QString> &Nombre();
     NullableField<QString> &Descripcion();
+    NullableField<bool> &ShowInPlanification();
 
     virtual RecordPtr asRecordPtr();
 
@@ -27,6 +28,7 @@ private:
     NullableField<int> m_IDSector;
     NullableField<QString> m_Nombre;
     NullableField<QString> m_Descripcion;
+    NullableField<bool> m_ShowInPlanification;
 };
 
 typedef boost::shared_ptr<Sector> SectorPtr;
