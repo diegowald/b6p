@@ -131,3 +131,8 @@ bool Empleado::canBeDeleted()
 {
     return true;
 }
+
+bool Empleado::DadoDeBaja()
+{
+    return IsBaja().isNull() ? false : IsBaja().value();
+}

@@ -39,7 +39,7 @@ void Empleados::addRecord(RecordPtr record)
 
 QString Empleados::getDeleteStatement()
 {
-    return QString("update empleados set RecordStatus = %1 where ID = :ID;").arg(RECORD_DELETED);
+    return QString("update empleados set isBaja = 1, RecordStatus = %1 where ID = :ID;").arg(RECORD_MODIFIED);
 }
 
 QString Empleados::getUpdateStatement()
@@ -88,7 +88,7 @@ EmpleadoPtr Empleados::getEmpleado(int idEmpleado, bool includeDeleted)
     else
     {
         EmpleadoPtr e = m_Empleados[idEmpleado];
-        if (e->isDeleted() && !includeDeleted)
+        if (e->DadoDeBaja() && !includeDeleted)
             return EmpleadoPtr();
         return e;
     }
@@ -99,7 +99,7 @@ EmpleadosLst Empleados::getAll(bool includeDeleted)
     EmpleadosLst res = boost::make_shared<QList<EmpleadoPtr> >();
     foreach(EmpleadoPtr e, m_Empleados.values())
     {
-        if (!e->isDeleted())
+        if (!e->DadoDeBaja())
             res->push_back(e);
         else
             if (includeDeleted)
