@@ -12,14 +12,14 @@ SincroManager::SincroManager(QObject *parent) :
                 DataStore::instance()->getParametros()->getValue(Parametros::USER_NAME, "root"),
                 DataStore::instance()->getParametros()->getValue(Parametros::PASSWORD, "mic1492"));
 
-    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getSectores(), m_SQL, this));
-    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getSubSectores(), m_SQL, this));
+    /*m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getSectores(), m_SQL, this));
+    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getSubSectores(), m_SQL, this));*/
     m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getEmpleados(), m_SQL, this));
-    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getCalendarios(), m_SQL, this));
+    /*m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getCalendarios(), m_SQL, this));
     m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getCapacidades(), m_SQL, this));
     m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getEstimacionesDias(), m_SQL, this));
     m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getPlanificacionesDias(), m_SQL, this));
-    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getPlanificacionesSubSectores(), m_SQL, this));
+    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getPlanificacionesSubSectores(), m_SQL, this));*/
 
     establishConnections();
 
@@ -57,7 +57,9 @@ void SincroManager::runSincro()
 
 void SincroManager::obtenerFechaUltimaSincronizacion()
 {
-    m_FechaUltimaSincronizacion = DataStore::instance()->getParametros()->getValue(Parametros::LAST_SYNCHRO, "");
+    m_FechaUltimaSincronizacion =
+            DataStore::instance()->getParametros()->getValue(
+                Parametros::LAST_SYNCHRO, "2000-01-01 00:00:00");
 }
 
 void SincroManager::obtenerActualizacionesDeBaseCentral()

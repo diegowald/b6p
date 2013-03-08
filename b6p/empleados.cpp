@@ -15,7 +15,7 @@ Empleados::~Empleados()
 QString Empleados::getSelectFromMainDB()
 {
     return QString("select ID, Apellido, Nombres, Legajo, FechaIngreso, Estado from empleados "
-                   " where LastUpdate >= :LastUpdate;");
+                   " where LastUpdate >= :LASTUPDATE;");
 }
 
 QString Empleados::getSqlString()
