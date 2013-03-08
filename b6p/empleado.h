@@ -23,6 +23,7 @@ public:
     NullableField<QString> &Nombre();
     NullableField<QString> &Legajo();
     NullableField<QDate> &FechaIngreso();
+    NullableField<bool> &IsBaja();
 
     CapacidadPersonaSectorLst Capacities();
     void updateCapacities(CapacidadPersonaSectorLst newCapacities);
@@ -44,6 +45,7 @@ private:
     NullableField<QString> nombre;
     NullableField<QString> legajo;
     NullableField<QDate> fechaIngreso;
+    NullableField<bool> isBaja;
 };
 
 typedef boost::shared_ptr<Empleado> EmpleadoPtr;

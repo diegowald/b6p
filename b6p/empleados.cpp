@@ -14,13 +14,13 @@ Empleados::~Empleados()
 
 QString Empleados::getSelectFromMainDB()
 {
-    return QString("select ID, Apellido, Nombres, Legajo, FechaIngreso, Estado from empleados "
+    return QString("select ID, Apellido, Nombres, Legajo, FechaIngreso, isBaja, Estado from empleados "
                    " where LastUpdate >= :LASTUPDATE;");
 }
 
 QString Empleados::getSqlString()
 {
-    return QString("select ID, Apellido, Nombres, Legajo, FechaIngreso from empleados")
+    return QString("select ID, Apellido, Nombres, Legajo, FechaIngreso, isBaja from empleados")
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
@@ -32,6 +32,7 @@ void Empleados::addRecord(RecordPtr record)
     e->Nombre().setValue((*record)["Nombres"].toString());
     e->Legajo().setValue((*record)["Legajo"].toString());
     e->FechaIngreso().setValue(QDateTime::fromMSecsSinceEpoch((*record)["FechaIngreso"].toLongLong()).date());
+    e->IsBaja().setValue((*record)["isBaja"].toBool());
     e->setInitialized();
     m_Empleados[e->IDEmpleado().value()] = e;
 }

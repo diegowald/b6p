@@ -11,11 +11,13 @@ Empleado::Empleado(bool isNew, QObject *parent) :
     apellido.setNull();
     nombre.setNull();
     fechaIngreso.setNull();
+    isBaja.setNull();
 
     idEmpleado.setParent(this);
     apellido.setParent(this);
     nombre.setParent(this);
     fechaIngreso.setParent(this);
+    isBaja.setParent(this);
 
     if (isNew)
         setNew();
@@ -29,6 +31,7 @@ RecordPtr Empleado::asRecordPtr()
     (*res)["Apellido"] = apellido.toVariant();
     (*res)["Nombres"] = nombre.toVariant();
     (*res)["FechaIngreso"] = fechaIngreso.toVariant();
+    (*res)["isBaja"] = isBaja.toVariant();
 
     (*res)[RECORD_ID] = idEmpleado.toVariant();
     return res;
@@ -57,6 +60,11 @@ NullableField<QString>& Empleado::Legajo()
 NullableField<QDate>& Empleado::FechaIngreso()
 {
     return fechaIngreso;
+}
+
+NullableField<bool>& Empleado::IsBaja()
+{
+    return isBaja;
 }
 
 CapacidadPersonaSectorLst Empleado::Capacities()

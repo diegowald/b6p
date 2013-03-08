@@ -14,7 +14,7 @@ SincroManager::SincroManager(QObject *parent) :
 
     /*m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getSectores(), m_SQL, this));
     m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getSubSectores(), m_SQL, this));*/
-    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getEmpleados(), m_SQL, this));
+    //m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getEmpleados(), m_SQL, this));
     /*m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getCalendarios(), m_SQL, this));
     m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getCapacidades(), m_SQL, this));
     m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getEstimacionesDias(), m_SQL, this));
@@ -84,6 +84,11 @@ void SincroManager::enviarDatosADBCentral()
 void SincroManager::grabarFechaUltimaSincronizacion()
 {
     QString UltimaSincro;
+    QString query("SELECT NOW() as Fecha;");
+
+    RecordSet res = m_SQL->getAll(query);
+    UltimaSincro = (*res->at(0))["Fecha"].toDateTime().toString("yyyy-MM-dd hh:mm:ss");
+
     DataStore::instance()->getParametros()->setValue(Parametros::LAST_SYNCHRO, UltimaSincro);
 }
 
