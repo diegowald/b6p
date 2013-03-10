@@ -54,6 +54,8 @@ protected:
 
 private:
     bool get(int IDUser, QString &feature, ACCESS access);
+    bool getBySector(int IDSector, QString &feature, ACCESS access);
+
     QMap<std::pair<int, QString>, AccesoPtr> m_AccessList;
 };
 

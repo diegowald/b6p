@@ -131,7 +131,7 @@ void MainWindow::EnableActions()
 {
     if (m_LoggedUser > 0)
     {
-        QString feature = DataStore::instance()->getAccesos()->invariableName();
+        QString feature = DataStore::instance()->getEmpleados()->invariableName();
         ui->actionView->setEnabled(DataStore::instance()->getAccesos()->canRead(m_LoggedUser, feature));
 
         feature = DataStore::instance()->getPlanificacionesDias()->invariableName();
@@ -141,6 +141,9 @@ void MainWindow::EnableActions()
 
         feature = DataStore::instance()->getParametros()->invariableName();
         ui->actionParameters->setEnabled(DataStore::instance()->getAccesos()->canRead(m_LoggedUser, feature));
+
+        feature = "Sincro";
+        ui->actionSynchronize->setEnabled(DataStore::instance()->getAccesos()->canRead(m_LoggedUser, feature));
     }
     else
     {
@@ -149,6 +152,7 @@ void MainWindow::EnableActions()
         ui->actionAbout->setEnabled(true);
         ui->actionSetup_days->setEnabled(true);
         ui->actionParameters->setEnabled(true);
+        ui->actionSynchronize->setEnabled(true);
     }
 }
 

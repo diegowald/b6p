@@ -94,8 +94,8 @@ void DlgEmployee::setData(EmpleadoPtr empleado)
 void DlgEmployee::setupAssignment(AvailabilityWidget *w, int day)
 {
     w->setDay(day);
-    w->setFrom(9 * 3600);
-    w->setTo(18 * 3600);
+    w->setFrom(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0));
+    w->setTo(DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 24 * 3600));
 }
 
 void DlgEmployee::setupScreen()
@@ -103,13 +103,13 @@ void DlgEmployee::setupScreen()
     ui->txtID->setText("");
     ui->txtLastName->setText("");
     ui->txtNames->setText("");
-    setupAssignment(ui->TimeFriday, 5);
-    setupAssignment(ui->TimeMonday, 1);
-    setupAssignment(ui->TimeSaturday, 6);
     setupAssignment(ui->TimeSunday, 0);
-    setupAssignment(ui->TimeThrursday, 4);
+    setupAssignment(ui->TimeMonday, 1);
     setupAssignment(ui->TimeTuesday, 2);
     setupAssignment(ui->TimeWednesday, 3);
+    setupAssignment(ui->TimeThrursday, 4);
+    setupAssignment(ui->TimeFriday, 5);
+    setupAssignment(ui->TimeSaturday, 6);
 }
 
 

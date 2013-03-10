@@ -17,6 +17,11 @@ DlgParametros::DlgParametros(QWidget *parent) :
     ui->employeeMinWorkingHours->setText(QString::number(DataStore::instance()->getParametros()->getValue(Parametros::EMPLOYEE_MIN_HOURS, 4)));
     ui->employeeMaxWorkingHours->setText(QString::number(DataStore::instance()->getParametros()->getValue(Parametros::EMPLOYEE_MAX_HOURS, 8)));
     ui->employeeDaysBetweenFreeDay->setText(QString::number(DataStore::instance()->getParametros()->getValue(Parametros::MAX_DAYS_BETWEEN_FREE_DAY, 6)));
+
+    ui->txtServer->setText(DataStore::instance()->getParametros()->getValue(Parametros::SERVER_NAME, ""));
+    ui->txtDatabase->setText(DataStore::instance()->getParametros()->getValue(Parametros::DATABASE_NAME, "b6p"));
+    ui->txtUser->setText(DataStore::instance()->getParametros()->getValue(Parametros::USER_NAME, ""));
+    ui->txtPassword->setText(DataStore::instance()->getParametros()->getValue(Parametros::PASSWORD, ""));
 }
 
 DlgParametros::~DlgParametros()
@@ -32,6 +37,11 @@ void DlgParametros::accept()
     DataStore::instance()->getParametros()->setValue(Parametros::EMPLOYEE_MIN_HOURS, ui->employeeMinWorkingHours->text().toInt());
     DataStore::instance()->getParametros()->setValue(Parametros::EMPLOYEE_MAX_HOURS, ui->employeeMaxWorkingHours->text().toInt());
     DataStore::instance()->getParametros()->setValue(Parametros::MAX_DAYS_BETWEEN_FREE_DAY, ui->employeeDaysBetweenFreeDay->text().toInt());
+
+    DataStore::instance()->getParametros()->setValue(Parametros::SERVER_NAME, ui->txtServer->text());
+    DataStore::instance()->getParametros()->setValue(Parametros::DATABASE_NAME, ui->txtDatabase->text());
+    DataStore::instance()->getParametros()->setValue(Parametros::USER_NAME, ui->txtUser->text());
+    DataStore::instance()->getParametros()->setValue(Parametros::PASSWORD, ui->txtPassword->text());
 
     QDialog::accept();
 }

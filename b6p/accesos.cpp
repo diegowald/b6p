@@ -13,7 +13,7 @@ QString Accesos::getSelectFromMainDB()
 
 QString Accesos::getSqlString()
 {
-    return QString("select IDSector, Feature, canRead, canCreate, canUpdate, canDelete from accesos ");
+    return QString("select IDSector, Feature, canRead, canCreate, canUpdate, canDelete from access ");
 //            + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
@@ -85,6 +85,7 @@ void Accesos::setStatusToUnmodified(bool)
 
 bool Accesos::canRead(int IDUser, QString &feature)
 {
+    qDebug() << feature;
     return get(IDUser, feature, CAN_READ);
 }
 
@@ -111,31 +112,39 @@ bool Accesos::get(int IDUser, QString &feature, ACCESS access)
 
     foreach (CapacidadPersonaSectorPtr c, *caps)
     {
-        std::pair<int, QString> id = std::make_pair(c->IDSector().value(), feature);
-        if (m_AccessList.find(id) != m_AccessList.end())
-        {
-            AccesoPtr a = m_AccessList[id];
-            switch(access)
-            {
-            case CAN_READ:
-                res = a->CanRead();
-                break;
-            case CAN_CREATE:
-                res = a->CanCreate();
-                break;
-            case CAN_UPDATE:
-                res = a->CanUpdate();
-                break;
-            case CAN_DELETE:
-                res = a->CanDelete();
-                break;
-            default:
-                res = false;
-                break;
-            }
-        }
+        res = getBySector(c->IDSector().value(), feature, access);
         if (res)
             return res;
+    }
+    return res;
+}
+
+bool Accesos::getBySector(int IDSector, QString &feature, ACCESS access)
+{
+    bool res = false;
+
+    std::pair<int, QString> id = std::make_pair(IDSector, feature);
+    if (m_AccessList.find(id) != m_AccessList.end())
+    {
+        AccesoPtr a = m_AccessList[id];
+        switch(access)
+        {
+        case CAN_READ:
+            res = a->CanRead();
+            break;
+        case CAN_CREATE:
+            res = a->CanCreate();
+            break;
+        case CAN_UPDATE:
+            res = a->CanUpdate();
+            break;
+        case CAN_DELETE:
+            res = a->CanDelete();
+            break;
+        default:
+            res = false;
+            break;
+        }
     }
     return res;
 }
@@ -143,11 +152,12 @@ bool Accesos::get(int IDUser, QString &feature, ACCESS access)
 bool Accesos::canAccessApplication(int IDUser)
 {
     QString feature = "whole application";
-    CapacidadPersonaSectorLst caps = DataStore::instance()->getCapacidades()->getAll(IDUser, false);
+    return canRead(IDUser, feature);
+/*    CapacidadPersonaSectorLst caps = DataStore::instance()->getCapacidades()->getAll(IDUser, false);
     foreach(CapacidadPersonaSectorPtr c, *caps)
     {
         if (canRead(c->IDSector().value(), feature))
             return true;
     }
-    return false;
+    return false;*/
 }
