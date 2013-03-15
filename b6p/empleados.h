@@ -15,7 +15,13 @@ public:
     explicit Empleados(QObject *parent = 0);
     virtual ~Empleados();
     virtual QString getSqlString();
+
     virtual void addRecord(RecordPtr record);
+    virtual void updateRecord(RecordPtr record);
+    virtual void deleteRecord(RecordPtr record);
+    virtual bool exists(RecordPtr record);
+
+
     virtual void defineHeaders(QStringList &list);
     virtual void fillData(QTreeWidget &tree);
     virtual bool addNew();

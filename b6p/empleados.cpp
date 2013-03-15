@@ -37,6 +37,19 @@ void Empleados::addRecord(RecordPtr record)
     m_Empleados[e->IDEmpleado().value()] = e;
 }
 
+void Empleados::updateRecord(RecordPtr record)
+{
+}
+
+void Empleados::deleteRecord(RecordPtr record)
+{
+}
+
+bool Empleados::exists(RecordPtr record)
+{
+}
+
+
 QString Empleados::getDeleteStatement()
 {
     return QString("update empleados set isBaja = 1, RecordStatus = %1 where ID = :ID;").arg(RECORD_MODIFIED);

@@ -35,6 +35,10 @@ public:
     virtual QString getSqlString() = 0;
     virtual void addRecord(RecordPtr record) = 0;
 
+    virtual bool exists(RecordPtr record) = 0;
+    virtual void updateRecord(RecordPtr record) = 0;
+    virtual void deleteRecord(RecordPtr record) = 0;
+
     virtual void defineHeaders(QStringList &list) = 0;
     virtual void fillData(QTreeWidget &tree) = 0;
     virtual bool isColumnEditable(QVariant, int) { return false; }

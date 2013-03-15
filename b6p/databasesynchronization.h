@@ -21,7 +21,7 @@ public:
 
     void sendData();
 
-    QString &name();
+    QString name();
     
 signals:
     void gettingDataFromCentralDB(QString &tableName);

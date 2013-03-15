@@ -32,7 +32,18 @@ void Accesos::addRecord(RecordPtr record)
 
     std::pair<int, QString> id = std::make_pair(a->IDSector().value(), a->Feature().value());
     m_AccessList[id] = a;
+}
 
+void Accesos::updateRecord(RecordPtr record)
+{
+}
+
+void Accesos::deleteRecord(RecordPtr record)
+{
+}
+
+bool Accesos::exists(RecordPtr record)
+{
 }
 
 RecordSet Accesos::getRecords(RecordStatus)

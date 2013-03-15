@@ -38,6 +38,18 @@ void Parametros::addRecord(RecordPtr record)
     m_Dictionary[(*record)["Key"].toString()] = (*record)["Value"].toString();
 }
 
+void Parametros::updateRecord(RecordPtr record)
+{
+}
+
+void Parametros::deleteRecord(RecordPtr record)
+{
+}
+
+bool Parametros::exists(RecordPtr record)
+{
+}
+
 QString Parametros::getDeleteStatement()
 {
     return "delete from parametros where Key = :Key;";

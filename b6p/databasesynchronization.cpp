@@ -9,7 +9,8 @@ DatabaseSynchronization::DatabaseSynchronization(boost::shared_ptr<ACollection> 
 
 void DatabaseSynchronization::getDataFromDB(QString dateFrom)
 {
-    emit gettingDataFromCentralDB(name());
+    QString syncroName = name();
+    emit gettingDataFromCentralDB(syncroName);
     QString SQL = m_Data->getSelectFromMainDB();
     RecordPtr r = boost::make_shared<Record>();
     (*r)["LASTUPDATE"] = dateFrom;
@@ -18,22 +19,49 @@ void DatabaseSynchronization::getDataFromDB(QString dateFrom)
 
 void DatabaseSynchronization::applyChanges()
 {
-    emit applyingChanges(name());
+    QString syncroName = name();
+    emit applyingChanges(syncroName);
+    foreach (RecordPtr rec, *m_QueryResult)
+    {
+        RecordStatus recStatus = (RecordStatus)(*rec)["RecordStatus"].toInt();
+        switch (recStatus)
+        {
+        case NEW:
+        case MODIFIED:
+            if (!m_Data->exists(rec))
+                m_Data->addRecord(rec);
+            else
+                m_Data->updateRecord(rec);
+            break;
+        case DELETED:
+            if (m_Data->exists(rec))
+                m_Data->deleteRecord(rec);
+            break;
+        case UNINITIALIZED:
+            // Fall through
+        case UNMODIFIED:
+            // Fall through
+        default:
+            // Do nothing
+            break;
+        }
+    }
 }
 
 void DatabaseSynchronization::checkConsistency()
 {
-    emit checkingChanges(name());
+    QString syncroName = name();
+    emit checkingChanges(syncroName);
 }
 
 void DatabaseSynchronization::sendData()
 {
-    emit sendingData(name());
+    QString syncroName = name();
+    emit sendingData(syncroName);
 }
 
 
-QString &DatabaseSynchronization::name()
+QString DatabaseSynchronization::name()
 {
-    QString s = m_Data->name();
-    return s;
+    return m_Data->name();
 }

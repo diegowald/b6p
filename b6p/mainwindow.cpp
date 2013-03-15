@@ -4,6 +4,8 @@
 #include "datastore.h"
 #include "dlgparametros.h"
 #include "dlgsynchronization.h"
+#include <QMessageBox>
+
 
 MainWindow::MainWindow(int LoggedUser, QWidget *parent) :
     QMainWindow(parent),
@@ -104,6 +106,7 @@ void MainWindow::on_actionParameters_triggered()
 void MainWindow::on_actionAbout_triggered()
 {
     // Opens About box.
+    QMessageBox::about(this, tr("About B6P"), tr("B6Planner"));
 }
 
 void MainWindow::datastore_loaded(QString name)

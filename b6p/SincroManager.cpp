@@ -14,7 +14,7 @@ SincroManager::SincroManager(QObject *parent) :
 
     /*m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getSectores(), m_SQL, this));
     m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getSubSectores(), m_SQL, this));*/
-    //m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getEmpleados(), m_SQL, this));
+    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getEmpleados(), m_SQL, this));
     /*m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getCalendarios(), m_SQL, this));
     m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getCapacidades(), m_SQL, this));
     m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getEstimacionesDias(), m_SQL, this));
