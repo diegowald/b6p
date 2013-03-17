@@ -65,6 +65,11 @@ QString Parametros::getInsertStatement()
     return "insert into parametros (Key, Value) values (:Key, :Value);";
 }
 
+QString Parametros::getSQLExistsInMainDB()
+{
+    return "select Key, Value from Parametros where Key = :Key;";
+}
+
 RecordSet Parametros::getRecords(RecordStatus status)
 {
     RecordSet rs = boost::make_shared<QList<RecordPtr> >();
@@ -88,6 +93,10 @@ RecordSet Parametros::getRecords(RecordStatus status)
     return rs;
 }
 
+RecordSet Parametros::getUnsent()
+{
+    return boost::make_shared<QList<RecordPtr> >();
+}
 
 void Parametros::defineHeaders(QStringList &)
 {

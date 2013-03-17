@@ -52,6 +52,11 @@ RecordSet Accesos::getRecords(RecordStatus)
     return res;
 }
 
+RecordSet Accesos::getUnsent()
+{
+    return boost::make_shared<QList<RecordPtr> >();
+}
+
 void Accesos::defineHeaders(QStringList &)
 {
 }

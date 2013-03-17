@@ -58,10 +58,67 @@ void DatabaseSynchronization::sendData()
 {
     QString syncroName = name();
     emit sendingData(syncroName);
+    // obtengo los datos modificados desde la base local
+    // estos serian los registros que estan con el flag de enviado en false.
+
+    RecordSet toSend = m_Data->getUnsent();
+    foreach(RecordPtr rec, *toSend)
+    {
+        RecordStatus recStatus = (RecordStatus)(*rec)["RecordStatus"].toInt();
+        switch(recStatus)
+        {
+        case UNINITIALIZED:
+            // Fall through
+        case UNMODIFIED:
+            // Fall through
+        case NEW:
+            // Fall through
+        case MODIFIED:
+            if (!existsInMainDB(rec))
+                addRecord(rec);
+            else
+                updateRecord(rec);
+            break;
+        case DELETED:
+            if (existsInMainDB(rec))
+                deleteRecord(rec);
+            break;
+        default:
+            // Do nothing
+            break;
+        }
+    }
 }
+
 
 
 QString DatabaseSynchronization::name()
 {
     return m_Data->name();
+}
+
+
+bool DatabaseSynchronization::existsInMainDB(RecordPtr rec)
+{
+    QString sql = m_Data->getSQLExistsInMainDB();
+    RecordSet res = m_SQLHandler->getAll(sql, rec);
+    return res->count() != 0;
+}
+
+void DatabaseSynchronization::addRecord(RecordPtr rec)
+{
+    QString sql = m_Data->getInsertStatement();
+    m_SQLHandler->executeQuery(sql, rec, false);
+}
+
+void DatabaseSynchronization::updateRecord(RecordPtr rec)
+{
+    QString sql = m_Data->getUpdateStatement();
+    m_SQLHandler->executeQuery(sql, rec, false);
+}
+
+void DatabaseSynchronization::deleteRecord(RecordPtr rec)
+{
+    QString sql = m_Data->getDeleteStatement();
+    m_SQLHandler->executeQuery(sql, rec, false);
 }

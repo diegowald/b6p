@@ -17,6 +17,12 @@ QString PlanificacionesDiasSubSectores::getSqlString()
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
+QString PlanificacionesDiasSubSectores::getSQLExistsInMainDB()
+{
+    return QString("select IDRecord, Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin from planificacionsubsector "
+            " where IDRecord = :IDRecord;");
+}
+
 void PlanificacionesDiasSubSectores::addRecord(RecordPtr record)
 {
     PlanificacionSubSectorPtr p = boost::make_shared<PlanificacionSubSector>(this);
@@ -31,6 +37,18 @@ void PlanificacionesDiasSubSectores::addRecord(RecordPtr record)
     p->setInitialized();
 
     m_Planificacion[p->IDRecord().value()] = p;
+}
+
+void PlanificacionesDiasSubSectores::updateRecord(RecordPtr record)
+{
+}
+
+void PlanificacionesDiasSubSectores::deleteRecord(RecordPtr record)
+{
+}
+
+bool PlanificacionesDiasSubSectores::exists(RecordPtr record)
+{
 }
 
 QString PlanificacionesDiasSubSectores::getDeleteStatement()
@@ -81,6 +99,17 @@ RecordSet PlanificacionesDiasSubSectores::getRecords(RecordStatus status)
         default:
             break;
         }
+    }
+    return res;
+}
+
+RecordSet PlanificacionesDiasSubSectores::getUnsent()
+{
+    RecordSet res = boost::make_shared<QList<RecordPtr> >();
+    foreach(PlanificacionSubSectorPtr p, m_Planificacion)
+    {
+        if (p->isUnSent())
+            res->push_back(p->asRecordPtr());
     }
     return res;
 }

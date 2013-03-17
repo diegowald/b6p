@@ -45,6 +45,12 @@ QString CapacidadesPersonaSector::getSqlString()
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
+QString CapacidadesPersonaSector::getSQLExistsInMainDB()
+{
+    return QString("select IDSector, IDSubSector, IDEmpleado, Capacidad from capacidadespersonassector "
+                   " where IDSector = :IDSector and IDSubSector = :IDSubSector and IDEmpleado = :IDEmpleado;");
+}
+
 void CapacidadesPersonaSector::addRecord(RecordPtr record)
 {
     CapacidadPersonaSectorPtr c = boost::make_shared<CapacidadPersonaSector>(this);
@@ -55,6 +61,18 @@ void CapacidadesPersonaSector::addRecord(RecordPtr record)
     c->Capacidad().setValue((*record)["Capacidad"].toInt());
     c->setInitialized();
     m_Capacidades.push_back(c);
+}
+
+void CapacidadesPersonaSector::updateRecord(RecordPtr record)
+{
+}
+
+void CapacidadesPersonaSector::deleteRecord(RecordPtr record)
+{
+}
+
+bool CapacidadesPersonaSector::exists(RecordPtr record)
+{
 }
 
 QString CapacidadesPersonaSector::getDeleteStatement()
@@ -102,6 +120,17 @@ RecordSet CapacidadesPersonaSector::getRecords(RecordStatus status)
         default:
             break;
         }
+    }
+    return res;
+}
+
+RecordSet CapacidadesPersonaSector::getUnsent()
+{
+    RecordSet res = boost::make_shared<QList<RecordPtr> >();
+    foreach(CapacidadPersonaSectorPtr c, m_Capacidades)
+    {
+        if (c->isUnSent())
+            res->push_back(c->asRecordPtr());
     }
     return res;
 }

@@ -39,8 +39,10 @@ public:
     virtual QString getDeleteStatement() { return ""; }
     virtual QString getUpdateStatement() { return ""; }
     virtual QString getInsertStatement() { return ""; }
+    virtual QString getSQLExistsInMainDB() { return ""; }
 
     virtual RecordSet getRecords(RecordStatus);
+    virtual RecordSet getUnsent();
     virtual void refreshID(int, int) {}
     virtual void saveDependants() {}
     virtual void setStatusToUnmodified(bool removeDeleted);

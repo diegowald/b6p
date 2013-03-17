@@ -21,6 +21,12 @@ QString CalendarioPersonas::getSqlString()
             " where RecordStatus <> %1;").arg(RECORD_DELETED);
 }
 
+QString CalendarioPersonas::getSQLExistsInMainDB()
+{
+    return QString("select Dia, IDEmpleado, HoraIngreso, HoraEgreso from calendariopersonas "
+                   " where Dia = :Dia and IDEmpleado = :IDEmpleado; ");
+}
+
 void CalendarioPersonas::addRecord(RecordPtr record)
 {
     CalendarioPersonaPtr c = boost::make_shared<CalendarioPersona>(this);
@@ -31,6 +37,18 @@ void CalendarioPersonas::addRecord(RecordPtr record)
     c->HoraEgreso().setValue((*record)["HoraEgreso"].toInt());
     c->setInitialized();
     m_Calendarios.push_back(c);
+}
+
+void CalendarioPersonas::updateRecord(RecordPtr record)
+{
+}
+
+void CalendarioPersonas::deleteRecord(RecordPtr record)
+{
+}
+
+bool CalendarioPersonas::exists(RecordPtr record)
+{
 }
 
 QString CalendarioPersonas::getDeleteStatement()
@@ -75,6 +93,17 @@ RecordSet CalendarioPersonas::getRecords(RecordStatus status)
         default:
             break;
         }
+    }
+    return res;
+}
+
+RecordSet CalendarioPersonas::getUnsent()
+{
+    RecordSet res = boost::make_shared<QList<RecordPtr> >();
+    foreach(CalendarioPersonaPtr c, m_Calendarios)
+    {
+        if (c->isUnSent())
+            res->push_back(c->asRecordPtr());
     }
     return res;
 }

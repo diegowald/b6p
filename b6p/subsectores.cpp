@@ -17,6 +17,12 @@ QString SubSectores::getSqlString()
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
+QString SubSectores::getSQLExistsInMainDB()
+{
+    return QString("select ID, IDSector, Nombre, Descripcion from subsectores "
+                   " where ID = :ID;");
+}
+
 void SubSectores::addRecord(RecordPtr record)
 {
     SubSectorPtr s = boost::make_shared<SubSector>(this);
@@ -28,6 +34,18 @@ void SubSectores::addRecord(RecordPtr record)
     s->setInitialized();
 
     m_SubSectores[s->IDSubsector().value()] = s;
+}
+
+void SubSectores::updateRecord(RecordPtr record)
+{
+}
+
+void SubSectores::deleteRecord(RecordPtr record)
+{
+}
+
+bool SubSectores::exists(RecordPtr record)
+{
 }
 
 QString SubSectores::getDeleteStatement()
@@ -70,6 +88,17 @@ RecordSet SubSectores::getRecords(RecordStatus status)
         default:
             break;
         }
+    }
+    return res;
+}
+
+RecordSet SubSectores::getUnsent()
+{
+    RecordSet res = boost::make_shared<QList<RecordPtr> >();
+    foreach(SubSectorPtr s, m_SubSectores.values())
+    {
+        if (s->isUnSent())
+            res->push_back(s->asRecordPtr());
     }
     return res;
 }

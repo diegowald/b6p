@@ -17,6 +17,12 @@ QString Sectores::getSqlString()
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
+QString Sectores::getSQLExistsInMainDB()
+{
+    return QString("select ID, Nombre, Descripcion, ShowInPlanification from sectores "
+                   " where ID = :ID;");
+}
+
 void Sectores::addRecord(RecordPtr record)
 {
     SectorPtr s = boost::make_shared<Sector>(this);
@@ -32,6 +38,18 @@ void Sectores::addRecord(RecordPtr record)
     s->setInitialized();
 
     m_Sectores[s->IDSector().value()] = s;
+}
+
+void Sectores::updateRecord(RecordPtr record)
+{
+}
+
+void Sectores::deleteRecord(RecordPtr record)
+{
+}
+
+bool Sectores::exists(RecordPtr record)
+{
 }
 
 QString Sectores::getDeleteStatement()
@@ -74,6 +92,17 @@ RecordSet Sectores::getRecords(RecordStatus status)
         default:
             break;
         }
+    }
+    return res;
+}
+
+RecordSet Sectores::getUnsent()
+{
+    RecordSet res = boost::make_shared<QList<RecordPtr> >();
+    foreach(SectorPtr s, m_Sectores.values())
+    {
+        if (s->isUnSent())
+            res->push_back(s->asRecordPtr());
     }
     return res;
 }

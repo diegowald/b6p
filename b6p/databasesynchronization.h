@@ -23,6 +23,12 @@ public:
 
     QString name();
     
+protected:
+    bool existsInMainDB(RecordPtr rec);
+    void addRecord(RecordPtr rec);
+    void updateRecord(RecordPtr rec);
+    void deleteRecord(RecordPtr rec);
+
 signals:
     void gettingDataFromCentralDB(QString &tableName);
     void applyingChanges(QString &tableName);

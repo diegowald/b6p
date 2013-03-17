@@ -19,6 +19,12 @@ QString EstimacionesDias::getSqlString()
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
+QString EstimacionesDias::getSQLExistsInMainDB()
+{
+    return QString("select Dia, HorasEstimadas from planificaciondias ")
+            + QString(" where Dia = :Dia;");
+}
+
 void EstimacionesDias::addRecord(RecordPtr record)
 {
     EstimacionDiaPtr e = boost::make_shared<EstimacionDia>(this);
@@ -26,6 +32,18 @@ void EstimacionesDias::addRecord(RecordPtr record)
     e->EstimacionHoras().setValue((*record)["HorasEstimadas"].toInt());
     e->setInitialized();
     m_Estimaciones[e->Dia().value()] = e;
+}
+
+void EstimacionesDias::updateRecord(RecordPtr record)
+{
+}
+
+void EstimacionesDias::deleteRecord(RecordPtr record)
+{
+}
+
+bool EstimacionesDias::exists(RecordPtr record)
+{
 }
 
 QString EstimacionesDias::getDeleteStatement()
@@ -71,7 +89,17 @@ RecordSet EstimacionesDias::getRecords(RecordStatus status)
         }
     }
     return res;
+}
 
+RecordSet EstimacionesDias::getUnsent()
+{
+    RecordSet res = boost::make_shared<QList<RecordPtr> >();
+    foreach(EstimacionDiaPtr e, m_Estimaciones.values())
+    {
+        if (e->isUnSent())
+            res->push_back(e->asRecordPtr());
+    }
+    return res;
 }
 
 boost::shared_ptr<QList<QAction*> > EstimacionesDias::getActions()

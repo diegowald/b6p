@@ -22,6 +22,10 @@ SQLHandler::SQLHandler(QString Server, QString Database, QString User, QString P
     m_User = User;
     m_Password = Password;
     db = QSqlDatabase::addDatabase("QMYSQL");
+    db.setHostName(m_Server);
+    db.setDatabaseName(m_database);
+    db.setUserName(m_User);
+    db.setPassword(m_Password);
 }
 
 RecordSet SQLHandler::getAll(QString &query)
@@ -57,10 +61,14 @@ RecordSet SQLHandler::getAll(QString &query, RecordPtr record)
 {
     RecordSet response = boost::make_shared<QList<RecordPtr> >();
 
-    if (!db.isOpen() && !db.open())
+    if (!db.isOpen())
     {
-        QMessageBox::critical(NULL, QObject::tr("DB Error"), QObject::tr("Can't open database"));
-        return response;
+        if (!db.open())
+        {
+            qDebug() << db.lastError();
+            QMessageBox::critical(NULL, QObject::tr("DB Error"), QObject::tr("Can't open database"));
+            return response;
+        }
     }
 
     qDebug() << query;

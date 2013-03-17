@@ -38,7 +38,9 @@ public:
     virtual QString getDeleteStatement();
     virtual QString getUpdateStatement();
     virtual QString getInsertStatement();
+    virtual QString getSQLExistsInMainDB();
     virtual RecordSet getRecords(RecordStatus status);
+    virtual RecordSet getUnsent();
 
     virtual QString getSelectFromMainDB();
 

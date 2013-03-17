@@ -68,6 +68,12 @@ QString Empleados::getInsertStatement()
             "(:Apellido, :Nombres, :Legajo, :FechaIngreso, %1, 0);").arg(RECORD_NEW);
 }
 
+QString Empleados::getSQLExistsInMainDB()
+{
+    return QString("select ID, Apellido, Nombres, Legajo, FechaIngreso, isBaja, Estado from empleados "
+                   " where ID = :ID;");
+}
+
 RecordSet Empleados::getRecords(RecordStatus status)
 {
     RecordSet res = boost::make_shared<QList<RecordPtr> >();
@@ -90,6 +96,17 @@ RecordSet Empleados::getRecords(RecordStatus status)
         default:
             break;
         }
+    }
+    return res;
+}
+
+RecordSet Empleados::getUnsent()
+{
+    RecordSet res = boost::make_shared<QList<RecordPtr> >();
+    foreach(EmpleadoPtr e, m_Empleados.values())
+    {
+        if (e->isUnSent())
+            res->push_back(e->asRecordPtr());
     }
     return res;
 }

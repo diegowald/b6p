@@ -12,6 +12,7 @@ public:
     explicit CalendarioPersonas(QObject *parent = 0);
     virtual ~CalendarioPersonas();
     virtual QString getSqlString();
+    virtual QString getSQLExistsInMainDB();
     virtual void addRecord(RecordPtr record);
     virtual void updateRecord(RecordPtr record);
     virtual void deleteRecord(RecordPtr record);
@@ -21,6 +22,7 @@ public:
     virtual QString getUpdateStatement();
     virtual QString getInsertStatement();
     virtual RecordSet getRecords(RecordStatus status);
+    virtual RecordSet getUnsent();
     virtual QString getSelectFromMainDB();
     virtual void defineHeaders(QStringList &list) ;
     virtual void fillData(QTreeWidget &tree);

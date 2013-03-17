@@ -20,6 +20,11 @@ QString PlanificacionesDias::getSqlString()
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
+QString PlanificacionesDias::getSQLExistsInMainDB()
+{
+    return QString("select Dia, Notas, IDSupervisor from planificaciondia where Dia = :Dia;");
+}
+
 void PlanificacionesDias::addRecord(RecordPtr record)
 {
     PlanificacionDiaPtr p = boost::make_shared<PlanificacionDia>(this);
@@ -30,6 +35,18 @@ void PlanificacionesDias::addRecord(RecordPtr record)
     p->setInitialized();
 
     m_Planificaciones[p->Dia().value()] = p;
+}
+
+void PlanificacionesDias::updateRecord(RecordPtr record)
+{
+}
+
+void PlanificacionesDias::deleteRecord(RecordPtr record)
+{
+}
+
+bool PlanificacionesDias::exists(RecordPtr record)
+{
 }
 
 QString PlanificacionesDias::getDeleteStatement()
@@ -78,6 +95,17 @@ RecordSet PlanificacionesDias::getRecords(RecordStatus status)
         default:
             break;
         }
+    }
+    return res;
+}
+
+RecordSet PlanificacionesDias::getUnsent()
+{
+    RecordSet res = boost::make_shared<QList<RecordPtr> >();
+    foreach(PlanificacionDiaPtr p, m_Planificaciones.values())
+    {
+        if (p->isUnSent())
+            res->push_back(p->asRecordPtr());
     }
     return res;
 }
