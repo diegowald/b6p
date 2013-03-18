@@ -1,7 +1,5 @@
 #include "timeeditor.h"
 #include "ui_timeeditor.h"
-#include <QDebug>
-
 
 TimeEditor::TimeEditor(QWidget *parent) :
     QWidget(parent),
@@ -23,13 +21,8 @@ void TimeEditor::onValueChanged(QSpinBox *control, int arg1)
         currentTime = HHMMSS2Seconds(ui->spinHours->value(), ui->spinMinutes->value(), ui->spinSeconds->value());
         emit timeChanged(currentTime);
     }
-    else
-        qDebug() << "MAL";
-
-/*    if (arg1 > 9)
-        control->setPrefix("");
-    else
-        control->setPrefix("0");*/
+//    else
+        //qDebug() << "MAL";
 }
 
 void TimeEditor::on_spinHours_valueChanged(int arg1)

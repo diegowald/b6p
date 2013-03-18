@@ -1,6 +1,4 @@
 #include "acollection.h"
-#include <QDebug>
-
 #include <QSqlRecord>
 #include <QSqlField>
 #include <QMessageBox>

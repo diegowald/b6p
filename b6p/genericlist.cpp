@@ -1,6 +1,5 @@
 #include "genericlist.h"
 #include "ui_genericlist.h"
-#include <QDebug>
 #include "datastore.h"
 
 GenericList::GenericList(int LoggedUser, boost::shared_ptr<ACollection> Model, bool inPlaceEdit, QWidget *parent) :

@@ -2,7 +2,6 @@
 #include <QApplication>
 #include <QTranslator>
 #include <QLocale>
-#include <QDebug>
 #include "dlglogin.h"
 #include "datastore.h"
 
