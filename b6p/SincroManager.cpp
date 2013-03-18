@@ -10,7 +10,7 @@ SincroManager::SincroManager(QObject *parent) :
                 DataStore::instance()->getParametros()->getValue(Parametros::SERVER_NAME, "127.0.0.1"),
                 DataStore::instance()->getParametros()->getValue(Parametros::DATABASE_NAME, "b6p"),
                 DataStore::instance()->getParametros()->getValue(Parametros::USER_NAME, "root"),
-                DataStore::instance()->getParametros()->getValue(Parametros::PASSWORD, "mic1492"));
+                DataStore::instance()->getParametros()->getValue(Parametros::PASSWORD, ""));
 
     /*m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getSectores(), m_SQL, this));
     m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getSubSectores(), m_SQL, this));*/
@@ -90,6 +90,7 @@ void SincroManager::grabarFechaUltimaSincronizacion()
     UltimaSincro = (*res->at(0))["Fecha"].toDateTime().toString("yyyy-MM-dd hh:mm:ss");
 
     DataStore::instance()->getParametros()->setValue(Parametros::LAST_SYNCHRO, UltimaSincro);
+    DataStore::instance()->getParametros()->save();
 }
 
 void SincroManager::establishConnections()

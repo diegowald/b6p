@@ -132,7 +132,6 @@ void TimeAssignment::paintEvent(QPaintEvent */*event*/)
                 QTime tmp;
                 tmp.setHMS(0, 0, 0);
                 tmp = tmp.addSecs(aux);
-                qDebug() << tmp.toString("H:mm");
                 painter.drawText(x1, y1, tmp.toString("H:mm"));
             }
         }
@@ -264,7 +263,6 @@ int TimeAssignment::finalTimeline() const
 
 void TimeAssignment::setStartAssignment(int seconds)
 {
-    qDebug() << seconds;
     m_StartAssignment = seconds;
     repaint();
 }

@@ -137,7 +137,6 @@ CalendarioPersonaLst CalendarioPersonas::getAll(int IDEmpleado, bool includeDele
     CalendarioPersonaLst res = boost::make_shared<QList<CalendarioPersonaPtr> >();
     foreach (CalendarioPersonaPtr cal, m_Calendarios)
     {
-        qDebug() << cal->IDEmpleado().value();
         if (cal->IDEmpleado().value() == IDEmpleado)
         {
             if (!cal->isDeleted())

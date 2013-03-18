@@ -27,7 +27,7 @@ RecordPtr Empleado::asRecordPtr()
 {
     RecordPtr res = boost::make_shared<Record>();
 
-    (*res)["ID"] = idEmpleado.toVariant();
+    (*res)["Legajo"] = idEmpleado.toVariant();
     (*res)["Apellido"] = apellido.toVariant();
     (*res)["Nombres"] = nombre.toVariant();
     (*res)["FechaIngreso"] = fechaIngreso.toVariant();

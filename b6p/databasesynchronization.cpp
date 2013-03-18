@@ -1,4 +1,5 @@
 #include "databasesynchronization.h"
+#include <QDateTime>
 
 DatabaseSynchronization::DatabaseSynchronization(boost::shared_ptr<ACollection> data, boost::shared_ptr<SQLHandler> sqlHandler, QObject *parent) :
     QObject(parent)
@@ -102,13 +103,12 @@ bool DatabaseSynchronization::existsInMainDB(RecordPtr rec)
 {
     QString sql = m_Data->getSQLExistsInMainDB();
     RecordSet res = m_SQLHandler->getAll(sql, rec);
+    qDebug() << res->count();
     return res->count() != 0;
 }
 
 void DatabaseSynchronization::addRecord(RecordPtr rec)
 {
-    QString s = " USE b6p;";
-    m_SQLHandler->executeQuery(s, rec, false);
     QString sql = m_Data->getInsertStatement();
     m_SQLHandler->executeQuery(sql, rec, false);
 }

@@ -6,6 +6,7 @@
 #include <boost/make_shared.hpp>
 #include <QSqlRecord>
 #include <QSqlField>
+#include <QSqlDriver>
 
 SQLHandler::SQLHandler(QString database)
 {
@@ -13,6 +14,7 @@ SQLHandler::SQLHandler(QString database)
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setHostName("localhost");
     db.setDatabaseName(m_database);
+    m_UsingSQLITE = true;
 }
 
 SQLHandler::SQLHandler(QString Server, QString Database, QString User, QString Password)
@@ -26,13 +28,41 @@ SQLHandler::SQLHandler(QString Server, QString Database, QString User, QString P
     db.setDatabaseName(m_database);
     db.setUserName(m_User);
     db.setPassword(m_Password);
+    m_UsingSQLITE = false;
+}
+
+bool SQLHandler::tryReconnect()
+{
+    if (!db.isOpen() && !db.open())
+    {
+        if (m_UsingSQLITE)
+        {
+            db = QSqlDatabase::addDatabase("QSQLITE");
+            db.setHostName("localhost");
+            db.setDatabaseName(m_database);
+        }
+        else
+        {
+            db = QSqlDatabase::addDatabase("QMYSQL");
+            db.setHostName(m_Server);
+            db.setDatabaseName(m_database);
+            db.setUserName(m_User);
+            db.setPassword(m_Password);
+        }
+    }
+
+    if (!db.isOpen() && !db.open())
+    {
+        return false;
+    }
+    return true;
 }
 
 RecordSet SQLHandler::getAll(QString &query)
 {
     RecordSet response = boost::make_shared<QList<RecordPtr> >();
 
-    if (!db.isOpen() && !db.open())
+    if (!tryReconnect())
     {
         QMessageBox::information(NULL, QObject::tr("DB Error"), QObject::tr("Can't open Database"));
         // Error
@@ -61,20 +91,14 @@ RecordSet SQLHandler::getAll(QString &query, RecordPtr record)
 {
     RecordSet response = boost::make_shared<QList<RecordPtr> >();
 
-    if (!db.isOpen())
+    if (!tryReconnect())
     {
-        if (!db.open())
-        {
-            qDebug() << db.lastError();
-            QMessageBox::critical(NULL, QObject::tr("DB Error"), QObject::tr("Can't open database"));
-            return response;
-        }
+        QMessageBox::critical(NULL, QObject::tr("DB Error"), QObject::tr("Can't open database"));
+        return response;
     }
 
-    qDebug() << query;
     QSqlQuery q;
     q.prepare(query);
-
     addParameters(q, query, record);
     q.exec();
 
@@ -89,20 +113,22 @@ RecordSet SQLHandler::getAll(QString &query, RecordPtr record)
         response->push_back(record);
     }
 
+    if (q.lastError().type() != QSqlError::NoError)
+    {
+        QMessageBox::information(NULL, QObject::tr("SQL Error"), q.lastError().text());
+    }
     db.close();
 
     return response;
 }
 
-void SQLHandler::addParameters(QSqlQuery &query, QString SQL, RecordPtr record)
+void SQLHandler::addParameters(QSqlQuery &query, QString &SQL, RecordPtr record)
 {
     foreach(QString key, record->keys())
     {
-        qDebug() << key << ": " << (*record)[key];
         QString param(":" + key);
         if (SQL.contains(param))
         {
-            qDebug() << param << " = " << (*record)[key];
             QVariant value = (*record)[key];
             switch (value.type())
             {
@@ -125,28 +151,25 @@ void SQLHandler::addParameters(QSqlQuery &query, QString SQL, RecordPtr record)
             query.bindValue(param, value);
         }
     }
-    qDebug() << query.boundValues().count();
 }
 
 int SQLHandler::executeQuery(QString &cmd, RecordPtr record, bool returnLastInsertedID)
 {
-    if (!db.isOpen() && !db.open())
+    if (!tryReconnect())
     {
-        QMessageBox::information(NULL, QObject::tr("DB Error"), QObject::tr("Can't open Database"));
-        // Error
-        return -1;
+        db = QSqlDatabase::addDatabase("QSQLITE"/*, "local"*/);
+        db.setHostName("localhost");
+        db.setDatabaseName(m_database);
     }
-    qDebug() << cmd;
+
     QSqlQuery q;
     q.prepare(cmd);
     addParameters(q, cmd, record);
-    qDebug() << q.boundValues().count();
     q.exec();
     if (q.lastError().type() != QSqlError::NoError)
     {
         QMessageBox::information(NULL, QObject::tr("SQL Error"), q.lastError().text());
     }
-    qDebug() << q.lastError();
     db.close();
     if (returnLastInsertedID)
         return q.lastInsertId().toInt();

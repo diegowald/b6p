@@ -16,7 +16,8 @@ public:
     int executeQuery(QString &cmd, RecordPtr record, bool returnLastInsertedID);
 
 protected:
-    void addParameters(QSqlQuery &query, QString SQL, RecordPtr record);
+    void addParameters(QSqlQuery &query, QString &SQL, RecordPtr record);
+    bool tryReconnect();
 
 private:
     QString m_database;
@@ -24,6 +25,7 @@ private:
     QString m_Server;
     QString m_User;
     QString m_Password;
+    bool m_UsingSQLITE;
 };
 
 #endif // SQLHANDLER_H

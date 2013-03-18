@@ -14,8 +14,8 @@ Empleados::~Empleados()
 
 QString Empleados::getSelectFromMainDB()
 {
-    return QString("select ID, Apellido, Nombres, Legajo, FechaIngreso, isBaja, Estado from empleados "
-                   " where LastUpdate >= :LASTUPDATE;");
+    return QString("select ID, Apellido, Nombres, Legajo, FechaIngreso, isBaja, RecordStatus from empleados "
+                   " where LastUpdate >= :LASTUPDATE ;");
 }
 
 QString Empleados::getSqlString()
@@ -52,26 +52,27 @@ bool Empleados::exists(RecordPtr record)
 
 QString Empleados::getDeleteStatement()
 {
-    return QString("update empleados set isBaja = 1, RecordStatus = %1 where ID = :ID;").arg(RECORD_MODIFIED);
+    return QString("update empleados set isBaja = 1, RecordStatus = %1 where ID = :RECORD_ID;").arg(RECORD_MODIFIED);
 }
 
 QString Empleados::getUpdateStatement()
 {
     return QString("update empleados set Apellido = :Apellido, Nombres = :Nombres, "
-                   " Legajo = :Legajo, FechaIngreso = :FechaIngreso, RecordStatus = %1  where ID = :ID;").arg(RECORD_MODIFIED);
+                   " Legajo = :Legajo, FechaIngreso = :FechaIngreso, RecordStatus = %1  where ID = :RECORD_ID;").arg(RECORD_MODIFIED);
 }
 
 QString Empleados::getInsertStatement()
 {
-    return QString("insert into empleados (Apellido, Nombres, Legajo, FechaIngreso, RecordStatus, isBaja) "
+    return QString("insert into empleados (ID, Apellido, Nombres, Legajo, FechaIngreso, RecordStatus, isBaja) "
             " values "
-            "( :Apellido, :Nombres, :Legajo, :FechaIngreso, %1, 0);").arg(RECORD_NEW);
+            "( :RECORD_ID, :Apellido, :Nombres, :Legajo, :FechaIngreso, %1, 0);").arg(RECORD_NEW);
 }
+
 
 QString Empleados::getSQLExistsInMainDB()
 {
-    return QString("select ID, Apellido, Nombres, Legajo, FechaIngreso, isBaja, Estado from empleados "
-                   " where ID = :ID;");
+    return QString("select ID from empleados "
+                   " where ID = :RECORD_ID ;");
 }
 
 RecordSet Empleados::getRecords(RecordStatus status)

@@ -30,7 +30,6 @@ void Sectores::addRecord(RecordPtr record)
     s->IDSector().setValue((*record)["ID"].toInt());
     s->Nombre().setValue((*record)["Nombre"].toString());
     s->Descripcion().setValue((*record)["Descripcion"].toString());
-    qDebug() << (*record)["ShowInPlanification"];
     if ((*record)["ShowInPlanification"].toLongLong() == 0)
         s->ShowInPlanification().setValue(false);
     else
