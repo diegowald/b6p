@@ -65,7 +65,7 @@ QString Empleados::getInsertStatement()
 {
     return QString("insert into empleados (Apellido, Nombres, Legajo, FechaIngreso, RecordStatus, isBaja) "
             " values "
-            "(:Apellido, :Nombres, :Legajo, :FechaIngreso, %1, 0);").arg(RECORD_NEW);
+            "( :Apellido, :Nombres, :Legajo, :FechaIngreso, %1, 0);").arg(RECORD_NEW);
 }
 
 QString Empleados::getSQLExistsInMainDB()

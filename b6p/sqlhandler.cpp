@@ -125,6 +125,7 @@ void SQLHandler::addParameters(QSqlQuery &query, QString SQL, RecordPtr record)
             query.bindValue(param, value);
         }
     }
+    qDebug() << query.boundValues().count();
 }
 
 int SQLHandler::executeQuery(QString &cmd, RecordPtr record, bool returnLastInsertedID)
@@ -139,6 +140,7 @@ int SQLHandler::executeQuery(QString &cmd, RecordPtr record, bool returnLastInse
     QSqlQuery q;
     q.prepare(cmd);
     addParameters(q, cmd, record);
+    qDebug() << q.boundValues().count();
     q.exec();
     if (q.lastError().type() != QSqlError::NoError)
     {

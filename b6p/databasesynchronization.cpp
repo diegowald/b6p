@@ -107,6 +107,8 @@ bool DatabaseSynchronization::existsInMainDB(RecordPtr rec)
 
 void DatabaseSynchronization::addRecord(RecordPtr rec)
 {
+    QString s = " USE b6p;";
+    m_SQLHandler->executeQuery(s, rec, false);
     QString sql = m_Data->getInsertStatement();
     m_SQLHandler->executeQuery(sql, rec, false);
 }
