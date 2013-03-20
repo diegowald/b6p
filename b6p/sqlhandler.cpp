@@ -83,6 +83,10 @@ RecordSet SQLHandler::getAll(QString &query)
         response->push_back(record);
     }
 
+    if (q.lastError().type() != QSqlError::NoError)
+    {
+        QMessageBox::information(NULL, QObject::tr("SQL Error"), q.lastError().text());
+    }
     db.close();
     return response;
 }

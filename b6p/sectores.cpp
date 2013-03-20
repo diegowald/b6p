@@ -8,7 +8,8 @@ Sectores::Sectores(QObject *parent) :
 
 QString Sectores::getSelectFromMainDB()
 {
-    return "";
+    return QString("select ID, Nombre, Descripcion, ShowInPlanification, LastUpdate from sectores "
+                   " where LastUpdate >= :LASTUPDATE ;");
 }
 
 QString Sectores::getSqlString()
@@ -20,7 +21,7 @@ QString Sectores::getSqlString()
 QString Sectores::getSQLExistsInMainDB()
 {
     return QString("select ID, Nombre, Descripcion, ShowInPlanification from sectores "
-                   " where ID = :ID;");
+                   " where ID = :IDSector;");
 }
 
 void Sectores::addRecord(RecordPtr record)
