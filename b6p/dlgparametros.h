@@ -16,6 +16,9 @@ public:
     ~DlgParametros();
     
     virtual void accept();
+private slots:
+    void on_pushButton_pressed();
+
 private:
     Ui::DlgParametros *ui;
 };

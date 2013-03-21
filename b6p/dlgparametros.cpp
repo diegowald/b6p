@@ -1,6 +1,7 @@
 #include "dlgparametros.h"
 #include "ui_dlgparametros.h"
 #include "datastore.h"
+#include "sqlhandler.h"
 
 DlgParametros::DlgParametros(QWidget *parent) :
     QDialog(parent),
@@ -22,6 +23,7 @@ DlgParametros::DlgParametros(QWidget *parent) :
     ui->txtDatabase->setText(DataStore::instance()->getParametros()->getValue(Parametros::DATABASE_NAME, "b6p"));
     ui->txtUser->setText(DataStore::instance()->getParametros()->getValue(Parametros::USER_NAME, ""));
     ui->txtPassword->setText(DataStore::instance()->getParametros()->getValue(Parametros::PASSWORD, ""));
+    ui->lblConnectionResult->clear();
 }
 
 DlgParametros::~DlgParametros()
@@ -44,4 +46,15 @@ void DlgParametros::accept()
     DataStore::instance()->getParametros()->setValue(Parametros::PASSWORD, ui->txtPassword->text());
 
     QDialog::accept();
+}
+
+void DlgParametros::on_pushButton_pressed()
+{
+    QString sql = "SELECT 1;";
+    SQLHandler h(ui->txtServer->text(), ui->txtDatabase->text(), ui->txtUser->text(), ui->txtPassword->text());
+    RecordSet rs = h.getAll(sql);
+    if (rs->count() == 1)
+        ui->lblConnectionResult->setText(tr("Connection OK"));
+    else
+        ui->lblConnectionResult->setText(tr("Please check connection parameters"));
 }
