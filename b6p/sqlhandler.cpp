@@ -180,3 +180,22 @@ int SQLHandler::executeQuery(QString &cmd, RecordPtr record, bool returnLastInse
     else
         return 0;
 }
+
+void SQLHandler::executeCommand(QString &cmd)
+{
+    if (!tryReconnect())
+    {
+        db = QSqlDatabase::addDatabase("QSQLITE"/*, "local"*/);
+        db.setHostName("localhost");
+        db.setDatabaseName(m_database);
+    }
+
+    QSqlQuery q;
+    q.prepare(cmd);
+    q.exec();
+    if (q.lastError().type() != QSqlError::NoError)
+    {
+        QMessageBox::information(NULL, QObject::tr("SQL Error"), q.lastError().text());
+    }
+    db.close();
+}

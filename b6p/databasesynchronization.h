@@ -20,6 +20,7 @@ public:
     void checkConsistency();
 
     void sendData();
+    void saveLocalChanges();
 
     QString name();
     

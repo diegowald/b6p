@@ -14,7 +14,7 @@ public:
     RecordSet getAll(QString &query);
     RecordSet getAll(QString &query, RecordPtr record);
     int executeQuery(QString &cmd, RecordPtr record, bool returnLastInsertedID);
-
+    void executeCommand(QString &cmd);
 protected:
     void addParameters(QSqlQuery &query, QString &SQL, RecordPtr record);
     bool tryReconnect();

@@ -25,6 +25,7 @@ protected:
     void establishConnections();
     void establishConnections(DatabaseSynchronizationPtr db);
 
+
 signals:
     void startingSynchro();
     void getDataFromCentralDB(QString &tableName);

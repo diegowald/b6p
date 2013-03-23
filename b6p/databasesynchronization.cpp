@@ -91,7 +91,10 @@ void DatabaseSynchronization::sendData()
     }
 }
 
-
+void DatabaseSynchronization::saveLocalChanges()
+{
+    m_Data->saveSincroToLocalDatabase();
+}
 
 QString DatabaseSynchronization::name()
 {

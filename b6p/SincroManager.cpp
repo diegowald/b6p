@@ -77,6 +77,7 @@ void SincroManager::enviarDatosADBCentral()
     foreach(DatabaseSynchronizationPtr db, m_Synchronizationtables)
     {
         db->sendData();
+        db->saveLocalChanges();
     }
 }
 

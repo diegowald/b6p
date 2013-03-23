@@ -35,6 +35,7 @@ public:
     virtual bool canBeDeleted(QVariant ID);
 
 
+    virtual QString getTableName() { return "empleados"; }
     virtual QString getDeleteStatement();
     virtual QString getUpdateStatement();
     virtual QString getInsertStatement();

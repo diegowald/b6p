@@ -36,6 +36,7 @@ public:
 
     virtual void defineHeaders(QStringList &list);
     virtual void fillData(QTreeWidget &tree);
+    virtual QString getTableName() { return "access"; }
     virtual QString getDeleteStatement() { return ""; }
     virtual QString getUpdateStatement() { return ""; }
     virtual QString getInsertStatement() { return ""; }

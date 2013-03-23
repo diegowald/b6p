@@ -17,7 +17,7 @@ public:
     virtual void deleteRecord(RecordPtr record);
     virtual bool exists(RecordPtr record);
 
-
+    virtual QString getTableName() { return "subsectores"; }
     virtual QString getDeleteStatement();
     virtual QString getUpdateStatement();
     virtual QString getInsertStatement();
