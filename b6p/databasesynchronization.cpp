@@ -93,7 +93,7 @@ void DatabaseSynchronization::sendData()
 
 void DatabaseSynchronization::saveLocalChanges()
 {
-    m_Data->saveSincroToLocalDatabase();
+    m_Data->setSentFlagIntoDatabase();
 }
 
 QString DatabaseSynchronization::name()

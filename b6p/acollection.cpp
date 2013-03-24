@@ -139,7 +139,7 @@ QString ACollection::invariableName() const
     return m_InvariableName;
 }
 
-void ACollection::saveSincroToLocalDatabase()
+void ACollection::setSentFlagIntoDatabase()
 {
     QString sql = "UPDATE %1 set sent = 1;";
     sql = sql.arg(getTableName());

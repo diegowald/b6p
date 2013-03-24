@@ -81,7 +81,6 @@ SOURCES += main.cpp\
     dlgparametros.cpp \
     timeeditor.cpp \
     dlgaddmanyestimationdays.cpp \
-    synchronization.cpp \
     accesos.cpp \
     acceso.cpp \
     dlglogin.cpp \
@@ -127,7 +126,6 @@ HEADERS  += mainwindow.h \
     dlgparametros.h \
     timeeditor.h \
     dlgaddmanyestimationdays.h \
-    synchronization.h \
     accesos.h \
     acceso.h \
     dlglogin.h \

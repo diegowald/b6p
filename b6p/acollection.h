@@ -48,7 +48,7 @@ public:
     bool editRecord(QVariant ID);
     bool editRecord(QTreeWidgetItem *item, QVariant ID);
     bool deleteRecord(QVariant ID);
-    void saveSincroToLocalDatabase();
+    void setSentFlagIntoDatabase();
 
     virtual QString getTableName() = 0;
     virtual QString getDeleteStatement() = 0;

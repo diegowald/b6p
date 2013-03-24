@@ -52,6 +52,7 @@ struct IRecord
         if (status == UNMODIFIED)
             status = MODIFIED;
     }
+
     void setDeleted()
     {
         status = DELETED;
