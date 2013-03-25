@@ -13,7 +13,7 @@ QString PlanificacionesDiasSubSectores::getSelectFromMainDB()
 
 QString PlanificacionesDiasSubSectores::getSqlString()
 {
-    return QString("select IDRecord, Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin from planificacionsubsector ")
+    return QString("select IDRecord, Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, sent from planificacionsubsector ")
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
@@ -34,6 +34,7 @@ void PlanificacionesDiasSubSectores::addRecord(RecordPtr record)
     p->IDEmpleado().setValue((*record)["IDEmpleado"].toInt());
     p->HoraInicio().setValue((*record)["HoraInicio"].toInt());
     p->HoraFin().setValue((*record)["HoraFin"].toInt());
+    p->setSentStatus((*record)["sent"].toInt() == 1);
     p->setInitialized();
 
     m_Planificacion[p->IDRecord().value()] = p;

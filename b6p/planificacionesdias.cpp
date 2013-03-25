@@ -16,7 +16,7 @@ QString PlanificacionesDias::getSelectFromMainDB()
 
 QString PlanificacionesDias::getSqlString()
 {
-    return QString("select Dia, Notas, IDSupervisor from planificaciondia ")
+    return QString("select Dia, Notas, IDSupervisor, sent from planificaciondia ")
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
@@ -32,6 +32,7 @@ void PlanificacionesDias::addRecord(RecordPtr record)
     p->Dia().setValue(QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date());
     p->Notas().setValue((*record)["Notas"].toString());
     p->IDSupervisor().setValue((*record)["IDSupervisor"].toInt());
+    p->setSentStatus((*record)["sent"].toInt() == 1);
     p->setInitialized();
 
     m_Planificaciones[p->Dia().value()] = p;

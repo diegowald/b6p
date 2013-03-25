@@ -21,7 +21,7 @@ enum RecordStatus
 
 struct IRecord
 {
-    IRecord() { status = UNINITIALIZED; UnSent = true; }
+    IRecord() { status = UNINITIALIZED; Sent = false; }
 
     virtual RecordPtr asRecordPtr() = 0;
 
@@ -68,12 +68,17 @@ struct IRecord
 
     bool isUnSent()
     {
-        return UnSent;
+        return !Sent;
+    }
+
+    void setSentStatus(bool sent)
+    {
+        Sent = sent;
     }
 
 private:
     RecordStatus status;
-    bool UnSent;
+    bool Sent;
 };
 
 #endif // IRECORD_H

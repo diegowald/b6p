@@ -8,7 +8,7 @@ Sectores::Sectores(QObject *parent) :
 
 QString Sectores::getSelectFromMainDB()
 {
-    return QString("select ID, Nombre, Descripcion, ShowInPlanification, LastUpdate from sectores "
+    return QString("select ID, Nombre, Descripcion, ShowInPlanification, LastUpdate, sent from sectores "
                    " where LastUpdate >= :LASTUPDATE ;");
 }
 
@@ -35,6 +35,8 @@ void Sectores::addRecord(RecordPtr record)
         s->ShowInPlanification().setValue(false);
     else
         s->ShowInPlanification().setValue(true);
+    s->setSentStatus((*record)["sent"].toInt() == 1);
+
     s->setInitialized();
 
     m_Sectores[s->IDSector().value()] = s;

@@ -41,7 +41,7 @@ QString CapacidadesPersonaSector::getSelectFromMainDB()
 
 QString CapacidadesPersonaSector::getSqlString()
 {
-    return QString("select IDSector, IDSubSector, IDEmpleado, Capacidad from capacidadespersonassector ")
+    return QString("select IDSector, IDSubSector, IDEmpleado, Capacidad, sent from capacidadespersonassector ")
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
@@ -59,6 +59,7 @@ void CapacidadesPersonaSector::addRecord(RecordPtr record)
     c->ID_SubSector().setValue((*record)["IDSubSector"].toInt());
     c->IDEmpleado().setValue((*record)["IDEmpleado"].toInt());
     c->Capacidad().setValue((*record)["Capacidad"].toInt());
+    c->setSentStatus((*record)["sent"].toInt() == 1);
     c->setInitialized();
     m_Capacidades.push_back(c);
 }

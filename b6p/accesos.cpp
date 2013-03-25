@@ -13,7 +13,7 @@ QString Accesos::getSelectFromMainDB()
 
 QString Accesos::getSqlString()
 {
-    return QString("select IDSector, Feature, canRead, canCreate, canUpdate, canDelete from access ");
+    return QString("select IDSector, Feature, canRead, canCreate, canUpdate, canDelete, sent from access ");
 //            + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
@@ -27,6 +27,7 @@ void Accesos::addRecord(RecordPtr record)
     a->canRead().setValue((*record)["canRead"].toBool());
     a->canUpdate().setValue((*record)["canUpdate"].toBool());
     a->canDelete().setValue((*record)["canDelete"].toBool());
+    a->setSentStatus((*record)["sent"].toInt() == 1);
 
     a->setInitialized();
 
@@ -34,16 +35,17 @@ void Accesos::addRecord(RecordPtr record)
     m_AccessList[id] = a;
 }
 
-void Accesos::updateRecord(RecordPtr record)
+void Accesos::updateRecord(RecordPtr)
 {
 }
 
-void Accesos::deleteRecord(RecordPtr record)
+void Accesos::deleteRecord(RecordPtr)
 {
 }
 
-bool Accesos::exists(RecordPtr record)
+bool Accesos::exists(RecordPtr)
 {
+    return true;
 }
 
 RecordSet Accesos::getRecords(RecordStatus)
@@ -169,11 +171,4 @@ bool Accesos::canAccessApplication(int IDUser)
 {
     QString feature = "whole application";
     return canRead(IDUser, feature);
-/*    CapacidadPersonaSectorLst caps = DataStore::instance()->getCapacidades()->getAll(IDUser, false);
-    foreach(CapacidadPersonaSectorPtr c, *caps)
-    {
-        if (canRead(c->IDSector().value(), feature))
-            return true;
-    }
-    return false;*/
 }

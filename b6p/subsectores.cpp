@@ -13,7 +13,7 @@ QString SubSectores::getSelectFromMainDB()
 
 QString SubSectores::getSqlString()
 {
-    return QString("select ID, IDSector, Nombre, Descripcion from subsectores ")
+    return QString("select ID, IDSector, Nombre, Descripcion, sent from subsectores ")
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
@@ -31,6 +31,8 @@ void SubSectores::addRecord(RecordPtr record)
     s->IDSector().setValue((*record)["IDSector"].toInt());
     s->Nombre().setValue((*record)["Nombre"].toString());
     s->Descripcion().setValue((*record)["Descripcion"].toString());
+    s->setSentStatus((*record)["sent"].toInt() == 1);
+
     s->setInitialized();
 
     m_SubSectores[s->IDSubsector().value()] = s;

@@ -15,7 +15,7 @@ QString EstimacionesDias::getSelectFromMainDB()
 
 QString EstimacionesDias::getSqlString()
 {
-    return QString("select Dia, HorasEstimadas from planificaciondias ")
+    return QString("select Dia, HorasEstimadas, sent from planificaciondias ")
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
@@ -30,6 +30,7 @@ void EstimacionesDias::addRecord(RecordPtr record)
     EstimacionDiaPtr e = boost::make_shared<EstimacionDia>(this);
     e->Dia().setValue(QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date());
     e->EstimacionHoras().setValue((*record)["HorasEstimadas"].toInt());
+    e->setSentStatus((*record)["sent"].toInt() == 1);
     e->setInitialized();
     m_Estimaciones[e->Dia().value()] = e;
 }

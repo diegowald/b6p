@@ -17,7 +17,7 @@ QString CalendarioPersonas::getSelectFromMainDB()
 
 QString CalendarioPersonas::getSqlString()
 {
-    return QString("select Dia, IDEmpleado, HoraIngreso, HoraEgreso from calendariopersonas "
+    return QString("select Dia, IDEmpleado, HoraIngreso, HoraEgreso, sent from calendariopersonas "
             " where RecordStatus <> %1;").arg(RECORD_DELETED);
 }
 
@@ -35,6 +35,7 @@ void CalendarioPersonas::addRecord(RecordPtr record)
     c->IDEmpleado().setValue((*record)["IDEmpleado"].toInt());
     c->HoraIngreso().setValue((*record)["HoraIngreso"].toInt());
     c->HoraEgreso().setValue((*record)["HoraEgreso"].toInt());
+    c->setSentStatus((*record)["sent"].toInt() == 1);
     c->setInitialized();
     m_Calendarios.push_back(c);
 }
