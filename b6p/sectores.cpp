@@ -44,14 +44,24 @@ void Sectores::addRecord(RecordPtr record)
 
 void Sectores::updateRecord(RecordPtr record)
 {
+    SectorPtr s = getSector((*record)["ID"].toInt());
+    s->Nombre().setValue((*record)["Nombre"].toString());
+    s->Descripcion().setValue((*record)["Descripcion"].toString());
+    if ((*record)["ShowInPlanification"].toLongLong() == 0)
+        s->ShowInPlanification().setValue(false);
+    else
+        s->ShowInPlanification().setValue(true);
 }
 
 void Sectores::deleteRecord(RecordPtr record)
 {
+    SectorPtr s = getSector((*record)["ID"].toInt());
 }
 
 bool Sectores::exists(RecordPtr record)
 {
+    SectorPtr s = getSector((*record)["ID"].toInt());
+    return (s.get() != NULL);
 }
 
 QString Sectores::getDeleteStatement()
