@@ -66,14 +66,28 @@ void CapacidadesPersonaSector::addRecord(RecordPtr record)
 
 void CapacidadesPersonaSector::updateRecord(RecordPtr record)
 {
+    CapacidadPersonaSectorPtr c = get((*record)["IDEmpleado"].toInt(),
+            (*record)["IDSector"].toInt(),
+            (*record)["IDSubSector"].toInt(), true);
+
+    c->Capacidad().setValue((*record)["Capacidad"].toInt());
 }
 
 void CapacidadesPersonaSector::deleteRecord(RecordPtr record)
 {
+    CapacidadPersonaSectorPtr c = get((*record)["IDEmpleado"].toInt(),
+            (*record)["IDSector"].toInt(),
+            (*record)["IDSubSector"].toInt(), true);
+
+    m_Capacidades.removeOne(c);
 }
 
 bool CapacidadesPersonaSector::exists(RecordPtr record)
 {
+    CapacidadPersonaSectorPtr c = get((*record)["IDEmpleado"].toInt(),
+            (*record)["IDSector"].toInt(),
+            (*record)["IDSubSector"].toInt(), true);
+    return (c != CapacidadPersonaSectorPtr());
 }
 
 QString CapacidadesPersonaSector::getDeleteStatement()
@@ -146,18 +160,22 @@ void CapacidadesPersonaSector::fillData(QTreeWidget &)
 
 bool CapacidadesPersonaSector::addNew()
 {
+    return false;
 }
 
-bool CapacidadesPersonaSector::edit(QVariant ID)
+bool CapacidadesPersonaSector::edit(QVariant)
 {
+    return false;
 }
 
-bool CapacidadesPersonaSector::deleteElement(QVariant ID)
+bool CapacidadesPersonaSector::deleteElement(QVariant)
 {
+    return false;
 }
 
-bool CapacidadesPersonaSector::canBeDeleted(QVariant ID)
+bool CapacidadesPersonaSector::canBeDeleted(QVariant)
 {
+    return false;
 }
 
 void CapacidadesPersonaSector::updateCapacityfromData(CapacidadPersonaSectorLst dataFrom)

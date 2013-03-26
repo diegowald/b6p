@@ -40,16 +40,17 @@ void CalendarioPersonas::addRecord(RecordPtr record)
     m_Calendarios.push_back(c);
 }
 
-void CalendarioPersonas::updateRecord(RecordPtr record)
+void CalendarioPersonas::updateRecord(RecordPtr)
 {
 }
 
-void CalendarioPersonas::deleteRecord(RecordPtr record)
+void CalendarioPersonas::deleteRecord(RecordPtr)
 {
 }
 
-bool CalendarioPersonas::exists(RecordPtr record)
+bool CalendarioPersonas::exists(RecordPtr)
 {
+    return false;
 }
 
 QString CalendarioPersonas::getDeleteStatement()
@@ -109,28 +110,32 @@ RecordSet CalendarioPersonas::getUnsent()
     return res;
 }
 
-void CalendarioPersonas::defineHeaders(QStringList &list)
+void CalendarioPersonas::defineHeaders(QStringList &)
 {
 }
 
-void CalendarioPersonas::fillData(QTreeWidget &tree)
+void CalendarioPersonas::fillData(QTreeWidget &)
 {
 }
 
 bool CalendarioPersonas::addNew()
 {
+    return false;
 }
 
-bool CalendarioPersonas::edit(QVariant ID)
+bool CalendarioPersonas::edit(QVariant)
 {
+    return false;
 }
 
-bool CalendarioPersonas::deleteElement(QVariant ID)
+bool CalendarioPersonas::deleteElement(QVariant)
 {
+    return false;
 }
 
-bool CalendarioPersonas::canBeDeleted(QVariant ID)
+bool CalendarioPersonas::canBeDeleted(QVariant)
 {
+    return false;
 }
 
 CalendarioPersonaLst CalendarioPersonas::getAll(int IDEmpleado, bool includeDeleted)

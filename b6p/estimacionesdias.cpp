@@ -37,14 +37,20 @@ void EstimacionesDias::addRecord(RecordPtr record)
 
 void EstimacionesDias::updateRecord(RecordPtr record)
 {
+    EstimacionDiaPtr e = m_Estimaciones[QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date()];
+    e->EstimacionHoras().setValue((*record)["HorasEstimadas"].toInt());
+    e->setSentStatus((*record)["sent"].toInt() == 1);
+    e->setSentStatus(false);
 }
 
 void EstimacionesDias::deleteRecord(RecordPtr record)
 {
+    m_Estimaciones.remove(QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date());
 }
 
 bool EstimacionesDias::exists(RecordPtr record)
 {
+    return (m_Estimaciones[QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date()] != EstimacionDiaPtr());
 }
 
 QString EstimacionesDias::getDeleteStatement()
@@ -203,7 +209,7 @@ bool EstimacionesDias::canBeDeleted(QVariant ID)
     return result;
 }
 
-void EstimacionesDias::refreshID(int oldID, int newRecordId)
+void EstimacionesDias::refreshID(int, int)
 {
 }
 

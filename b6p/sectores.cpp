@@ -154,28 +154,32 @@ SectorLst Sectores::getAll(bool onlyShowInPlanification, bool includeDeleted)
     return res;
 }
 
-void Sectores::defineHeaders(QStringList &list)
+void Sectores::defineHeaders(QStringList &)
 {
 }
 
-void Sectores::fillData(QTreeWidget &tree)
+void Sectores::fillData(QTreeWidget &)
 {
 }
 
 bool Sectores::addNew()
 {
+    return false;
 }
 
-bool Sectores::edit(QVariant ID)
+bool Sectores::edit(QVariant)
 {
+    return false;
 }
 
-bool Sectores::deleteElement(QVariant ID)
+bool Sectores::deleteElement(QVariant)
 {
+    return false;
 }
 
-bool Sectores::canBeDeleted(QVariant ID)
+bool Sectores::canBeDeleted(QVariant)
 {
+    return false;
 }
 
 void Sectores::setStatusToUnmodified(bool removeDeleted)

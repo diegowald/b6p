@@ -40,14 +40,25 @@ void Empleados::addRecord(RecordPtr record)
 
 void Empleados::updateRecord(RecordPtr record)
 {
+    EmpleadoPtr e = getEmpleado((*record)["ID"].toInt(), true);
+    e->Apellido().setValue((*record)["Apellido"].toString());
+    e->Nombre().setValue((*record)["Nombres"].toString());
+    e->Legajo().setValue((*record)["Legajo"].toString());
+    e->FechaIngreso().setValue(QDateTime::fromMSecsSinceEpoch((*record)["FechaIngreso"].toLongLong()).date());
+    e->IsBaja().setValue((*record)["isBaja"].toBool());
+    e->setSentStatus(false);
 }
 
 void Empleados::deleteRecord(RecordPtr record)
 {
+    EmpleadoPtr e = getEmpleado((*record)["ID"].toInt(), true);
+    e->IsBaja().setValue(true);
 }
 
 bool Empleados::exists(RecordPtr record)
 {
+    EmpleadoPtr e = getEmpleado((*record)["ID"].toInt(), true);
+    return (e != EmpleadoPtr());
 }
 
 

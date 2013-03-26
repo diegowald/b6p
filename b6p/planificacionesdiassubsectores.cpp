@@ -42,14 +42,24 @@ void PlanificacionesDiasSubSectores::addRecord(RecordPtr record)
 
 void PlanificacionesDiasSubSectores::updateRecord(RecordPtr record)
 {
+    PlanificacionSubSectorPtr p = m_Planificacion[(*record)["IDRecord"].toInt()];
+
+    p->Dia().setValue(QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date());
+    p->IDSector().setValue((*record)["IDSector"].toInt());
+    p->IDSubSector().setValue((*record)["IDSubsector"].toInt());
+    p->IDEmpleado().setValue((*record)["IDEmpleado"].toInt());
+    p->HoraInicio().setValue((*record)["HoraInicio"].toInt());
+    p->HoraFin().setValue((*record)["HoraFin"].toInt());
 }
 
 void PlanificacionesDiasSubSectores::deleteRecord(RecordPtr record)
 {
+    m_Planificacion.remove((*record)["IDRecord"].toInt());
 }
 
 bool PlanificacionesDiasSubSectores::exists(RecordPtr record)
 {
+    return (m_Planificacion[(*record)["IDRecord"].toInt()] != PlanificacionSubSectorPtr());
 }
 
 QString PlanificacionesDiasSubSectores::getDeleteStatement()
@@ -115,28 +125,32 @@ RecordSet PlanificacionesDiasSubSectores::getUnsent()
     return res;
 }
 
-void PlanificacionesDiasSubSectores::defineHeaders(QStringList &list)
+void PlanificacionesDiasSubSectores::defineHeaders(QStringList &)
 {
 }
 
-void PlanificacionesDiasSubSectores::fillData(QTreeWidget &tree)
+void PlanificacionesDiasSubSectores::fillData(QTreeWidget &)
 {
 }
 
 bool PlanificacionesDiasSubSectores::addNew()
 {
+    return false;
 }
 
-bool PlanificacionesDiasSubSectores::edit(QVariant ID)
+bool PlanificacionesDiasSubSectores::edit(QVariant )
 {
+    return false;
 }
 
-bool PlanificacionesDiasSubSectores::deleteElement(QVariant ID)
+bool PlanificacionesDiasSubSectores::deleteElement(QVariant)
 {
+    return false;
 }
 
-bool PlanificacionesDiasSubSectores::canBeDeleted(QVariant ID)
+bool PlanificacionesDiasSubSectores::canBeDeleted(QVariant)
 {
+    return false;
 }
 
 PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getAll(QDate Dia, bool includeDeleted)

@@ -40,14 +40,21 @@ void SubSectores::addRecord(RecordPtr record)
 
 void SubSectores::updateRecord(RecordPtr record)
 {
+    SubSectorPtr s = getSubSector((*record)["ID"].toInt());
+
+    s->Nombre().setValue((*record)["Nombre"].toString());
+    s->Descripcion().setValue((*record)["Descripcion"].toString());
+
 }
 
 void SubSectores::deleteRecord(RecordPtr record)
 {
+    m_SubSectores.remove((*record)["ID"].toInt());
 }
 
 bool SubSectores::exists(RecordPtr record)
 {
+    return (getSubSector((*record)["ID"].toInt()) != SubSectorPtr());
 }
 
 QString SubSectores::getDeleteStatement()
@@ -158,28 +165,32 @@ SubSectoresLst SubSectores::getAll(int IDSector, bool includeDeleted)
     return res;
 }
 
-void SubSectores::defineHeaders(QStringList &list)
+void SubSectores::defineHeaders(QStringList &)
 {
 }
 
-void SubSectores::fillData(QTreeWidget &tree)
+void SubSectores::fillData(QTreeWidget &)
 {
 }
 
 bool SubSectores::addNew()
 {
+    return false;
 }
 
-bool SubSectores::edit(QVariant ID)
+bool SubSectores::edit(QVariant)
 {
+    return false;
 }
 
-bool SubSectores::deleteElement(QVariant ID)
+bool SubSectores::deleteElement(QVariant)
 {
+    return false;
 }
 
-bool SubSectores::canBeDeleted(QVariant ID)
+bool SubSectores::canBeDeleted(QVariant)
 {
+    return false;
 }
 
 void SubSectores::setStatusToUnmodified(bool removeDeleted)

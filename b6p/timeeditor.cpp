@@ -14,7 +14,7 @@ TimeEditor::~TimeEditor()
     delete ui;
 }
 
-void TimeEditor::onValueChanged(QSpinBox *control, int arg1)
+void TimeEditor::onValueChanged(QSpinBox *, int)
 {
     if (checkTime(ui->spinHours->value(), ui->spinMinutes->value(), ui->spinSeconds->value()))
     {

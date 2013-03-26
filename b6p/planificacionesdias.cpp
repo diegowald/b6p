@@ -40,14 +40,21 @@ void PlanificacionesDias::addRecord(RecordPtr record)
 
 void PlanificacionesDias::updateRecord(RecordPtr record)
 {
+    PlanificacionDiaPtr p = m_Planificaciones[QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date()];
+
+    p->Notas().setValue((*record)["Notas"].toString());
+    p->IDSupervisor().setValue((*record)["IDSupervisor"].toInt());
+
 }
 
 void PlanificacionesDias::deleteRecord(RecordPtr record)
 {
+    m_Planificaciones.remove(QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date());
 }
 
 bool PlanificacionesDias::exists(RecordPtr record)
 {
+    return (PlanificacionDiaPtr() != m_Planificaciones[QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date()]);
 }
 
 QString PlanificacionesDias::getDeleteStatement()
@@ -201,7 +208,7 @@ bool PlanificacionesDias::canBeDeleted(QVariant ID)
     return result;
 }
 
-void PlanificacionesDias::refreshID(int oldID, int newRecordId)
+void PlanificacionesDias::refreshID(int, int)
 {
 }
 

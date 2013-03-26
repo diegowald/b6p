@@ -117,7 +117,7 @@ void GenericList::on_treeList_itemClicked(QTreeWidgetItem *item, int column)
         ui->treeList->editItem(item, column);
 }
 
-void GenericList::on_treeList_itemChanged(QTreeWidgetItem *item, int column)
+void GenericList::on_treeList_itemChanged(QTreeWidgetItem *item, int)
 {
     if (m_InPlaceEdit)
     {
