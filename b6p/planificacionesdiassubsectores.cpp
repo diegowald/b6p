@@ -8,7 +8,8 @@ PlanificacionesDiasSubSectores::PlanificacionesDiasSubSectores(QObject *parent) 
 
 QString PlanificacionesDiasSubSectores::getSelectFromMainDB()
 {
-    return "";
+    return QString("select IDRecord, Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, LastUpdate from planificacionsubsector "
+                   " where LastUpdate >= :LASTUPDATE ;");
 }
 
 QString PlanificacionesDiasSubSectores::getSqlString()

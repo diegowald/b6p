@@ -12,7 +12,8 @@ CalendarioPersonas::~CalendarioPersonas()
 
 QString CalendarioPersonas::getSelectFromMainDB()
 {
-    return "";
+    return QString("select Dia, IDEmpleado, HoraIngreso, HoraEgreso, LastUpdate from calendariopersonas "
+                   " where LastUpdate >= :LASTUPDATE ;");
 }
 
 QString CalendarioPersonas::getSqlString()

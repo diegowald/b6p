@@ -36,7 +36,8 @@ CapacidadPersonaSectorPtr CapacidadesPersonaSector::get(int idEmpleado, int IDSe
 
 QString CapacidadesPersonaSector::getSelectFromMainDB()
 {
-    return "";
+    return QString("select IDSector, IDSubSector, IDEmpleado, Capacidad, LastUpdate from capacidadespersonassector "
+                   " where LastUpdate >= :LASTUPDATE ;");
 }
 
 QString CapacidadesPersonaSector::getSqlString()

@@ -13,6 +13,7 @@ void DatabaseSynchronization::getDataFromDB(QString dateFrom)
     QString syncroName = name();
     emit gettingDataFromCentralDB(syncroName);
     QString SQL = m_Data->getSelectFromMainDB();
+    Q_ASSERT(SQL != "");
     RecordPtr r = boost::make_shared<Record>();
     (*r)["LASTUPDATE"] = dateFrom;
     m_QueryResult = m_SQLHandler->getAll(SQL, r);
@@ -113,17 +114,20 @@ bool DatabaseSynchronization::existsInMainDB(RecordPtr rec)
 void DatabaseSynchronization::addRecord(RecordPtr rec)
 {
     QString sql = m_Data->getInsertStatement();
+    Q_ASSERT(sql != "");
     m_SQLHandler->executeQuery(sql, rec, false);
 }
 
 void DatabaseSynchronization::updateRecord(RecordPtr rec)
 {
     QString sql = m_Data->getUpdateStatement();
+    Q_ASSERT(sql != "");
     m_SQLHandler->executeQuery(sql, rec, false);
 }
 
 void DatabaseSynchronization::deleteRecord(RecordPtr rec)
 {
     QString sql = m_Data->getDeleteStatement();
+    Q_ASSERT(sql != "");
     m_SQLHandler->executeQuery(sql, rec, false);
 }

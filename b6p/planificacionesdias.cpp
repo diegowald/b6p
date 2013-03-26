@@ -11,7 +11,8 @@ PlanificacionesDias::PlanificacionesDias(QObject *parent) :
 
 QString PlanificacionesDias::getSelectFromMainDB()
 {
-    return "";
+    return QString("select Dia, Notas, IDSupervisor, LastUpdate from planificaciondia "
+                   " where LastUpdate >= :LASTUPDATE ;");
 }
 
 QString PlanificacionesDias::getSqlString()

@@ -10,7 +10,8 @@ EstimacionesDias::EstimacionesDias(QObject *parent)
 
 QString EstimacionesDias::getSelectFromMainDB()
 {
-    return "";
+    return QString("select Dia, HorasEstimadas, LastUpdate from planificaciondias "
+                   " where LastUpdate >= :LASTUPDATE ;");
 }
 
 QString EstimacionesDias::getSqlString()

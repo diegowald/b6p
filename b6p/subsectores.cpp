@@ -8,7 +8,8 @@ SubSectores::SubSectores(QObject *parent) :
 
 QString SubSectores::getSelectFromMainDB()
 {
-    return "";
+    return QString("select ID, IDSector, Nombre, Descripcion, LastUpdate from subsectores "
+                   " where LastUpdate >= :LASTUPDATE ;");
 }
 
 QString SubSectores::getSqlString()
