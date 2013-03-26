@@ -43,6 +43,7 @@ TRANSLATIONS = b6p.ts \
 
 win32 {
 INCLUDEPATH += c:/boost/boost_1_53_0
+RC_FILE = b6p.rc
 }
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -150,4 +151,7 @@ FORMS    += mainwindow.ui \
 
 RESOURCES += \
     resources.qrc
+
+OTHER_FILES += \
+    b6p.rc
 

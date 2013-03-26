@@ -145,3 +145,11 @@ void ACollection::setSentFlagIntoDatabase()
     sql = sql.arg(getTableName());
     sqlEngine.executeCommand(sql);
 }
+
+void ACollection::exportTo(const QString &filename)
+{
+    QStringList headers;
+    defineHeaders(headers);
+    //virtual void fillData(QTreeWidget &tree) = 0;
+    QMessageBox::information(NULL, "TODO", "Implementar exportacion a CSV");
+}

@@ -26,6 +26,7 @@ public:
 
     explicit ACollection(QString Name, QString InvariableName, bool useLastInsertId, QObject *parent = 0);
     
+    virtual void exportTo(const QString &filename);
     virtual void load();
     virtual void save();
 

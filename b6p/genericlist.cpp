@@ -1,6 +1,7 @@
 #include "genericlist.h"
 #include "ui_genericlist.h"
 #include "datastore.h"
+#include <QFileDialog>
 
 GenericList::GenericList(int LoggedUser, boost::shared_ptr<ACollection> Model, bool inPlaceEdit, QWidget *parent) :
     QMainWindow(parent),
@@ -144,6 +145,14 @@ void GenericList::on_dataUpdated()
 
 void GenericList::on_actionExport_triggered()
 {
+    QFileDialog dlg(this);
+
+    QString filename =
+            QFileDialog::getSaveFileName(this, tr("Export to..."),
+                                         "", tr("CSV Files (*.csv)"));
+
+    if (filename.size() > 0)
+        model->exportTo(filename);
 }
 
 void GenericList::enableButtonsBasedOnAccess()

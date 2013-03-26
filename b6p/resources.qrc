@@ -420,5 +420,6 @@
         <file>images/glyphicons_417_rss.png</file>
         <file>images/glyphicons_418_skype.png</file>
         <file>images/glyphicons_419_e-mail.png</file>
+        <file alias="app">images/robot-documents.ico</file>
     </qresource>
 </RCC>
