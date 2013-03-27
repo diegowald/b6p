@@ -10,6 +10,25 @@ DlgSynchronization::DlgSynchronization(QWidget *parent) :
     ui->setupUi(this);
     sincro = boost::make_shared<SincroManager>(this);
     fillData();
+
+    connect(sincro.get(), SIGNAL(startingSynchro()),
+            this, SLOT(on_startingSynchro()));
+
+    connect(sincro.get(), SIGNAL(getDataFromCentralDB(QString &Name)),
+            this, SLOT(on_getDataFromCentralDB(QString&)));
+
+    connect(sincro.get(), SIGNAL(applyingChanges(QString &)),
+            this, SLOT(on_applyingChanges(QString&)));
+
+    connect(sincro.get(), SIGNAL(checkingChanges(QString &)),
+            this, SLOT(on_checkingChanges(QString&)));
+
+    connect(sincro.get(), SIGNAL(sendingData(QString &)),
+            this, SLOT(on_sendingData(QString&)));
+
+    connect(sincro.get(), SIGNAL(SynchroEnded()),
+            this, SLOT(on_SynchroEnded()));
+
 }
 
 DlgSynchronization::~DlgSynchronization()
@@ -40,4 +59,58 @@ void DlgSynchronization::on_btnStartSynchro_pressed()
     sincro->runSincro();
 
     ui->buttonBox->setEnabled(true);
+}
+
+void DlgSynchronization::on_startingSynchro()
+{
+    for (int i = 0; i < ui->treeSyncrhonizationStatus->topLevelItemCount(); ++i)
+    {
+        QTreeWidgetItem *item = ui->treeSyncrhonizationStatus->topLevelItem(i);
+        item->setText(1, tr("Starting..."));
+    }
+}
+
+void DlgSynchronization::on_getDataFromCentralDB(QString &tableName)
+{
+    QList<QTreeWidgetItem*> items = ui->treeSyncrhonizationStatus->findItems(tableName, Qt::MatchExactly, 0);
+    foreach(QTreeWidgetItem* item, items)
+    {
+        item->setText(1, tr("Getting data"));
+    }
+}
+
+void DlgSynchronization::on_applyingChanges(QString &tableName)
+{
+    QList<QTreeWidgetItem*> items = ui->treeSyncrhonizationStatus->findItems(tableName, Qt::MatchExactly, 0);
+    foreach(QTreeWidgetItem* item, items)
+    {
+        item->setText(1, tr("Applying changes"));
+    }
+}
+
+void DlgSynchronization::on_checkingChanges(QString &tableName)
+{
+    QList<QTreeWidgetItem*> items = ui->treeSyncrhonizationStatus->findItems(tableName, Qt::MatchExactly, 0);
+    foreach(QTreeWidgetItem* item, items)
+    {
+        item->setText(1, tr("Checking..."));
+    }
+}
+
+void DlgSynchronization::on_sendingData(QString &tableName)
+{
+    QList<QTreeWidgetItem*> items = ui->treeSyncrhonizationStatus->findItems(tableName, Qt::MatchExactly, 0);
+    foreach(QTreeWidgetItem* item, items)
+    {
+        item->setText(1, tr("Sending data"));
+    }
+}
+
+void DlgSynchronization::on_SynchroEnded()
+{
+    for (int i = 0; i < ui->treeSyncrhonizationStatus->topLevelItemCount(); ++i)
+    {
+        QTreeWidgetItem *item = ui->treeSyncrhonizationStatus->topLevelItem(i);
+        item->setText(1, "");
+    }
 }

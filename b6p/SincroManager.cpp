@@ -66,6 +66,7 @@ void SincroManager::obtenerActualizacionesDeBaseCentral()
 {
     foreach(DatabaseSynchronizationPtr db, m_Synchronizationtables)
     {
+        qDebug() << db->name();
         db->getDataFromDB(m_FechaUltimaSincronizacion);
         db->applyChanges();
         db->checkConsistency();

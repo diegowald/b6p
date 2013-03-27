@@ -8,13 +8,13 @@ Sectores::Sectores(QObject *parent) :
 
 QString Sectores::getSelectFromMainDB()
 {
-    return QString("select ID, Nombre, Descripcion, ShowInPlanification, LastUpdate, sent from sectores "
+    return QString("select ID, Nombre, Descripcion, ShowInPlanification, LastUpdate from sectores "
                    " where LastUpdate >= :LASTUPDATE ;");
 }
 
 QString Sectores::getSqlString()
 {
-    return QString("select ID, Nombre, Descripcion, ShowInPlanification from sectores ")
+    return QString("select ID, Nombre, Descripcion, ShowInPlanification, sent from sectores ")
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
