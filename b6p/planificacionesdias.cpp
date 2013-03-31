@@ -74,7 +74,7 @@ QString PlanificacionesDias::getUpdateStatement()
 
 }
 
-QString PlanificacionesDias::getInsertStatement()
+QString PlanificacionesDias::getInsertStatement(bool)
 {
     return QString("insert into planificaciondia "
                    " (Dia, Notas, IDSupervisor, RecordStatus) "

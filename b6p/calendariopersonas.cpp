@@ -66,7 +66,7 @@ QString CalendarioPersonas::getUpdateStatement()
                    " where Dia = :Dia and IDEmpleado = :IDEmpleado;").arg(RECORD_MODIFIED);
 }
 
-QString CalendarioPersonas::getInsertStatement()
+QString CalendarioPersonas::getInsertStatement(bool)
 {
     return QString("insert into calendariopersonas "
             " (Dia, IDEmpleado, HoraIngreso, HoraEgreso, RecordStatus) "

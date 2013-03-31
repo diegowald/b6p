@@ -81,12 +81,18 @@ QString PlanificacionesDiasSubSectores::getUpdateStatement()
                    " where IDRecord = :IDRecord;").arg(RECORD_MODIFIED);
 }
 
-QString PlanificacionesDiasSubSectores::getInsertStatement()
+QString PlanificacionesDiasSubSectores::getInsertStatement(bool IncludeIDs)
 {
-    return QString("insert into planificacionsubsector "
-            " (Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, RecordStatus) "
-                   " values "
-                   " (:Dia, :IDSector, :IDSubSector, :IDEmpleado, :HoraInicio, :HoraFin, %1);").arg(RECORD_NEW);
+    if (IncludeIDs)
+        return QString("insert into planificacionsubsector "
+                       " (IDRecord, Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, RecordStatus) "
+                       " values "
+                       " (:IDRecord, :Dia, :IDSector, :IDSubSector, :IDEmpleado, :HoraInicio, :HoraFin, %1);").arg(RECORD_NEW);
+    else
+        return QString("insert into planificacionsubsector "
+                       " (Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, RecordStatus) "
+                       " values "
+                       " (:Dia, :IDSector, :IDSubSector, :IDEmpleado, :HoraInicio, :HoraFin, %1);").arg(RECORD_NEW);
 }
 
 RecordSet PlanificacionesDiasSubSectores::getRecords(RecordStatus status)

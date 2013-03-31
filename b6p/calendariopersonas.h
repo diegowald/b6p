@@ -21,7 +21,7 @@ public:
     virtual QString getTableName() { return "calendariopersonas"; }
     virtual QString getDeleteStatement();
     virtual QString getUpdateStatement();
-    virtual QString getInsertStatement();
+    virtual QString getInsertStatement(bool IncludeIDs);
     virtual RecordSet getRecords(RecordStatus status);
     virtual RecordSet getUnsent();
     virtual QString getSelectFromMainDB();

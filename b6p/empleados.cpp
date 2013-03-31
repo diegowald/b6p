@@ -73,11 +73,16 @@ QString Empleados::getUpdateStatement()
                    " Legajo = :Legajo, FechaIngreso = :FechaIngreso, RecordStatus = %1  where ID = :RECORD_ID;").arg(RECORD_MODIFIED);
 }
 
-QString Empleados::getInsertStatement()
+QString Empleados::getInsertStatement(bool IncludeIDs)
 {
-    return QString("insert into empleados (ID, Apellido, Nombres, Legajo, FechaIngreso, RecordStatus, isBaja) "
-            " values "
-            "( :RECORD_ID, :Apellido, :Nombres, :Legajo, :FechaIngreso, %1, 0);").arg(RECORD_NEW);
+    if (IncludeIDs)
+        return QString("insert into empleados (ID, Apellido, Nombres, Legajo, FechaIngreso, RecordStatus, isBaja) "
+                       " values "
+                       "( :RECORD_ID, :Apellido, :Nombres, :Legajo, :FechaIngreso, %1, 0);").arg(RECORD_NEW);
+    else
+        return QString("insert into empleados (Apellido, Nombres, Legajo, FechaIngreso, RecordStatus, isBaja) "
+                       " values "
+                       "( :Apellido, :Nombres, :Legajo, :FechaIngreso, %1, 0);").arg(RECORD_NEW);
 }
 
 

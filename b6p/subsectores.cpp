@@ -21,7 +21,7 @@ QString SubSectores::getSqlString()
 QString SubSectores::getSQLExistsInMainDB()
 {
     return QString("select ID, IDSector, Nombre, Descripcion from subsectores "
-                   " where ID = :ID;");
+                   " where ID = :IDSubSector;");
 }
 
 void SubSectores::addRecord(RecordPtr record)
@@ -68,12 +68,18 @@ QString SubSectores::getUpdateStatement()
     return "update subsectores set IDSector = :IDSector, Nombre = :Nombre, Descripcion = :Descripcion where ID = :ID;";
 }
 
-QString SubSectores::getInsertStatement()
+QString SubSectores::getInsertStatement(bool IncludeIDs)
 {
-    return " insert into subsectores "
-            " (IDSector, Nombre, Descripcion) "
-            " values "
-            " (:IDSector, :Nombre, :Descripcion);";
+    if (IncludeIDs)
+        return "insert into subsectores "
+                " (ID, IDSector, Nombre, Descripcion) "
+                " values "
+                " (:RECORD_ID, :IDSector, :Nombre, :Descripcion );";
+    else
+        return " insert into subsectores "
+                " (IDSector, Nombre, Descripcion) "
+                " values "
+                " (:IDSector, :Nombre, :Descripcion );";
 }
 
 RecordSet SubSectores::getRecords(RecordStatus status)

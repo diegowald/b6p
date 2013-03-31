@@ -66,7 +66,7 @@ QString EstimacionesDias::getUpdateStatement()
                    " where Dia = :Dia;").arg(RECORD_MODIFIED);
 }
 
-QString EstimacionesDias::getInsertStatement()
+QString EstimacionesDias::getInsertStatement(bool)
 {
     return QString("insert into planificaciondias (Dia, HorasEstimadas, RecordStatus) "
                    " values "

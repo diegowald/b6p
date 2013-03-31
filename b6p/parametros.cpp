@@ -61,7 +61,7 @@ QString Parametros::getUpdateStatement()
     return "update parametros set Value = :Value where Key = :Key;";
 }
 
-QString Parametros::getInsertStatement()
+QString Parametros::getInsertStatement(bool)
 {
     return "insert into parametros (Key, Value) values (:Key, :Value);";
 }

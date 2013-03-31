@@ -74,9 +74,15 @@ QString Sectores::getUpdateStatement()
     return "update sectores set Nombre = :Nombre, Descripcion = :Descripcion where ID = :ID;";
 }
 
-QString Sectores::getInsertStatement()
+QString Sectores::getInsertStatement(bool IncludeIDs)
 {
-    return "insert into sectores "
+    if (IncludeIDs)
+        return "insert into sectores "
+                " (ID, Nombre, Descripcion) "
+                " values "
+                " (:RECORD_ID, :Nombre, :Descripcion);";
+    else
+        return "insert into sectores "
             " (Nombre, Descripcion) "
             " values "
             " (:Nombre, :Descripcion);";

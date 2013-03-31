@@ -54,7 +54,7 @@ public:
     virtual QString getTableName() = 0;
     virtual QString getDeleteStatement() = 0;
     virtual QString getUpdateStatement() = 0;
-    virtual QString getInsertStatement() = 0;
+    virtual QString getInsertStatement(bool IncludeIDs) = 0;
     virtual QString getSQLExistsInMainDB() = 0;
     virtual RecordSet getRecords(RecordStatus status) = 0;
     virtual RecordSet getUnsent() = 0;

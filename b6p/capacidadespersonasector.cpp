@@ -106,7 +106,7 @@ QString CapacidadesPersonaSector::getUpdateStatement()
                    " and IDEmpleado = :IDEmpleado;").arg(RECORD_MODIFIED);
 }
 
-QString CapacidadesPersonaSector::getInsertStatement()
+QString CapacidadesPersonaSector::getInsertStatement(bool)
 {
     return QString("insert into capacidadespersonassector "
                    " (IDSector, IDSubSector, IDEmpleado, Capacidad, RecordStatus) "

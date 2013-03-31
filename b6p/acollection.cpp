@@ -53,7 +53,7 @@ void ACollection::updateRecordsToDB()
 
 void ACollection::addNewRecordsToDB()
 {
-    executeCommand(getInsertStatement(), NEW);
+    executeCommand(getInsertStatement(false), NEW);
 }
 
 void ACollection::executeCommand(QString cmd, RecordStatus status)

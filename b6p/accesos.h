@@ -39,7 +39,7 @@ public:
     virtual QString getTableName() { return "access"; }
     virtual QString getDeleteStatement() { return ""; }
     virtual QString getUpdateStatement() { return ""; }
-    virtual QString getInsertStatement() { return ""; }
+    virtual QString getInsertStatement(bool) { return ""; }
     virtual QString getSQLExistsInMainDB() { return ""; }
 
     virtual RecordSet getRecords(RecordStatus);

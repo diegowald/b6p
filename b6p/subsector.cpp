@@ -21,10 +21,11 @@ RecordPtr SubSector::asRecordPtr()
     RecordPtr res = boost::make_shared<Record>();
 
     (*res)["IDSector"] = m_IDSector.toVariant();
-    (*res)["ID"] = m_IDSubSector.toVariant();
+    (*res)["IDSubSector"] = m_IDSubSector.toVariant();
     (*res)["Nombre"] = m_Nombre.toVariant();
     (*res)["Descripcion"] = m_Descripcion.toVariant();
 
+    (*res)[RECORD_ID] = m_IDSubSector.toVariant();
     return res;
 }
 

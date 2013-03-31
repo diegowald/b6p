@@ -38,7 +38,7 @@ public:
     virtual QString getTableName() { return "empleados"; }
     virtual QString getDeleteStatement();
     virtual QString getUpdateStatement();
-    virtual QString getInsertStatement();
+    virtual QString getInsertStatement(bool IncludeIDs);
     virtual QString getSQLExistsInMainDB();
     virtual RecordSet getRecords(RecordStatus status);
     virtual RecordSet getUnsent();
