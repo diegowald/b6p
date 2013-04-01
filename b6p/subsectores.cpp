@@ -176,6 +176,11 @@ void SubSectores::defineHeaders(QStringList &)
 {
 }
 
+boost::shared_ptr<QList<QStringList> > SubSectores::getAll()
+{
+    return boost::make_shared<QList<QStringList> >();
+}
+
 void SubSectores::fillData(QTreeWidget &)
 {
 }

@@ -136,6 +136,11 @@ void PlanificacionesDiasSubSectores::defineHeaders(QStringList &)
 {
 }
 
+boost::shared_ptr<QList<QStringList> > PlanificacionesDiasSubSectores::getAll()
+{
+    return boost::make_shared<QList<QStringList> >();
+}
+
 void PlanificacionesDiasSubSectores::fillData(QTreeWidget &)
 {
 }

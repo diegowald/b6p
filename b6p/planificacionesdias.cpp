@@ -126,6 +126,25 @@ void PlanificacionesDias::defineHeaders(QStringList &list)
          << tr("Planned hours") << tr("Status");
 }
 
+boost::shared_ptr<QList<QStringList> > PlanificacionesDias::getAll()
+{
+    boost::shared_ptr<QList<QStringList> > res = boost::make_shared<QList<QStringList> >();
+
+    PlanificacionDiaLst lst = getAll(false);
+
+    foreach(PlanificacionDiaPtr p, *lst)
+    {
+        QStringList r;
+        r << p->Dia().value().toString()
+          << p->Supervisor()->Apellido().value() + ", " + p->Supervisor()->Nombre().value()
+          << QString::number(p->Estimacion()->EstimacionHoras().value())
+          << QString::number(p->HorasPlanificadas())
+          << p->Estado();
+        res->push_back(r);
+    }
+    return res;
+}
+
 void PlanificacionesDias::fillData(QTreeWidget &tree)
 {
     foreach(PlanificacionDiaPtr p, m_Planificaciones.values())

@@ -155,6 +155,11 @@ void CapacidadesPersonaSector::defineHeaders(QStringList &)
 {
 }
 
+boost::shared_ptr<QList<QStringList> > CapacidadesPersonaSector::getAll()
+{
+    return boost::make_shared<QList<QStringList> >();
+}
+
 void CapacidadesPersonaSector::fillData(QTreeWidget &)
 {
 }

@@ -27,6 +27,7 @@ public:
     virtual QString getSelectFromMainDB();
 
     virtual void defineHeaders(QStringList &list);
+    virtual boost::shared_ptr<QList<QStringList> > getAll();
     virtual void fillData(QTreeWidget &tree);
     virtual bool isColumnEditable(QVariant ID, int column);
     virtual boost::shared_ptr<QList<QAction *> > getActions();

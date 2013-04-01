@@ -2,6 +2,7 @@
 #include <QSqlRecord>
 #include <QSqlField>
 #include <QMessageBox>
+#include <QFile>
 
 ACollection::ACollection(QString Name, QString InvariableName, bool useLastInsertId, QObject *parent) :
     QObject(parent),
@@ -148,8 +149,31 @@ void ACollection::setSentFlagIntoDatabase()
 
 void ACollection::exportTo(const QString &filename)
 {
-    QStringList headers;
-    defineHeaders(headers);
-    //virtual void fillData(QTreeWidget &tree) = 0;
-    QMessageBox::information(NULL, "TODO", "Implementar exportacion a CSV");
+    QString fileName = (filename.toLower().endsWith(".csv") ? filename: filename + ".csv");
+    QFile file(fileName);
+    if (file.open(QFile::WriteOnly))
+    {
+        QTextStream st(&file);
+        QStringList headers;
+        defineHeaders(headers);
+        QString r = "\"" + headers.join("\",\"") + "\"\n";
+        st << r;
+
+        boost::shared_ptr<QList<QStringList> > records = getAll();
+
+        foreach(QStringList record, *records)
+        {
+            QString r = "\"" + record.join("\",\"") + "\"\n";
+            st << r;
+        }
+        QMessageBox::information(NULL,
+                                 tr("Export to CSV"),
+                                 tr("Successfuly exported!"));
+    }
+    else
+    {
+        QMessageBox::information(NULL,
+                                 tr("Export to CSV Error"),
+                                 tr("Couldn't open file."));
+    }
 }

@@ -147,9 +147,12 @@ void GenericList::on_actionExport_triggered()
 {
     QFileDialog dlg(this);
 
+    QString suggestedName = model->suggestedFileName();
+
     QString filename =
             QFileDialog::getSaveFileName(this, tr("Export to..."),
-                                         "", tr("CSV Files (*.csv)"));
+                                         "./" + suggestedName,
+                                         tr("CSV Files (*.csv)"));
 
     if (filename.size() > 0)
         model->exportTo(filename);

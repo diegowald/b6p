@@ -131,6 +131,24 @@ void EstimacionesDias::defineHeaders(QStringList &list)
     list << tr("Date") << tr("Hours estimation") << tr("Planned");
 }
 
+boost::shared_ptr<QList<QStringList> > EstimacionesDias::getAll()
+{
+    boost::shared_ptr<QList<QStringList> > res = boost::make_shared<QList<QStringList> >();
+
+    EstimacionDiaLst lst = getAll(false);
+
+    foreach(EstimacionDiaPtr e, *lst)
+    {
+        QStringList r;
+        r << e->Dia().value().toString()
+          << QString::number(e->EstimacionHoras().value())
+          << (e->isPlanned() ? tr("Planned") : tr("Not Planned"));
+        res->push_back(r);
+    }
+
+    return res;
+}
+
 bool EstimacionesDias::isColumnEditable(QVariant ID, int column)
 {
     EstimacionDiaPtr ptr = m_Estimaciones[ID.toDate()];

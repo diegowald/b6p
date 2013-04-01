@@ -35,6 +35,7 @@ public:
     virtual bool exists(RecordPtr record);
 
     virtual void defineHeaders(QStringList &list);
+    virtual boost::shared_ptr<QList<QStringList> > getAll();
     virtual void fillData(QTreeWidget &tree);
     virtual QString getTableName() { return "access"; }
     virtual QString getDeleteStatement() { return ""; }

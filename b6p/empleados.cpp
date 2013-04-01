@@ -182,6 +182,25 @@ void Empleados::defineHeaders(QStringList &list)
             << tr("Start");
 }
 
+boost::shared_ptr<QList<QStringList> > Empleados::getAll()
+{
+    boost::shared_ptr<QList<QStringList> > res = boost::make_shared<QList<QStringList> >();
+
+    EmpleadosLst lst = getAll(false);
+
+    foreach(EmpleadoPtr e, *lst)
+    {
+        QStringList r;
+        r << e->Apellido().value()
+          << e->Nombre().value()
+          << e->Legajo().value()
+          << e->FechaIngreso().value().toString();
+        res->push_back(r);
+    }
+
+    return res;
+}
+
 void Empleados::fillData(QTreeWidget &tree)
 {
     tree.clear();

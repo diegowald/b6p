@@ -33,6 +33,7 @@ public:
     QString &name();
     QString invariableName() const;
 
+    virtual QString suggestedFileName() { return name(); }
     virtual QString getSqlString() = 0;
     virtual void addRecord(RecordPtr record) = 0;
 
@@ -41,6 +42,7 @@ public:
     virtual void deleteRecord(RecordPtr record) = 0;
 
     virtual void defineHeaders(QStringList &list) = 0;
+    virtual boost::shared_ptr<QList<QStringList> > getAll() = 0;
     virtual void fillData(QTreeWidget &tree) = 0;
     virtual bool isColumnEditable(QVariant, int) { return false; }
     virtual boost::shared_ptr<QList<QAction*> > getActions() { return boost::make_shared<QList<QAction*> >(); }

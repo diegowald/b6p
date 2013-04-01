@@ -103,6 +103,11 @@ void Parametros::defineHeaders(QStringList &)
 {
 }
 
+boost::shared_ptr<QList<QStringList> > Parametros::getAll()
+{
+    return boost::make_shared<QList<QStringList> >();
+}
+
 void Parametros::fillData(QTreeWidget &)
 {
 }

@@ -63,6 +63,11 @@ void Accesos::defineHeaders(QStringList &)
 {
 }
 
+boost::shared_ptr<QList<QStringList> > Accesos::getAll()
+{
+    return boost::shared_ptr<QList<QStringList> >();
+}
+
 void Accesos::fillData(QTreeWidget &)
 {
 }

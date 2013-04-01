@@ -1,4 +1,5 @@
 #include "calendariopersonas.h"
+#include <boost/make_shared.hpp>
 
 CalendarioPersonas::CalendarioPersonas(QObject *parent) :
     ACollection(tr("Employee availability"),
@@ -113,6 +114,11 @@ RecordSet CalendarioPersonas::getUnsent()
 
 void CalendarioPersonas::defineHeaders(QStringList &)
 {
+}
+
+boost::shared_ptr<QList<QStringList> > CalendarioPersonas::getAll()
+{
+    return boost::make_shared<QList<QStringList> >();
 }
 
 void CalendarioPersonas::fillData(QTreeWidget &)

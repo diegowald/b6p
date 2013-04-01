@@ -25,7 +25,8 @@ public:
     virtual RecordSet getRecords(RecordStatus status);
     virtual RecordSet getUnsent();
     virtual QString getSelectFromMainDB();
-    virtual void defineHeaders(QStringList &list) ;
+    virtual void defineHeaders(QStringList &list);
+    virtual boost::shared_ptr<QList<QStringList> > getAll();
     virtual void fillData(QTreeWidget &tree);
     virtual bool addNew();
     virtual bool addNew(QTreeWidgetItem *) { return false; }
