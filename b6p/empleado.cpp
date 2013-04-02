@@ -110,21 +110,25 @@ void Empleado::updateID(int newId)
     setUnmodified();
 }
 
-bool Empleado::canWork(DAYS Dia, int IDSector, int IDSubSector, int HoraInicio, int HoraFin)
+int Empleado::canWork(DAYS Dia, int IDSector, int IDSubSector, int HoraInicio, int HoraFin)
 {
     // Verifico si puede trabajar en el sector y subsector
     CapacidadPersonaSectorPtr cap =
             DataStore::instance()->getCapacidades()->get(idEmpleado.value(), IDSector, IDSubSector, false);
     if (cap.get() == NULL)
-        return false;
+        return 0;
 
-    // Verfico si puede trabajar el dia en la franja horaria.
+    // Verifico si puede trabajar el dia en la franja horaria.
     CalendarioPersonaPtr cal = DataStore::instance()->getCalendarios()->get(
                 idEmpleado.value(), Dia, HoraInicio, HoraFin, false);
-    if (cal.get() == NULL)
-        return false;
 
-    return true;
+    // Aca pueden darse varios casos. POr ahora solo vamos a contemplar que el empleado
+    // efectivamente pueda trabajar en esa franja horaria.
+
+    if (cal.get() == NULL)
+        return 0;
+
+    return cap->Capacidad().value(); // A esto habria que afectarlo
 }
 
 bool Empleado::canBeDeleted()

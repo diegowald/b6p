@@ -160,17 +160,24 @@ EmpleadosLst Empleados::getAll(bool includeDeleted)
 EmpleadosLst Empleados::getAll(int IDSector, int IDSubSector, DAYS Dia, int HoraInicio, int HoraFin, bool includeDeleted)
 {
     EmpleadosLst res = boost::make_shared<QList<EmpleadoPtr> >();
+    QMap<int, EmpleadoPtr> candidates;
     foreach(EmpleadoPtr e, m_Empleados.values())
     {
-        if (e->canWork(Dia, IDSector, IDSubSector, HoraInicio, HoraFin))
+        int capacity = e->canWork(Dia, IDSector, IDSubSector, HoraInicio, HoraFin);
+        if (capacity > 0)
         {
-            if (!e->isDeleted())
-                res->push_back(e);
-            else
-                if (includeDeleted)
-                    res->push_back(e);
+
+            if (!e->isDeleted() || includeDeleted)
+                candidates[capacity] = e;
+/*            else
+                if (includeDeleted)                    
+                    res->push_back(e);*/
         }
     }
+    Aca tengo que generar la lista a partir de los elementos ordenados por capacidad
+
+    for ()
+    foreach(EmpleadoPtr e, candidates.end();
     return res;
 }
 

@@ -33,7 +33,7 @@ public:
     virtual RecordPtr asRecordPtr();
 
     bool DadoDeBaja();
-    bool canWork(DAYS Dia, int IDSector, int IDSubSector, int HoraInicio, int HoraFin);
+    int canWork(DAYS Dia, int IDSector, int IDSubSector, int HoraInicio, int HoraFin);
     bool canBeDeleted();
 
 signals:
