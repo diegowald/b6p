@@ -97,13 +97,13 @@ void TimeAssignmentItemEdit::llenarEmpleados()
     int HoraInicio = ui->timeInicio->timeSeconds();
     int HoraFin = ui->timeFin->timeSeconds();
 
-    EmpleadosLst emps = DataStore::instance()->getEmpleados()->getAll(IDSector, IDSubSector, Dia, HoraInicio, HoraFin, false);
+    EmployeeCalculatedCapacityLst emps = DataStore::instance()->getEmpleados()->getAll(IDSector, IDSubSector, Dia, HoraInicio, HoraFin, false);
     ui->cboEmpleado->clear();
-    foreach(EmpleadoPtr e, *emps)
+    foreach(EmployeeCalculatedCapacityPtr e, *emps)
     {
         QString nombre = "%1, %2";
-        nombre = nombre.arg(e->Apellido().value()).arg(e->Nombre().value());
-        ui->cboEmpleado->addItem(nombre, e->IDEmpleado().value());
+        nombre = nombre.arg(e->EmpleadoAsignado()->Apellido().value()).arg(e->EmpleadoAsignado()->Nombre().value());
+        ui->cboEmpleado->addItem(nombre, e->EmpleadoAsignado()->IDEmpleado().value());
     }
 }
 

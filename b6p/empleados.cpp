@@ -157,27 +157,31 @@ EmpleadosLst Empleados::getAll(bool includeDeleted)
     return res;
 }
 
-EmpleadosLst Empleados::getAll(int IDSector, int IDSubSector, DAYS Dia, int HoraInicio, int HoraFin, bool includeDeleted)
+EmployeeCalculatedCapacityLst Empleados::getAll(int IDSector, int IDSubSector, DAYS Dia, int HoraInicio, int HoraFin, bool includeDeleted)
 {
-    EmpleadosLst res = boost::make_shared<QList<EmpleadoPtr> >();
-    QMap<int, EmpleadoPtr> candidates;
+    EmployeeCalculatedCapacityLst res = boost::make_shared<QList<EmployeeCalculatedCapacityPtr> >();
+    QMap<int, EmployeeCalculatedCapacityPtr> candidates;
     foreach(EmpleadoPtr e, m_Empleados.values())
     {
-        int capacity = e->canWork(Dia, IDSector, IDSubSector, HoraInicio, HoraFin);
-        if (capacity > 0)
+        EmployeeCalculatedCapacityPtr capacity = e->canWork(Dia, IDSector, IDSubSector, HoraInicio, HoraFin);
+        if (capacity->Capacity() > 0)
         {
-
             if (!e->isDeleted() || includeDeleted)
-                candidates[capacity] = e;
-/*            else
-                if (includeDeleted)                    
-                    res->push_back(e);*/
+                candidates[capacity->Capacity()] = capacity;
         }
     }
-    Aca tengo que generar la lista a partir de los elementos ordenados por capacidad
 
-    for ()
-    foreach(EmpleadoPtr e, candidates.end();
+    if (candidates.count() > 0)
+    {
+        QMap<int, EmployeeCalculatedCapacityPtr>::const_iterator it = --candidates.constEnd();
+        while (it != candidates.constBegin())
+        {
+            res->push_back(it.value());
+            --it;
+        }
+        res->push_back(it.value());
+    }
+
     return res;
 }
 

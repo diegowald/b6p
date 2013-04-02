@@ -11,6 +11,39 @@
 #include "calendariopersona.h"
 #include "days.h"
 
+
+class Empleado;
+typedef boost::shared_ptr<Empleado> EmpleadoPtr;
+typedef boost::shared_ptr<QList<EmpleadoPtr> > EmpleadosLst;
+
+class EmployeeCalculatedCapacity : public QObject
+{
+    Q_OBJECT
+public:
+    explicit EmployeeCalculatedCapacity(Empleado* parentEmpleado, QObject *parent = 0);
+
+    void setCapacity(int value);
+    void setHorasPreviamenteTrabajadas(int value);
+    void setDiasPreviamenteTrabajados(int value);
+
+    Empleado *EmpleadoAsignado();
+    int Capacity();
+    int HorasPreviamenteTrabajadas();
+    int DiasPreviamenteTrabajados();
+signals:
+
+public slots:
+
+private:
+    Empleado* empleado;
+    int capacityForTask;
+    int horasPreviamenteTrabajadas;
+    int diasPreviamenteTrabajados;
+};
+
+typedef boost::shared_ptr<EmployeeCalculatedCapacity> EmployeeCalculatedCapacityPtr;
+typedef boost::shared_ptr<QList<EmployeeCalculatedCapacityPtr> > EmployeeCalculatedCapacityLst;
+
 class Empleado : public QObject, public IRecord
 {
     Q_OBJECT
@@ -33,7 +66,7 @@ public:
     virtual RecordPtr asRecordPtr();
 
     bool DadoDeBaja();
-    int canWork(DAYS Dia, int IDSector, int IDSubSector, int HoraInicio, int HoraFin);
+    EmployeeCalculatedCapacityPtr canWork(DAYS Dia, int IDSector, int IDSubSector, int HoraInicio, int HoraFin);
     bool canBeDeleted();
 
 signals:
@@ -49,7 +82,5 @@ private:
     NullableField<bool> isBaja;
 };
 
-typedef boost::shared_ptr<Empleado> EmpleadoPtr;
-typedef boost::shared_ptr<QList<EmpleadoPtr> > EmpleadosLst;
 
 #endif // EMPLEADO_H

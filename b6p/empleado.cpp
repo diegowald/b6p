@@ -1,6 +1,49 @@
 #include "empleado.h"
 #include "datastore.h"
 
+EmployeeCalculatedCapacity::EmployeeCalculatedCapacity(Empleado* parentEmpleado, QObject *parent) :
+    QObject(parent)
+{
+    empleado = parentEmpleado;
+}
+
+void EmployeeCalculatedCapacity::setCapacity(int value)
+{
+    capacityForTask = value;
+}
+
+void EmployeeCalculatedCapacity::setHorasPreviamenteTrabajadas(int value)
+{
+    horasPreviamenteTrabajadas = value;
+}
+
+void EmployeeCalculatedCapacity::setDiasPreviamenteTrabajados(int value)
+{
+    diasPreviamenteTrabajados = value;
+}
+
+Empleado* EmployeeCalculatedCapacity::EmpleadoAsignado()
+{
+    return empleado;
+}
+
+int EmployeeCalculatedCapacity::Capacity()
+{
+    return capacityForTask;
+}
+
+int EmployeeCalculatedCapacity::HorasPreviamenteTrabajadas()
+{
+    return horasPreviamenteTrabajadas;
+}
+
+int EmployeeCalculatedCapacity::DiasPreviamenteTrabajados()
+{
+    return diasPreviamenteTrabajados;
+}
+
+
+
 Empleado::Empleado(bool isNew, QObject *parent) :
     QObject(parent)
 {
@@ -110,13 +153,14 @@ void Empleado::updateID(int newId)
     setUnmodified();
 }
 
-int Empleado::canWork(DAYS Dia, int IDSector, int IDSubSector, int HoraInicio, int HoraFin)
+EmployeeCalculatedCapacityPtr Empleado::canWork(DAYS Dia, int IDSector, int IDSubSector, int HoraInicio, int HoraFin)
 {
+    EmployeeCalculatedCapacityPtr res = boost::make_shared<EmployeeCalculatedCapacity>(this, this);
     // Verifico si puede trabajar en el sector y subsector
     CapacidadPersonaSectorPtr cap =
             DataStore::instance()->getCapacidades()->get(idEmpleado.value(), IDSector, IDSubSector, false);
     if (cap.get() == NULL)
-        return 0;
+        res->setCapacity(0);
 
     // Verifico si puede trabajar el dia en la franja horaria.
     CalendarioPersonaPtr cal = DataStore::instance()->getCalendarios()->get(
@@ -126,9 +170,11 @@ int Empleado::canWork(DAYS Dia, int IDSector, int IDSubSector, int HoraInicio, i
     // efectivamente pueda trabajar en esa franja horaria.
 
     if (cal.get() == NULL)
-        return 0;
+        res->setCapacity(0);
+    else
+        res->setCapacity(cap->Capacidad().value()); // A esto habria que afectarlo
 
-    return cap->Capacidad().value(); // A esto habria que afectarlo
+    return res;
 }
 
 bool Empleado::canBeDeleted()
