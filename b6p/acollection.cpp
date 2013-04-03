@@ -156,15 +156,15 @@ void ACollection::exportTo(const QString &filename)
         QTextStream st(&file);
         QStringList headers;
         defineHeaders(headers);
-        QString r = "\"" + headers.join("\",\"") + "\"\n";
-        st << r;
+        QString r = "\"" + headers.join("\",\"") + "\"";
+        st << r << endl;
 
         boost::shared_ptr<QList<QStringList> > records = getAll();
 
         foreach(QStringList record, *records)
         {
-            QString r = "\"" + record.join("\",\"") + "\"\n";
-            st << r;
+            QString r = "\"" + record.join("\",\"") + "\"";
+            st << r << endl;
         }
         QMessageBox::information(NULL,
                                  tr("Export to CSV"),
