@@ -5,6 +5,7 @@ EmployeeCalculatedCapacity::EmployeeCalculatedCapacity(Empleado* parentEmpleado,
     QObject(parent)
 {
     empleado = parentEmpleado;
+    capacityForTask = -1000;
 }
 
 void EmployeeCalculatedCapacity::setCapacity(int value)
@@ -160,7 +161,11 @@ EmployeeCalculatedCapacityPtr Empleado::canWork(DAYS Dia, int IDSector, int IDSu
     CapacidadPersonaSectorPtr cap =
             DataStore::instance()->getCapacidades()->get(idEmpleado.value(), IDSector, IDSubSector, false);
     if (cap.get() == NULL)
+    {
         res->setCapacity(0);
+        return res;
+    }
+
 
     // Verifico si puede trabajar el dia en la franja horaria.
     CalendarioPersonaPtr cal = DataStore::instance()->getCalendarios()->get(
@@ -170,8 +175,12 @@ EmployeeCalculatedCapacityPtr Empleado::canWork(DAYS Dia, int IDSector, int IDSu
     // efectivamente pueda trabajar en esa franja horaria.
 
     if (cal.get() == NULL)
+    {
         res->setCapacity(0);
-    else
+        return res;
+    }
+
+    if (cap.get() != NULL)
         res->setCapacity(cap->Capacidad().value()); // A esto habria que afectarlo
 
     return res;

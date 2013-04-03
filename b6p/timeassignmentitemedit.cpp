@@ -16,6 +16,7 @@ TimeAssignmentItemEdit::TimeAssignmentItemEdit(QWidget *parent) :
                                   DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
     ui->timeFin->setValidRange(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0),
                                DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
+    ui->timeFin->setTime(DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
 
 
     connect(ui->timeInicio, SIGNAL(timeChanged(int)), this, SLOT(on_timeInicio_TimeChanged(int)));
