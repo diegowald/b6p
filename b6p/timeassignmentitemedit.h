@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QDate>
 #include <QVariant>
+#include "empleado.h"
 
 namespace Ui {
 class TimeAssignmentItemEdit;
@@ -57,10 +58,14 @@ private slots:
 
     void on_cboSubsectores_currentIndexChanged(int index);
 
+    void on_cboEmpleado_currentIndexChanged(int index);
+
 private:
     Ui::TimeAssignmentItemEdit *ui;
     QDate date;
     QVariant m_Data;
+    EmployeeCalculatedCapacityLst emps;
+    bool loadingData;
 };
 
 #endif // TIMEASSIGNMENTITEMEDIT_H

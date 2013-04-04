@@ -2,6 +2,8 @@
 #include "ui_timeassignmentitemedit.h"
 #include "datastore.h"
 #include "days.h"
+#include <QMessageBox>
+
 
 TimeAssignmentItemEdit::TimeAssignmentItemEdit(QWidget *parent) :
     QWidget(parent),
@@ -24,7 +26,7 @@ TimeAssignmentItemEdit::TimeAssignmentItemEdit(QWidget *parent) :
 
     ui->widget->setInitialTimeline(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0));
     ui->widget->setFinalTimeline(DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
-
+    loadingData = false;
     llenarSectores();
 }
 
@@ -98,7 +100,8 @@ void TimeAssignmentItemEdit::llenarEmpleados()
     int HoraInicio = ui->timeInicio->timeSeconds();
     int HoraFin = ui->timeFin->timeSeconds();
 
-    EmployeeCalculatedCapacityLst emps = DataStore::instance()->getEmpleados()->getAll(IDSector, IDSubSector, Dia, HoraInicio, HoraFin, false);
+    loadingData = true;
+    emps = DataStore::instance()->getEmpleados()->getAll(IDSector, IDSubSector, Dia, HoraInicio, HoraFin, false);
     ui->cboEmpleado->clear();
     foreach(EmployeeCalculatedCapacityPtr e, *emps)
     {
@@ -106,6 +109,7 @@ void TimeAssignmentItemEdit::llenarEmpleados()
         nombre = nombre.arg(e->EmpleadoAsignado()->Apellido().value()).arg(e->EmpleadoAsignado()->Nombre().value());
         ui->cboEmpleado->addItem(nombre, e->EmpleadoAsignado()->IDEmpleado().value());
     }
+    loadingData = false;
 }
 
 double TimeAssignmentItemEdit::CantidadHoras()
@@ -182,12 +186,16 @@ void TimeAssignmentItemEdit::setIDSubSectorNull()
 
 void TimeAssignmentItemEdit::setIDEmpleado(int value)
 {
+    loadingData = true;
     ui->cboEmpleado->setCurrentIndex(ui->cboEmpleado->findData(value));
+    loadingData = true;
 }
 
 void TimeAssignmentItemEdit::setIDEmpleadoNull()
 {
+    loadingData = true;
     ui->cboEmpleado->setCurrentIndex(-1);
+    loadingData = true;
 }
 
 void TimeAssignmentItemEdit::setHoraInicio(int value)
@@ -208,4 +216,38 @@ void TimeAssignmentItemEdit::setData(QVariant data)
 QVariant TimeAssignmentItemEdit::data()
 {
     return m_Data;
+}
+
+void TimeAssignmentItemEdit::on_cboEmpleado_currentIndexChanged(int index)
+{
+    if (loadingData)
+        return;
+
+    // Obtengo la capacidad calculada del empleado.
+    EmployeeCalculatedCapacityPtr ec;
+    foreach(ec, *emps)
+    {
+        if (ec->EmpleadoAsignado()->IDEmpleado().value() == ui->cboEmpleado->itemData(index, Qt::UserRole))
+            break;
+    }
+
+    if (ec->hasWarnings())
+    {
+        if (QMessageBox::question(this,
+                                  tr("Warning: overwork detected"),
+                                  tr("Allow overwork?"),
+                                  QMessageBox::Yes | QMessageBox::No,
+                                  QMessageBox::No) == QMessageBox::No)
+        {
+            ui->widget->setAssignmentColor(Qt::red);
+            return;
+        }
+    }
+
+    if (ec->DiasPreviamenteTrabajados() > DataStore::instance()->getParametros()->getValue(Parametros::MAX_DAYS_BETWEEN_FREE_DAY, 365))
+        ui->widget->setAssignmentColor(Qt::darkYellow);
+    else if (ec->HorasPreviamenteTrabajadas() > 2)
+        ui->widget->setAssignmentColor(Qt::yellow);
+    else
+        ui->widget->setAssignmentColor(Qt::darkGreen);
 }

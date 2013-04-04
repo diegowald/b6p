@@ -23,13 +23,13 @@ public:
     explicit EmployeeCalculatedCapacity(Empleado* parentEmpleado, QObject *parent = 0);
 
     void setCapacity(int value);
-    void setHorasPreviamenteTrabajadas(int value);
-    void setDiasPreviamenteTrabajados(int value);
 
     Empleado *EmpleadoAsignado();
     int Capacity();
     int HorasPreviamenteTrabajadas();
     int DiasPreviamenteTrabajados();
+
+    bool hasWarnings();
 signals:
 
 public slots:
@@ -37,8 +37,6 @@ public slots:
 private:
     Empleado* empleado;
     int capacityForTask;
-    int horasPreviamenteTrabajadas;
-    int diasPreviamenteTrabajados;
 };
 
 typedef boost::shared_ptr<EmployeeCalculatedCapacity> EmployeeCalculatedCapacityPtr;

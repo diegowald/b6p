@@ -13,16 +13,6 @@ void EmployeeCalculatedCapacity::setCapacity(int value)
     capacityForTask = value;
 }
 
-void EmployeeCalculatedCapacity::setHorasPreviamenteTrabajadas(int value)
-{
-    horasPreviamenteTrabajadas = value;
-}
-
-void EmployeeCalculatedCapacity::setDiasPreviamenteTrabajados(int value)
-{
-    diasPreviamenteTrabajados = value;
-}
-
 Empleado* EmployeeCalculatedCapacity::EmpleadoAsignado()
 {
     return empleado;
@@ -35,14 +25,21 @@ int EmployeeCalculatedCapacity::Capacity()
 
 int EmployeeCalculatedCapacity::HorasPreviamenteTrabajadas()
 {
-    return horasPreviamenteTrabajadas;
+#warning terminar esta funcion
+    return 8;
 }
 
 int EmployeeCalculatedCapacity::DiasPreviamenteTrabajados()
 {
-    return diasPreviamenteTrabajados;
+#warning terminar esta funcion
+    return 7;
 }
 
+bool EmployeeCalculatedCapacity::hasWarnings()
+{
+#warning "Terminar"
+    return true;
+}
 
 
 Empleado::Empleado(bool isNew, QObject *parent) :
