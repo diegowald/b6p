@@ -31,14 +31,17 @@ int EmployeeCalculatedCapacity::HorasPreviamenteTrabajadas()
 
 int EmployeeCalculatedCapacity::DiasPreviamenteTrabajados()
 {
+#warning primer version
+#warning se calculan los dias previos.
 #warning terminar esta funcion
     return 7;
 }
 
 bool EmployeeCalculatedCapacity::hasWarnings()
 {
-#warning "Terminar"
-    return true;
+    return (HorasPreviamenteTrabajadas() < DataStore::instance()->getParametros()->getValue(Parametros::MIN_WORKING_HOURS, 0))
+            ||
+            (DiasPreviamenteTrabajados() > DataStore::instance()->getParametros()->getValue(Parametros::MAX_DAYS_BETWEEN_FREE_DAY, 0));
 }
 
 
