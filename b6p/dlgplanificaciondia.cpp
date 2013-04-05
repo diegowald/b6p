@@ -35,6 +35,7 @@ void DlgPlanificacionDia::setData(PlanificacionDiaPtr data)
         QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget);
         ui->treeWidget->addTopLevelItem(item);
         TimeAssignmentItemEdit *time = new TimeAssignmentItemEdit();
+        connect(time, SIGNAL(calcularHoras(int,int&)), this, SLOT(on_calcularHoras(int,int&)));
         time->setDate(m_Dia);
         time->setData(plan->IDRecord().value());
 
@@ -65,6 +66,7 @@ void DlgPlanificacionDia::on_btnAdd_pressed()
     QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget);
     ui->treeWidget->addTopLevelItem(item);
     TimeAssignmentItemEdit *time = new TimeAssignmentItemEdit();
+    connect(time, SIGNAL(calcularHoras(int,int&)), this, SLOT(on_calcularHoras(int,int&)));
     time->setDate(m_Dia);
     newID++;
     time->setData(-newID);
@@ -158,5 +160,18 @@ void DlgPlanificacionDia::on_btnDelete_pressed()
             SubsectorsToDelete.push_back(time->data().toInt());
         }
         delete item;
+    }
+}
+
+void DlgPlanificacionDia::on_calcularHoras(int IDEmpleado, int &horas)
+{
+    for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
+    {
+        QTreeWidgetItem *item = ui->treeWidget->topLevelItem(i);
+        TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 0));
+        PlanificacionSubSectorPtr ptr = boost::make_shared<PlanificacionSubSector>();
+
+        if (time->IDEmpleado() == IDEmpleado)
+            horas += (time->HoraFin() - time->HoraInicio()) / 3600;
     }
 }

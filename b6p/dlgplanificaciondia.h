@@ -30,6 +30,7 @@ private slots:
     void slot_AssignmentChanged(int from, int to);
 
     void on_btnDelete_pressed();
+    void on_calcularHoras(int IDEmpleado, int& horas);
 
 private:
     Ui::DlgPlanificacionDia *ui;

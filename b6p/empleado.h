@@ -20,7 +20,7 @@ class EmployeeCalculatedCapacity : public QObject
 {
     Q_OBJECT
 public:
-    explicit EmployeeCalculatedCapacity(Empleado* parentEmpleado, QObject *parent = 0);
+    explicit EmployeeCalculatedCapacity(Empleado* parentEmpleado, QDate Dia);
 
     void setCapacity(int value);
 
@@ -31,12 +31,14 @@ public:
 
     bool hasWarnings();
 signals:
+    void calcularHorasPreviamenteTrabajadas(int IDEmpleado, int &horas);
 
 public slots:
 
 private:
     Empleado* empleado;
     int capacityForTask;
+    QDate dia;
 };
 
 typedef boost::shared_ptr<EmployeeCalculatedCapacity> EmployeeCalculatedCapacityPtr;
@@ -64,7 +66,7 @@ public:
     virtual RecordPtr asRecordPtr();
 
     bool DadoDeBaja();
-    EmployeeCalculatedCapacityPtr canWork(DAYS Dia, int IDSector, int IDSubSector, int HoraInicio, int HoraFin);
+    EmployeeCalculatedCapacityPtr canWork(QDate &Fecha, int IDSector, int IDSubSector, int HoraInicio, int HoraFin);
     bool canBeDeleted();
 
 signals:

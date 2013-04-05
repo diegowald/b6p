@@ -46,6 +46,7 @@ public:
 
 signals:
     void AssignmentChanged(int fromSeconds, int toSeconds);
+    void calcularHoras(int IDEmpleado, int &horas);
 
 protected:
     void llenarSectores();
@@ -59,6 +60,7 @@ private slots:
     void on_cboSubsectores_currentIndexChanged(int index);
 
     void on_cboEmpleado_currentIndexChanged(int index);
+    void on_calcularHorasPreviamenteTrabajadas(int IDEmpleado, int &horas);
 
 private:
     Ui::TimeAssignmentItemEdit *ui;

@@ -186,6 +186,31 @@ PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getAll(QDate Dia, bool
     return res;
 }
 
+PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getDiasAnterioresTrabajadosPorEmpleado(
+        QDate Dia, int IDEmpleado)
+{
+    PlanificacionSubSectorLst res = boost::make_shared<QList<PlanificacionSubSectorPtr> >();
+    QMap<QDate, PlanificacionSubSectorPtr> diasTrabajados;
+
+    foreach(PlanificacionSubSectorPtr p, m_Planificacion.values())
+    {
+        if ((p->Dia().value() < Dia) && (p->IDEmpleado().value() == IDEmpleado))
+        {
+            if (!p->isDeleted())
+                diasTrabajados[p->Dia().value()] = p;
+        }
+    }
+
+    QDate fechaAnt = Dia.addDays(-1);
+    while(diasTrabajados.find(fechaAnt) != diasTrabajados.end())
+    {
+        res->push_back(diasTrabajados[fechaAnt]);
+        fechaAnt = fechaAnt.addDays(-1);
+    }
+
+    return res;
+}
+
 
 void PlanificacionesDiasSubSectores::updateWithOtherData(PlanificacionSubSectorLst other)
 {

@@ -108,7 +108,6 @@ void Accesos::setStatusToUnmodified(bool)
 
 bool Accesos::canRead(int IDUser, QString &feature)
 {
-    qDebug() << feature;
     return get(IDUser, feature, CAN_READ);
 }
 

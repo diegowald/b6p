@@ -157,13 +157,13 @@ EmpleadosLst Empleados::getAll(bool includeDeleted)
     return res;
 }
 
-EmployeeCalculatedCapacityLst Empleados::getAll(int IDSector, int IDSubSector, DAYS Dia, int HoraInicio, int HoraFin, bool includeDeleted)
+EmployeeCalculatedCapacityLst Empleados::getAll(int IDSector, int IDSubSector, QDate Fecha, int HoraInicio, int HoraFin, bool includeDeleted)
 {
     EmployeeCalculatedCapacityLst res = boost::make_shared<QList<EmployeeCalculatedCapacityPtr> >();
     QMap<int, EmployeeCalculatedCapacityPtr> candidates;
     foreach(EmpleadoPtr e, m_Empleados.values())
     {
-        EmployeeCalculatedCapacityPtr capacity = e->canWork(Dia, IDSector, IDSubSector, HoraInicio, HoraFin);
+        EmployeeCalculatedCapacityPtr capacity = e->canWork(Fecha, IDSector, IDSubSector, HoraInicio, HoraFin);
         if (capacity->Capacity() > 0)
         {
             if (!e->isDeleted() || includeDeleted)

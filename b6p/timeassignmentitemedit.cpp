@@ -26,8 +26,9 @@ TimeAssignmentItemEdit::TimeAssignmentItemEdit(QWidget *parent) :
 
     ui->widget->setInitialTimeline(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0));
     ui->widget->setFinalTimeline(DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
-    loadingData = false;
+    loadingData = true;
     llenarSectores();
+    loadingData = true;
 }
 
 TimeAssignmentItemEdit::~TimeAssignmentItemEdit()
@@ -94,22 +95,19 @@ void TimeAssignmentItemEdit::llenarEmpleados()
     if (ui->cboSubsectores->count() > 0)
         IDSubSector = ui->cboSubsectores->itemData(ui->cboSubsectores->currentIndex(), Qt::UserRole).toInt();
 
-
-    DAYS Dia = Days::DayOfWeek2DAYS(date.dayOfWeek());
-
     int HoraInicio = ui->timeInicio->timeSeconds();
     int HoraFin = ui->timeFin->timeSeconds();
 
-    loadingData = true;
-    emps = DataStore::instance()->getEmpleados()->getAll(IDSector, IDSubSector, Dia, HoraInicio, HoraFin, false);
+    emps = DataStore::instance()->getEmpleados()->getAll(IDSector, IDSubSector, date, HoraInicio, HoraFin, false);
     ui->cboEmpleado->clear();
     foreach(EmployeeCalculatedCapacityPtr e, *emps)
     {
         QString nombre = "%1, %2";
         nombre = nombre.arg(e->EmpleadoAsignado()->Apellido().value()).arg(e->EmpleadoAsignado()->Nombre().value());
         ui->cboEmpleado->addItem(nombre, e->EmpleadoAsignado()->IDEmpleado().value());
+        EmployeeCalculatedCapacity *pe = e.get();
+        connect(pe, SIGNAL(calcularHorasPreviamenteTrabajadas(int, int &)), this, SLOT(on_calcularHorasPreviamenteTrabajadas(int,int&)));
     }
-    loadingData = false;
 }
 
 double TimeAssignmentItemEdit::CantidadHoras()
@@ -166,46 +164,58 @@ QDate TimeAssignmentItemEdit::Date()
 
 void TimeAssignmentItemEdit::setIDSector(int value)
 {
+    loadingData = true;
     ui->cboSectores->setCurrentIndex(ui->cboSectores->findData(value, Qt::UserRole));
+    loadingData = false;
 }
 
 void TimeAssignmentItemEdit::setIDSectorNull()
 {
+    loadingData = true;
     ui->cboSectores->setCurrentIndex(-1);
+    loadingData = false;
 }
 
 void TimeAssignmentItemEdit::setIDSubSector(int value)
 {
+    loadingData = true;
     ui->cboSubsectores->setCurrentIndex(ui->cboSubsectores->findData(value, Qt::UserRole));
+    loadingData = false;
 }
 
 void TimeAssignmentItemEdit::setIDSubSectorNull()
 {
+    loadingData = true;
     ui->cboSubsectores->setCurrentIndex(-1);
+    loadingData = false;
 }
 
 void TimeAssignmentItemEdit::setIDEmpleado(int value)
 {
     loadingData = true;
     ui->cboEmpleado->setCurrentIndex(ui->cboEmpleado->findData(value));
-    loadingData = true;
+    loadingData = false;
 }
 
 void TimeAssignmentItemEdit::setIDEmpleadoNull()
 {
     loadingData = true;
     ui->cboEmpleado->setCurrentIndex(-1);
-    loadingData = true;
+    loadingData = false;
 }
 
 void TimeAssignmentItemEdit::setHoraInicio(int value)
 {
+    loadingData = true;
     ui->timeInicio->setTime(value);
+    loadingData = false;
 }
 
 void TimeAssignmentItemEdit::setHoraFin(int value)
 {
+    loadingData = true;
     ui->timeFin->setTime(value);
+    loadingData = false;
 }
 
 void TimeAssignmentItemEdit::setData(QVariant data)
@@ -250,4 +260,10 @@ void TimeAssignmentItemEdit::on_cboEmpleado_currentIndexChanged(int index)
         ui->widget->setAssignmentColor(Qt::yellow);
     else
         ui->widget->setAssignmentColor(Qt::darkGreen);
+}
+
+
+void TimeAssignmentItemEdit::on_calcularHorasPreviamenteTrabajadas(int IDEmpleado, int &horas)
+{
+    emit calcularHoras(IDEmpleado, horas);
 }

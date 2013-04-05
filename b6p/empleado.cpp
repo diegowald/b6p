@@ -1,11 +1,12 @@
 #include "empleado.h"
 #include "datastore.h"
 
-EmployeeCalculatedCapacity::EmployeeCalculatedCapacity(Empleado* parentEmpleado, QObject *parent) :
-    QObject(parent)
+EmployeeCalculatedCapacity::EmployeeCalculatedCapacity(Empleado* parentEmpleado, QDate Dia) :
+    QObject(parentEmpleado)
 {
     empleado = parentEmpleado;
     capacityForTask = -1000;
+    dia = Dia;
 }
 
 void EmployeeCalculatedCapacity::setCapacity(int value)
@@ -26,15 +27,18 @@ int EmployeeCalculatedCapacity::Capacity()
 int EmployeeCalculatedCapacity::HorasPreviamenteTrabajadas()
 {
 #warning terminar esta funcion
-    return 8;
+    int horas = 0;
+    emit calcularHorasPreviamenteTrabajadas(empleado->IDEmpleado().value(), horas);
+    return horas;
 }
 
 int EmployeeCalculatedCapacity::DiasPreviamenteTrabajados()
 {
-#warning primer version
-#warning se calculan los dias previos.
-#warning terminar esta funcion
-    return 7;
+    PlanificacionSubSectorLst diasTrabajados =
+            DataStore::instance()->getPlanificacionesSubSectores()
+            ->getDiasAnterioresTrabajadosPorEmpleado(dia, empleado->IDEmpleado().value());
+
+    return diasTrabajados->count();
 }
 
 bool EmployeeCalculatedCapacity::hasWarnings()
@@ -154,9 +158,9 @@ void Empleado::updateID(int newId)
     setUnmodified();
 }
 
-EmployeeCalculatedCapacityPtr Empleado::canWork(DAYS Dia, int IDSector, int IDSubSector, int HoraInicio, int HoraFin)
+EmployeeCalculatedCapacityPtr Empleado::canWork(QDate &Fecha, int IDSector, int IDSubSector, int HoraInicio, int HoraFin)
 {
-    EmployeeCalculatedCapacityPtr res = boost::make_shared<EmployeeCalculatedCapacity>(this, this);
+    EmployeeCalculatedCapacityPtr res = boost::make_shared<EmployeeCalculatedCapacity>(this, Fecha);
     // Verifico si puede trabajar en el sector y subsector
     CapacidadPersonaSectorPtr cap =
             DataStore::instance()->getCapacidades()->get(idEmpleado.value(), IDSector, IDSubSector, false);
@@ -168,6 +172,7 @@ EmployeeCalculatedCapacityPtr Empleado::canWork(DAYS Dia, int IDSector, int IDSu
 
 
     // Verifico si puede trabajar el dia en la franja horaria.
+    DAYS Dia = Days::DayOfWeek2DAYS(Fecha.dayOfWeek());
     CalendarioPersonaPtr cal = DataStore::instance()->getCalendarios()->get(
                 idEmpleado.value(), Dia, HoraInicio, HoraFin, false);
 

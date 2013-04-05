@@ -107,7 +107,6 @@ bool DatabaseSynchronization::existsInMainDB(RecordPtr rec)
 {
     QString sql = m_Data->getSQLExistsInMainDB();
     RecordSet res = m_SQLHandler->getAll(sql, rec);
-    qDebug() << res->count();
     return res->count() != 0;
 }
 
