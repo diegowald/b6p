@@ -28,6 +28,9 @@ int EmployeeCalculatedCapacity::HorasPreviamenteTrabajadas()
 {
 #warning terminar esta funcion
     int horas = 0;
+    // Esta no es la mejor manera de obtener un valor, ya que se puede reescribir si eventualmente
+    // se conecta a otro lugar, pero si se tiene en cuenta que un solo slot va a estar conectado, entonces
+    // deberia funcionar.
     emit calcularHorasPreviamenteTrabajadas(empleado->IDEmpleado().value(), horas);
     return horas;
 }
@@ -41,11 +44,18 @@ int EmployeeCalculatedCapacity::DiasPreviamenteTrabajados()
     return diasTrabajados->count();
 }
 
-bool EmployeeCalculatedCapacity::hasWarnings()
+bool EmployeeCalculatedCapacity::hasWarningsDias()
 {
-    return (HorasPreviamenteTrabajadas() < DataStore::instance()->getParametros()->getValue(Parametros::MIN_WORKING_HOURS, 0))
-            ||
-            (DiasPreviamenteTrabajados() > DataStore::instance()->getParametros()->getValue(Parametros::MAX_DAYS_BETWEEN_FREE_DAY, 0));
+    bool warningDias = (DiasPreviamenteTrabajados() > DataStore::instance()->getParametros()->getValue(Parametros::MAX_DAYS_BETWEEN_FREE_DAY, 0));
+    qDebug() << "Warning Dias: " << warningDias;
+    return warningDias;
+}
+
+bool EmployeeCalculatedCapacity::hasWarningsHoras()
+{
+    bool warningHoras = (HorasPreviamenteTrabajadas() < DataStore::instance()->getParametros()->getValue(Parametros::MIN_WORKING_HOURS, 0));
+    qDebug() << "Warning Horas: " << warningHoras;
+    return warningHoras;
 }
 
 

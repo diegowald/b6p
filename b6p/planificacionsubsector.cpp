@@ -11,6 +11,7 @@ PlanificacionSubSector::PlanificacionSubSector(QObject *parent) :
     m_IDEmpleado.setNull();
     m_HoraInicio.setNull();
     m_HoraFin.setNull();
+    m_AllowOverworking.setValue(false);
 
     m_Dia.setParent(this);
     m_IDSector.setParent(this);
@@ -18,6 +19,7 @@ PlanificacionSubSector::PlanificacionSubSector(QObject *parent) :
     m_IDEmpleado.setParent(this);
     m_HoraInicio.setParent(this);
     m_HoraFin.setParent(this);
+    m_AllowOverworking.setParent(this);
 }
 
 RecordPtr PlanificacionSubSector::asRecordPtr()
@@ -31,6 +33,7 @@ RecordPtr PlanificacionSubSector::asRecordPtr()
     (*res)["IDEmpleado"] = m_IDEmpleado.toVariant();
     (*res)["HoraInicio"] = m_HoraInicio.toVariant();
     (*res)["HoraFin"] = m_HoraFin.toVariant();
+    (*res)["AllowOverWorking"] = m_AllowOverworking.value() ? 1 : 0;
 
     (*res)[RECORD_ID] = m_IDRecord.toVariant();
 
@@ -70,6 +73,11 @@ NullableField<int> &PlanificacionSubSector::HoraInicio()
 NullableField<int> &PlanificacionSubSector::HoraFin()
 {
     return m_HoraFin;
+}
+
+NullableField<bool> &PlanificacionSubSector::AllowOverWorking()
+{
+    return m_AllowOverworking;
 }
 
 SectorPtr PlanificacionSubSector::getSector()
@@ -132,6 +140,8 @@ void PlanificacionSubSector::updateWith(PlanificacionSubSectorPtr other)
         m_HoraFin.setNull();
     else
         m_HoraFin.setValue(other->HoraFin().value());
+
+    m_AllowOverworking.setValue(other->AllowOverWorking());
 //    setNew();
 }
 

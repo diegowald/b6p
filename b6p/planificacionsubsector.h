@@ -27,6 +27,7 @@ public:
     NullableField<int> &IDEmpleado();
     NullableField<int> &HoraInicio();
     NullableField<int> &HoraFin();
+    NullableField<bool> &AllowOverWorking();
 
     SectorPtr getSector();
     SubSectorPtr getSubsector();
@@ -53,6 +54,7 @@ private:
     NullableField<int> m_IDEmpleado;
     NullableField<int> m_HoraInicio;
     NullableField<int> m_HoraFin;
+    NullableField<bool> m_AllowOverworking;
 };
 
 

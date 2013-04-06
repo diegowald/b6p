@@ -8,19 +8,19 @@ PlanificacionesDiasSubSectores::PlanificacionesDiasSubSectores(QObject *parent) 
 
 QString PlanificacionesDiasSubSectores::getSelectFromMainDB()
 {
-    return QString("select IDRecord, Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, LastUpdate from planificacionsubsector "
+    return QString("select IDRecord, Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, AllowOverWorking, LastUpdate from planificacionsubsector "
                    " where LastUpdate >= :LASTUPDATE ;");
 }
 
 QString PlanificacionesDiasSubSectores::getSqlString()
 {
-    return QString("select IDRecord, Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, sent from planificacionsubsector ")
+    return QString("select IDRecord, Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, AllowOverWorking, sent from planificacionsubsector ")
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
 QString PlanificacionesDiasSubSectores::getSQLExistsInMainDB()
 {
-    return QString("select IDRecord, Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin from planificacionsubsector "
+    return QString("select IDRecord, Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin,AllowOverWorking from planificacionsubsector "
             " where IDRecord = :IDRecord;");
 }
 
@@ -35,6 +35,7 @@ void PlanificacionesDiasSubSectores::addRecord(RecordPtr record)
     p->IDEmpleado().setValue((*record)["IDEmpleado"].toInt());
     p->HoraInicio().setValue((*record)["HoraInicio"].toInt());
     p->HoraFin().setValue((*record)["HoraFin"].toInt());
+    p->AllowOverWorking().setValue((*record)["AllowOverworking"].toInt() == 1 ? true : false);
     p->setSentStatus((*record)["sent"].toInt() == 1);
     p->setInitialized();
 
@@ -51,6 +52,7 @@ void PlanificacionesDiasSubSectores::updateRecord(RecordPtr record)
     p->IDEmpleado().setValue((*record)["IDEmpleado"].toInt());
     p->HoraInicio().setValue((*record)["HoraInicio"].toInt());
     p->HoraFin().setValue((*record)["HoraFin"].toInt());
+    p->AllowOverWorking().setValue((*record)["AllowOverWorking"].toInt() == 1 ? true : false);
 }
 
 void PlanificacionesDiasSubSectores::deleteRecord(RecordPtr record)
@@ -77,6 +79,7 @@ QString PlanificacionesDiasSubSectores::getUpdateStatement()
                    " IDSubsector = :IDSubSector, "
                    " IDEmpleado = :IDEmpleado, "
                    " HoraInicio = :HoraInicio, HoraFin = :HoraFin, "
+                   " AllowOverWorking = :AllowOverWorking, "
                    " RecordStatus = %1 "
                    " where IDRecord = :IDRecord;").arg(RECORD_MODIFIED);
 }
@@ -85,14 +88,14 @@ QString PlanificacionesDiasSubSectores::getInsertStatement(bool IncludeIDs)
 {
     if (IncludeIDs)
         return QString("insert into planificacionsubsector "
-                       " (IDRecord, Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, RecordStatus) "
+                       " (IDRecord, Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, AllowOverWorking, RecordStatus) "
                        " values "
-                       " (:IDRecord, :Dia, :IDSector, :IDSubSector, :IDEmpleado, :HoraInicio, :HoraFin, %1);").arg(RECORD_NEW);
+                       " (:IDRecord, :Dia, :IDSector, :IDSubSector, :IDEmpleado, :HoraInicio, :HoraFin, :AllowOverWorking, %1);").arg(RECORD_NEW);
     else
         return QString("insert into planificacionsubsector "
-                       " (Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, RecordStatus) "
+                       " (Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, AllowOverWorking, RecordStatus) "
                        " values "
-                       " (:Dia, :IDSector, :IDSubSector, :IDEmpleado, :HoraInicio, :HoraFin, %1);").arg(RECORD_NEW);
+                       " (:Dia, :IDSector, :IDSubSector, :IDEmpleado, :HoraInicio, :HoraFin, :AllowOverWorking, %1);").arg(RECORD_NEW);
 }
 
 RecordSet PlanificacionesDiasSubSectores::getRecords(RecordStatus status)

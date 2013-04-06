@@ -36,8 +36,11 @@ void DlgPlanificacionDia::setData(PlanificacionDiaPtr data)
         ui->treeWidget->addTopLevelItem(item);
         TimeAssignmentItemEdit *time = new TimeAssignmentItemEdit();
         connect(time, SIGNAL(calcularHoras(int,int&)), this, SLOT(on_calcularHoras(int,int&)));
+        connect(time, SIGNAL(refreshColorAssignments(int)), this, SLOT(on_refreshColorAssignments(int)));
         time->setDate(m_Dia);
         time->setData(plan->IDRecord().value());
+
+        time->setAllowOverWorking(plan->AllowOverWorking().value());
 
         if (plan->IDSector().isNull())
             time->setIDSectorNull();
@@ -67,6 +70,7 @@ void DlgPlanificacionDia::on_btnAdd_pressed()
     ui->treeWidget->addTopLevelItem(item);
     TimeAssignmentItemEdit *time = new TimeAssignmentItemEdit();
     connect(time, SIGNAL(calcularHoras(int,int&)), this, SLOT(on_calcularHoras(int,int&)));
+    connect(time, SIGNAL(refreshColorAssignments(int)), this, SLOT(on_refreshColorAssignments(int)));
     time->setDate(m_Dia);
     newID++;
     time->setData(-newID);
@@ -130,6 +134,7 @@ PlanificacionSubSectorLst DlgPlanificacionDia::Planificaciones()
         ptr->IDEmpleado().setValue(time->IDEmpleado());
         ptr->HoraInicio().setValue(time->HoraInicio());
         ptr->HoraFin().setValue(time->HoraFin());
+        ptr->AllowOverWorking().setValue(time->AllowOverWorking());
         if (ptr->IDRecord().value() < 0)
             ptr->setNew();
         else
@@ -169,9 +174,19 @@ void DlgPlanificacionDia::on_calcularHoras(int IDEmpleado, int &horas)
     {
         QTreeWidgetItem *item = ui->treeWidget->topLevelItem(i);
         TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 0));
-        PlanificacionSubSectorPtr ptr = boost::make_shared<PlanificacionSubSector>();
 
-        if (time->IDEmpleado() == IDEmpleado)
+        if (time && (time->IDEmpleado() == IDEmpleado))
             horas += (time->HoraFin() - time->HoraInicio()) / 3600;
+    }
+}
+
+void DlgPlanificacionDia::on_refreshColorAssignments(int IDEmpleado)
+{
+    for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
+    {
+        QTreeWidgetItem *item = ui->treeWidget->topLevelItem(i);
+        TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 0));
+        if (time)
+            time->recalculateColorAssignments(IDEmpleado);
     }
 }

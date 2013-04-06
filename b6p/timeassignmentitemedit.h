@@ -27,6 +27,7 @@ public:
     int IDEmpleado();
     int HoraInicio();
     int HoraFin();
+    bool AllowOverWorking();
 
     void setIDSector(int value);
     void setIDSectorNull();
@@ -36,6 +37,7 @@ public:
     void setIDEmpleadoNull();
     void setHoraInicio(int value);
     void setHoraFin(int value);
+    void setAllowOverWorking(bool value);
 
     void setData(QVariant data);
     QVariant data();
@@ -43,10 +45,12 @@ public:
     QDate Date();
     void setDate(QDate value);
 
+    void recalculateColorAssignments(int IDEmpleado);
 
 signals:
     void AssignmentChanged(int fromSeconds, int toSeconds);
     void calcularHoras(int IDEmpleado, int &horas);
+    void refreshColorAssignments(int IDEmpleado);
 
 protected:
     void llenarSectores();
@@ -68,6 +72,7 @@ private:
     QVariant m_Data;
     EmployeeCalculatedCapacityLst emps;
     bool loadingData;
+    bool allowOverWorking;
 };
 
 #endif // TIMEASSIGNMENTITEMEDIT_H
