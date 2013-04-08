@@ -14,7 +14,7 @@
         <file>images/glyphicons_193_circle_ok.png</file>
         <file>images/glyphicons_194_circle_question_mark.png</file>
         <file>images/glyphicons_195_circle_info.png</file>
-        <file>images/glyphicons_206_ok_2.png</file>
+        <file alias="approve">images/glyphicons_206_ok_2.png</file>
         <file>images/glyphicons_000_glass.png</file>
         <file>images/glyphicons_001_leaf.png</file>
         <file>images/glyphicons_002_dog.png</file>

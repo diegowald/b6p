@@ -19,19 +19,11 @@ protected:
     void EnableActions();
 private slots:
     void on_actionOpen_triggered();
-
-    void on_actionApprove_triggered();
-
     void on_actionPrint_triggered();
-
     void on_actionExit_triggered();
-
     void on_actionView_triggered();
-
     void on_actionParameters_triggered();
-
     void on_actionAbout_triggered();
-
     void datastore_loaded(QString name);
     void datastore_loading(QString name);
     void datastore_saved(QString name);

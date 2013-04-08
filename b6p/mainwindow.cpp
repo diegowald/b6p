@@ -57,12 +57,6 @@ void MainWindow::on_actionOpen_triggered()
     wnd->activateWindow();
 }
 
-void MainWindow::on_actionApprove_triggered()
-{
-    // Approve current planification
-}
-
-
 void MainWindow::on_actionPrint_triggered()
 {
     // Prints planification
@@ -71,6 +65,7 @@ void MainWindow::on_actionPrint_triggered()
 void MainWindow::on_actionExit_triggered()
 {
     // Exits application
+    QApplication::exit(0);
 }
 
 void MainWindow::on_actionView_triggered()
@@ -139,7 +134,6 @@ void MainWindow::EnableActions()
 
         feature = DataStore::instance()->getPlanificacionesDias()->invariableName();
         ui->actionOpen->setEnabled(DataStore::instance()->getAccesos()->canRead(m_LoggedUser, feature));
-        ui->actionApprove->setEnabled(DataStore::instance()->getAccesos()->canRead(m_LoggedUser, feature));
         ui->actionSetup_days->setEnabled(DataStore::instance()->getAccesos()->canRead(m_LoggedUser, feature));
 
         feature = DataStore::instance()->getParametros()->invariableName();

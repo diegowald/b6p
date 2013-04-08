@@ -26,7 +26,6 @@ int EmployeeCalculatedCapacity::Capacity()
 
 int EmployeeCalculatedCapacity::HorasPreviamenteTrabajadas()
 {
-#warning terminar esta funcion
     int horas = 0;
     // Esta no es la mejor manera de obtener un valor, ya que se puede reescribir si eventualmente
     // se conecta a otro lugar, pero si se tiene en cuenta que un solo slot va a estar conectado, entonces
