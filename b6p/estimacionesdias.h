@@ -48,6 +48,7 @@ public:
 
 public slots:
     void addManyDays();
+    void approveSelected();
 
 private:
     QMap<QDate, EstimacionDiaPtr> m_Estimaciones;

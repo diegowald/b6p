@@ -59,7 +59,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>37</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuPlanification">
@@ -69,7 +69,6 @@
     <addaction name="separator"/>
     <addaction name="actionSetup_days"/>
     <addaction name="actionOpen"/>
-    <addaction name="actionApprove"/>
     <addaction name="separator"/>
     <addaction name="actionPrint"/>
     <addaction name="separator"/>
@@ -129,18 +128,6 @@
     <enum>QAction::ApplicationSpecificRole</enum>
    </property>
   </action>
-  <action name="actionApprove">
-   <property name="icon">
-    <iconset resource="resources.qrc">
-     <normaloff>:/img/images/glyphicons_206_ok_2.png</normaloff>:/img/images/glyphicons_206_ok_2.png</iconset>
-   </property>
-   <property name="text">
-    <string>Approve</string>
-   </property>
-   <property name="toolTip">
-    <string>Approves Planification</string>
-   </property>
-  </action>
   <action name="actionPrint">
    <property name="icon">
     <iconset resource="resources.qrc">
@@ -151,6 +138,9 @@
    </property>
    <property name="toolTip">
     <string>Prints Planification</string>
+   </property>
+   <property name="visible">
+    <bool>false</bool>
    </property>
   </action>
   <action name="actionExit">

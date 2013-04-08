@@ -120,7 +120,13 @@ boost::shared_ptr<QList<QAction*> > EstimacionesDias::getActions()
     icon.addFile(QString::fromUtf8(":/img/calendar"), QSize(), QIcon::Normal, QIcon::Off);
     action->setIcon(icon);
     connect(action, SIGNAL(triggered()), this, SLOT(addManyDays()));
+    actions->push_back(action);
 
+    action = new QAction(tr("Approve"), NULL);
+    QIcon icon2;
+    icon2.addFile(QString::fromUtf8(":/img/approve"), QSize(), QIcon::Normal, QIcon::Off);
+    action->setIcon(icon2);
+    connect(action, SIGNAL(triggered()), this, SLOT(approveSelected()));
     actions->push_back(action);
 
     return actions;
@@ -324,4 +330,8 @@ void EstimacionesDias::addManyDays()
         }
         save();
     }
+}
+
+void EstimacionesDias::approveSelected()
+{
 }
