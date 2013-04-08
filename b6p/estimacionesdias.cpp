@@ -334,4 +334,10 @@ void EstimacionesDias::addManyDays()
 
 void EstimacionesDias::approveSelected()
 {
+    /**
+     * la idea es abrir un cuadro de dialogo que muestre el
+     * listado de los dias que no han sido aprobados aun
+     * y que tienen todas las tareas con un empleado asignado.
+     **/
+#warning implementar funcionalidad approveSelected.
 }
