@@ -3,6 +3,7 @@
 #include <QSqlField>
 #include <QMessageBox>
 #include <QFile>
+#include <QTextStream>
 
 ACollection::ACollection(QString Name, QString InvariableName, bool useLastInsertId, QObject *parent) :
     QObject(parent),

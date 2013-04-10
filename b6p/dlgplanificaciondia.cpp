@@ -1,7 +1,12 @@
 #include "dlgplanificaciondia.h"
 #include "ui_dlgplanificaciondia.h"
-#include "timeassignmentitemedit.h"
 #include <boost/make_shared.hpp>
+#include <QFileDialog>
+#include <QMessageBox>
+#include "datastore.h"
+#include "timehelper.h"
+#include <QTextStream>
+
 
 DlgPlanificacionDia::DlgPlanificacionDia(QWidget *parent) :
     QDialog(parent),
@@ -203,4 +208,88 @@ void DlgPlanificacionDia::on_AllowOverWorkingForEmployee(int IDEmpleado)
         if (time && (time->IDEmpleado() == IDEmpleado))
             time->setAllowOverWorking(true);
     }
+}
+
+void DlgPlanificacionDia::on_btnExport_pressed()
+{
+    QString suggestedName = "x"; //model->suggestedFileName();
+
+    QString filename =
+            QFileDialog::getSaveFileName(this, tr("Export to..."),
+                                         "./" + suggestedName,
+                                         tr("CSV Files (*.csv)"));
+
+    if (filename.size() > 0)
+    {
+        QString fileName = (filename.toLower().endsWith(".csv") ? filename: filename + ".csv");
+        QFile file(fileName);
+        if (file.open(QFile::WriteOnly))
+        {
+            QTextStream st(&file);
+            QStringList headers = getHeaders();
+            QString r = "\"" + headers.join("\",\"") + "\"";
+            st << r << endl;
+
+            boost::shared_ptr<QList<QStringList> > records = getAll();
+
+            foreach(QStringList record, *records)
+            {
+                QString r = "\"" + record.join("\",\"") + "\"";
+                st << r << endl;
+            }
+            QMessageBox::information(NULL,
+                                     tr("Export to CSV"),
+                                     tr("Successfuly exported!"));
+        }
+        else
+        {
+            QMessageBox::information(NULL,
+                                     tr("Export to CSV Error"),
+                                     tr("Couldn't open file."));
+        }
+    }
+}
+
+QStringList DlgPlanificacionDia::getHeaders()
+{
+    QStringList res;
+    res << tr("Sector") << tr("SubSector")
+        << tr("From") << tr("To")
+        << tr("Employee") << tr("OverWork");
+    return res;
+}
+
+boost::shared_ptr<QList<QStringList> > DlgPlanificacionDia::getAll()
+{
+    boost::shared_ptr<QList<QStringList> > res = boost::make_shared<QList<QStringList> >();
+
+    for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
+    {
+        QTreeWidgetItem *item = ui->treeWidget->topLevelItem(i);
+        TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 0));
+        res->push_back(getRecord(time));
+    }
+
+    return res;
+}
+
+QStringList DlgPlanificacionDia::getRecord(TimeAssignmentItemEdit *time)
+{
+    QStringList res;
+
+    res << DataStore::instance()->getSectores()->getSector(time->IDSector())->Nombre().value();
+    res << ((time->IDSubSector() == 0) ? ""
+                                        : DataStore::instance()->getSubSectores()->getSubSector(time->IDSubSector())->Nombre().value());
+
+    res << TimeHelper::SecondsToString(time->HoraInicio());
+    res << TimeHelper::SecondsToString(time->HoraFin());
+    if (time->IDEmpleado() == 0)
+        res << "";
+    else
+    {
+        EmpleadoPtr e = DataStore::instance()->getEmpleados()->getEmpleado(time->IDEmpleado(), true);
+        res << QString("%1, %2").arg(e->Apellido().value()).arg(e->Nombre().value());
+    }
+    res << (time->AllowOverWorking() ? tr("OverWork") : "");
+    return res;
 }

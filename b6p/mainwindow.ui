@@ -150,6 +150,9 @@
    <property name="toolTip">
     <string>Exits application</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
    <property name="menuRole">
     <enum>QAction::QuitRole</enum>
    </property>

@@ -2,7 +2,6 @@
 
 #include <QTime>
 #include <QPainter>
-#include <QDebug>
 
 TimeAssignment::TimeAssignment(QWidget *parent) :
     QWidget(parent)

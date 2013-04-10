@@ -2,7 +2,6 @@
 #define IRECORD_H
 #include <boost/shared_ptr.hpp>
 #include <QMap>
-#include <QDebug>
 
 #define RECORD_ID "RECORD_ID"
 
@@ -48,7 +47,6 @@ struct IRecord
 
     void setModified()
     {
-        qDebug() << status;
         if (status == UNMODIFIED)
             status = MODIFIED;
     }

@@ -152,7 +152,6 @@ bool TimeAssignmentItemEdit::isEmpleadoEmpty()
 
 int TimeAssignmentItemEdit::IDEmpleado()
 {
-    qDebug() << ui->cboEmpleado->currentIndex();
     return ui->cboEmpleado->itemData(ui->cboEmpleado->currentIndex(), Qt::UserRole).toInt();
 }
 
@@ -328,7 +327,7 @@ void TimeAssignmentItemEdit::recalculateColorAssignments(int IDEmpleado)
     else if (emp.get())
     {
         color = Qt::darkGreen;
-        allowOverWorking = false;
+        allowOverWorking = false; // Si esta pintado de verde -> no es necesario el overworking
     }
     else
         color = Qt::darkRed;

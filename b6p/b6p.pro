@@ -87,7 +87,8 @@ SOURCES += main.cpp\
     dlglogin.cpp \
     databasesynchronization.cpp \
     dlgsynchronization.cpp \
-    SincroManager.cpp
+    SincroManager.cpp \
+    timehelper.cpp
 
 HEADERS  += mainwindow.h \
     timeassignment.h \
@@ -132,7 +133,8 @@ HEADERS  += mainwindow.h \
     dlglogin.h \
     databasesynchronization.h \
     dlgsynchronization.h \
-    SincroManager.h
+    SincroManager.h \
+    timehelper.h
 
 FORMS    += mainwindow.ui \
     genericlist.ui \
