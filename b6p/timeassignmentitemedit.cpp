@@ -51,6 +51,7 @@ void TimeAssignmentItemEdit::on_cboSectores_currentIndexChanged(int index)
 {
     llenarSubSectores(ui->cboSectores->itemData(index, Qt::UserRole).toInt());
     llenarEmpleados();
+    setIDEmpleadoNull();
 }
 
 void TimeAssignmentItemEdit::llenarSubSectores(int IDSector)
@@ -66,6 +67,7 @@ void TimeAssignmentItemEdit::llenarSubSectores(int IDSector)
 void TimeAssignmentItemEdit::on_cboSubsectores_currentIndexChanged(int)
 {
     llenarEmpleados();
+    setIDEmpleadoNull();
 }
 
 
@@ -76,6 +78,7 @@ void TimeAssignmentItemEdit::on_timeInicio_TimeChanged(int newTime)
 
     ui->widget->setStartAssignment(newTime);
     llenarEmpleados();
+    setIDEmpleadoNull();
     emit AssignmentChanged(newTime, ui->timeFin->timeSeconds());
 }
 
@@ -86,6 +89,7 @@ void TimeAssignmentItemEdit::on_timeFin_TimeChanged(int newTime)
 
     ui->widget->setEndAssignment(newTime);
     llenarEmpleados();
+    setIDEmpleadoNull();
     emit AssignmentChanged(ui->timeInicio->timeSeconds(), newTime);
 }
 
@@ -101,6 +105,7 @@ void TimeAssignmentItemEdit::llenarEmpleados()
 
     emps = DataStore::instance()->getEmpleados()->getAll(IDSector, IDSubSector, date, HoraInicio, HoraFin, false);
     ui->cboEmpleado->clear();
+    ui->cboEmpleado->setCurrentIndex(-1);
     foreach(EmployeeCalculatedCapacityPtr e, *emps)
     {
         connect(e.get(), SIGNAL(calcularHorasPreviamenteTrabajadas(int, int &)), this, SLOT(on_calcularHorasPreviamenteTrabajadas(int,int&)));
@@ -239,8 +244,14 @@ void TimeAssignmentItemEdit::on_cboEmpleado_currentIndexChanged(int index)
             break;
     }
 
-    bool warningHoras = ec->hasWarningsHoras();
-    bool warningDias = ec->hasWarningsDias();
+    bool warningHoras = false;
+    bool warningDias = false;
+
+    if (ec.get())
+    {
+        warningHoras = ec->hasWarningsHoras();
+        warningDias = ec->hasWarningsDias();
+    }
     bool warnings = warningDias || warningHoras;
     if (!loadingData && warnings && !allowOverWorking)
     {
@@ -256,7 +267,8 @@ void TimeAssignmentItemEdit::on_cboEmpleado_currentIndexChanged(int index)
                                                    QMessageBox::No) == QMessageBox::No);
     }
 
-    emit refreshColorAssignments(ec->EmpleadoAsignado()->IDEmpleado().value());
+    if (ec.get())
+        emit refreshColorAssignments(ec->EmpleadoAsignado()->IDEmpleado().value());
     QColor color;
 
     if (!allowOverWorking && warnings)

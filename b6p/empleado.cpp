@@ -69,12 +69,14 @@ Empleado::Empleado(bool isNew, QObject *parent) :
     nombre.setNull();
     fechaIngreso.setNull();
     isBaja.setNull();
+    legajo.setNull();
 
     idEmpleado.setParent(this);
     apellido.setParent(this);
     nombre.setParent(this);
     fechaIngreso.setParent(this);
     isBaja.setParent(this);
+    legajo.setParent(this);
 
     if (isNew)
         setNew();
@@ -84,7 +86,7 @@ RecordPtr Empleado::asRecordPtr()
 {
     RecordPtr res = boost::make_shared<Record>();
 
-    (*res)["Legajo"] = idEmpleado.toVariant();
+    (*res)["Legajo"] = legajo.toVariant();
     (*res)["Apellido"] = apellido.toVariant();
     (*res)["Nombres"] = nombre.toVariant();
     (*res)["FechaIngreso"] = fechaIngreso.toVariant();
@@ -208,4 +210,14 @@ bool Empleado::canBeDeleted()
 bool Empleado::DadoDeBaja()
 {
     return IsBaja().isNull() ? false : IsBaja().value();
+}
+
+bool Empleado::isPowerUser()
+{
+    // Devuelve true si el empleado esta en el grupo Gerencia o Supervisor
+    CapacidadPersonaSectorPtr c = DataStore::instance()->getCapacidades()->get(idEmpleado.value(), 8, 0, false);
+    if (c.get())
+        return true;
+    c = DataStore::instance()->getCapacidades()->get(idEmpleado.value(), 9, 0, false);
+    return c.get();
 }

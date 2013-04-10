@@ -157,6 +157,17 @@ EmpleadosLst Empleados::getAll(bool includeDeleted)
     return res;
 }
 
+EmpleadosLst Empleados::getPowerUsers()
+{
+    EmpleadosLst res = boost::make_shared<QList<EmpleadoPtr> >();
+    foreach (EmpleadoPtr e, m_Empleados.values())
+    {
+        if (!e->DadoDeBaja() && e->isPowerUser())
+            res->push_back(e);
+    }
+    return res;
+}
+
 EmployeeCalculatedCapacityLst Empleados::getAll(int IDSector, int IDSubSector, QDate Fecha, int HoraInicio, int HoraFin, bool includeDeleted)
 {
     EmployeeCalculatedCapacityLst res = boost::make_shared<QList<EmployeeCalculatedCapacityPtr> >();

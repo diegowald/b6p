@@ -18,6 +18,7 @@ public:
     {
         m_Value = NULL;
         parent = NULL;
+        status = Unmodified;
     }
 
     NullableField(T value)

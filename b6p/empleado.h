@@ -67,6 +67,7 @@ public:
     virtual RecordPtr asRecordPtr();
 
     bool DadoDeBaja();
+    bool isPowerUser();
     EmployeeCalculatedCapacityPtr canWork(QDate &Fecha, int IDSector, int IDSubSector, int HoraInicio, int HoraFin);
     bool canBeDeleted();
 

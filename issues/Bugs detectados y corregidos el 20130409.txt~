@@ -1,0 +1,34 @@
+tests
+
+1 Modificacion de empleado. OK
+2 Eliminar sector de empleado. OK
+3 Borrar empleado. OK
+4 Modificacion de todos los datos de una supervisora. No guardo los cambios.
+5 No se guarda el ID del empleado. HECHO. OK
+6 Que aparezcan solamente los usuarios que son supervisores/gerentes. HECHO. OK
+7 Doble click en un dia que se esta programando.
+8 Asignando a Cassatti el rol de supervisor. OK
+9 MOdificacion de horarios y sectores a un supervisor. 
+10 Se agregan registros en la tabla access para sector supervisores.
+11 Cargo un supervisor nuevo y entro a la aplicacion OK.
+12 Mira reformas hechas y el empleado nuevo esta OK. Cambios hechos a otro empleado OK. Eliminacion de un sector OK
+13 Eliminacion de un empleados. OK
+
+Planificacion
+14 Le asigno a Un empleado 1 hr. OK
+15 Cambios realizados. Pulso save y lo guardo. OK
+16 Planificacion de dias. Asigno un empleado a una tarea. Save. Elimino ese empleado desde empleados. Se deberia borrar. OK
+
+17 Estoy seleccionando una hora, o lo que sea, y luego el time queda en verde... deberia quedar en rojo si no hay empleado asignado.
+18. Abro una planificacion que esta previamente mal cargada, y me aparece el warning para cada empleado que esta mal cargado.
+19 La barra de tiempo se esta dibujando mal, mostrando los horarios minimos y maximos de manera incorrecta.
+20 Falta Controlar el maximo de horas del empleado
+21 Tengo un empleado asignado a un sector y subsector en la planificacion, y le cambio el sector y explota. HECHO. OK
+22 Quitar el boton de edicion en la planificacion.
+
+Exportacion
+
+Lo sigue abriendo mal....
+
+Falta generar el signo exportar en la planificacion.
+

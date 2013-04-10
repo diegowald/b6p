@@ -48,6 +48,7 @@ public:
 
     EmpleadoPtr getEmpleado(int idEmpleado, bool includeDeleted);
     EmpleadosLst getAll(bool includeDeleted);
+    EmpleadosLst getPowerUsers();
     EmployeeCalculatedCapacityLst getAll(int IDSector, int IDSubSector, QDate Fecha, int HoraInicio, int HoraFin, bool includeDeleted);
 signals:
     

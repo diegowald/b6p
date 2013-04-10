@@ -17,7 +17,7 @@ DlgLogin::~DlgLogin()
 
 void DlgLogin::llenarComboUsuarios()
 {
-    EmpleadosLst emps = DataStore::instance()->getEmpleados()->getAll(false);
+    EmpleadosLst emps = DataStore::instance()->getEmpleados()->getPowerUsers();
     foreach(EmpleadoPtr e, *emps)
     {
         ui->cboUsers->addItem(e->Apellido().value() + ", " + e->Nombre().value(), e->IDEmpleado().value());
