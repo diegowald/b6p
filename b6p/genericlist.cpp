@@ -26,8 +26,6 @@ GenericList::GenericList(int LoggedUser, boost::shared_ptr<ACollection> Model, b
     on_dataUpdated();
     setWindowTitle(Model->name());
     m_InPlaceEdit = inPlaceEdit;
-    /*if (inPlaceEdit)
-        ui->treeList->setEditTriggers(QAbstractItemView::EditKeyPressed | QAbstractItemView::SelectedClicked);*/
     connect(model.get(), SIGNAL(dataUpdated()), this, SLOT(on_dataUpdated()));
     enableButtonsBasedOnAccess();
 }

@@ -30,7 +30,8 @@ public:
     int DiasPreviamenteTrabajados();
 
     bool hasWarningsDias();
-    bool hasWarningsHoras();
+    bool hasWarningsHorasMenorAMinimo();
+    bool hasWarningsHorasMayorAMaximo();
 signals:
     void calcularHorasPreviamenteTrabajadas(int IDEmpleado, int &horas);
 

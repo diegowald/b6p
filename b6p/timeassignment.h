@@ -58,8 +58,8 @@ public slots:
 protected:
     void paintEvent(QPaintEvent *event);
 
-    float time2position(int seconds, float w);
-    float delta2screen(float delta, float w);
+    qreal time2position(int seconds, float w);
+    qreal delta2screen(qreal delta, float w);
     int getNumberOfDivisions();
 private:
     QColor m_BackgroundColor;

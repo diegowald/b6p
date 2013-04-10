@@ -19,12 +19,12 @@ Planificacion
 15 Cambios realizados. Pulso save y lo guardo. OK
 16 Planificacion de dias. Asigno un empleado a una tarea. Save. Elimino ese empleado desde empleados. Se deberia borrar. OK
 
-17 Estoy seleccionando una hora, o lo que sea, y luego el time queda en verde... deberia quedar en rojo si no hay empleado asignado.
-18. Abro una planificacion que esta previamente mal cargada, y me aparece el warning para cada empleado que esta mal cargado.
-19 La barra de tiempo se esta dibujando mal, mostrando los horarios minimos y maximos de manera incorrecta.
-20 Falta Controlar el maximo de horas del empleado
+17 Estoy seleccionando una hora, o lo que sea, y luego el time queda en verde... deberia quedar en rojo si no hay empleado asignado. HECHO
+18. Abro una planificacion que esta previamente mal cargada, y me aparece el warning para cada empleado que esta mal cargado. HECHO -> Puede suceder que se este abriendo una planificacion y haya campos en estado incorrecto en la base, por lo que puede estar bien que suceda esto, en esos casos.
+19 La barra de tiempo se esta dibujando mal, mostrando los horarios minimos y maximos de manera incorrecta. HECHO
+20 Falta Controlar el maximo de horas del empleado. HECHO
 21 Tengo un empleado asignado a un sector y subsector en la planificacion, y le cambio el sector y explota. HECHO. OK
-22 Quitar el boton de edicion en la planificacion.
+22 Quitar el boton de edicion en la planificacion. HECHO
 
 Exportacion
 23 Lo sigue abriendo mal....

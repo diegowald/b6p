@@ -17,6 +17,7 @@ TimeAssignmentItemEdit::TimeAssignmentItemEdit(QWidget *parent) :
 
     ui->timeInicio->setValidRange(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0),
                                   DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
+    ui->timeInicio->setTime(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0));
     ui->timeFin->setValidRange(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0),
                                DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
     ui->timeFin->setTime(DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
@@ -27,9 +28,14 @@ TimeAssignmentItemEdit::TimeAssignmentItemEdit(QWidget *parent) :
 
     ui->widget->setInitialTimeline(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0));
     ui->widget->setFinalTimeline(DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
+
+    ui->widget->setStartAssignment(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0));
+    ui->widget->setEndAssignment(DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
+
     loadingData = true;
     llenarSectores();
     loadingData = true;
+    previousSelectedEmployee = -1;
 }
 
 TimeAssignmentItemEdit::~TimeAssignmentItemEdit()
@@ -95,6 +101,7 @@ void TimeAssignmentItemEdit::on_timeFin_TimeChanged(int newTime)
 
 void TimeAssignmentItemEdit::llenarEmpleados()
 {
+    allowOverWorking = false;
     int IDSector = ui->cboSectores->itemData(ui->cboSectores->currentIndex(), Qt::UserRole).toInt();
     int IDSubSector = -1;
     if (ui->cboSubsectores->count() > 0)
@@ -105,6 +112,7 @@ void TimeAssignmentItemEdit::llenarEmpleados()
 
     emps = DataStore::instance()->getEmpleados()->getAll(IDSector, IDSubSector, date, HoraInicio, HoraFin, false);
     ui->cboEmpleado->clear();
+    ui->cboEmpleado->addItem("", -1);
     ui->cboEmpleado->setCurrentIndex(-1);
     foreach(EmployeeCalculatedCapacityPtr e, *emps)
     {
@@ -236,28 +244,38 @@ QVariant TimeAssignmentItemEdit::data()
 
 void TimeAssignmentItemEdit::on_cboEmpleado_currentIndexChanged(int index)
 {
+    if (previousSelectedEmployee != ui->cboEmpleado->itemData(index, Qt::UserRole))
+        allowOverWorking = false;
+    previousSelectedEmployee = ui->cboEmpleado->itemData(index, Qt::UserRole).toInt();
     // Obtengo la capacidad calculada del empleado.
-    EmployeeCalculatedCapacityPtr ec;
-    foreach(ec, *emps)
+    EmployeeCalculatedCapacityPtr emp;
+    foreach(EmployeeCalculatedCapacityPtr ec, *emps)
     {
         if (ec->EmpleadoAsignado()->IDEmpleado().value() == ui->cboEmpleado->itemData(index, Qt::UserRole))
+        {
+            emp = ec;
             break;
+        }
     }
 
-    bool warningHoras = false;
+    bool warningHorasUnderwork = false;
+    bool warningHorasOverwork = false;
     bool warningDias = false;
 
-    if (ec.get())
+    if (emp.get())
     {
-        warningHoras = ec->hasWarningsHoras();
-        warningDias = ec->hasWarningsDias();
+        warningHorasUnderwork = emp->hasWarningsHorasMenorAMinimo();
+        warningHorasOverwork = emp->hasWarningsHorasMayorAMaximo();
+        warningDias = emp->hasWarningsDias();
     }
-    bool warnings = warningDias || warningHoras;
+    bool warnings = warningDias || warningHorasUnderwork || warningHorasOverwork;
     if (!loadingData && warnings && !allowOverWorking)
     {
         QString message;
-        if (warningHoras)
+        if (warningHorasUnderwork)
             message = tr("Allow the employee to have less than minimum of hours assigned?");
+        else if (warningHorasOverwork)
+            message = tr("Allow the employee to do extra hours?");
         else if (warningDias)
             message = tr("Allow overwork?");
         allowOverWorking = !(QMessageBox::question(this,
@@ -265,22 +283,11 @@ void TimeAssignmentItemEdit::on_cboEmpleado_currentIndexChanged(int index)
                                                    message,
                                                    QMessageBox::Yes | QMessageBox::No,
                                                    QMessageBox::No) == QMessageBox::No);
+        if (allowOverWorking)
+            emit AllowOverWorkingForEmployee(emp->EmpleadoAsignado()->IDEmpleado().value());
     }
 
-    if (ec.get())
-        emit refreshColorAssignments(ec->EmpleadoAsignado()->IDEmpleado().value());
-    QColor color;
-
-    if (!allowOverWorking && warnings)
-        color = Qt::red;
-    else if (warningDias)
-        color = Qt::darkYellow;
-    else if (warningHoras)
-        color = Qt::yellow;
-    else
-        color = Qt::darkGreen;
-
-    ui->widget->setAssignmentColor(color);
+    emit refreshColorAssignments();
 }
 
 void TimeAssignmentItemEdit::recalculateColorAssignments(int IDEmpleado)
@@ -288,25 +295,43 @@ void TimeAssignmentItemEdit::recalculateColorAssignments(int IDEmpleado)
     if (ui->cboEmpleado->itemData(ui->cboEmpleado->currentIndex(), Qt::UserRole) != IDEmpleado)
         return;
 
-    EmployeeCalculatedCapacityPtr ec;
-    foreach(ec, *emps)
+    EmployeeCalculatedCapacityPtr emp;
+    foreach(EmployeeCalculatedCapacityPtr ec, *emps)
     {
         if (ec->EmpleadoAsignado()->IDEmpleado().value() == IDEmpleado)
+        {
+            emp = ec;
             break;
+        }
     }
-    bool warningHoras = ec->hasWarningsHoras();
-    bool warningDias = ec->hasWarningsDias();
-    bool warnings = warningDias || warningHoras;
+    bool warningHorasUnderWork = false;
+    bool warningHorasOverWork = false;
+    bool warningDias = false;
+    if (emp.get())
+    {
+        warningHorasUnderWork = emp->hasWarningsHorasMenorAMinimo();
+        warningHorasOverWork = emp->hasWarningsHorasMayorAMaximo();
+        warningDias = emp->hasWarningsDias();
+    }
+
+    bool warnings = warningDias || warningHorasUnderWork || warningHorasOverWork;
     QColor color;
 
     if (!allowOverWorking && warnings)
         color = Qt::red;
     else if (warningDias)
         color = Qt::darkYellow;
-    else if (warningHoras)
+    else if (warningHorasUnderWork)
         color = Qt::yellow;
-    else
+    else if (warningHorasOverWork)
+        color = Qt::yellow;
+    else if (emp.get())
+    {
         color = Qt::darkGreen;
+        allowOverWorking = false;
+    }
+    else
+        color = Qt::darkRed;
 
     ui->widget->setAssignmentColor(color);
 }

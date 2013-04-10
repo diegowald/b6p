@@ -50,13 +50,19 @@ bool EmployeeCalculatedCapacity::hasWarningsDias()
     return warningDias;
 }
 
-bool EmployeeCalculatedCapacity::hasWarningsHoras()
+bool EmployeeCalculatedCapacity::hasWarningsHorasMenorAMinimo()
 {
-    bool warningHoras = (HorasPreviamenteTrabajadas() < DataStore::instance()->getParametros()->getValue(Parametros::MIN_WORKING_HOURS, 0));
+    bool warningHoras = (HorasPreviamenteTrabajadas() < DataStore::instance()->getParametros()->getValue(Parametros::EMPLOYEE_MIN_HOURS, 0));
     qDebug() << "Warning Horas: " << warningHoras;
     return warningHoras;
 }
 
+bool EmployeeCalculatedCapacity::hasWarningsHorasMayorAMaximo()
+{
+    bool warningHoras = (HorasPreviamenteTrabajadas() > DataStore::instance()->getParametros()->getValue(Parametros::EMPLOYEE_MAX_HOURS, 24));
+    qDebug() << "Warning OverWorking: " << warningHoras;
+    return warningHoras;
+}
 
 Empleado::Empleado(bool isNew, QObject *parent) :
     QObject(parent)

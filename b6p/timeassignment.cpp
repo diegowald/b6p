@@ -1,19 +1,12 @@
 #include "timeassignment.h"
 
-//#include <QDateTime>
 #include <QTime>
 #include <QPainter>
+#include <QDebug>
 
 TimeAssignment::TimeAssignment(QWidget *parent) :
     QWidget(parent)
 {
-
-    /*ui->widget->setBackgroundColor(Qt::white);
-    ui->widget->setTimeLineColor(Qt::lightGray);
-    ui->widget->setTimeLineHeight(4);
-    ui->widget->setAssignmentColor(Qt::darkRed);
-    ui->widget->setAssignmentHeight(6);
-*/
     m_BackgroundColor = QColor(255, 255, 255);
     m_TimelineColor = Qt::lightGray;
     m_AssignmentColor = Qt::darkRed;
@@ -23,8 +16,8 @@ TimeAssignment::TimeAssignment(QWidget *parent) :
     m_FontSize = 10;
     m_InitialTimeline = 0;
     m_FinalTimeline = 86400;
-    m_StartAssignment = 12 * 3600;
-    m_EndAssignment = 16 * 3600;
+    m_StartAssignment = 0 * 3600;
+    m_EndAssignment = 24 * 3600;
 
     m_paintBackgroundReferences = true;
     m_paintVerticalGrid = false;
@@ -75,7 +68,7 @@ int TimeAssignment::getNumberOfDivisions()
     // In hours
     delta /= 3600;
 
-    delta ++;
+    //delta ++;
 
     delta = (delta == 0) ? 1 : delta;
     return delta;
@@ -93,18 +86,16 @@ void TimeAssignment::paintEvent(QPaintEvent */*event*/)
     painter.fillRect(timeline, m_TimelineColor);
     painter.setPen(m_TimelineColor);
     painter.drawRect(timeline);
-    //painter.drawArc(10, 10, 10, 10, 0, 16*360);
 
     if (m_paintBackgroundReferences || m_paintVerticalGrid)
     {
         // Paint Background timeline references
-        int timeWidth = timeline.width();
-        // Suponemos que hay 10 divisiones;
+        qreal timeWidth = timeline.width();
         int numberOfDivisions = getNumberOfDivisions();
-        float slice = timeWidth / numberOfDivisions;
+        qreal slice = timeWidth / numberOfDivisions;
         for (int i = 0; i <= numberOfDivisions; i++)
         {
-            float x1 = timeline.left() + i * slice;
+            qreal x1 = timeline.left() + i * slice;
             int y1 = 0;
             int h = height();
             if (m_paintBackgroundReferences)
@@ -123,7 +114,7 @@ void TimeAssignment::paintEvent(QPaintEvent */*event*/)
             {
                 int aux = m_InitialTimeline;
                 aux += (i * 3600);
-                int x1 = timeline.left() + i * slice;
+                qreal x1 = timeline.left() + i * slice;
                 int y1 = (height() / 2) + m_TimelineHeight + m_FontSize;
                 QFont f = painter.font();
                 f.setPixelSize(m_FontSize);
@@ -137,9 +128,7 @@ void TimeAssignment::paintEvent(QPaintEvent */*event*/)
     }
 
     // Paint Time Assignment
-    // Supongamos que es desde las 3 hasta las 6
-    //QRectF assignment(m_HorizontalGap + slice * 3, (height() / 2) - 5, slice * (6 - 3), 10);
-    QRectF assignment(m_HorizontalGap + time2position(m_StartAssignment, timeline.width()),
+    QRectF assignment(timeline.left() + time2position(m_StartAssignment, timeline.width()),
                       (height() - m_AssignmentHeight) / 2,
                       delta2screen(m_EndAssignment - m_StartAssignment, timeline.width()),
                       m_AssignmentHeight);
@@ -149,12 +138,12 @@ void TimeAssignment::paintEvent(QPaintEvent */*event*/)
     painter.drawRect(assignment);
 }
 
-float TimeAssignment::time2position(int seconds, float w)
+qreal TimeAssignment::time2position(int seconds, float w)
 {
     return delta2screen(seconds - m_InitialTimeline, w);
 }
 
-float TimeAssignment::delta2screen(float delta, float w)
+qreal TimeAssignment::delta2screen(qreal delta, float w)
 {
     return delta * w / (m_FinalTimeline - m_InitialTimeline);
 }

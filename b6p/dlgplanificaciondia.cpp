@@ -10,6 +10,7 @@ DlgPlanificacionDia::DlgPlanificacionDia(QWidget *parent) :
     ui->setupUi(this);
     newID = 0;
     SubsectorsToDelete.clear();
+    ui->btnEdit->setVisible(false);
 }
 
 DlgPlanificacionDia::~DlgPlanificacionDia()
@@ -36,7 +37,8 @@ void DlgPlanificacionDia::setData(PlanificacionDiaPtr data)
         ui->treeWidget->addTopLevelItem(item);
         TimeAssignmentItemEdit *time = new TimeAssignmentItemEdit();
         connect(time, SIGNAL(calcularHoras(int,int&)), this, SLOT(on_calcularHoras(int,int&)));
-        connect(time, SIGNAL(refreshColorAssignments(int)), this, SLOT(on_refreshColorAssignments(int)));
+        connect(time, SIGNAL(refreshColorAssignments()), this, SLOT(on_refreshColorAssignments()));
+        connect(time, SIGNAL(AllowOverWorkingForEmployee(int)), this, SLOT(on_AllowOverWorkingForEmployee(int)));
         time->setDate(m_Dia);
         time->setData(plan->IDRecord().value());
 
@@ -70,7 +72,8 @@ void DlgPlanificacionDia::on_btnAdd_pressed()
     ui->treeWidget->addTopLevelItem(item);
     TimeAssignmentItemEdit *time = new TimeAssignmentItemEdit();
     connect(time, SIGNAL(calcularHoras(int,int&)), this, SLOT(on_calcularHoras(int,int&)));
-    connect(time, SIGNAL(refreshColorAssignments(int)), this, SLOT(on_refreshColorAssignments(int)));
+    connect(time, SIGNAL(refreshColorAssignments()), this, SLOT(on_refreshColorAssignments()));
+    connect(time, SIGNAL(AllowOverWorkingForEmployee(int)), this, SLOT(on_AllowOverWorkingForEmployee(int)));
     time->setDate(m_Dia);
     newID++;
     time->setData(-newID);
@@ -180,13 +183,24 @@ void DlgPlanificacionDia::on_calcularHoras(int IDEmpleado, int &horas)
     }
 }
 
-void DlgPlanificacionDia::on_refreshColorAssignments(int IDEmpleado)
+void DlgPlanificacionDia::on_refreshColorAssignments()
 {
     for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = ui->treeWidget->topLevelItem(i);
         TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 0));
         if (time)
-            time->recalculateColorAssignments(IDEmpleado);
+            time->recalculateColorAssignments(time->IDEmpleado());
+    }
+}
+
+void DlgPlanificacionDia::on_AllowOverWorkingForEmployee(int IDEmpleado)
+{
+    for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
+    {
+        QTreeWidgetItem *item = ui->treeWidget->topLevelItem(i);
+        TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 0));
+        if (time && (time->IDEmpleado() == IDEmpleado))
+            time->setAllowOverWorking(true);
     }
 }

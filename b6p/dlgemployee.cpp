@@ -185,9 +185,6 @@ void DlgEmployee::on_btnAdd_pressed()
     QTreeWidgetItem *item = new QTreeWidgetItem();
     ui->treeCapacities->addTopLevelItem(item);
     CapacityWidget *w = new CapacityWidget();
-    /*w->setSector(cap->getSector()->Nombre().value());
-    w->setSubSector(cap->getSubSector()->Nombre().value());
-    w->setCapacity(cap->Capacidad().value());*/
     ui->treeCapacities->setItemWidget(item, 0, w);
 }
 

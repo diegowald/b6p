@@ -50,7 +50,8 @@ public:
 signals:
     void AssignmentChanged(int fromSeconds, int toSeconds);
     void calcularHoras(int IDEmpleado, int &horas);
-    void refreshColorAssignments(int IDEmpleado);
+    void refreshColorAssignments();
+    void AllowOverWorkingForEmployee(int IDEmpleado);
 
 protected:
     void llenarSectores();
@@ -73,6 +74,7 @@ private:
     EmployeeCalculatedCapacityLst emps;
     bool loadingData;
     bool allowOverWorking;
+    int previousSelectedEmployee;
 };
 
 #endif // TIMEASSIGNMENTITEMEDIT_H
