@@ -28,5 +28,5 @@ Planificacion
 
 Exportacion
 23 Lo sigue abriendo mal....
-24 Falta generar el signo exportar en la planificacion.
+24 Falta generar el signo exportar en la planificacion. HECHO. 
 
