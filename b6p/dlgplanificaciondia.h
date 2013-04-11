@@ -28,6 +28,7 @@ private:
     QStringList getHeaders();
     QStringList getRecord(TimeAssignmentItemEdit *time);
     boost::shared_ptr<QList<QStringList> > getAll();
+    void setReadOnly();
 
 private slots:
     void on_btnAdd_pressed();

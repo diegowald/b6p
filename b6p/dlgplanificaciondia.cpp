@@ -69,6 +69,8 @@ void DlgPlanificacionDia::setData(PlanificacionDiaPtr data)
         ui->treeWidget->setItemWidget(item, 0, time);
         connect(time, SIGNAL(AssignmentChanged(int,int)), this, SLOT(slot_AssignmentChanged(int,int)));
     }
+    if (data->EstadoPlanificacion().value() == APPROVED)
+        setReadOnly();
 }
 
 void DlgPlanificacionDia::on_btnAdd_pressed()
@@ -160,6 +162,20 @@ PlanificacionSubSectorLst DlgPlanificacionDia::Planificaciones()
     }
 
     return res;
+}
+
+void DlgPlanificacionDia::setReadOnly()
+{
+    ui->btnAdd->setEnabled(false);
+    ui->btnDelete->setEnabled(false);
+    ui->btnEdit->setEnabled(false);
+
+    for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
+    {
+        QTreeWidgetItem *item = ui->treeWidget->topLevelItem(i);
+        TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 0));
+        time->setEnabled(false);
+    }
 }
 
 void DlgPlanificacionDia::on_btnDelete_pressed()
