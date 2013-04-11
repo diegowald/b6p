@@ -11,19 +11,19 @@ PlanificacionesDias::PlanificacionesDias(QObject *parent) :
 
 QString PlanificacionesDias::getSelectFromMainDB()
 {
-    return QString("select Dia, Notas, IDSupervisor, LastUpdate from planificaciondia "
+    return QString("select Dia, Notas, IDSupervisor, LastUpdate, EstadoPlanificacion from planificaciondia "
                    " where LastUpdate >= :LASTUPDATE ;");
 }
 
 QString PlanificacionesDias::getSqlString()
 {
-    return QString("select Dia, Notas, IDSupervisor, sent from planificaciondia ")
+    return QString("select Dia, Notas, IDSupervisor, sent, EstadoPlanificacion from planificaciondia ")
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
 QString PlanificacionesDias::getSQLExistsInMainDB()
 {
-    return QString("select Dia, Notas, IDSupervisor from planificaciondia where Dia = :Dia;");
+    return QString("select Dia, Notas, IDSupervisor, EstadoPlanificacion from planificaciondia where Dia = :Dia;");
 }
 
 void PlanificacionesDias::addRecord(RecordPtr record)
@@ -33,6 +33,7 @@ void PlanificacionesDias::addRecord(RecordPtr record)
     p->Dia().setValue(QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date());
     p->Notas().setValue((*record)["Notas"].toString());
     p->IDSupervisor().setValue((*record)["IDSupervisor"].toInt());
+    p->EstadoPlanificacion().setValue((EstadosPlanificacion)(*record)["EstadoPlanificacion"].toInt());
     p->setSentStatus((*record)["sent"].toInt() == 1);
     p->setInitialized();
 
@@ -45,6 +46,7 @@ void PlanificacionesDias::updateRecord(RecordPtr record)
 
     p->Notas().setValue((*record)["Notas"].toString());
     p->IDSupervisor().setValue((*record)["IDSupervisor"].toInt());
+    p->EstadoPlanificacion().setValue((EstadosPlanificacion)(*record)["EstadoPlanificacion"].toInt());
 
 }
 
@@ -69,7 +71,7 @@ QString PlanificacionesDias::getUpdateStatement()
 {
     return QString("update planificaciondia "
                    " set Notas = :Notas, IDSupervisor = :IDSupervisor, "
-                   " RecordStatus = %1 "
+                   " RecordStatus = %1, EstadoPlanificacion = :EstadoPlanificacion "
                    " where Dia = :Dia;").arg(RECORD_MODIFIED);
 
 }
@@ -77,9 +79,9 @@ QString PlanificacionesDias::getUpdateStatement()
 QString PlanificacionesDias::getInsertStatement(bool)
 {
     return QString("insert into planificaciondia "
-                   " (Dia, Notas, IDSupervisor, RecordStatus) "
+                   " (Dia, Notas, IDSupervisor, RecordStatus, EstadoPlanificacion) "
                    " values "
-                   " (:Dia, :Notas, :IDSupervisor, %1);").arg(RECORD_NEW);
+                   " (:Dia, :Notas, :IDSupervisor, %1, :EstadoPlanificacion);").arg(RECORD_NEW);
 }
 
 RecordSet PlanificacionesDias::getRecords(RecordStatus status)
@@ -123,7 +125,8 @@ void PlanificacionesDias::defineHeaders(QStringList &list)
 {
     list << tr("Date") << tr("Supervisor")
          << tr("Notes") << tr("Estimated hours")
-         << tr("Planned hours") << tr("Status");
+         << tr("Planned hours") << tr("Status")
+         << tr("Complete");
 }
 
 boost::shared_ptr<QList<QStringList> > PlanificacionesDias::getAll()
@@ -160,6 +163,7 @@ void PlanificacionesDias::fillData(QTreeWidget &tree)
         item->setText(3, QString::number(p->Estimacion()->EstimacionHoras().value()));
         item->setText(4, QString::number(p->HorasPlanificadas()));
         item->setText(5, p->Estado());
+        item->setText(6, (p->isEverythingAssigned() ? tr("Yes") : tr("No")));
         tree.insertTopLevelItem(0, item);
     }
 }
@@ -264,6 +268,19 @@ PlanificacionDiaPtr PlanificacionesDias::getByDay(QDate day, bool includeDeleted
         }
     }
 }
+
+
+PlanificacionDiaLst PlanificacionesDias::getAllReadyForApproval()
+{
+    PlanificacionDiaLst res = boost::make_shared<QList<PlanificacionDiaPtr> >();
+    foreach (PlanificacionDiaPtr p, m_Planificaciones.values())
+    {
+        if (p->isReadyForApproval())
+            res->push_back(p);
+    }
+    return res;
+}
+
 
 void PlanificacionesDias::saveDependants()
 {

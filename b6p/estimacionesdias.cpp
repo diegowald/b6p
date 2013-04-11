@@ -1,6 +1,9 @@
 #include "estimacionesdias.h"
 #include "dlgestimaciondia.h"
 #include "dlgaddmanyestimationdays.h"
+#include "dlgapproveplanifications.h"
+#include "datastore.h"
+
 
 EstimacionesDias::EstimacionesDias(QObject *parent)
     : ACollection(tr("Day Estimations"),
@@ -334,10 +337,17 @@ void EstimacionesDias::addManyDays()
 
 void EstimacionesDias::approveSelected()
 {
-    /**
-     * la idea es abrir un cuadro de dialogo que muestre el
-     * listado de los dias que no han sido aprobados aun
-     * y que tienen todas las tareas con un empleado asignado.
-     **/
-#warning implementar funcionalidad approveSelected.
+    DlgApprovePlanifications dlg;
+    dlg.setData(DataStore::instance()->getPlanificacionesDias()->getAllReadyForApproval());
+    if (dlg.exec() == QDialog::Accepted)
+    {
+        PlanificacionDiaLst lst = dlg.getPlanificacionToApprove();
+
+        foreach(PlanificacionDiaPtr p, *lst)
+        {
+            p->approve();
+        }
+
+        DataStore::instance()->getPlanificacionesDias()->save();
+    }
 }

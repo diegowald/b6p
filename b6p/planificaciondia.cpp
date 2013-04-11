@@ -1,6 +1,7 @@
 #include "planificaciondia.h"
 #include "datastore.h"
 #include "planificacionsubsector.h"
+#include <QDateTime>
 
 PlanificacionDia::PlanificacionDia(QDate date, QObject *parent) :
     QObject(parent)
@@ -38,6 +39,7 @@ RecordPtr PlanificacionDia::asRecordPtr()
     (*res)["Dia"] = m_Dia.toVariant();
     (*res)["Notas"] = m_Notas.toVariant();
     (*res)["IDSupervisor"] = m_IDSupervisor.toVariant();
+    (*res)["EstadoPlanificacion"] = m_EstadosPlanificacion.toVariant();
 
     return res;
 }
@@ -55,6 +57,11 @@ NullableField<QString> &PlanificacionDia::Notas()
 NullableField<int> &PlanificacionDia::IDSupervisor()
 {
     return m_IDSupervisor;
+}
+
+NullableField<EstadosPlanificacion> &PlanificacionDia::EstadoPlanificacion()
+{
+    return m_EstadosPlanificacion;
 }
 
 EmpleadoPtr PlanificacionDia::Supervisor()
@@ -88,7 +95,10 @@ QString PlanificacionDia::Estado()
     QString approved = tr("Approved");
     QString res;
     if (m_EstadosPlanificacion.isNull())
+    {
         res = inProgress;
+        m_EstadosPlanificacion.setValue(INPROGRESS);
+    }
     else
     {
         switch (m_EstadosPlanificacion.value())
@@ -106,6 +116,42 @@ QString PlanificacionDia::Estado()
         }
     }
     return res;
+}
+
+void PlanificacionDia::approve()
+{
+    if (isReadyForApproval())
+        m_EstadosPlanificacion.setValue(APPROVED);
+}
+
+bool PlanificacionDia::isEverythingAssigned()
+{
+    PlanificacionSubSectorLst pl =
+            DataStore::instance()->getPlanificacionesSubSectores()->getAll(
+                Dia().value(), false);
+
+    // Si no hay planificaciones, entonces se considera que no esta completo
+    if (pl->count() == 0)
+        return false;
+
+
+    foreach(PlanificacionSubSectorPtr p, *pl)
+    {
+        if (p->IDEmpleado().isNull() || (p->IDEmpleado().value() == 0))
+            return false;
+    }
+    return true;
+}
+
+bool PlanificacionDia::isReadyForApproval()
+{
+    EstadosPlanificacion estado =
+            m_EstadosPlanificacion.isNull()
+            ? INPROGRESS
+            : m_EstadosPlanificacion.value();
+
+    return ((estado == INPROGRESS)
+            && isEverythingAssigned());
 }
 
 void PlanificacionDia::updatePlanificaciones(PlanificacionSubSectorLst dataFrom)

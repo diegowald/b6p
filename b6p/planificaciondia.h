@@ -26,11 +26,16 @@ public:
     NullableField<QDate> &Dia();
     NullableField<QString> &Notas();
     NullableField<int> &IDSupervisor();
+    NullableField<EstadosPlanificacion> &EstadoPlanificacion();
     int HorasPlanificadas();
     EmpleadoPtr Supervisor();
     EstimacionDiaPtr Estimacion();
     virtual RecordPtr asRecordPtr();
     QString Estado();
+    void approve();
+
+    bool isEverythingAssigned();
+    bool isReadyForApproval();
 
     void updatePlanificaciones(PlanificacionSubSectorLst dataFrom);
     PlanificacionSubSectorLst getPlanificaciones();

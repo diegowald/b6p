@@ -38,6 +38,7 @@ public:
 
     PlanificacionDiaLst getAll(bool includeDeleted);
     PlanificacionDiaPtr getByDay(QDate day, bool includeDeleted);
+    PlanificacionDiaLst getAllReadyForApproval();
 signals:
     
 public slots:
