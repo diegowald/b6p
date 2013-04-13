@@ -69,6 +69,7 @@ void SincroManager::obtenerActualizacionesDeBaseCentral()
         db->getDataFromDB(m_FechaUltimaSincronizacion);
         db->applyChanges();
         db->checkConsistency();
+        QCoreApplication::processEvents();
     }
 }
 
@@ -78,6 +79,7 @@ void SincroManager::enviarDatosADBCentral()
     {
         db->sendData();
         db->saveLocalChanges();
+        QCoreApplication::processEvents();
     }
 }
 

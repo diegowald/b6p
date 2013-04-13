@@ -10,8 +10,8 @@ PlanificacionesDias::PlanificacionesDias(QObject *parent) :
 }
 
 QString PlanificacionesDias::getSelectFromMainDB()
-{
-    return QString("select Dia, Notas, IDSupervisor, LastUpdate, EstadoPlanificacion from planificaciondia "
+{//, EstadoPlanificacion
+    return QString("select Dia, Notas, IDSupervisor, LastUpdate from planificaciondia "
                    " where LastUpdate >= :LASTUPDATE ;");
 }
 
