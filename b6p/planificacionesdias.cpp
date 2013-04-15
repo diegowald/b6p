@@ -150,6 +150,7 @@ boost::shared_ptr<QList<QStringList> > PlanificacionesDias::getAll()
 
 void PlanificacionesDias::fillData(QTreeWidget &tree)
 {
+    tree.clear();
     foreach(PlanificacionDiaPtr p, m_Planificaciones.values())
     {
         QTreeWidgetItem *item = new QTreeWidgetItem();
@@ -301,4 +302,20 @@ void PlanificacionesDias::setStatusToUnmodified(bool removeDeleted)
     {
         m_Planificaciones.remove(dt);
     }
+}
+
+boost::shared_ptr<QList<QAction*> > PlanificacionesDias::getActions()
+{
+    boost::shared_ptr<QList<QAction*> >actions = boost::make_shared<QList<QAction*> >();
+
+    QAction *action = new QAction(tr("Approve"), NULL);
+    QIcon icon2;
+    icon2.addFile(QString::fromUtf8(":/img/approve"), QSize(), QIcon::Normal, QIcon::Off);
+    action->setIcon(icon2);
+    connect(action, SIGNAL(triggered()),
+            DataStore::instance()->getEstimacionesDias().get(),
+            SLOT(approveSelected()));
+    actions->push_back(action);
+
+    return actions;
 }

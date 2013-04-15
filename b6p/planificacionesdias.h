@@ -35,6 +35,7 @@ public:
     virtual void refreshID(int oldID, int newRecordId);
     virtual void saveDependants();
     virtual void setStatusToUnmodified(bool removeDeleted);
+    virtual boost::shared_ptr<QList<QAction*> > getActions();
 
     PlanificacionDiaLst getAll(bool includeDeleted);
     PlanificacionDiaPtr getByDay(QDate day, bool includeDeleted);

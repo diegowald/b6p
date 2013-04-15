@@ -17,27 +17,27 @@
     <message>
         <location filename="acollection.cpp" line="125"/>
         <source>Unable to delete element.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se puede borrar el elemento.</translation>
     </message>
     <message>
         <location filename="acollection.cpp" line="171"/>
         <source>Export to CSV</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar a CSV</translation>
     </message>
     <message>
         <location filename="acollection.cpp" line="172"/>
         <source>Successfuly exported!</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportacion OK!</translation>
     </message>
     <message>
         <location filename="acollection.cpp" line="177"/>
         <source>Export to CSV Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error al exportar a CSV</translation>
     </message>
     <message>
         <location filename="acollection.cpp" line="178"/>
         <source>Couldn&apos;t open file.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se puede abrir el archivo.</translation>
     </message>
 </context>
 <context>
@@ -45,7 +45,7 @@
     <message>
         <location filename="accesos.cpp" line="5"/>
         <source>Access</source>
-        <translation type="unfinished"></translation>
+        <translation>Accesos</translation>
     </message>
 </context>
 <context>
@@ -155,17 +155,17 @@
     <message>
         <location filename="dlgaddmanyestimationdays.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dialogo</translation>
     </message>
     <message>
         <location filename="dlgaddmanyestimationdays.ui" line="22"/>
         <source>From</source>
-        <translation type="unfinished"></translation>
+        <translation>Desde</translation>
     </message>
     <message>
         <location filename="dlgaddmanyestimationdays.ui" line="32"/>
         <source>To</source>
-        <translation type="unfinished"></translation>
+        <translation>Hasta</translation>
     </message>
 </context>
 <context>
@@ -173,17 +173,17 @@
     <message>
         <location filename="dlgapproveplanifications.ui" line="14"/>
         <source>Approve Planifications</source>
-        <translation type="unfinished"></translation>
+        <translation>Aprobar planificaciones</translation>
     </message>
     <message>
         <location filename="dlgapproveplanifications.cpp" line="35"/>
         <source>Yes</source>
-        <translation type="unfinished">Si</translation>
+        <translation>Si</translation>
     </message>
     <message>
         <location filename="dlgapproveplanifications.cpp" line="35"/>
         <source>No</source>
-        <translation type="unfinished">No</translation>
+        <translation>No</translation>
     </message>
 </context>
 <context>
@@ -236,7 +236,7 @@
     <message>
         <location filename="dlgemployee.ui" line="174"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="dlgemployee.ui" line="202"/>
@@ -267,12 +267,12 @@
     <message>
         <location filename="dlglogin.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dialogo</translation>
     </message>
     <message>
         <location filename="dlglogin.ui" line="26"/>
         <source>Select User</source>
-        <translation type="unfinished"></translation>
+        <translation>Usuario</translation>
     </message>
 </context>
 <context>
@@ -329,37 +329,37 @@
     <message>
         <location filename="dlgparametros.ui" line="187"/>
         <source>Synchronization</source>
-        <translation type="unfinished"></translation>
+        <translation>Sincronizacion</translation>
     </message>
     <message>
         <location filename="dlgparametros.ui" line="219"/>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Servidor</translation>
     </message>
     <message>
         <location filename="dlgparametros.ui" line="232"/>
         <source>Database</source>
-        <translation type="unfinished"></translation>
+        <translation>Base de datos</translation>
     </message>
     <message>
         <location filename="dlgparametros.ui" line="245"/>
         <source>User</source>
-        <translation type="unfinished"></translation>
+        <translation>Usuario</translation>
     </message>
     <message>
         <location filename="dlgparametros.ui" line="258"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Contraseña</translation>
     </message>
     <message>
         <location filename="dlgparametros.ui" line="271"/>
         <source>Test Connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Probar conexion</translation>
     </message>
     <message>
         <location filename="dlgparametros.ui" line="278"/>
         <source>TextLabel</source>
-        <translation type="unfinished">TextLabel</translation>
+        <translation>TextLabel</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;This window is useless&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -368,12 +368,12 @@
     <message>
         <location filename="dlgparametros.cpp" line="57"/>
         <source>Connection OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Conexion OK</translation>
     </message>
     <message>
         <location filename="dlgparametros.cpp" line="59"/>
         <source>Please check connection parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>Por favor verifique parametros de conexion</translation>
     </message>
 </context>
 <context>
@@ -404,12 +404,12 @@
     <message>
         <location filename="dlgplanificaciondia.ui" line="107"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="dlgplanificaciondia.ui" line="118"/>
         <source>Export</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar</translation>
     </message>
     <message>
         <location filename="dlgplanificaciondia.ui" line="179"/>
@@ -439,63 +439,63 @@
     <message>
         <location filename="dlgplanificaciondia.cpp" line="234"/>
         <source>Export to...</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar A...</translation>
     </message>
     <message>
         <location filename="dlgplanificaciondia.cpp" line="236"/>
         <source>CSV Files (*.csv)</source>
-        <translation type="unfinished"></translation>
+        <translation>Archivos CSV (*.csv)</translation>
     </message>
     <message>
         <location filename="dlgplanificaciondia.cpp" line="257"/>
         <source>Export to CSV</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar a CSV</translation>
     </message>
     <message>
         <location filename="dlgplanificaciondia.cpp" line="258"/>
         <source>Successfuly exported!</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportacion OK!</translation>
     </message>
     <message>
         <location filename="dlgplanificaciondia.cpp" line="263"/>
         <source>Export to CSV Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error al exportar a CSV</translation>
     </message>
     <message>
         <location filename="dlgplanificaciondia.cpp" line="264"/>
         <source>Couldn&apos;t open file.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se puede abrir el archivo.</translation>
     </message>
     <message>
         <location filename="dlgplanificaciondia.cpp" line="272"/>
         <source>Sector</source>
-        <translation type="unfinished">Sector</translation>
+        <translation>Sector</translation>
     </message>
     <message>
         <location filename="dlgplanificaciondia.cpp" line="272"/>
         <source>SubSector</source>
-        <translation type="unfinished"></translation>
+        <translation>SubSector</translation>
     </message>
     <message>
         <location filename="dlgplanificaciondia.cpp" line="273"/>
         <source>From</source>
-        <translation type="unfinished"></translation>
+        <translation>Desde</translation>
     </message>
     <message>
         <location filename="dlgplanificaciondia.cpp" line="273"/>
         <source>To</source>
-        <translation type="unfinished"></translation>
+        <translation>Hasta</translation>
     </message>
     <message>
         <location filename="dlgplanificaciondia.cpp" line="274"/>
         <source>Employee</source>
-        <translation type="unfinished">Empleado</translation>
+        <translation>Empleado</translation>
     </message>
     <message>
         <location filename="dlgplanificaciondia.cpp" line="274"/>
         <location filename="dlgplanificaciondia.cpp" line="309"/>
         <source>OverWork</source>
-        <translation type="unfinished"></translation>
+        <translation>Sobre trabajo</translation>
     </message>
 </context>
 <context>
@@ -516,12 +516,12 @@
     <message>
         <location filename="dlgsynchronization.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dialogo</translation>
     </message>
     <message>
         <location filename="dlgsynchronization.ui" line="43"/>
         <source>Last synchronization</source>
-        <translation type="unfinished"></translation>
+        <translation>Ultima sincronizacion</translation>
     </message>
     <message>
         <location filename="dlgsynchronization.ui" line="50"/>
@@ -529,57 +529,57 @@
         <location filename="dlgsynchronization.ui" line="93"/>
         <location filename="dlgsynchronization.ui" line="120"/>
         <source>TextLabel</source>
-        <translation type="unfinished">TextLabel</translation>
+        <translation>TextLabel</translation>
     </message>
     <message>
         <location filename="dlgsynchronization.ui" line="72"/>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Servidor</translation>
     </message>
     <message>
         <location filename="dlgsynchronization.ui" line="86"/>
         <source>User</source>
-        <translation type="unfinished"></translation>
+        <translation>Usuario</translation>
     </message>
     <message>
         <location filename="dlgsynchronization.ui" line="113"/>
         <source>Database</source>
-        <translation type="unfinished"></translation>
+        <translation>Base de datos</translation>
     </message>
     <message>
         <location filename="dlgsynchronization.ui" line="143"/>
         <source>Status</source>
-        <translation type="unfinished">Estado</translation>
+        <translation>Estado</translation>
     </message>
     <message>
         <location filename="dlgsynchronization.ui" line="169"/>
         <source>Synchronize</source>
-        <translation type="unfinished"></translation>
+        <translation>Sincronizar</translation>
     </message>
     <message>
         <location filename="dlgsynchronization.cpp" line="69"/>
         <source>Starting...</source>
-        <translation type="unfinished"></translation>
+        <translation>Comenzando...</translation>
     </message>
     <message>
         <location filename="dlgsynchronization.cpp" line="78"/>
         <source>Getting data</source>
-        <translation type="unfinished"></translation>
+        <translation>Obteniendo datos</translation>
     </message>
     <message>
         <location filename="dlgsynchronization.cpp" line="87"/>
         <source>Applying changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplicando cambios</translation>
     </message>
     <message>
         <location filename="dlgsynchronization.cpp" line="96"/>
         <source>Checking...</source>
-        <translation type="unfinished"></translation>
+        <translation>Verificando...</translation>
     </message>
     <message>
         <location filename="dlgsynchronization.cpp" line="105"/>
         <source>Sending data</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviando datos</translation>
     </message>
 </context>
 <context>
@@ -620,12 +620,12 @@
     <message>
         <location filename="estimacionesdias.cpp" line="120"/>
         <source>Add Range</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir rango</translation>
     </message>
     <message>
         <location filename="estimacionesdias.cpp" line="128"/>
         <source>Approve</source>
-        <translation type="unfinished">Aprobar</translation>
+        <translation>Aprobar</translation>
     </message>
     <message>
         <location filename="estimacionesdias.cpp" line="140"/>
@@ -646,7 +646,7 @@
     <message>
         <location filename="estimacionesdias.cpp" line="154"/>
         <source>Not Planned</source>
-        <translation type="unfinished"></translation>
+        <translation>Sin planificar</translation>
     </message>
     <message>
         <location filename="estimacionesdias.cpp" line="176"/>
@@ -689,22 +689,22 @@
     <message>
         <location filename="genericlist.ui" line="105"/>
         <source>Export</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar</translation>
     </message>
     <message>
         <location filename="genericlist.ui" line="108"/>
         <source>Export to CSV File</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar a CSV</translation>
     </message>
     <message>
         <location filename="genericlist.cpp" line="151"/>
         <source>Export to...</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar a...</translation>
     </message>
     <message>
         <location filename="genericlist.cpp" line="153"/>
         <source>CSV Files (*.csv)</source>
-        <translation type="unfinished"></translation>
+        <translation>Archivos CSV (*.csv)</translation>
     </message>
 </context>
 <context>
@@ -737,7 +737,7 @@
     <message>
         <location filename="mainwindow.ui" line="97"/>
         <source>Synchronization</source>
-        <translation type="unfinished"></translation>
+        <translation>Sincronizacion</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="122"/>
@@ -780,7 +780,7 @@
     <message>
         <location filename="mainwindow.ui" line="154"/>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Q</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="166"/>
@@ -805,27 +805,27 @@
     <message>
         <location filename="mainwindow.ui" line="190"/>
         <source>About...</source>
-        <translation>Acerca de</translation>
+        <translation>Acerca de...</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="202"/>
         <source>Setup days...</source>
-        <translation>Preparar estimaciones de dias</translation>
+        <translation>Preparar estimaciones de dias...</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="211"/>
         <source>Synchronize...</source>
-        <translation type="unfinished"></translation>
+        <translation>Sincronizar...</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="92"/>
         <source>About B6P</source>
-        <translation type="unfinished"></translation>
+        <translation>Acerda de Big 6 Planner</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="92"/>
         <source>B6Planner</source>
-        <translation type="unfinished"></translation>
+        <translation>Big 6 Planner</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="97"/>
@@ -915,17 +915,17 @@
     <message>
         <location filename="planificacionesdias.cpp" line="129"/>
         <source>Complete</source>
-        <translation type="unfinished"></translation>
+        <translation>Completado</translation>
     </message>
     <message>
         <location filename="planificacionesdias.cpp" line="166"/>
         <source>Yes</source>
-        <translation type="unfinished">Si</translation>
+        <translation>Si</translation>
     </message>
     <message>
         <location filename="planificacionesdias.cpp" line="166"/>
         <source>No</source>
-        <translation type="unfinished">No</translation>
+        <translation>No</translation>
     </message>
     <message>
         <location filename="planificacionesdias.cpp" line="183"/>
@@ -989,12 +989,12 @@
         <location filename="sqlhandler.cpp" line="67"/>
         <location filename="sqlhandler.cpp" line="100"/>
         <source>DB Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error en Base de datos</translation>
     </message>
     <message>
         <location filename="sqlhandler.cpp" line="67"/>
         <source>Can&apos;t open Database</source>
-        <translation type="unfinished"></translation>
+        <translation>No se puede abrir la base de datos</translation>
     </message>
     <message>
         <location filename="sqlhandler.cpp" line="88"/>
@@ -1002,12 +1002,12 @@
         <location filename="sqlhandler.cpp" line="175"/>
         <location filename="sqlhandler.cpp" line="198"/>
         <source>SQL Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error al ejecutar una consulta a la base de datos</translation>
     </message>
     <message>
         <location filename="sqlhandler.cpp" line="100"/>
         <source>Can&apos;t open database</source>
-        <translation type="unfinished"></translation>
+        <translation>No se puede abrir la base de datos</translation>
     </message>
 </context>
 <context>
@@ -1036,22 +1036,22 @@
     <message>
         <location filename="timeassignmentitemedit.cpp" line="275"/>
         <source>Allow the employee to have less than minimum of hours assigned?</source>
-        <translation type="unfinished"></translation>
+        <translation>Permite que el empleado trabaje menos horas que el minimo estipulado?</translation>
     </message>
     <message>
         <location filename="timeassignmentitemedit.cpp" line="277"/>
         <source>Allow the employee to do extra hours?</source>
-        <translation type="unfinished"></translation>
+        <translation>Permite al empleado hacer horas extras?</translation>
     </message>
     <message>
         <location filename="timeassignmentitemedit.cpp" line="279"/>
         <source>Allow overwork?</source>
-        <translation type="unfinished"></translation>
+        <translation>Permite al empleado trabajar mas dias que el estipulado entre francos?</translation>
     </message>
     <message>
         <location filename="timeassignmentitemedit.cpp" line="281"/>
         <source>Warning: Detected problem with hours or days</source>
-        <translation type="unfinished"></translation>
+        <translation>Atencion: se han detectado problemas de asignacion de horas o dias al empleado</translation>
     </message>
 </context>
 <context>
@@ -1059,7 +1059,7 @@
     <message>
         <location filename="timeeditor.ui" line="32"/>
         <source>Form</source>
-        <translation type="unfinished">Form</translation>
+        <translation>Form</translation>
     </message>
 </context>
 </TS>
