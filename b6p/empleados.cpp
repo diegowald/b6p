@@ -2,6 +2,8 @@
 #include "genericlist.h"
 #include "dlgemployee.h"
 #include "datastore.h"
+#include <QMultiMap>
+
 
 Empleados::Empleados(QObject *parent) :
     ACollection(tr("Employees"), "Employees", true, parent)
@@ -171,17 +173,19 @@ EmpleadosLst Empleados::getPowerUsers()
 EmployeeCalculatedCapacityLst Empleados::getAll(int IDSector, int IDSubSector, QDate Fecha, int HoraInicio, int HoraFin, bool includeDeleted)
 {
     EmployeeCalculatedCapacityLst res = boost::make_shared<QList<EmployeeCalculatedCapacityPtr> >();
-    QMap<int, EmployeeCalculatedCapacityPtr> candidates;
+    QMultiMap<int, EmployeeCalculatedCapacityPtr> candidates;
+    //QMap<int, EmployeeCalculatedCapacityPtr> candidates;
     foreach(EmpleadoPtr e, m_Empleados.values())
     {
         EmployeeCalculatedCapacityPtr capacity = e->canWork(Fecha, IDSector, IDSubSector, HoraInicio, HoraFin);
         if (capacity->Capacity() > 0)
         {
             if (!e->isDeleted() || includeDeleted)
-                candidates[capacity->Capacity()] = capacity;
+                candidates.insert(capacity->Capacity(), capacity);
         }
     }
 
+    // Ahora recorro de mayor capacidad a menor capacidad y armo la respuesta
     if (candidates.count() > 0)
     {
         QMap<int, EmployeeCalculatedCapacityPtr>::const_iterator it = --candidates.constEnd();
