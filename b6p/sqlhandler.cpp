@@ -51,11 +51,11 @@ bool SQLHandler::tryReconnect()
         }
     }
 
-    if (!db.isOpen() && !db.open())
-    {
-        return false;
-    }
-    return true;
+
+    if (db.isOpen())
+        return true;
+
+    return db.open();
 }
 
 RecordSet SQLHandler::getAll(QString &query)
@@ -64,7 +64,10 @@ RecordSet SQLHandler::getAll(QString &query)
 
     if (!tryReconnect())
     {
-        QMessageBox::information(NULL, QObject::tr("DB Error"), QObject::tr("Can't open Database"));
+        QMessageBox::information(NULL, QObject::tr("DB Error"), QObject::tr("Can't open Database")
+                                 + '\n'
+                                 + QObject::tr("Reason: ")
+                                 + db.lastError().text());
         // Error
         return response;
     }
@@ -97,7 +100,11 @@ RecordSet SQLHandler::getAll(QString &query, RecordPtr record)
 
     if (!tryReconnect())
     {
-        QMessageBox::critical(NULL, QObject::tr("DB Error"), QObject::tr("Can't open database"));
+        QMessageBox::information(NULL, QObject::tr("DB Error"), QObject::tr("Can't open Database")
+                                 + '\n'
+                                 + QObject::tr("Reason: ")
+                                 + db.lastError().text());
+
         return response;
     }
 
