@@ -29,7 +29,7 @@ QString CalendarioPersonas::getSQLExistsInMainDB()
                    " where Dia = :Dia and IDEmpleado = :IDEmpleado; ");
 }
 
-void CalendarioPersonas::addRecord(RecordPtr record)
+void CalendarioPersonas::addRecord(RecordPtr record, bool setNew)
 {
     CalendarioPersonaPtr c = boost::make_shared<CalendarioPersona>(this);
 
@@ -38,7 +38,12 @@ void CalendarioPersonas::addRecord(RecordPtr record)
     c->HoraIngreso().setValue((*record)["HoraIngreso"].toInt());
     c->HoraEgreso().setValue((*record)["HoraEgreso"].toInt());
     c->setSentStatus((*record)["sent"].toInt() == 1);
-    c->setInitialized();
+
+    if (setNew)
+        c->setNew();
+    else
+        c->setInitialized();
+
     m_Calendarios.push_back(c);
 }
 

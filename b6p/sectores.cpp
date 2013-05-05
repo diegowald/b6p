@@ -24,7 +24,7 @@ QString Sectores::getSQLExistsInMainDB()
                    " where ID = :IDSector;");
 }
 
-void Sectores::addRecord(RecordPtr record)
+void Sectores::addRecord(RecordPtr record, bool setNew)
 {
     SectorPtr s = boost::make_shared<Sector>(this);
 
@@ -37,7 +37,10 @@ void Sectores::addRecord(RecordPtr record)
         s->ShowInPlanification().setValue(true);
     s->setSentStatus((*record)["sent"].toInt() == 1);
 
-    s->setInitialized();
+    if (setNew)
+        s->setNew();
+    else
+        s->setInitialized();
 
     m_Sectores[s->IDSector().value()] = s;
 }

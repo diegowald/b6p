@@ -1,0 +1,15 @@
+Sincronizacion
+
+Sectores
+Subsectores
+
+Employees - 
+  Alta: Enviar datos OK
+  No anda la actualizacion de datos desde la DB central.
+  El problema esta en que no se graban los datos. y/o se graban de manera duplicada.
+
+Employee Availability
+Employee capacity by Sector
+Day estimations
+Days Planifications
+Planification of sector and subsectors for a day

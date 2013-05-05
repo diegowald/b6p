@@ -24,7 +24,7 @@ QString SubSectores::getSQLExistsInMainDB()
                    " where ID = :IDSubSector;");
 }
 
-void SubSectores::addRecord(RecordPtr record)
+void SubSectores::addRecord(RecordPtr record, bool setNew)
 {
     SubSectorPtr s = boost::make_shared<SubSector>(this);
 
@@ -33,8 +33,10 @@ void SubSectores::addRecord(RecordPtr record)
     s->Nombre().setValue((*record)["Nombre"].toString());
     s->Descripcion().setValue((*record)["Descripcion"].toString());
     s->setSentStatus((*record)["sent"].toInt() == 1);
-
-    s->setInitialized();
+    if (setNew)
+        s->setNew();
+    else
+        s->setInitialized();
 
     m_SubSectores[s->IDSubsector().value()] = s;
 }

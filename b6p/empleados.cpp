@@ -26,7 +26,7 @@ QString Empleados::getSqlString()
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
-void Empleados::addRecord(RecordPtr record)
+void Empleados::addRecord(RecordPtr record, bool setNew)
 {
     EmpleadoPtr e = boost::make_shared<Empleado>(false, this);
     e->IDEmpleado().setValue((*record)["ID"].toInt());
@@ -36,7 +36,12 @@ void Empleados::addRecord(RecordPtr record)
     e->FechaIngreso().setValue(QDateTime::fromMSecsSinceEpoch((*record)["FechaIngreso"].toLongLong()).date());
     e->IsBaja().setValue((*record)["isBaja"].toBool());
     e->setSentStatus((*record)["sent"].toInt() == 1);
-    e->setInitialized();
+
+    if (setNew)
+        e->setNew();
+    else
+        e->setInitialized();
+
     m_Empleados[e->IDEmpleado().value()] = e;
 }
 
@@ -301,7 +306,7 @@ void Empleados::refreshID(int oldID, int newRecordId)
     EmpleadoPtr e = m_Empleados[oldID];
     e->updateID(newRecordId);
     m_Empleados.remove(oldID);
-    m_Empleados[newRecordId] = e;    
+    m_Empleados[newRecordId] = e;
 }
 
 void Empleados::saveDependants()

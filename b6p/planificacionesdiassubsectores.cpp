@@ -24,7 +24,7 @@ QString PlanificacionesDiasSubSectores::getSQLExistsInMainDB()
             " where IDRecord = :IDRecord;");
 }
 
-void PlanificacionesDiasSubSectores::addRecord(RecordPtr record)
+void PlanificacionesDiasSubSectores::addRecord(RecordPtr record, bool setNew)
 {
     PlanificacionSubSectorPtr p = boost::make_shared<PlanificacionSubSector>(this);
 
@@ -37,7 +37,11 @@ void PlanificacionesDiasSubSectores::addRecord(RecordPtr record)
     p->HoraFin().setValue((*record)["HoraFin"].toInt());
     p->AllowOverWorking().setValue((*record)["AllowOverworking"].toInt() == 1 ? true : false);
     p->setSentStatus((*record)["sent"].toInt() == 1);
-    p->setInitialized();
+
+    if (setNew)
+        p->setNew();
+    else
+        p->setInitialized();
 
     m_Planificacion[p->IDRecord().value()] = p;
 }

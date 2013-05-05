@@ -32,7 +32,7 @@ QString Parametros::getSqlString()
     return "select Key, Value from parametros;";
 }
 
-void Parametros::addRecord(RecordPtr record)
+void Parametros::addRecord(RecordPtr record, bool)
 {
     m_recordsWereCreated = true;
     m_Dictionary[(*record)["Key"].toString()] = (*record)["Value"].toString();

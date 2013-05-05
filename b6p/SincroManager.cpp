@@ -83,7 +83,6 @@ void SincroManager::enviarDatosADBCentral()
     }
 }
 
-
 void SincroManager::grabarFechaUltimaSincronizacion()
 {
     QString UltimaSincro;

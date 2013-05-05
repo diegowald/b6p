@@ -26,7 +26,7 @@ QString PlanificacionesDias::getSQLExistsInMainDB()
     return QString("select Dia, Notas, IDSupervisor, EstadoPlanificacion from planificaciondia where Dia = :Dia;");
 }
 
-void PlanificacionesDias::addRecord(RecordPtr record)
+void PlanificacionesDias::addRecord(RecordPtr record, bool setNew)
 {
     PlanificacionDiaPtr p = boost::make_shared<PlanificacionDia>(this);
 
@@ -35,7 +35,11 @@ void PlanificacionesDias::addRecord(RecordPtr record)
     p->IDSupervisor().setValue((*record)["IDSupervisor"].toInt());
     p->EstadoPlanificacion().setValue((EstadosPlanificacion)(*record)["EstadoPlanificacion"].toInt());
     p->setSentStatus((*record)["sent"].toInt() == 1);
-    p->setInitialized();
+
+    if (setNew)
+        p->setNew();
+    else
+        p->setInitialized();
 
     m_Planificaciones[p->Dia().value()] = p;
 }

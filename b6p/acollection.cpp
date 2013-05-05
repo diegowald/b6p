@@ -30,13 +30,13 @@ void ACollection::load()
     emit loaded(m_Name);
 }
 
-void ACollection::save()
+void ACollection::save(bool includeIDs)
 {
     emit saving(m_Name);
 
     deleteRecordsDB();
     updateRecordsToDB();
-    addNewRecordsToDB();
+    addNewRecordsToDB(includeIDs);
     saveDependants();
     setStatusToUnmodified(true);
     emit dataUpdated();
@@ -53,9 +53,9 @@ void ACollection::updateRecordsToDB()
     executeCommand(getUpdateStatement(), MODIFIED);
 }
 
-void ACollection::addNewRecordsToDB()
+void ACollection::addNewRecordsToDB(bool includeIDs)
 {
-    executeCommand(getInsertStatement(false), NEW);
+    executeCommand(getInsertStatement(includeIDs), NEW);
 }
 
 void ACollection::executeCommand(QString cmd, RecordStatus status)

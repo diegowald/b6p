@@ -23,6 +23,7 @@ void DatabaseSynchronization::applyChanges()
 {
     QString syncroName = name();
     emit applyingChanges(syncroName);
+    bool saveAfter = false;
     foreach (RecordPtr rec, *m_QueryResult)
     {
         RecordStatus recStatus = (RecordStatus)(*rec)["RecordStatus"].toInt();
@@ -30,24 +31,28 @@ void DatabaseSynchronization::applyChanges()
         {
         case NEW:
         case MODIFIED:
+        case UNMODIFIED:
+            // Fall through
             if (!m_Data->exists(rec))
-                m_Data->addRecord(rec);
+                m_Data->addRecord(rec, true);
             else
                 m_Data->updateRecord(rec);
+            saveAfter = true;
             break;
         case DELETED:
             if (m_Data->exists(rec))
                 m_Data->deleteRecord(rec);
+            saveAfter = true;
             break;
         case UNINITIALIZED:
-            // Fall through
-        case UNMODIFIED:
             // Fall through
         default:
             // Do nothing
             break;
         }
     }
+    if (saveAfter)
+        m_Data->save(true);
 }
 
 void DatabaseSynchronization::checkConsistency()

@@ -181,7 +181,9 @@ int SQLHandler::executeQuery(QString &cmd, RecordPtr record, bool returnLastInse
     {
         QMessageBox::information(NULL, QObject::tr("SQL Error"), q.lastError().text());
     }
+
     db.close();
+
     if (returnLastInsertedID)
         return q.lastInsertId().toInt();
     else
@@ -200,9 +202,12 @@ void SQLHandler::executeCommand(QString &cmd)
     QSqlQuery q;
     q.prepare(cmd);
     q.exec();
+
     if (q.lastError().type() != QSqlError::NoError)
     {
         QMessageBox::information(NULL, QObject::tr("SQL Error"), q.lastError().text());
     }
+
     db.close();
+
 }

@@ -13,7 +13,7 @@ public:
     virtual ~CalendarioPersonas();
     virtual QString getSqlString();
     virtual QString getSQLExistsInMainDB();
-    virtual void addRecord(RecordPtr record);
+    virtual void addRecord(RecordPtr record, bool setNew = true);
     virtual void updateRecord(RecordPtr record);
     virtual void deleteRecord(RecordPtr record);
     virtual bool exists(RecordPtr record);

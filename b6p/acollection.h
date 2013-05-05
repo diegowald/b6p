@@ -28,14 +28,14 @@ public:
     
     virtual void exportTo(const QString &filename);
     virtual void load();
-    virtual void save();
+    virtual void save(bool includeIDs = false);
 
     QString &name();
     QString invariableName() const;
 
     virtual QString suggestedFileName() { return name(); }
     virtual QString getSqlString() = 0;
-    virtual void addRecord(RecordPtr record) = 0;
+    virtual void addRecord(RecordPtr record, bool setNew = false) = 0;
 
     virtual bool exists(RecordPtr record) = 0;
     virtual void updateRecord(RecordPtr record) = 0;
@@ -87,7 +87,7 @@ public slots:
 protected:
     virtual void deleteRecordsDB();
     virtual void updateRecordsToDB();
-    virtual void addNewRecordsToDB();
+    virtual void addNewRecordsToDB(bool includeIDs);
     virtual void executeCommand(QString cmd, RecordStatus status);
 private:
     QString m_Name;

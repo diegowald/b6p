@@ -13,7 +13,7 @@ public:
 
     QString getSqlString();
     virtual QString getSQLExistsInMainDB();
-    void addRecord(RecordPtr record);
+    void addRecord(RecordPtr record, bool setNew = true);
     virtual void updateRecord(RecordPtr record);
     virtual void deleteRecord(RecordPtr record);
     virtual bool exists(RecordPtr record);

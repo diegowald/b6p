@@ -17,7 +17,7 @@ QString Accesos::getSqlString()
 //            + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
-void Accesos::addRecord(RecordPtr record)
+void Accesos::addRecord(RecordPtr record, bool)
 {
     AccesoPtr a = boost::make_shared<Acceso>(this);
 

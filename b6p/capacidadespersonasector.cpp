@@ -52,7 +52,7 @@ QString CapacidadesPersonaSector::getSQLExistsInMainDB()
                    " where IDSector = :IDSector and IDSubSector = :IDSubSector and IDEmpleado = :IDEmpleado;");
 }
 
-void CapacidadesPersonaSector::addRecord(RecordPtr record)
+void CapacidadesPersonaSector::addRecord(RecordPtr record, bool setNew)
 {
     CapacidadPersonaSectorPtr c = boost::make_shared<CapacidadPersonaSector>(this);
 
@@ -61,7 +61,12 @@ void CapacidadesPersonaSector::addRecord(RecordPtr record)
     c->IDEmpleado().setValue((*record)["IDEmpleado"].toInt());
     c->Capacidad().setValue((*record)["Capacidad"].toInt());
     c->setSentStatus((*record)["sent"].toInt() == 1);
-    c->setInitialized();
+
+    if (setNew)
+        c->setNew();
+    else
+        c->setInitialized();
+
     m_Capacidades.push_back(c);
 }
 
