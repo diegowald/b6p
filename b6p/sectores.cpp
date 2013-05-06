@@ -74,21 +74,21 @@ QString Sectores::getDeleteStatement()
 
 QString Sectores::getUpdateStatement()
 {
-    return "update sectores set Nombre = :Nombre, Descripcion = :Descripcion where ID = :ID;";
+    return "update sectores set Nombre = :Nombre, Descripcion = :Descripcion, showInPlanification = :showInPlanification where ID = :RECORD_ID;";
 }
 
 QString Sectores::getInsertStatement(bool IncludeIDs)
 {
     if (IncludeIDs)
         return "insert into sectores "
-                " (ID, Nombre, Descripcion) "
+                " (ID, Nombre, Descripcion, showInPlanification) "
                 " values "
-                " (:RECORD_ID, :Nombre, :Descripcion);";
+                " (:RECORD_ID, :Nombre, :Descripcion, :showInPlanification);";
     else
         return "insert into sectores "
-            " (Nombre, Descripcion) "
+            " (Nombre, Descripcion, showInPlanification) "
             " values "
-            " (:Nombre, :Descripcion);";
+            " (:Nombre, :Descripcion, :showInPlanification);";
 }
 
 RecordSet Sectores::getRecords(RecordStatus status)

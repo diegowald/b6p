@@ -22,6 +22,7 @@ RecordPtr Sector::asRecordPtr()
     (*res)["IDSector"] = m_IDSector.toVariant();
     (*res)["Nombre"] = m_Nombre.toVariant();
     (*res)["Descripcion"] = m_Descripcion.toVariant();
+    (*res)["showInPlanification"] = m_ShowInPlanification.toVariant();
 
     (*res)[RECORD_ID] = m_IDSector.toVariant();
 

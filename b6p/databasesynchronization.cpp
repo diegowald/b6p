@@ -29,25 +29,25 @@ void DatabaseSynchronization::applyChanges()
         RecordStatus recStatus = (RecordStatus)(*rec)["RecordStatus"].toInt();
         switch (recStatus)
         {
-        case NEW:
-        case MODIFIED:
-        case UNMODIFIED:
-            // Fall through
-            if (!m_Data->exists(rec))
-                m_Data->addRecord(rec, true);
-            else
-                m_Data->updateRecord(rec);
-            saveAfter = true;
-            break;
         case DELETED:
             if (m_Data->exists(rec))
                 m_Data->deleteRecord(rec);
             saveAfter = true;
             break;
+        case NEW:
+            // Fall through
+        case MODIFIED:
+            // Fall through
+        case UNMODIFIED:
+            // Fall through
         case UNINITIALIZED:
             // Fall through
         default:
-            // Do nothing
+            if (!m_Data->exists(rec))
+                m_Data->addRecord(rec, true);
+            else
+                m_Data->updateRecord(rec);
+            saveAfter = true;
             break;
         }
     }

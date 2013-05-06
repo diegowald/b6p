@@ -47,16 +47,27 @@ void CalendarioPersonas::addRecord(RecordPtr record, bool setNew)
     m_Calendarios.push_back(c);
 }
 
-void CalendarioPersonas::updateRecord(RecordPtr)
+void CalendarioPersonas::updateRecord(RecordPtr record)
 {
+    CalendarioPersonaPtr c;
+    foreach (c, m_Calendarios) {
+        if ((c->Dia().value() == (*record)["Dia"]) && (c->IDEmpleado().value() == (*record)["IDEmpleado"]))
+            break;
+    }
+    c->HoraIngreso().setValue((*record)["HoraIngreso"].toInt());
+    c->HoraEgreso().setValue((*record)["HoraEgreso"].toInt());
 }
 
 void CalendarioPersonas::deleteRecord(RecordPtr)
 {
 }
 
-bool CalendarioPersonas::exists(RecordPtr)
+bool CalendarioPersonas::exists(RecordPtr record)
 {
+    foreach (CalendarioPersonaPtr c, m_Calendarios) {
+        if ((c->Dia().value() == (*record)["Dia"]) && (c->IDEmpleado().value() == (*record)["IDEmpleado"]))
+            return true;
+    }
     return false;
 }
 
