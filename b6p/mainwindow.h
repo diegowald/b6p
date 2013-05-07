@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+//Printing
+#include <QPrinter>
 
 namespace Ui {
 class MainWindow;
@@ -31,6 +33,10 @@ private slots:
     void on_actionSetup_days_triggered();
 
     void on_actionSynchronize_triggered();
+
+    void on_actionPrint_Preview_triggered();
+
+    void print(QPrinter *printer);
 
 private:
     Ui::MainWindow *ui;

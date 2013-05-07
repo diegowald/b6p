@@ -71,6 +71,7 @@
     <addaction name="actionOpen"/>
     <addaction name="separator"/>
     <addaction name="actionPrint"/>
+    <addaction name="actionPrint_Preview"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
@@ -209,6 +210,18 @@
    </property>
    <property name="text">
     <string>Synchronize...</string>
+   </property>
+  </action>
+  <action name="actionPrint_Preview">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/img/images/glyphicons_039_notes.png</normaloff>:/img/images/glyphicons_039_notes.png</iconset>
+   </property>
+   <property name="text">
+    <string>Print Preview</string>
+   </property>
+   <property name="visible">
+    <bool>false</bool>
    </property>
   </action>
  </widget>
