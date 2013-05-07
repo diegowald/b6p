@@ -48,6 +48,7 @@ void Empleados::addRecord(RecordPtr record, bool setNew)
 void Empleados::updateRecord(RecordPtr record)
 {
     EmpleadoPtr e = getEmpleado((*record)["ID"].toInt(), true);
+//Aca debo mostrar una ventana que indique que hay modificaciones locales.
     e->Apellido().setValue((*record)["Apellido"].toString());
     e->Nombre().setValue((*record)["Nombres"].toString());
     e->Legajo().setValue((*record)["Legajo"].toString());

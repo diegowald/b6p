@@ -1,0 +1,39 @@
+Se agregan los campos faltantes a la base de datos central.
+Se entrega nueva version que corrige defectos encontrados en la sincronizacion.
+
+Sincronizacion de
+
+Sectores <-> No se testea ya que es interno
+Subsectores <-> No se testea ya que es interno
+Employees
+	Alta: OK
+	Modificacion. Falla al sincronizar. se pisan los datos con lo anterior de la base central. Solucion acordada: Mostrar una ventana para seleccionar los cambios que realmente decido dejar: MERGE!!! 
+	Baja: Mismo problema que modificacion
+
+Employee availability
+	Alta
+	Modificacion
+	Baja
+
+Employee capacity by Sector.
+	Alta. OK
+	Modificacion
+	Baja
+
+Day estimations
+	Alta. 
+	Modificacion
+	Baja
+
+Days planifications
+	Alta
+	Modificacion
+	Baja
+
+Planifications of Sectors and subsectors for a day
+	Alta
+	Modificacion
+	Baja
+
+BUG: Al hacer setup days. la fecha hasta tiene condicion menor.
+Print Estimacion!
