@@ -5,12 +5,13 @@
 #include <QFile>
 #include <QTextStream>
 
-ACollection::ACollection(QString Name, QString InvariableName, bool useLastInsertId, QObject *parent) :
+ACollection::ACollection(QString Name, QString InvariableName, bool useLastInsertId, MERGE_STRATEGY MergeStrategy, QObject *parent) :
     QObject(parent),
     m_Name(Name),
     m_InvariableName(InvariableName),
     sqlEngine("./planning.b6p"),
-    usesLastInsertedId(useLastInsertId)
+    usesLastInsertedId(useLastInsertId),
+    m_MergeStrategy(MergeStrategy)
 {
 }
 
@@ -177,4 +178,9 @@ void ACollection::exportTo(const QString &filename)
                                  tr("Export to CSV Error"),
                                  tr("Couldn't open file."));
     }
+}
+
+ACollection::MERGE_STRATEGY ACollection::mergeStrategy() const
+{
+    return m_MergeStrategy;
 }

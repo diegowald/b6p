@@ -1,5 +1,6 @@
 #include "databasesynchronization.h"
 #include <QDateTime>
+#include "dlgmerge.h"
 
 DatabaseSynchronization::DatabaseSynchronization(boost::shared_ptr<ACollection> data, boost::shared_ptr<SQLHandler> sqlHandler, QObject *parent) :
     QObject(parent)
@@ -44,9 +45,43 @@ void DatabaseSynchronization::applyChanges()
             // Fall through
         default:
             if (!m_Data->exists(rec))
+            {
                 m_Data->addRecord(rec, true);
+            }
             else
-                m_Data->updateRecord(rec);
+            {
+                if (!m_Data->isRecordUnsent(rec))
+                {
+                    // El registro no ha sido modificado localmente. se toman los datos del server central
+                    m_Data->updateRecord(rec);
+                }
+                else
+                {
+                    // El registro ha sido modificado localmente.
+                    // De acuerdo a la estrategia de los datos, se evalua que hacer.
+                    switch (m_Data->mergeStrategy())
+                    {
+                    case ACollection::MERGE_KEEP_LOCAL:
+                        // No se hace nada, ya que es mas importante el cambio local que el central
+                        break;
+                    case ACollection::MERGE_KEEP_MAIN:
+                        // Se hacen los cambios sin preguntar, ya que los cambios centrales son mas importantes.
+                        m_Data->updateRecord(rec);
+                        break;
+                    case ACollection::MERGE_MANUAL:
+                        // Aca hay que preguntar cuales son los cambios mas importantes.
+                        DlgMerge dlg;
+                        RecordPtr localRec = m_Data->getLocalRecord(rec);
+                        dlg.setData(rec, localRec);
+                        if (dlg.exec() == QDialog::Accepted)
+                        {
+                            RecordPtr modifiedRec = dlg.mergedRecord();
+                            m_Data->updateRecord(modifiedRec);
+                        }
+                        break;
+                    }
+                }
+            }
             saveAfter = true;
             break;
         }

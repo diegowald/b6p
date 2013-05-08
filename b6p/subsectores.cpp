@@ -2,7 +2,7 @@
 
 SubSectores::SubSectores(QObject *parent) :
     ACollection(tr("SubSectors"),
-                "SubSectors", false, parent)
+                "SubSectors", false, ACollection::MERGE_KEEP_LOCAL, parent)
 {
 }
 
@@ -58,6 +58,22 @@ void SubSectores::deleteRecord(RecordPtr record)
 bool SubSectores::exists(RecordPtr record)
 {
     return (getSubSector((*record)["ID"].toInt()) != SubSectorPtr());
+}
+
+bool SubSectores::isRecordUnsent(RecordPtr record)
+{
+    if (!exists(record))
+        return false;
+    SubSectorPtr s = getSubSector((*record)["ID"].toInt());
+    return s->isUnSent();
+}
+
+RecordPtr SubSectores::getLocalRecord(RecordPtr record)
+{
+    if (!exists(record))
+        return RecordPtr();
+    SubSectorPtr s = getSubSector((*record)["ID"].toInt());
+    return s->asRecordPtr();
 }
 
 QString SubSectores::getDeleteStatement()

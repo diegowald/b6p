@@ -3,7 +3,7 @@
 
 CalendarioPersonas::CalendarioPersonas(QObject *parent) :
     ACollection(tr("Employee availability"),
-                "Employee availability", false, parent)
+                "Employee availability", false, ACollection::MERGE_KEEP_LOCAL, parent)
 {
 }
 
@@ -69,6 +69,28 @@ bool CalendarioPersonas::exists(RecordPtr record)
             return true;
     }
     return false;
+}
+
+bool CalendarioPersonas::isRecordUnsent(RecordPtr record)
+{
+    if (!exists(record))
+        return false;
+    foreach (CalendarioPersonaPtr c, m_Calendarios) {
+        if ((c->Dia().value() == (*record)["Dia"]) && (c->IDEmpleado().value() == (*record)["IDEmpleado"]))
+            return c->isUnSent();
+    }
+    return false;
+}
+
+RecordPtr CalendarioPersonas::getLocalRecord(RecordPtr record)
+{
+    if (!exists(record))
+        return RecordPtr();
+    foreach (CalendarioPersonaPtr c, m_Calendarios) {
+        if ((c->Dia().value() == (*record)["Dia"]) && (c->IDEmpleado().value() == (*record)["IDEmpleado"]))
+            return c->asRecordPtr();
+    }
+    return RecordPtr();
 }
 
 QString CalendarioPersonas::getDeleteStatement()

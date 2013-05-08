@@ -2,7 +2,7 @@
 
 CapacidadesPersonaSector::CapacidadesPersonaSector(QObject *parent) :
     ACollection(tr("Employee capacity by Sector"),
-                "Employee capacity by Sector", false, parent)
+                "Employee capacity by Sector", false, ACollection::MERGE_KEEP_LOCAL, parent)
 {
 }
 
@@ -94,6 +94,26 @@ bool CapacidadesPersonaSector::exists(RecordPtr record)
             (*record)["IDSector"].toInt(),
             (*record)["IDSubSector"].toInt(), true);
     return (c != CapacidadPersonaSectorPtr());
+}
+
+bool CapacidadesPersonaSector::isRecordUnsent(RecordPtr record)
+{
+    if (!exists(record))
+        return false;
+    CapacidadPersonaSectorPtr c = get((*record)["IDEmpleado"].toInt(),
+            (*record)["IDSector"].toInt(),
+            (*record)["IDSubSector"].toInt(), true);
+    return c->isUnSent();
+}
+
+RecordPtr CapacidadesPersonaSector::getLocalRecord(RecordPtr record)
+{
+    if (!exists(record))
+        return RecordPtr();
+    CapacidadPersonaSectorPtr c = get((*record)["IDEmpleado"].toInt(),
+            (*record)["IDSector"].toInt(),
+            (*record)["IDSubSector"].toInt(), true);
+    return c->asRecordPtr();
 }
 
 QString CapacidadesPersonaSector::getDeleteStatement()

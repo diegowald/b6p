@@ -33,6 +33,8 @@ public:
     virtual void updateRecord(RecordPtr record);
     virtual void deleteRecord(RecordPtr record);
     virtual bool exists(RecordPtr record);
+    virtual bool isRecordUnsent(RecordPtr) { return false; }
+    virtual RecordPtr getLocalRecord(RecordPtr) { return RecordPtr(); }
 
     virtual void defineHeaders(QStringList &list);
     virtual boost::shared_ptr<QList<QStringList> > getAll();

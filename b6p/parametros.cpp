@@ -17,7 +17,7 @@ const QString Parametros::PASSWORD("Password");
 
 Parametros::Parametros(QObject *parent) :
     ACollection(tr("Parameters"),
-                "Parameters", false, parent)
+                "Parameters", false, ACollection::MERGE_KEEP_LOCAL, parent)
 {
     m_recordsWereCreated = false;
 }

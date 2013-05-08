@@ -2,7 +2,7 @@
 #include "datastore.h"
 
 Accesos::Accesos(QObject *parent)
-    : ACollection(tr("Access"), "Access", false, parent)
+    : ACollection(tr("Access"), "Access", false, ACollection::MERGE_KEEP_MAIN, parent)
 {
 }
 

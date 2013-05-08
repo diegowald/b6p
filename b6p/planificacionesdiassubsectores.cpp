@@ -2,7 +2,8 @@
 
 PlanificacionesDiasSubSectores::PlanificacionesDiasSubSectores(QObject *parent) :
     ACollection(tr("Planifications of Sectors and subsectors for a day"),
-                "Planifications of Sectors and subsectors for a day", true, parent)
+                "Planifications of Sectors and subsectors for a day", true,
+                ACollection::MERGE_MANUAL, parent)
 {
 }
 
@@ -67,6 +68,22 @@ void PlanificacionesDiasSubSectores::deleteRecord(RecordPtr record)
 bool PlanificacionesDiasSubSectores::exists(RecordPtr record)
 {
     return (m_Planificacion[(*record)["IDRecord"].toInt()] != PlanificacionSubSectorPtr());
+}
+
+bool PlanificacionesDiasSubSectores::isRecordUnsent(RecordPtr record)
+{
+    if (!exists(record))
+        return false;
+    PlanificacionSubSectorPtr p = m_Planificacion[(*record)["IDRecord"].toInt()];
+    return p->isUnSent();
+}
+
+RecordPtr PlanificacionesDiasSubSectores::getLocalRecord(RecordPtr record)
+{
+    if (!exists(record))
+        return RecordPtr();
+    PlanificacionSubSectorPtr p = m_Planificacion[(*record)["IDRecord"].toInt()];
+    return p->asRecordPtr();
 }
 
 QString PlanificacionesDiasSubSectores::getDeleteStatement()
