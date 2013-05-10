@@ -16,7 +16,7 @@ public:
     explicit DlgMerge(QWidget *parent = 0);
     ~DlgMerge();
 
-    void setData(RecordPtr ServerRecord, RecordPtr localRecord);
+    void setData(RecordPtr ServerRecord, RecordPtr localRecord, QStringList fieldsToShow);
     RecordPtr mergedRecord();
     
 private slots:

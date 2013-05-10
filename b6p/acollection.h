@@ -49,6 +49,7 @@ public:
     virtual void deleteRecord(RecordPtr record) = 0;
     virtual bool isRecordUnsent(RecordPtr record) = 0;
     virtual RecordPtr getLocalRecord(RecordPtr record) = 0;
+    virtual QStringList getFieldsToShowInMerge() = 0;
     virtual ACollection::MERGE_STRATEGY mergeStrategy() const;
 
     virtual void defineHeaders(QStringList &list) = 0;

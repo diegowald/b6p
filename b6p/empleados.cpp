@@ -82,6 +82,13 @@ RecordPtr Empleados::getLocalRecord(RecordPtr record)
     return e->asRecordPtr();
 }
 
+QStringList Empleados::getFieldsToShowInMerge()
+{
+    return QStringList() << "Apellido"
+                         << "Legajo"
+                         << "Nombres";
+}
+
 QString Empleados::getDeleteStatement()
 {
     return QString("update empleados set isBaja = 1, RecordStatus = %1 where ID = :RECORD_ID;").arg(RECORD_MODIFIED);

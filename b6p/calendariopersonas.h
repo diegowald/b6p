@@ -19,6 +19,7 @@ public:
     virtual bool exists(RecordPtr record);
     virtual bool isRecordUnsent(RecordPtr record);
     virtual RecordPtr getLocalRecord(RecordPtr record);
+    virtual QStringList getFieldsToShowInMerge() { return QStringList(); }
 
     virtual QString getTableName() { return "calendariopersonas"; }
     virtual QString getDeleteStatement();

@@ -35,6 +35,7 @@ public:
     virtual bool exists(RecordPtr record);
     virtual bool isRecordUnsent(RecordPtr) { return false; }
     virtual RecordPtr getLocalRecord(RecordPtr) { return RecordPtr(); }
+    virtual QStringList getFieldsToShowInMerge() { return QStringList(); }
 
     virtual void defineHeaders(QStringList &list);
     virtual boost::shared_ptr<QList<QStringList> > getAll();

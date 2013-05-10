@@ -72,7 +72,7 @@ void DatabaseSynchronization::applyChanges()
                         // Aca hay que preguntar cuales son los cambios mas importantes.
                         DlgMerge dlg;
                         RecordPtr localRec = m_Data->getLocalRecord(rec);
-                        dlg.setData(rec, localRec);
+                        dlg.setData(rec, localRec, m_Data->getFieldsToShowInMerge());
                         if (dlg.exec() == QDialog::Accepted)
                         {
                             RecordPtr modifiedRec = dlg.mergedRecord();
