@@ -89,7 +89,8 @@ SOURCES += main.cpp\
     dlgsynchronization.cpp \
     SincroManager.cpp \
     timehelper.cpp \
-    dlgapproveplanifications.cpp
+    dlgapproveplanifications.cpp \
+    dlgmerge.cpp
 
 HEADERS  += mainwindow.h \
     timeassignment.h \
@@ -136,7 +137,8 @@ HEADERS  += mainwindow.h \
     dlgsynchronization.h \
     SincroManager.h \
     timehelper.h \
-    dlgapproveplanifications.h
+    dlgapproveplanifications.h \
+    dlgmerge.h
 
 FORMS    += mainwindow.ui \
     genericlist.ui \
@@ -152,7 +154,8 @@ FORMS    += mainwindow.ui \
     dlgaddmanyestimationdays.ui \
     dlglogin.ui \
     dlgsynchronization.ui \
-    dlgapproveplanifications.ui
+    dlgapproveplanifications.ui \
+    dlgmerge.ui
 
 RESOURCES += \
     resources.qrc

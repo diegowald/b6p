@@ -7,7 +7,7 @@
 
 EstimacionesDias::EstimacionesDias(QObject *parent)
     : ACollection(tr("Day Estimations"),
-                  "Day Estimations",false, parent)
+                  "Day Estimations",false, ACollection::MERGE_KEEP_LOCAL, parent)
 {
 }
 
@@ -60,6 +60,22 @@ void EstimacionesDias::deleteRecord(RecordPtr record)
 bool EstimacionesDias::exists(RecordPtr record)
 {
     return (m_Estimaciones[QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date()] != EstimacionDiaPtr());
+}
+
+bool EstimacionesDias::isRecordUnsent(RecordPtr record)
+{
+    if (!exists(record))
+        return false;
+    EstimacionDiaPtr e = m_Estimaciones[QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date()];
+    return e->isUnSent();
+}
+
+RecordPtr EstimacionesDias::getLocalRecord(RecordPtr record)
+{
+    if (!exists(record))
+        return RecordPtr();
+    EstimacionDiaPtr e = m_Estimaciones[QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date()];
+    return e->asRecordPtr();
 }
 
 QString EstimacionesDias::getDeleteStatement()

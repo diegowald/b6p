@@ -6,7 +6,7 @@
 
 
 Empleados::Empleados(QObject *parent) :
-    ACollection(tr("Employees"), "Employees", true, parent)
+    ACollection(tr("Employees"), "Employees", true, ACollection::MERGE_MANUAL, parent)
 {
 }
 
@@ -69,6 +69,26 @@ bool Empleados::exists(RecordPtr record)
     return (e != EmpleadoPtr());
 }
 
+bool Empleados::isRecordUnsent(RecordPtr record)
+{
+    if (!exists(record))
+        return false;
+    EmpleadoPtr e = getEmpleado((*record)["ID"].toInt(), true);
+    return e->isUnSent();
+}
+
+RecordPtr Empleados::getLocalRecord(RecordPtr record)
+{
+    EmpleadoPtr e = getEmpleado((*record)["ID"].toInt(), true);
+    return e->asRecordPtr();
+}
+
+QStringList Empleados::getFieldsToShowInMerge()
+{
+    return QStringList() << "Apellido"
+                         << "Legajo"
+                         << "Nombres";
+}
 
 QString Empleados::getDeleteStatement()
 {

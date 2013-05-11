@@ -2,7 +2,7 @@
 
 Sectores::Sectores(QObject *parent) :
     ACollection(tr("Sectors"),
-                "Sectors", false, parent)
+                "Sectors", false, ACollection::MERGE_KEEP_LOCAL, parent)
 {
 }
 
@@ -65,6 +65,22 @@ bool Sectores::exists(RecordPtr record)
 {
     SectorPtr s = getSector((*record)["ID"].toInt());
     return (s.get() != NULL);
+}
+
+bool Sectores::isRecordUnsent(RecordPtr record)
+{
+    if (!exists(record))
+        return false;
+    SectorPtr s = getSector((*record)["ID"].toInt());
+    return s->isUnSent();
+}
+
+RecordPtr Sectores::getLocalRecord(RecordPtr record)
+{
+    if (!exists(record))
+        return RecordPtr();
+    SectorPtr s = getSector((*record)["ID"].toInt());
+    return s->asRecordPtr();
 }
 
 QString Sectores::getDeleteStatement()

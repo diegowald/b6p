@@ -5,7 +5,7 @@
 
 PlanificacionesDias::PlanificacionesDias(QObject *parent) :
     ACollection(tr("Days Planifications"),
-                "Days Planifications", false, parent)
+                "Days Planifications", false, ACollection::MERGE_KEEP_MAIN, parent)
 {
 }
 
@@ -62,6 +62,22 @@ void PlanificacionesDias::deleteRecord(RecordPtr record)
 bool PlanificacionesDias::exists(RecordPtr record)
 {
     return (PlanificacionDiaPtr() != m_Planificaciones[QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date()]);
+}
+
+bool PlanificacionesDias::isRecordUnsent(RecordPtr record)
+{
+    if (!exists(record))
+        return false;
+    PlanificacionDiaPtr p = m_Planificaciones[QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date()];
+    return p->isUnSent();
+}
+
+RecordPtr PlanificacionesDias::getLocalRecord(RecordPtr record)
+{
+    if (!exists(record))
+        return RecordPtr();
+    PlanificacionDiaPtr p = m_Planificaciones[QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date()];
+    return p->asRecordPtr();
 }
 
 QString PlanificacionesDias::getDeleteStatement()

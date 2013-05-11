@@ -94,6 +94,7 @@ RecordPtr Empleado::asRecordPtr()
     (*res)["Nombres"] = nombre.toVariant();
     (*res)["FechaIngreso"] = fechaIngreso.toVariant();
     (*res)["isBaja"] = isBaja.toVariant();
+    (*res)["ID"] = idEmpleado.toVariant();
 
     (*res)[RECORD_ID] = idEmpleado.toVariant();
     return res;

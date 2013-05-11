@@ -24,7 +24,14 @@ public:
         RECORD_DELETED
     };
 
-    explicit ACollection(QString Name, QString InvariableName, bool useLastInsertId, QObject *parent = 0);
+    enum MERGE_STRATEGY
+    {
+        MERGE_KEEP_MAIN,
+        MERGE_KEEP_LOCAL,
+        MERGE_MANUAL
+    };
+
+    explicit ACollection(QString Name, QString InvariableName, bool useLastInsertId, MERGE_STRATEGY MergeStrategy, QObject *parent = 0);
     
     virtual void exportTo(const QString &filename);
     virtual void load();
@@ -40,6 +47,10 @@ public:
     virtual bool exists(RecordPtr record) = 0;
     virtual void updateRecord(RecordPtr record) = 0;
     virtual void deleteRecord(RecordPtr record) = 0;
+    virtual bool isRecordUnsent(RecordPtr record) = 0;
+    virtual RecordPtr getLocalRecord(RecordPtr record) = 0;
+    virtual QStringList getFieldsToShowInMerge() = 0;
+    virtual ACollection::MERGE_STRATEGY mergeStrategy() const;
 
     virtual void defineHeaders(QStringList &list) = 0;
     virtual boost::shared_ptr<QList<QStringList> > getAll() = 0;
@@ -94,6 +105,7 @@ private:
     QString m_InvariableName;
     SQLHandler sqlEngine;
     bool usesLastInsertedId;
+    MERGE_STRATEGY m_MergeStrategy;
 };
 
 #endif // ACOLLECTION_H
