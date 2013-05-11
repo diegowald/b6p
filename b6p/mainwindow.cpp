@@ -12,6 +12,7 @@
 #include <QPainter>
 #include <QMdiSubWindow>
 #include <QDebug>
+#include <QTextDocument>
 
 
 MainWindow::MainWindow(int LoggedUser, QWidget *parent) :
@@ -55,8 +56,14 @@ void MainWindow::on_actionOpen_triggered()
 void MainWindow::print(QPrinter *printer)
 {
     // Create Painter for drawing print page
-    QPainter painter(printer);
-
+    //QPainter painter(printer);
+    if (ui->mdiArea->activeSubWindow() != NULL) {
+        GenericList *wnd = qobject_cast<GenericList *>(ui->mdiArea->activeSubWindow()->widget());
+        QTextDocument textDoc;
+        textDoc.setHtml(wnd->getHTMLReport());
+        textDoc.print(printer);
+    }
+/*
     int w = printer->pageRect().width();
     int h = printer->pageRect().height();
     qDebug() << w;
@@ -90,7 +97,7 @@ void MainWindow::print(QPrinter *printer)
     wnd->render(&painter);
 
     //page.adjust(w/20, h/20, -2/20, -h/20);
-/*    QPixmap p = QPixmap::grabWidget(wnd);
+/-*    QPixmap p = QPixmap::grabWidget(wnd);
     painter.drawPixmap(0, 0, p);
     //wnd->render(&painter, page.topLeft());
     //m_sc*/

@@ -174,3 +174,24 @@ void GenericList::enableButtonsBasedOnAccess()
         ui->actionNew->setEnabled(true);
     }
 }
+
+
+QString GenericList::getHTMLReport()
+{
+    QString res(getHeader());
+    res += getBody();
+    return res;
+}
+
+QString GenericList::getHeader() {
+    // Aca se arma una tabla que contiene al header
+    QString html("<table width=\"100%\" border=1 cellspacing=0>\n"
+    "<tr><td bgcolor=\"lightgray\"><font size=\"+1\">"
+    "<b><i>" + model->name() + "</i></b></font>\n</td></tr>"
+    + "\n</table>\n<br>\n");
+    return html;
+}
+
+QString GenericList::getBody() {
+    return "";
+}

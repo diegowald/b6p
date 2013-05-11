@@ -23,6 +23,11 @@ public:
     ~GenericList();
     void setHeader(QStringList &headers);
     void enableButtonsBasedOnAccess();
+    QString getHTMLReport();
+
+protected:
+    virtual QString getHeader();
+    virtual QString getBody();
 
 public slots:
 
