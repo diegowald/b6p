@@ -36,6 +36,7 @@ public:
     virtual void exportTo(const QString &filename);
     virtual void load();
     virtual void save(bool includeIDs = false);
+    virtual QString asHTML(bool detailedRecords);
 
     QString &name();
     QString invariableName() const;

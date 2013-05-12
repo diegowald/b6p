@@ -180,6 +180,32 @@ void ACollection::exportTo(const QString &filename)
     }
 }
 
+QString ACollection::asHTML(bool detailedRecords)
+{
+    QString html("<table width=\"100%\" border=1 cellspacing=0>\n");
+    // Escribo el header
+    QStringList headers;
+    defineHeaders(headers);
+    html += "<tr>";
+    foreach(QString header, headers) {
+        html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+        html += "<b><i>" + header + "</i></b></font>\n</td>";
+    }
+    html += "</tr>";
+
+    boost::shared_ptr<QList<QStringList> > records = getAll();
+    foreach(QStringList record, *records) {
+        html += "<tr>";
+        foreach(QString field, record) {
+            html += "<td>" + field + "</td>";
+        }
+        html += "</tr>";
+    }
+
+    html += "\n</table>\n<br>\n";
+    return html;
+}
+
 ACollection::MERGE_STRATEGY ACollection::mergeStrategy() const
 {
     return m_MergeStrategy;

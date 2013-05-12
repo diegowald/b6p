@@ -186,12 +186,15 @@ QString GenericList::getHTMLReport()
 QString GenericList::getHeader() {
     // Aca se arma una tabla que contiene al header
     QString html("<table width=\"100%\" border=1 cellspacing=0>\n"
-    "<tr><td bgcolor=\"lightgray\"><font size=\"+1\">"
-    "<b><i>" + model->name() + "</i></b></font>\n</td></tr>"
-    + "\n</table>\n<br>\n");
+                 "<tr>"
+                 "<td bgcolor=\"lightgray\"><font size=\"+1\">"    "<b><i>" + tr("Report") + model->name() + "</i></b></font>\n</td>"
+                 "<td bgcolor=\"lightgray\"><font size=\"+1\">"
+                 "<b><i>" + tr("Date") + QDateTime::currentDateTime().toString("dd/MM/yyyy HH:mm") + "</i></b></font>\n</td>"
+                 "</tr>"
+                 + "\n</table>\n<br>\n");
     return html;
 }
 
 QString GenericList::getBody() {
-    return "";
+    return model->asHTML(false);
 }

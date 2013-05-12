@@ -159,7 +159,7 @@ boost::shared_ptr<QList<QStringList> > PlanificacionesDias::getAll()
     {
         QStringList r;
         r << p->Dia().value().toString()
-          << p->Supervisor()->Apellido().value() + ", " + p->Supervisor()->Nombre().value()
+          << (p->Supervisor() == EmpleadoPtr() ? "" : p->Supervisor()->Apellido().value() + ", " + p->Supervisor()->Nombre().value())
           << QString::number(p->Estimacion()->EstimacionHoras().value())
           << QString::number(p->HorasPlanificadas())
           << p->Estado();
