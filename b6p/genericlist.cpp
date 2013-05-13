@@ -183,6 +183,12 @@ QString GenericList::getHTMLReport()
     return res;
 }
 
+bool GenericList::printSelectedRecord(QTextDocument &textDoc)
+{
+    aca debo seguir trabajando
+    return false;
+}
+
 QString GenericList::getHeader() {
     // Aca se arma una tabla que contiene al header
     QString html("<table width=\"100%\" border=1 cellspacing=0>\n"

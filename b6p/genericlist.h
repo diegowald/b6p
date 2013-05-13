@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include "acollection.h"
 
+// For printing
+#include <QTextDocument>
+
 namespace Ui {
 class GenericList;
 }
@@ -24,6 +27,7 @@ public:
     void setHeader(QStringList &headers);
     void enableButtonsBasedOnAccess();
     QString getHTMLReport();
+    bool printSelectedRecord(QTextDocument &textDoc);
 
 protected:
     virtual QString getHeader();

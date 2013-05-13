@@ -63,49 +63,21 @@ void MainWindow::print(QPrinter *printer)
         textDoc.setHtml(wnd->getHTMLReport());
         textDoc.print(printer);
     }
-/*
-    int w = printer->pageRect().width();
-    int h = printer->pageRect().height();
-    qDebug() << w;
-    qDebug() << h;
-    QRect page(0, 0, w, h);
+}
 
-    // Create a font approproate to page size
-    QFont font = painter.font();
-    font.setPixelSize((w+h)/100);
-    painter.setFont(font);
-
-    painter.drawText(page, Qt::AlignTop | Qt::AlignLeft, "QSimulate");
-
-    GenericList *wnd  = qobject_cast<GenericList *>(ui->mdiArea->activeSubWindow()->widget());
-
-    double xscale = w / double(wnd->width());
-    double yscale = h / double(wnd->height());
-    double scale = qMin(xscale, yscale);
-
-    qDebug() << xscale;
-    qDebug() << yscale;
-    qDebug() << scale;
-
-    painter.translate(printer->paperRect().x() + w / 2,
-                      printer->paperRect().y() + h / 2);
-    qDebug() << printer->paperRect().x() + w / 2;
-    qDebug() << printer->paperRect().y() + h / 2;
-    painter.scale(scale, scale);
-//    painter.translate(w/2, h/2);
-
-    wnd->render(&painter);
-
-    //page.adjust(w/20, h/20, -2/20, -h/20);
-/-*    QPixmap p = QPixmap::grabWidget(wnd);
-    painter.drawPixmap(0, 0, p);
-    //wnd->render(&painter, page.topLeft());
-    //m_sc*/
+void MainWindow::printSelected(QPrinter *printer)
+{
+    if (ui->mdiArea->activeSubWindow() != NULL) {
+        GenericList *wnd = qobject_cast<GenericList *>(ui->mdiArea->activeSubWindow()->widget());
+        QTextDocument textDoc;
+        wnd->printSelectedRecord(textDoc);
+        textDoc.print(printer);
+    }
 }
 
 void MainWindow::on_actionPrint_triggered()
 {
-    // Prints planification
+    // Prints ActiveWindow
     QPrinter printer(QPrinter::HighResolution);
     QPrintDialog dlg(&printer, this);
     if (dlg.exec() == QDialog::Accepted)
@@ -119,10 +91,18 @@ void MainWindow::on_actionPrint_Preview_triggered()
 {
     QPrinter printer(QPrinter::HighResolution);
     QPrintPreviewDialog dlg(&printer, this);
-    connect (&dlg, SIGNAL(paintRequested(QPrinter*)), SLOT(print(QPrinter*)));
+    connect (&dlg, SIGNAL(paintRequested(QPrinter*)), this, SLOT(print(QPrinter*)));
     dlg.exec();
 }
 
+void MainWindow::on_actionPrint_Selected_triggered()
+{
+    // Prints Selected record on active window
+    QPrinter printer(QPrinter::HighResolution);
+    QPrintPreviewDialog dlg(&printer, this);
+    connect(&dlg, SIGNAL(paintRequested(QPrinter*)), this, SLOT(printSelected(QPrinter*)));
+    dlg.exec();
+}
 
 void MainWindow::on_actionExit_triggered()
 {
@@ -220,5 +200,6 @@ void MainWindow::on_actionSynchronize_triggered()
     DlgSynchronization dlg;
     dlg.exec();
 }
+
 
 
