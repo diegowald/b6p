@@ -180,7 +180,7 @@ void ACollection::exportTo(const QString &filename)
     }
 }
 
-QString ACollection::asHTML(bool detailedRecords)
+QString ACollection::asHTML()
 {
     QString html("<table width=\"100%\" border=1 cellspacing=0>\n");
     // Escribo el header

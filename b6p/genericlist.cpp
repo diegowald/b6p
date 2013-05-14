@@ -204,5 +204,5 @@ QString GenericList::getHeader() {
 }
 
 QString GenericList::getBody() {
-    return model->asHTML(false);
+    return model->asHTML();
 }

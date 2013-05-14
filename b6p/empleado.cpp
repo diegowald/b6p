@@ -225,3 +225,24 @@ bool Empleado::isPowerUser()
     c = DataStore::instance()->getCapacidades()->get(idEmpleado.value(), 9, 0, false);
     return c.get();
 }
+
+bool Empleado::print(QTextDocument &textDoc)
+{
+
+
+    Employee
+
+    LastName->
+    Nanmes->
+    ID->
+    Start Date->
+
+    Expertise
+    Sector	SubSector	Proficiency
+
+    Availability
+    Sunday	Hora Inicio	Hora Fun
+
+
+    return false;
+}

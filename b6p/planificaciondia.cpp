@@ -163,3 +163,73 @@ PlanificacionSubSectorLst PlanificacionDia::getPlanificaciones()
 {
     return DataStore::instance()->getPlanificacionesSubSectores()->getAll(m_Dia.value(), false);
 }
+
+bool PlanificacionDia::print(QTextDocument &textDoc)
+{
+    QString html("<table width=\"100%\" border=1 cellspacing=0>\n");
+    // Escribo el header
+
+    html += "<tr>";
+    html += "<td bgcolor=\"lightgray\" colspan=\"6\"><font size=\"+1\">";
+    html += "<b><i>" + tr("Planification") + "</i></b></font>\n</td>";
+    html += "</tr>";
+
+    html += "<tr>";
+    html += "<td>" + tr("Date") + "</td><td>" + Dia().value().toString() + "</td>";
+    html += "<td>" + tr("Estimation") + "</td><td>" + this->Estimacion()->EstimacionHoras().value() + "</td>";
+    html += "<td>" + tr("Status") + "</td><td>" + Estado() + "</td>";
+    html += "</tr>";
+
+    html += "<tr>";
+    html += "<td>" + tr("Notes") + "</td><td colspan=\"5\">" + Notas().value() + "</td>";
+    html += "</tr>";
+    html += "</table>";
+
+
+    PlanificacionSubSectorLst ls = getPlanificaciones();
+    html += "<table width=\"100%\" border=1 cellspacing=0>\n";
+    html += "<tr>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<b><i>" + tr("Sector") + "</i></b></font>\n</td>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<b><i>" + tr("SubSector") + "</i></b></font>\n</td>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<b><i>" + tr("Start") + "</i></b></font>\n</td>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<b><i>" + tr("End") + "</i></b></font>\n</td>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<b><i>" + tr("Employee") + "</i></b></font>\n</td>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<b><i>" + tr("") + "</i></b></font>\n</td>";
+    html += "</tr>";
+
+    foreach(PlanificacionSubSectorPtr p, *ls)
+    {
+        html += "<tr>";
+        if (p->getSector())
+            html += "<td>" + p->getSector()->Nombre().value() + "</td>";
+        else
+            html += "<td> </td>";
+
+        if (p->getSubsector())
+            html += "<td>" + p->getSubsector()->Nombre().value() + "</td>";
+        else
+            html += "<td> </td>";
+
+        Falta trabajar en la hora de inicio y de fin en el formato adecuado
+        html += "<td>" + QString::number(p->HoraInicio().value()) + "</td>";
+        html += "<td>" + QString::number(p->HoraFin().value()) + "</td>";
+
+        if (p->getEmpleado())
+            html += "<td>" + p->getEmpleado()->Apellido().value() + ", " + p->getEmpleado()->Nombre().value() + "</td>";
+        else
+            html += "<td> </td>";
+
+        html += "<td> </td>";
+        html += "</tr>";
+    }
+
+    html += "\n</table>\n<br>\n";
+    textDoc.setHtml(html);
+    return true;
+}

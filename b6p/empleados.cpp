@@ -357,7 +357,6 @@ bool Empleados::printSelectedRecord(QVariant IDElement, QTextDocument &textDoc)
         return false;
     else
         e = getEmpleado(IDElement.toInt(), false);
-    // Print part;
-    textDoc.setHtml("Hola Mundo");
-    return true;
+
+    return e->print(textDoc);
 }

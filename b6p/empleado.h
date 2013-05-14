@@ -11,6 +11,8 @@
 #include "calendariopersona.h"
 #include "days.h"
 
+#include <QTextDocument>
+
 
 class Empleado;
 typedef boost::shared_ptr<Empleado> EmpleadoPtr;
@@ -71,6 +73,8 @@ public:
     bool isPowerUser();
     EmployeeCalculatedCapacityPtr canWork(QDate &Fecha, int IDSector, int IDSubSector, int HoraInicio, int HoraFin);
     bool canBeDeleted();
+
+    bool print(QTextDocument &textDoc);
 
 signals:
     

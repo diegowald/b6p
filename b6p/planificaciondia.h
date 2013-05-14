@@ -9,6 +9,9 @@
 #include "estimaciondia.h"
 #include "planificacionsubsector.h"
 
+// printing
+#include <QTextDocument>
+
 enum EstadosPlanificacion
 {
     INPROGRESS,
@@ -33,6 +36,9 @@ public:
     virtual RecordPtr asRecordPtr();
     QString Estado();
     void approve();
+
+    bool print(QTextDocument &textDoc);
+
 
     bool isEverythingAssigned();
     bool isReadyForApproval();

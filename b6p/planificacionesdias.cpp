@@ -346,6 +346,6 @@ bool PlanificacionesDias::printSelectedRecord(QVariant IDElement, QTextDocument 
     p = getByDay(IDElement.toDate(), false);
     if (p.get())
     {
-        textDoc.setHtml("Hola Mundo");
+        return p->print(textDoc);
     }
 }
