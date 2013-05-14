@@ -9,7 +9,7 @@
 #include "IRecord.h"
 #include <QAction>
 #include <QList>
-
+#include <QTextDocument>
 
 
 class ACollection : public QObject
@@ -37,6 +37,7 @@ public:
     virtual void load();
     virtual void save(bool includeIDs = false);
     virtual QString asHTML(bool detailedRecords);
+    virtual bool printSelectedRecord(QVariant IDElement, QTextDocument &textDoc) = 0;
 
     QString &name();
     QString invariableName() const;

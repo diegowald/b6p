@@ -184,9 +184,11 @@ QString GenericList::getHTMLReport()
 }
 
 bool GenericList::printSelectedRecord(QTextDocument &textDoc)
-{
-    aca debo seguir trabajando
-    return false;
+{    
+    if (ui->treeList->currentItem())
+        return model->printSelectedRecord(ui->treeList->currentItem()->data(0, Qt::UserRole), textDoc);
+    else
+        return false;
 }
 
 QString GenericList::getHeader() {
