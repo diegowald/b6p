@@ -339,3 +339,13 @@ boost::shared_ptr<QList<QAction*> > PlanificacionesDias::getActions()
 
     return actions;
 }
+
+bool PlanificacionesDias::printSelectedRecord(QVariant IDElement, QTextDocument &textDoc)
+{
+    PlanificacionDiaPtr p;
+    p = getByDay(IDElement.toDate(), false);
+    if (p.get())
+    {
+        textDoc.setHtml("Hola Mundo");
+    }
+}

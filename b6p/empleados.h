@@ -23,6 +23,7 @@ public:
     virtual bool isRecordUnsent(RecordPtr record);
     virtual RecordPtr getLocalRecord(RecordPtr record);
     virtual QStringList getFieldsToShowInMerge();
+    virtual bool printSelectedRecord(QVariant IDElement, QTextDocument &textDoc);
 
 
     virtual void defineHeaders(QStringList &list);

@@ -349,3 +349,15 @@ void Empleados::setStatusToUnmodified(bool removeDeleted)
     foreach(int id, toDelete)
         m_Empleados.remove(id);
 }
+
+bool Empleados::printSelectedRecord(QVariant IDElement, QTextDocument &textDoc)
+{
+    EmpleadoPtr e;
+    if (IDElement.toInt() == -1)
+        return false;
+    else
+        e = getEmpleado(IDElement.toInt(), false);
+    // Print part;
+    textDoc.setHtml("Hola Mundo");
+    return true;
+}

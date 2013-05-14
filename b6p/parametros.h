@@ -17,6 +17,7 @@ public:
     virtual bool isRecordUnsent(RecordPtr) { return false; }
     virtual RecordPtr getLocalRecord(RecordPtr) { return RecordPtr(); }
     virtual QStringList getFieldsToShowInMerge() { return QStringList(); }
+    virtual bool printSelectedRecord(QVariant, QTextDocument &) { return false; }
 
 
     virtual QString getTableName() { return "parametros"; }
