@@ -4,6 +4,8 @@
 #include <QMainWindow>
 //Printing
 #include <QPrinter>
+#include "genericlist.h"
+
 
 namespace Ui {
 class MainWindow;
@@ -41,9 +43,12 @@ private slots:
 
     void on_actionPrint_Selected_triggered();
 
+    void on_actionPrint_Preview_Selected_Record_triggered();
+
 private:
     Ui::MainWindow *ui;
     int m_LoggedUser;
+    GenericList *selectedWindowToPrint;
 };
 
 #endif // MAINWINDOW_H

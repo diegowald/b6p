@@ -1,5 +1,7 @@
 #include "empleado.h"
 #include "datastore.h"
+#include "days.h"
+#include "timehelper.h"
 
 EmployeeCalculatedCapacity::EmployeeCalculatedCapacity(Empleado* parentEmpleado, QDate Dia) :
     QObject(parentEmpleado)
@@ -228,21 +230,84 @@ bool Empleado::isPowerUser()
 
 bool Empleado::print(QTextDocument &textDoc)
 {
+    QString html("<table width=\"100%\" border=1 cellspacing=0>\n");
+    // Escribo el header
+
+    html += "<tr>";
+    html += "<td bgcolor=\"lightgray\" colspan=\"2\"><font size=\"+1\">";
+    html += "<b><i>" + tr("Employee") + "</i></b></font>\n</td>";
+    html += "</tr>";
+
+    html += "<tr><td>" + tr("LastName") + "</td><td>" + Apellido().value() + "</td></tr>";
+    html += "<tr><td>" + tr("Names") + "</td><td>" + Nombre().value() + "</td></tr>";
+    html += "<tr><td>" + tr("ID") + "</td><td>" + Legajo().value() + "</td></tr>";
+    html += "<tr><td>" + tr("Start Date") + "</td><td>" + FechaIngreso().value().toString() + "</td></tr>";
+    html += "</table>";
+
+    html += "<br>";
+
+    CapacidadPersonaSectorLst capacidades = Capacities();
+
+    html += "<table width=\"100%\" border=1 cellspacing=0>\n";
+    html += "<tr><td colspan=\"4\" bgcolor=\"lightgray\"><font size=\"+1\"<b><i>" + tr("Expertise") + "</i></b></font></td></tr>";
+    html += "<tr>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<i>" + tr("Sector") + "</i></font>\n</td>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<i>" + tr("SubSector") + "</i></font>\n</td>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<i>" + tr("Proficiency") + "</i></font>\n</td>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<i>" + tr("") + "</i></font>\n</td>";
+    html += "</tr>";
+
+    foreach (CapacidadPersonaSectorPtr c, *capacidades) {
+        html += "<tr>";
+        if (c->getSector())
+            html += "<td>" + c->getSector()->Nombre().value() + "</td>";
+        else
+            html += "<td> </td>";
+
+        if (c->getSubSector())
+            html += "<td>" + c->getSubSector()->Nombre().value() + "</td>";
+        else
+            html += "<td> </td>";
+
+        html += "<td>" + QString::number(c->Capacidad().value()) + "</td>";
+
+        html += "<td> </td>";
+        html += "</tr>";
+    }
+    html += "\n</table>\n<br>\n";
+
+    CalendarioPersonaLst calendarios = Disponibilidades();
+    html += "<table width=\"100%\" border=1 cellspacing=0>\n";
+    html += "<tr><td colspan=\"4\" bgcolor=\"lightgray\"><font size=\"+1\"<b><i>" + tr("Availability")  + "</i></b></font></td></tr>";
+    html += "<tr>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<i>" + tr("Day") + "</i></font>\n</td>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<i>" + tr("Start Time") + "</i></font>\n</td>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<i>" + tr("End Time") + "</i></font>\n</td>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\"><i></i></font>\n</td>";
+    html += "</tr>";
+
+    foreach (CalendarioPersonaPtr c, *calendarios) {
+        html += "<tr>";
 
 
-    Employee
+        html += "<td>" + Days::Days2String(Days::DayOfWeek2DAYS(c->Dia().value())) + "</td>";
 
-    LastName->
-    Nanmes->
-    ID->
-    Start Date->
+        html += "<td>" + TimeHelper::SecondsToString(c->HoraIngreso().value()) + "</td>";
 
-    Expertise
-    Sector	SubSector	Proficiency
+        html += "<td>" + TimeHelper::SecondsToString(c->HoraEgreso().value()) + "</td>";
 
-    Availability
-    Sunday	Hora Inicio	Hora Fun
+        html += "<td> </td>";
+        html += "</tr>";
+    }
+    html += "\n</table>\n<br>\n";
 
-
-    return false;
+    textDoc.setHtml(html);
+    return true;
 }

@@ -2,6 +2,8 @@
 #include "datastore.h"
 #include "planificacionsubsector.h"
 #include <QDateTime>
+#include "timehelper.h"
+
 
 PlanificacionDia::PlanificacionDia(QDate date, QObject *parent) :
     QObject(parent)
@@ -216,9 +218,8 @@ bool PlanificacionDia::print(QTextDocument &textDoc)
         else
             html += "<td> </td>";
 
-        Falta trabajar en la hora de inicio y de fin en el formato adecuado
-        html += "<td>" + QString::number(p->HoraInicio().value()) + "</td>";
-        html += "<td>" + QString::number(p->HoraFin().value()) + "</td>";
+        html += "<td>" + TimeHelper::SecondsToString(p->HoraInicio().value()) + "</td>";
+        html += "<td>" + TimeHelper::SecondsToString(p->HoraFin().value()) + "</td>";
 
         if (p->getEmpleado())
             html += "<td>" + p->getEmpleado()->Apellido().value() + ", " + p->getEmpleado()->Nombre().value() + "</td>";

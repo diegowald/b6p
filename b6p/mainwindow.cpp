@@ -37,6 +37,7 @@ MainWindow::MainWindow(int LoggedUser, QWidget *parent) :
 
     m_LoggedUser = LoggedUser;
     EnableActions();
+    selectedWindowToPrint = NULL;
 }
 
 MainWindow::~MainWindow()
@@ -55,53 +56,81 @@ void MainWindow::on_actionOpen_triggered()
 
 void MainWindow::print(QPrinter *printer)
 {
-    // Create Painter for drawing print page
-    //QPainter painter(printer);
-    if (ui->mdiArea->activeSubWindow() != NULL) {
-        GenericList *wnd = qobject_cast<GenericList *>(ui->mdiArea->activeSubWindow()->widget());
+    if (selectedWindowToPrint) {
         QTextDocument textDoc;
-        textDoc.setHtml(wnd->getHTMLReport());
+        textDoc.setHtml(selectedWindowToPrint->getHTMLReport());
         textDoc.print(printer);
     }
 }
 
 void MainWindow::printSelected(QPrinter *printer)
 {
-    if (ui->mdiArea->activeSubWindow() != NULL) {
-        GenericList *wnd = qobject_cast<GenericList *>(ui->mdiArea->activeSubWindow()->widget());
+    if (selectedWindowToPrint) {
         QTextDocument textDoc;
-        wnd->printSelectedRecord(textDoc);
+        selectedWindowToPrint->printSelectedRecord(textDoc);
         textDoc.print(printer);
     }
 }
 
 void MainWindow::on_actionPrint_triggered()
 {
-    // Prints ActiveWindow
-    QPrinter printer(QPrinter::HighResolution);
-    QPrintDialog dlg(&printer, this);
-    if (dlg.exec() == QDialog::Accepted)
-    {
-        // Print
-        print(&printer);
+    if (ui->mdiArea->activeSubWindow()) {
+        selectedWindowToPrint = qobject_cast<GenericList *>(ui->mdiArea->activeSubWindow()->widget());
+        // Prints ActiveWindow
+        QPrinter printer(QPrinter::HighResolution);
+        QPrintDialog dlg(&printer, this);
+        if (dlg.exec() == QDialog::Accepted)
+        {
+            // Print
+            print(&printer);
+        }
     }
+    else
+        selectedWindowToPrint = NULL;
 }
 
 void MainWindow::on_actionPrint_Preview_triggered()
 {
-    QPrinter printer(QPrinter::HighResolution);
-    QPrintPreviewDialog dlg(&printer, this);
-    connect (&dlg, SIGNAL(paintRequested(QPrinter*)), this, SLOT(print(QPrinter*)));
-    dlg.exec();
+    if (ui->mdiArea->activeSubWindow()) {
+        selectedWindowToPrint = qobject_cast<GenericList *>(ui->mdiArea->activeSubWindow()->widget());
+        QPrinter printer(QPrinter::HighResolution);
+        QPrintPreviewDialog dlg(&printer, this);
+        connect (&dlg, SIGNAL(paintRequested(QPrinter*)), this, SLOT(print(QPrinter*)));
+        dlg.exec();
+    }
+    else
+        selectedWindowToPrint = NULL;
 }
 
 void MainWindow::on_actionPrint_Selected_triggered()
 {
-    // Prints Selected record on active window
-    QPrinter printer(QPrinter::HighResolution);
-    QPrintPreviewDialog dlg(&printer, this);
-    connect(&dlg, SIGNAL(paintRequested(QPrinter*)), this, SLOT(printSelected(QPrinter*)));
-    dlg.exec();
+    if (ui->mdiArea->activeSubWindow()) {
+        selectedWindowToPrint = qobject_cast<GenericList *>(ui->mdiArea->activeSubWindow()->widget());
+        // Prints to printer selected record
+        QPrinter printer(QPrinter::HighResolution);
+        QPrintDialog dlg(&printer, this);
+        if (dlg.exec() == QDialog::Accepted)
+        {
+            // Print
+            printSelected(&printer);
+        }
+    }
+    else
+        selectedWindowToPrint = NULL;
+}
+
+void MainWindow::on_actionPrint_Preview_Selected_Record_triggered()
+{
+    if (ui->mdiArea->activeSubWindow()) {
+        selectedWindowToPrint = qobject_cast<GenericList *>(ui->mdiArea->activeSubWindow()->widget());
+        // Prints Selected record on active window
+        QPrinter printer(QPrinter::HighResolution);
+        QPrintPreviewDialog dlg(&printer, this);
+        connect(&dlg, SIGNAL(paintRequested(QPrinter*)), this, SLOT(printSelected(QPrinter*)));
+        dlg.exec();
+    }
+    else
+        selectedWindowToPrint = NULL;
 }
 
 void MainWindow::on_actionExit_triggered()
@@ -200,6 +229,5 @@ void MainWindow::on_actionSynchronize_triggered()
     DlgSynchronization dlg;
     dlg.exec();
 }
-
 
 
