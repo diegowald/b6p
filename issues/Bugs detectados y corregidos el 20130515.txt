@@ -1,0 +1,17 @@
+
+Que todas las ventanas aparezcan mas grandes al abrirse
+Que se imprima el grafico del uso de horas
+Aparece la ventana de Merge para la ultima tabla. No aparecen registros.
+
+Tests
+Modifico el ID de Dalila a 111
+
+
+La sincronizacion anda extremadamente lenta.
+
+
+Hacer que la planificacion "muestre el mes en curso y el mes anterior". Toda la informacion debera quedar en la base de datos central.
+
+
+
+
