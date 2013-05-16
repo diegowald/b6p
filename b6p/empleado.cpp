@@ -3,6 +3,8 @@
 #include "days.h"
 #include "timehelper.h"
 
+#include <QUrl>
+
 EmployeeCalculatedCapacity::EmployeeCalculatedCapacity(Empleado* parentEmpleado, QDate Dia) :
     QObject(parentEmpleado)
 {
@@ -293,17 +295,16 @@ bool Empleado::print(QTextDocument &textDoc)
     html += "<td bgcolor=\"lightgray\"><font size=\"+1\"><i></i></font>\n</td>";
     html += "</tr>";
 
+    int imgNumber = 0;
     foreach (CalendarioPersonaPtr c, *calendarios) {
         html += "<tr>";
-
-
         html += "<td>" + Days::Days2String(Days::DayOfWeek2DAYS(c->Dia().value())) + "</td>";
-
         html += "<td>" + TimeHelper::SecondsToString(c->HoraIngreso().value()) + "</td>";
-
         html += "<td>" + TimeHelper::SecondsToString(c->HoraEgreso().value()) + "</td>";
-
-        html += "<td> </td>";
+        QString img = "img%1";
+        img = img.arg(imgNumber);
+        html += "<td><img src=\"" + img + "\"></td>";
+        textDoc.addResource(QTextDocument::ImageResource, QUrl(img), QPixmap(100, 15));
         html += "</tr>";
     }
     html += "\n</table>\n<br>\n";
