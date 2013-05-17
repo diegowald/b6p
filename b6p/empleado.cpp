@@ -3,7 +3,9 @@
 #include "days.h"
 #include "timehelper.h"
 
+// Printing support
 #include <QUrl>
+#include "timeassignment.h"
 
 EmployeeCalculatedCapacity::EmployeeCalculatedCapacity(Empleado* parentEmpleado, QDate Dia) :
     QObject(parentEmpleado)
@@ -304,7 +306,24 @@ bool Empleado::print(QTextDocument &textDoc)
         QString img = "img%1";
         img = img.arg(imgNumber);
         html += "<td><img src=\"" + img + "\"></td>";
-        textDoc.addResource(QTextDocument::ImageResource, QUrl(img), QPixmap(100, 15));
+
+        QRect rect;
+        rect.setWidth(200);
+        rect.setHeight(20);
+        QPixmap px(rect.size());
+falta colorear correctamente
+        y tambien setear los valores de inicio y de fin con valores correctos.
+
+        TimeAssignment ts;
+        ts.resize(rect.size());
+        ts.setInitialTimeline(0);
+        ts.setFinalTimeline(24*3600);
+        ts.setTimeLineColor(Qt::blue);
+        ts.setAssignmentColor(Qt::red);
+        ts.setStartAssignment(c->HoraIngreso().value());
+        ts.setEndAssignment(c->HoraEgreso().value());
+        ts.render(&px, QPoint(), QRegion(rect));
+        textDoc.addResource(QTextDocument::ImageResource, QUrl(img), px);
         html += "</tr>";
     }
     html += "\n</table>\n<br>\n";
