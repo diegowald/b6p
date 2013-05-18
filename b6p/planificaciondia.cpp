@@ -4,6 +4,10 @@
 #include <QDateTime>
 #include "timehelper.h"
 
+//Printing
+#include "timeassignment.h"
+#include <QUrl>
+
 
 PlanificacionDia::PlanificacionDia(QDate date, QObject *parent) :
     QObject(parent)
@@ -178,7 +182,7 @@ bool PlanificacionDia::print(QTextDocument &textDoc)
 
     html += "<tr>";
     html += "<td>" + tr("Date") + "</td><td>" + Dia().value().toString() + "</td>";
-    html += "<td>" + tr("Estimation") + "</td><td>" + this->Estimacion()->EstimacionHoras().value() + "</td>";
+    html += "<td>" + tr("Estimation") + "</td><td>" + QString::number(Estimacion()->EstimacionHoras().value()) + "</td>";
     html += "<td>" + tr("Status") + "</td><td>" + Estado() + "</td>";
     html += "</tr>";
 
@@ -202,9 +206,10 @@ bool PlanificacionDia::print(QTextDocument &textDoc)
     html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
     html += "<b><i>" + tr("Employee") + "</i></b></font>\n</td>";
     html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
-    html += "<b><i>" + tr("") + "</i></b></font>\n</td>";
+    html += "<b><i>" + tr("caca") + "</i></b></font>\n</td>";
     html += "</tr>";
 
+    int imgNumber = 0;
     foreach(PlanificacionSubSectorPtr p, *ls)
     {
         html += "<tr>";
@@ -226,7 +231,22 @@ bool PlanificacionDia::print(QTextDocument &textDoc)
         else
             html += "<td> </td>";
 
-        html += "<td> </td>";
+        QString img = "img%1";
+        img = img.arg(imgNumber);
+        html += "<td><img src=\"" + img + "\"></td>";
+        QRect rect;
+        rect.setWidth(200);
+        rect.setHeight(20);
+        QPixmap px(rect.size());
+        TimeAssignment ts;
+        ts.resize(rect.size());
+        ts.setInitialTimeline(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0));
+        ts.setFinalTimeline(DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
+        ts.setStartAssignment(p->HoraInicio().value());
+        ts.setEndAssignment(p->HoraFin().value());
+        ts.render(&px, QPoint(), QRegion(rect));
+        textDoc.addResource(QTextDocument::ImageResource, QUrl(img), px);
+        imgNumber++;
         html += "</tr>";
     }
 

@@ -311,19 +311,15 @@ bool Empleado::print(QTextDocument &textDoc)
         rect.setWidth(200);
         rect.setHeight(20);
         QPixmap px(rect.size());
-falta colorear correctamente
-        y tambien setear los valores de inicio y de fin con valores correctos.
-
         TimeAssignment ts;
         ts.resize(rect.size());
-        ts.setInitialTimeline(0);
-        ts.setFinalTimeline(24*3600);
-        ts.setTimeLineColor(Qt::blue);
-        ts.setAssignmentColor(Qt::red);
+        ts.setInitialTimeline(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0));
+        ts.setFinalTimeline(DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
         ts.setStartAssignment(c->HoraIngreso().value());
         ts.setEndAssignment(c->HoraEgreso().value());
         ts.render(&px, QPoint(), QRegion(rect));
         textDoc.addResource(QTextDocument::ImageResource, QUrl(img), px);
+        imgNumber++;
         html += "</tr>";
     }
     html += "\n</table>\n<br>\n";
