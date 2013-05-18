@@ -3,6 +3,10 @@
 #include "days.h"
 #include "timehelper.h"
 
+// Printing support
+#include <QUrl>
+#include "timeassignment.h"
+
 EmployeeCalculatedCapacity::EmployeeCalculatedCapacity(Empleado* parentEmpleado, QDate Dia) :
     QObject(parentEmpleado)
 {
@@ -293,17 +297,33 @@ bool Empleado::print(QTextDocument &textDoc)
     html += "<td bgcolor=\"lightgray\"><font size=\"+1\"><i></i></font>\n</td>";
     html += "</tr>";
 
+    int imgNumber = 0;
     foreach (CalendarioPersonaPtr c, *calendarios) {
         html += "<tr>";
-
-
         html += "<td>" + Days::Days2String(Days::DayOfWeek2DAYS(c->Dia().value())) + "</td>";
-
         html += "<td>" + TimeHelper::SecondsToString(c->HoraIngreso().value()) + "</td>";
-
         html += "<td>" + TimeHelper::SecondsToString(c->HoraEgreso().value()) + "</td>";
+        QString img = "img%1";
+        img = img.arg(imgNumber);
+        html += "<td><img src=\"" + img + "\"></td>";
 
-        html += "<td> </td>";
+        QRect rect;
+        rect.setWidth(200);
+        rect.setHeight(20);
+        QPixmap px(rect.size());
+falta colorear correctamente
+        y tambien setear los valores de inicio y de fin con valores correctos.
+
+        TimeAssignment ts;
+        ts.resize(rect.size());
+        ts.setInitialTimeline(0);
+        ts.setFinalTimeline(24*3600);
+        ts.setTimeLineColor(Qt::blue);
+        ts.setAssignmentColor(Qt::red);
+        ts.setStartAssignment(c->HoraIngreso().value());
+        ts.setEndAssignment(c->HoraEgreso().value());
+        ts.render(&px, QPoint(), QRegion(rect));
+        textDoc.addResource(QTextDocument::ImageResource, QUrl(img), px);
         html += "</tr>";
     }
     html += "\n</table>\n<br>\n";
