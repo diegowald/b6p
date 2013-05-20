@@ -3,7 +3,7 @@
 PlanificacionesDiasSubSectores::PlanificacionesDiasSubSectores(QObject *parent) :
     ACollection(tr("Planifications of Sectors and subsectors for a day"),
                 "Planifications of Sectors and subsectors for a day", true,
-                ACollection::MERGE_MANUAL, parent)
+                ACollection::MERGE_KEEP_LOCAL, parent)
 {
 }
 

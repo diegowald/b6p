@@ -348,4 +348,5 @@ bool PlanificacionesDias::printSelectedRecord(QVariant IDElement, QTextDocument 
     {
         return p->print(textDoc);
     }
+    return false;
 }

@@ -8,6 +8,7 @@ GenericList::GenericList(int LoggedUser, boost::shared_ptr<ACollection> Model, b
     ui(new Ui::GenericList)
 {
     ui->setupUi(this);
+    this->setFixedSize(800, 600);
     m_LoggedUser = LoggedUser;
     model = Model;
     QStringList headers;
