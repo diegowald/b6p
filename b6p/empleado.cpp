@@ -309,7 +309,7 @@ bool Empleado::print(QTextDocument &textDoc)
 
         QRect rect;
         rect.setWidth(200);
-        rect.setHeight(20);
+        rect.setHeight(30);
         QPixmap px(rect.size());
         TimeAssignment ts;
         ts.resize(rect.size());
@@ -317,6 +317,9 @@ bool Empleado::print(QTextDocument &textDoc)
         ts.setFinalTimeline(DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
         ts.setStartAssignment(c->HoraIngreso().value());
         ts.setEndAssignment(c->HoraEgreso().value());
+        ts.setPaintBackgroundReferences(true);
+        ts.setPaintVerticalGrid(true);
+        ts.setShowBackgroundText(true);
         ts.render(&px, QPoint(), QRegion(rect));
         textDoc.addResource(QTextDocument::ImageResource, QUrl(img), px);
         imgNumber++;

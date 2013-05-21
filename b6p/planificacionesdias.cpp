@@ -220,6 +220,7 @@ bool PlanificacionesDias::edit(QVariant ID)
 
     DlgPlanificacionDia dlg;
     dlg.setData(p);
+    dlg.setWindowState(dlg.windowState() | Qt::WindowMaximized);
     if (dlg.exec() == QDialog::Accepted)
     {
         p->Dia().setValue(dlg.Dia());

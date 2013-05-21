@@ -31,6 +31,9 @@ int main(int argc, char *argv[])
     {
         MainWindow w(IDUser);
         w.show();
+        QFont font = a.font();
+        font.setPixelSize(12);
+        a.setFont(font);
         return a.exec();
     }
     else

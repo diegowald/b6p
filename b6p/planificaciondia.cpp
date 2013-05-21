@@ -176,18 +176,19 @@ bool PlanificacionDia::print(QTextDocument &textDoc)
     // Escribo el header
 
     html += "<tr>";
-    html += "<td bgcolor=\"lightgray\" colspan=\"6\"><font size=\"+1\">";
+    html += "<td bgcolor=\"lightgray\" colspan=\"8\"><font size=\"+1\">";
     html += "<b><i>" + tr("Planification") + "</i></b></font>\n</td>";
     html += "</tr>";
 
     html += "<tr>";
     html += "<td>" + tr("Date") + "</td><td>" + Dia().value().toString() + "</td>";
-    html += "<td>" + tr("Estimation") + "</td><td>" + QString::number(Estimacion()->EstimacionHoras().value()) + "</td>";
+    html += "<td>" + tr("Estimation") + "</td><td>" + QString::number(Estimacion()->EstimacionHoras().value()) + "hs </td>";
+    html += "<td>" + tr("Planned") + "</td><td>" + QString::number(HorasPlanificadas()) + " hs </td>";
     html += "<td>" + tr("Status") + "</td><td>" + Estado() + "</td>";
     html += "</tr>";
 
     html += "<tr>";
-    html += "<td>" + tr("Notes") + "</td><td colspan=\"5\">" + Notas().value() + "</td>";
+    html += "<td>" + tr("Notes") + "</td><td colspan=\"7\">" + Notas().value() + "</td>";
     html += "</tr>";
     html += "</table>";
 
@@ -206,7 +207,7 @@ bool PlanificacionDia::print(QTextDocument &textDoc)
     html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
     html += "<b><i>" + tr("Employee") + "</i></b></font>\n</td>";
     html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
-    html += "<b><i>" + tr("caca") + "</i></b></font>\n</td>";
+    html += "<b><i>" + tr("Diagram") + "</i></b></font>\n</td>";
     html += "</tr>";
 
     int imgNumber = 0;
@@ -236,7 +237,7 @@ bool PlanificacionDia::print(QTextDocument &textDoc)
         html += "<td><img src=\"" + img + "\"></td>";
         QRect rect;
         rect.setWidth(200);
-        rect.setHeight(20);
+        rect.setHeight(30);
         QPixmap px(rect.size());
         TimeAssignment ts;
         ts.resize(rect.size());
@@ -244,6 +245,9 @@ bool PlanificacionDia::print(QTextDocument &textDoc)
         ts.setFinalTimeline(DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
         ts.setStartAssignment(p->HoraInicio().value());
         ts.setEndAssignment(p->HoraFin().value());
+        ts.setPaintBackgroundReferences(true);
+        ts.setPaintVerticalGrid(true);
+        ts.setShowBackgroundText(true);
         ts.render(&px, QPoint(), QRegion(rect));
         textDoc.addResource(QTextDocument::ImageResource, QUrl(img), px);
         imgNumber++;
