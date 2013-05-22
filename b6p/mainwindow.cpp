@@ -125,7 +125,7 @@ void MainWindow::on_actionPrint_Preview_Selected_Record_triggered()
     if (ui->mdiArea->activeSubWindow()) {
         selectedWindowToPrint = qobject_cast<GenericList *>(ui->mdiArea->activeSubWindow()->widget());
         // Prints Selected record on active window
-        QPrinter printer;//(/*QPrinter::HighResolution*/);
+        QPrinter printer;//(QPrinter::HighResolution);
         printer.setOrientation(QPrinter::Landscape);
         QPrintPreviewDialog dlg(&printer, this);
         connect(&dlg, SIGNAL(paintRequested(QPrinter*)), this, SLOT(printSelected(QPrinter*)));

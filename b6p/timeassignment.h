@@ -49,7 +49,8 @@ public:
     void setPaintBackgroundReferences(bool paint);
     bool ShowBackgroundText();
     void setShowBackgroundText(bool show);
-
+    void setHollowTimeLine(bool hollow);
+    bool HollowTimeLine() const;
 
 public slots:
     void setStartAssignment(int seconds);
@@ -76,6 +77,7 @@ private:
     bool m_paintBackgroundReferences;
     bool m_showBackgroundText;
     bool m_paintVerticalGrid;
+    bool m_HollowTimeLine;
 };
 
 #endif // TIMEASSIGNMENT_H

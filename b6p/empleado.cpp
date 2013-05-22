@@ -279,7 +279,7 @@ bool Empleado::print(QTextDocument &textDoc)
 
         html += "<td>" + QString::number(c->Capacidad().value()) + "</td>";
 
-        html += "<td> </td>";
+        html += "<td>" + tr("Diagram") + "</td>";
         html += "</tr>";
     }
     html += "\n</table>\n<br>\n";
@@ -308,7 +308,7 @@ bool Empleado::print(QTextDocument &textDoc)
         html += "<td><img src=\"" + img + "\"></td>";
 
         QRect rect;
-        rect.setWidth(200);
+        rect.setWidth(500);
         rect.setHeight(30);
         QPixmap px(rect.size());
         TimeAssignment ts;
@@ -317,9 +317,13 @@ bool Empleado::print(QTextDocument &textDoc)
         ts.setFinalTimeline(DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
         ts.setStartAssignment(c->HoraIngreso().value());
         ts.setEndAssignment(c->HoraEgreso().value());
+
         ts.setPaintBackgroundReferences(true);
         ts.setPaintVerticalGrid(true);
         ts.setShowBackgroundText(true);
+        ts.setHollowTimeLine(true);
+        ts.setTimeLineColor(Qt::black);
+
         ts.render(&px, QPoint(), QRegion(rect));
         textDoc.addResource(QTextDocument::ImageResource, QUrl(img), px);
         imgNumber++;

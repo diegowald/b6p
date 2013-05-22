@@ -176,13 +176,14 @@ bool PlanificacionDia::print(QTextDocument &textDoc)
     // Escribo el header
 
     html += "<tr>";
-    html += "<td bgcolor=\"lightgray\" colspan=\"8\"><font size=\"+1\">";
-    html += "<b><i>" + tr("Planification") + "</i></b></font>\n</td>";
+    //html += "<td bgcolor=\"lightgray\" colspan=\"8\"><font size=\"+1\">";
+    html += "<td bgcolor=\"lightgray\" colspan=\"8\">";
+    html += "<b><i>" + tr("Planification") + "</i></b>\n</td>";
     html += "</tr>";
 
     html += "<tr>";
     html += "<td>" + tr("Date") + "</td><td>" + Dia().value().toString() + "</td>";
-    html += "<td>" + tr("Estimation") + "</td><td>" + QString::number(Estimacion()->EstimacionHoras().value()) + "hs </td>";
+    html += "<td>" + tr("Estimation") + "</td><td>" + QString::number(Estimacion()->EstimacionHoras().value()) + " hs </td>";
     html += "<td>" + tr("Planned") + "</td><td>" + QString::number(HorasPlanificadas()) + " hs </td>";
     html += "<td>" + tr("Status") + "</td><td>" + Estado() + "</td>";
     html += "</tr>";
@@ -236,18 +237,20 @@ bool PlanificacionDia::print(QTextDocument &textDoc)
         img = img.arg(imgNumber);
         html += "<td><img src=\"" + img + "\"></td>";
         QRect rect;
-        rect.setWidth(200);
+        rect.setWidth(500);
         rect.setHeight(30);
         QPixmap px(rect.size());
         TimeAssignment ts;
         ts.resize(rect.size());
         ts.setInitialTimeline(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0));
         ts.setFinalTimeline(DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
+        ts.setTimeLineColor(Qt::black);
         ts.setStartAssignment(p->HoraInicio().value());
         ts.setEndAssignment(p->HoraFin().value());
         ts.setPaintBackgroundReferences(true);
         ts.setPaintVerticalGrid(true);
         ts.setShowBackgroundText(true);
+        ts.setHollowTimeLine(true);
         ts.render(&px, QPoint(), QRegion(rect));
         textDoc.addResource(QTextDocument::ImageResource, QUrl(img), px);
         imgNumber++;

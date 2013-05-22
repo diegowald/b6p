@@ -21,6 +21,7 @@ TimeAssignment::TimeAssignment(QWidget *parent) :
     m_paintBackgroundReferences = true;
     m_paintVerticalGrid = false;
     m_showBackgroundText = false;
+    m_HollowTimeLine = false;
 }
 
 bool TimeAssignment::PaintBackgroundReferences()
@@ -82,7 +83,8 @@ void TimeAssignment::paintEvent(QPaintEvent */*event*/)
 
     // Paint Background timeline
     QRectF timeline(m_HorizontalGap, (height() - m_TimelineHeight) / 2, width() - 2 * m_HorizontalGap, m_TimelineHeight);
-    painter.fillRect(timeline, m_TimelineColor);
+    if (!m_HollowTimeLine)
+        painter.fillRect(timeline, m_TimelineColor);
     painter.setPen(m_TimelineColor);
     painter.drawRect(timeline);
 
@@ -269,4 +271,14 @@ void TimeAssignment::setEndAssignment(int seconds)
 int TimeAssignment::endAssignment() const
 {
     return m_EndAssignment;
+}
+
+void TimeAssignment::setHollowTimeLine(bool hollow)
+{
+    m_HollowTimeLine = hollow;
+}
+
+bool TimeAssignment::HollowTimeLine() const
+{
+    return m_HollowTimeLine;
 }
