@@ -10,8 +10,14 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     QTranslator appTranslator;
 
-    if (appTranslator.load("b6p_" + QLocale::system().name(), a.applicationDirPath()))
+    /*if (appTranslator.load("b6p_esAR", a.applicationDirPath()))
+    {
         a.installTranslator(&appTranslator);
+    }
+    else */if (appTranslator.load("b6p_" + QLocale::system().name(), a.applicationDirPath()))
+    {
+        a.installTranslator(&appTranslator);
+    }
 
     DlgLogin dlg;
     int IDUser = 0;
