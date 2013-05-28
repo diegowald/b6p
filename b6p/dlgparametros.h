@@ -16,6 +16,10 @@ public:
     ~DlgParametros();
     
     virtual void accept();
+
+private:
+    int getCloseTime();
+
 private slots:
     void on_pushButton_pressed();
 

@@ -31,10 +31,18 @@ DlgParametros::~DlgParametros()
     delete ui;
 }
 
+int DlgParametros::getCloseTime()
+{
+    int timeClose = ui->timeClose->timeSeconds();
+    if (ui->chkNextDay->isChecked())
+        timeClose += 86400; // Adding one day
+    return timeClose;
+}
+
 void DlgParametros::accept()
 {
     DataStore::instance()->getParametros()->setValue(Parametros::OPEN_STORE, ui->timeOpen->timeSeconds());
-    DataStore::instance()->getParametros()->setValue(Parametros::CLOSE_STORE, ui->timeClose->timeSeconds());
+    DataStore::instance()->getParametros()->setValue(Parametros::CLOSE_STORE, getCloseTime());
     DataStore::instance()->getParametros()->setValue(Parametros::MIN_WORKING_HOURS, ui->MinWorkingHours->text().toInt());
     DataStore::instance()->getParametros()->setValue(Parametros::EMPLOYEE_MIN_HOURS, ui->employeeMinWorkingHours->text().toInt());
     DataStore::instance()->getParametros()->setValue(Parametros::EMPLOYEE_MAX_HOURS, ui->employeeMaxWorkingHours->text().toInt());

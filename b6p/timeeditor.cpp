@@ -47,12 +47,13 @@ void TimeEditor::setTime(int hh, int mm, int ss)
 
 void TimeEditor::setTime(int seconds)
 {
-    if (checkTime(seconds))
+    int secondsOnSameDay = seconds % 86400;
+    if (checkTime(secondsOnSameDay))
     {
-        currentTime = seconds;
-        ui->spinHours->setValue(getHours(seconds));
-        ui->spinMinutes->setValue(getMinutes(seconds));
-        ui->spinSeconds->setValue(getSeconds(seconds));
+        currentTime = secondsOnSameDay;
+        ui->spinHours->setValue(getHours(secondsOnSameDay));
+        ui->spinMinutes->setValue(getMinutes(secondsOnSameDay));
+        ui->spinSeconds->setValue(getSeconds(secondsOnSameDay));
         emit timeChanged(currentTime);
     }
 }
