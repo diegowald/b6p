@@ -1,5 +1,6 @@
 #include "timeeditor.h"
 #include "ui_timeeditor.h"
+#include <QDebug>
 
 TimeEditor::TimeEditor(QWidget *parent) :
     QWidget(parent),
@@ -21,8 +22,8 @@ void TimeEditor::onValueChanged(QSpinBox *, int)
         currentTime = HHMMSS2Seconds(ui->spinHours->value(), ui->spinMinutes->value(), ui->spinSeconds->value());
         emit timeChanged(currentTime);
     }
-//    else
-        //qDebug() << "MAL";
+    else
+        qDebug() << "MAL";
 }
 
 void TimeEditor::on_spinHours_valueChanged(int arg1)
@@ -34,6 +35,7 @@ void TimeEditor::on_spinMinutes_valueChanged(int arg1)
 {
     onValueChanged(ui->spinMinutes, arg1);
 }
+
 
 void TimeEditor::on_spinSeconds_valueChanged(int arg1)
 {
@@ -47,13 +49,13 @@ void TimeEditor::setTime(int hh, int mm, int ss)
 
 void TimeEditor::setTime(int seconds)
 {
-    int secondsOnSameDay = seconds % 86400;
-    if (checkTime(secondsOnSameDay))
+    //int secondsOnSameDay = seconds % 86400;
+    if (checkTime(seconds))
     {
-        currentTime = secondsOnSameDay;
-        ui->spinHours->setValue(getHours(secondsOnSameDay));
-        ui->spinMinutes->setValue(getMinutes(secondsOnSameDay));
-        ui->spinSeconds->setValue(getSeconds(secondsOnSameDay));
+        currentTime = seconds;
+        ui->spinHours->setValue(getHours(seconds/*OnSameDay*/));
+        ui->spinMinutes->setValue(getMinutes(seconds/*OnSameDay*/));
+        ui->spinSeconds->setValue(getSeconds(seconds/*OnSameDay*/));
         emit timeChanged(currentTime);
     }
 }
@@ -87,7 +89,10 @@ void TimeEditor::setMaxTime(int hh, int mm, int ss)
 void TimeEditor::setMaxTime(int seconds)
 {
     maxValue = seconds;
-    ui->spinHours->setMaximum(getHours(seconds));
+    int hours = getHours(seconds);
+    hours = hours;
+    //ui->spinHours->setMaximum(getHours(seconds));
+    ui->spinHours->setMaximum(hours);
 }
 
 int TimeEditor::maxTimeSeconds()
