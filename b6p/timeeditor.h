@@ -34,29 +34,34 @@ public:
     void SetSecondsVisibility(bool visible);
     bool secondsVisibility();
 
+    bool isBeyondThisDay() const;
+
 private:
     bool checkTime(int hh, int mm, int ss);
     bool checkTime(int seconds);
-    int HHMMSS2Seconds(int hh, int mm, int ss);
+    int HHMMSS2Seconds(int hh, int mm, int ss, bool canBeBeyondThisDay);
     int getHours(int seconds);
     int getMinutes(int seconds);
     int getSeconds(int seconds);
-    void onValueChanged(QSpinBox *control, int arg1);
+    void onValueChanged(QLineEdit *control, int arg1);
     void setDefaultValues();
 signals:
     void timeChanged(int newTime);
 
 private slots:
-    void on_spinHours_valueChanged(int arg1);
-    void on_spinMinutes_valueChanged(int arg1);
-    void on_spinSeconds_valueChanged(int arg1);
+    void on_lineHours_textChanged(const QString &arg1);
+    void on_lineMinutes_textChanged(const QString &arg1);
+    void on_lineSeconds_textChanged(const QString &arg1);
 
 private:
     Ui::TimeEditor *ui;
 
+    bool beyondThisDay;
+    bool maxTimeBeyondThisDay;
     int currentTime; // Stored in seconds
     int minValue;
     int maxValue;
+    int previouslySelectedHour;
 };
 
 #endif // TIMEEDITOR_H

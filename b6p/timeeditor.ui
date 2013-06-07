@@ -48,71 +48,32 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QSpinBox" name="spinHours">
-     <property name="minimumSize">
-      <size>
-       <width>50</width>
-       <height>0</height>
-      </size>
-     </property>
+    <widget class="QLineEdit" name="lineHours">
      <property name="maximumSize">
       <size>
        <width>50</width>
        <height>16777215</height>
       </size>
-     </property>
-     <property name="frame">
-      <bool>true</bool>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::UpDownArrows</enum>
-     </property>
-     <property name="prefix">
-      <string/>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QSpinBox" name="spinMinutes">
-     <property name="minimumSize">
-      <size>
-       <width>50</width>
-       <height>0</height>
-      </size>
-     </property>
+    <widget class="QLineEdit" name="lineMinutes">
      <property name="maximumSize">
       <size>
        <width>50</width>
        <height>16777215</height>
       </size>
-     </property>
-     <property name="prefix">
-      <string/>
-     </property>
-     <property name="maximum">
-      <number>59</number>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QSpinBox" name="spinSeconds">
-     <property name="minimumSize">
-      <size>
-       <width>50</width>
-       <height>0</height>
-      </size>
-     </property>
+    <widget class="QLineEdit" name="lineSeconds">
      <property name="maximumSize">
       <size>
        <width>50</width>
        <height>16777215</height>
       </size>
-     </property>
-     <property name="prefix">
-      <string/>
-     </property>
-     <property name="maximum">
-      <number>59</number>
      </property>
     </widget>
    </item>

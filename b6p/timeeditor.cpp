@@ -1,6 +1,7 @@
 #include "timeeditor.h"
 #include "ui_timeeditor.h"
 #include <QDebug>
+#include <QIntValidator>
 
 TimeEditor::TimeEditor(QWidget *parent) :
     QWidget(parent),
@@ -15,47 +16,33 @@ TimeEditor::~TimeEditor()
     delete ui;
 }
 
-void TimeEditor::onValueChanged(QSpinBox *, int)
+void TimeEditor::onValueChanged(QLineEdit *, int)
 {
-    if (checkTime(ui->spinHours->value(), ui->spinMinutes->value(), ui->spinSeconds->value()))
+    if (checkTime(ui->lineHours->text().toInt(), ui->lineMinutes->text().toInt(), ui->lineSeconds->text().toInt()))
     {
-        currentTime = HHMMSS2Seconds(ui->spinHours->value(), ui->spinMinutes->value(), ui->spinSeconds->value());
+        currentTime = HHMMSS2Seconds(ui->lineHours->text().toInt(), ui->lineMinutes->text().toInt(), ui->lineSeconds->text().toInt(), true);
         emit timeChanged(currentTime);
     }
     else
         qDebug() << "MAL";
 }
 
-void TimeEditor::on_spinHours_valueChanged(int arg1)
-{
-    onValueChanged(ui->spinHours, arg1);
-}
-
-void TimeEditor::on_spinMinutes_valueChanged(int arg1)
-{
-    onValueChanged(ui->spinMinutes, arg1);
-}
-
-
-void TimeEditor::on_spinSeconds_valueChanged(int arg1)
-{
-    onValueChanged(ui->spinSeconds, arg1);
-}
-
 void TimeEditor::setTime(int hh, int mm, int ss)
 {
-    setTime(HHMMSS2Seconds(hh, mm, ss));
+    setTime(HHMMSS2Seconds(hh, mm, ss, false));
 }
 
 void TimeEditor::setTime(int seconds)
 {
-    //int secondsOnSameDay = seconds % 86400;
+    int secondsOnSameDay = seconds % 86400;
+    beyondThisDay = (seconds != secondsOnSameDay);
     if (checkTime(seconds))
     {
         currentTime = seconds;
-        ui->spinHours->setValue(getHours(seconds/*OnSameDay*/));
-        ui->spinMinutes->setValue(getMinutes(seconds/*OnSameDay*/));
-        ui->spinSeconds->setValue(getSeconds(seconds/*OnSameDay*/));
+        previouslySelectedHour = getHours(secondsOnSameDay);
+        ui->lineHours->setText(QString::number(previouslySelectedHour));
+        ui->lineMinutes->setText(QString::number(getMinutes(secondsOnSameDay)));
+        ui->lineSeconds->setText(QString::number(getSeconds(secondsOnSameDay)));
         emit timeChanged(currentTime);
     }
 }
@@ -67,13 +54,14 @@ int TimeEditor::timeSeconds()
 
 void TimeEditor::setMinTime(int hh, int mm, int ss)
 {
-    setMinTime(HHMMSS2Seconds(hh, mm, ss));
+    setMinTime(HHMMSS2Seconds(hh, mm, ss, false));
 }
 
 void TimeEditor::setMinTime(int seconds)
 {
     minValue = seconds;
-    ui->spinHours->setMinimum(getHours(seconds));
+    QIntValidator* validator = new QIntValidator(getHours(seconds), getHours(maxValue), this);
+    ui->lineHours->setValidator(validator);
 }
 
 int TimeEditor::minTimeSeconds()
@@ -83,16 +71,26 @@ int TimeEditor::minTimeSeconds()
 
 void TimeEditor::setMaxTime(int hh, int mm, int ss)
 {
-    setMaxTime(HHMMSS2Seconds(hh, mm, ss));
+    setMaxTime(HHMMSS2Seconds(hh, mm, ss, false));
 }
 
 void TimeEditor::setMaxTime(int seconds)
 {
     maxValue = seconds;
-    int hours = getHours(seconds);
-    hours = hours;
-    //ui->spinHours->setMaximum(getHours(seconds));
-    ui->spinHours->setMaximum(hours);
+    maxTimeBeyondThisDay = (maxValue > 86400);
+    QIntValidator *validator = new QIntValidator(getHours(minValue), getHours(maxValue), this);
+    ui->lineHours->setValidator(validator);
+/*    if (maxTimeBeyondThisDay)
+    {
+        ui->spinHours->setMaximum(24);
+    }
+    else
+    {
+        int hours = getHours(seconds);
+        hours = hours;
+        //ui->spinHours->setMaximum(getHours(seconds));
+        ui->spinHours->setMaximum(hours);
+    }*/
 }
 
 int TimeEditor::maxTimeSeconds()
@@ -114,33 +112,38 @@ void TimeEditor::setValidRange(int secondsFrom, int secondsTo)
 
 void TimeEditor::SetSecondsVisibility(bool visible)
 {
-    ui->spinSeconds->setVisible(visible);
-    int w = ui->spinHours->width() + ui->spinMinutes->width() + (visible ? ui->spinSeconds->width() : 0);
-    int h = ui->spinHours->height();
+    ui->lineSeconds->setVisible(visible);
+    int w = ui->lineHours->width() + ui->lineMinutes->width() + (visible ? ui->lineSeconds->width() : 0);
+    int h = ui->lineHours->height();
     resize(w, h);
 }
 
 bool TimeEditor::secondsVisibility()
 {
-    return ui->spinSeconds->isVisible();
+    return ui->lineSeconds->isVisible();
 }
 
-int TimeEditor::HHMMSS2Seconds(int hh, int mm, int ss)
+int TimeEditor::HHMMSS2Seconds(int hh, int mm, int ss, bool canBeBeyondThisDay)
 {
     int seconds = ss;
     seconds += mm * 60;
     seconds += hh * 3600;
+    if (canBeBeyondThisDay && beyondThisDay)
+        seconds += 86400;
     return seconds;
 }
 
 bool TimeEditor::checkTime(int seconds)
 {
+    qDebug() << "minValue: " << minValue;
+    qDebug() << "seconds: " << seconds;
+    qDebug() << "maxValue: " << maxValue;
     return (minValue <= seconds) && (seconds <= maxValue);
 }
 
 bool TimeEditor::checkTime(int hh, int mm, int ss)
 {
-    return checkTime(HHMMSS2Seconds(hh, mm, ss));
+    return checkTime(HHMMSS2Seconds(hh, mm, ss, true));
 }
 
 int TimeEditor::getHours(int seconds)
@@ -159,16 +162,39 @@ int TimeEditor::getSeconds(int seconds)
     return seconds % 60;
 }
 
-
 void TimeEditor::setDefaultValues()
 {
     currentTime = 0;
+    previouslySelectedHour = 0;
     minValue = 0;
     maxValue = 24 * 3600;
-    ui->spinHours->setMinimum(getHours(minValue));
-    ui->spinHours->setMaximum(getHours(maxValue));
-    ui->spinMinutes->setMinimum(0);
-    ui->spinSeconds->setMinimum(0);
-    ui->spinMinutes->setMaximum(59);
-    ui->spinSeconds->setMaximum(59);
+    beyondThisDay = false;
+    maxTimeBeyondThisDay = false;
+    QValidator *v = new QIntValidator(0, 24, this);
+    ui->lineHours->setValidator(v);
+    v = new QIntValidator(0, 59, this);
+    ui->lineMinutes->setValidator(v);
+    v = new QIntValidator(0, 59, this);
+    ui->lineSeconds->setValidator(v);
+
+}
+
+bool TimeEditor::isBeyondThisDay() const
+{
+    return beyondThisDay;
+}
+
+void TimeEditor::on_lineHours_textChanged(const QString &arg1)
+{
+    onValueChanged(ui->lineHours, arg1.toInt());
+}
+
+void TimeEditor::on_lineMinutes_textChanged(const QString &arg1)
+{
+    onValueChanged(ui->lineMinutes, arg1.toInt());
+}
+
+void TimeEditor::on_lineSeconds_textChanged(const QString &arg1)
+{
+    onValueChanged(ui->lineSeconds, arg1.toInt());
 }

@@ -11,7 +11,7 @@ DlgParametros::DlgParametros(QWidget *parent) :
     ui->timeOpen->SetSecondsVisibility(false);
     ui->timeClose->SetSecondsVisibility(false);
     ui->timeOpen->setValidRange(0, 0, 0, 24, 0, 0);
-    ui->timeClose->setValidRange(0, 0, 0, 24, 0, 0);
+    ui->timeClose->setValidRange(0, 0, 0, 36, 0, 0);
     ui->timeOpen->setTime(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0));
     ui->timeClose->setTime(DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 24 * 3600));
     ui->MinWorkingHours->setText(QString::number(DataStore::instance()->getParametros()->getValue(Parametros::MIN_WORKING_HOURS, 4)));
