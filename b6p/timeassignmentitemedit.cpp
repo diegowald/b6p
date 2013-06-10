@@ -14,6 +14,7 @@ TimeAssignmentItemEdit::TimeAssignmentItemEdit(QWidget *parent) :
 
     ui->timeInicio->SetSecondsVisibility(false);
     ui->timeFin->SetSecondsVisibility(false);
+    ui->timeInicio->setbeyondThisDayVisibility(false);
 
     ui->timeInicio->setValidRange(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0),
                                   DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));

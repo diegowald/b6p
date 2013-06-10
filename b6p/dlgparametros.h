@@ -22,6 +22,7 @@ private:
 
 private slots:
     void on_pushButton_pressed();
+    void TimeInvalid(const QString &cause);
 
 private:
     Ui::DlgParametros *ui;

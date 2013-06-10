@@ -9,6 +9,7 @@ DlgParametros::DlgParametros(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->timeOpen->SetSecondsVisibility(false);
+    ui->timeOpen->setbeyondThisDayVisibility(false);
     ui->timeClose->SetSecondsVisibility(false);
     ui->timeOpen->setValidRange(0, 0, 0, 24, 0, 0);
     ui->timeClose->setValidRange(0, 0, 0, 36, 0, 0);
@@ -24,6 +25,9 @@ DlgParametros::DlgParametros(QWidget *parent) :
     ui->txtUser->setText(DataStore::instance()->getParametros()->getValue(Parametros::USER_NAME, ""));
     ui->txtPassword->setText(DataStore::instance()->getParametros()->getValue(Parametros::PASSWORD, ""));
     ui->lblConnectionResult->clear();
+    connect(ui->timeOpen, SIGNAL(IncorrectTime(QString)), this, SLOT(TimeInvalid(QString)));
+    connect(ui->timeClose, SIGNAL(IncorrectTime(QString)), this, SLOT(TimeInvalid(QString)));
+    ui->lblMessage->clear();
 }
 
 DlgParametros::~DlgParametros()
@@ -34,8 +38,6 @@ DlgParametros::~DlgParametros()
 int DlgParametros::getCloseTime()
 {
     int timeClose = ui->timeClose->timeSeconds();
-    if (ui->chkNextDay->isChecked())
-        timeClose += 86400; // Adding one day
     return timeClose;
 }
 
@@ -65,4 +67,9 @@ void DlgParametros::on_pushButton_pressed()
         ui->lblConnectionResult->setText(tr("Connection OK"));
     else
         ui->lblConnectionResult->setText(tr("Please check connection parameters"));
+}
+
+void DlgParametros::TimeInvalid(const QString &cause)
+{
+    ui->lblMessage->setText(cause);
 }

@@ -34,6 +34,9 @@ public:
     void SetSecondsVisibility(bool visible);
     bool secondsVisibility();
 
+    void setbeyondThisDayVisibility(bool value);
+    bool beyondThisDayVisibility();
+
     bool isBeyondThisDay() const;
 
 private:
@@ -47,16 +50,17 @@ private:
     void setDefaultValues();
 signals:
     void timeChanged(int newTime);
+    void IncorrectTime(const QString& cause);
 
 private slots:
     void on_lineHours_textChanged(const QString &arg1);
     void on_lineMinutes_textChanged(const QString &arg1);
     void on_lineSeconds_textChanged(const QString &arg1);
+    void on_chkBeyondThisDay_clicked(bool checked);
 
 private:
     Ui::TimeEditor *ui;
 
-    bool beyondThisDay;
     bool maxTimeBeyondThisDay;
     int currentTime; // Stored in seconds
     int minValue;

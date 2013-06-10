@@ -13,6 +13,7 @@ AvailabilityWidget::AvailabilityWidget(QWidget *parent) :
 
     ui->timeFrom->SetSecondsVisibility(false);
     ui->timeTo->SetSecondsVisibility(false);
+    ui->timeFrom->setbeyondThisDayVisibility(false);
 
     ui->timeFrom->setValidRange(
                 DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0),
@@ -20,7 +21,6 @@ AvailabilityWidget::AvailabilityWidget(QWidget *parent) :
     ui->timeTo->setValidRange(
                 DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0),
                 DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
-
 
     ui->widget->setInitialTimeline(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0));
 

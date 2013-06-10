@@ -24,7 +24,7 @@ void TimeEditor::onValueChanged(QLineEdit *, int)
         emit timeChanged(currentTime);
     }
     else
-        qDebug() << "MAL";
+        emit IncorrectTime(tr("Time is incorrect"));
 }
 
 void TimeEditor::setTime(int hh, int mm, int ss)
@@ -35,7 +35,7 @@ void TimeEditor::setTime(int hh, int mm, int ss)
 void TimeEditor::setTime(int seconds)
 {
     int secondsOnSameDay = seconds % 86400;
-    beyondThisDay = (seconds != secondsOnSameDay);
+    ui->chkBeyondThisDay->setChecked(seconds != secondsOnSameDay);
     if (checkTime(seconds))
     {
         currentTime = seconds;
@@ -128,7 +128,7 @@ int TimeEditor::HHMMSS2Seconds(int hh, int mm, int ss, bool canBeBeyondThisDay)
     int seconds = ss;
     seconds += mm * 60;
     seconds += hh * 3600;
-    if (canBeBeyondThisDay && beyondThisDay)
+    if (canBeBeyondThisDay && ui->chkBeyondThisDay->isChecked())
         seconds += 86400;
     return seconds;
 }
@@ -168,7 +168,7 @@ void TimeEditor::setDefaultValues()
     previouslySelectedHour = 0;
     minValue = 0;
     maxValue = 24 * 3600;
-    beyondThisDay = false;
+    ui->chkBeyondThisDay->setChecked(false);
     maxTimeBeyondThisDay = false;
     QValidator *v = new QIntValidator(0, 24, this);
     ui->lineHours->setValidator(v);
@@ -181,7 +181,7 @@ void TimeEditor::setDefaultValues()
 
 bool TimeEditor::isBeyondThisDay() const
 {
-    return beyondThisDay;
+    return ui->chkBeyondThisDay->isChecked();
 }
 
 void TimeEditor::on_lineHours_textChanged(const QString &arg1)
@@ -197,4 +197,20 @@ void TimeEditor::on_lineMinutes_textChanged(const QString &arg1)
 void TimeEditor::on_lineSeconds_textChanged(const QString &arg1)
 {
     onValueChanged(ui->lineSeconds, arg1.toInt());
+}
+
+void TimeEditor::setbeyondThisDayVisibility(bool value)
+{
+    ui->chkBeyondThisDay->setVisible(value);
+}
+
+
+bool TimeEditor::beyondThisDayVisibility()
+{
+    return ui->chkBeyondThisDay->isVisible();
+}
+
+void TimeEditor::on_chkBeyondThisDay_clicked(bool checked)
+{
+    onValueChanged(NULL, 0);
 }
