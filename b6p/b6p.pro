@@ -163,3 +163,4 @@ RESOURCES += \
 OTHER_FILES += \
     b6p.rc
 
+include(QsLog.pri)

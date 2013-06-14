@@ -210,7 +210,7 @@ bool TimeEditor::beyondThisDayVisibility()
     return ui->chkBeyondThisDay->isVisible();
 }
 
-void TimeEditor::on_chkBeyondThisDay_clicked(bool checked)
+void TimeEditor::on_chkBeyondThisDay_clicked(bool)
 {
     onValueChanged(NULL, 0);
 }
