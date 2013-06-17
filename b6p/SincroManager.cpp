@@ -3,9 +3,12 @@
 #include <QMessageBox>
 #include "datastore.h"
 
+\#include <QsLog.h>
+
 SincroManager::SincroManager(QObject *parent) :
     QObject(parent)
 {
+    QLOG_INFO() << "SincroManager::SincroManager";
     m_SQL = boost::make_shared<SQLHandler>(
                 DataStore::instance()->getParametros()->getValue(Parametros::SERVER_NAME, "127.0.0.1"),
                 DataStore::instance()->getParametros()->getValue(Parametros::DATABASE_NAME, "b6p"),
@@ -33,6 +36,7 @@ SincroManager::SincroManager(QObject *parent) :
 
 void SincroManager::runSincro()
 {
+    QLOG_INFO() << "SincroManager::runSincro";
     emit startingSynchro();
     obtenerFechaUltimaSincronizacion();
     obtenerActualizacionesDeBaseCentral();
@@ -57,6 +61,8 @@ void SincroManager::runSincro()
 
 void SincroManager::obtenerFechaUltimaSincronizacion()
 {
+    QLOG_INFO() << "SincroManager::obtenerFechaUltimaSincronizacion()";
+
     m_FechaUltimaSincronizacion =
             DataStore::instance()->getParametros()->getValue(
                 Parametros::LAST_SYNCHRO, "2000-01-01 00:00:00");
@@ -64,8 +70,10 @@ void SincroManager::obtenerFechaUltimaSincronizacion()
 
 void SincroManager::obtenerActualizacionesDeBaseCentral()
 {
+    QLOG_INFO() << "SincroManager::obtenerActualizacionesDeBaseCentral()";
     foreach(DatabaseSynchronizationPtr db, m_Synchronizationtables)
     {
+        QLOG_INFO() << "Getting updates for " << db->name();
         db->getDataFromDB(m_FechaUltimaSincronizacion);
         db->applyChanges();
         db->checkConsistency();
@@ -75,8 +83,10 @@ void SincroManager::obtenerActualizacionesDeBaseCentral()
 
 void SincroManager::enviarDatosADBCentral()
 {
+    QLOG_INFO() << "SincroManager::enviarDatosADBCentral()";
     foreach(DatabaseSynchronizationPtr db, m_Synchronizationtables)
     {
+        QLOG_INFO() << "Sending data for " << db->name();
         db->sendData();
         db->saveLocalChanges();
         QCoreApplication::processEvents();

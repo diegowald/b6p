@@ -1,6 +1,8 @@
 #include "databasesynchronization.h"
 #include <QDateTime>
 #include "dlgmerge.h"
+#include <QsLog.h>
+
 
 DatabaseSynchronization::DatabaseSynchronization(boost::shared_ptr<ACollection> data, boost::shared_ptr<SQLHandler> sqlHandler, QObject *parent) :
     QObject(parent)
@@ -22,6 +24,7 @@ void DatabaseSynchronization::getDataFromDB(QString dateFrom)
 
 void DatabaseSynchronization::applyChanges()
 {
+    QLOG_INFO() << "Applying changes on " << name();
     QString syncroName = name();
     emit applyingChanges(syncroName);
     bool saveAfter = false;
@@ -31,41 +34,52 @@ void DatabaseSynchronization::applyChanges()
         switch (recStatus)
         {
         case DELETED:
+            QLOG_INFO() << "Status Deleted";
             if (m_Data->exists(rec))
                 m_Data->deleteRecord(rec);
             saveAfter = true;
             break;
         case NEW:
             // Fall through
+            QLOG_INFO() << "Status New";
         case MODIFIED:
             // Fall through
+            QLOG_INFO() << "Status Modified";
         case UNMODIFIED:
             // Fall through
+            QLOG_INFO() << "Status Unmodified";
         case UNINITIALIZED:
             // Fall through
+            QLOG_INFO() << "Status Uninitialized";
         default:
             if (!m_Data->exists(rec))
             {
+                QLOG_INFO() << "Record does not exist.";
                 m_Data->addRecord(rec, true);
             }
             else
             {
+                QLOG_INFO() << "Record exists.";
                 if (!m_Data->isRecordUnsent(rec))
                 {
+                    QLOG_INFO() << "Just update record here";
                     // El registro no ha sido modificado localmente. se toman los datos del server central
                     m_Data->updateRecord(rec);
                 }
                 else
                 {
+                    QLOG_INFO() << "Record unsent. based on strategy proceed.";
                     // El registro ha sido modificado localmente.
                     // De acuerdo a la estrategia de los datos, se evalua que hacer.
                     switch (m_Data->mergeStrategy())
                     {
                     case ACollection::MERGE_KEEP_LOCAL:
+                        QLOG_INFO() << "MERGE KEEP LOCAL";
                         // No se hace nada, ya que es mas importante el cambio local que el central
                         break;
                     case ACollection::MERGE_KEEP_MAIN:
                         // Se hacen los cambios sin preguntar, ya que los cambios centrales son mas importantes.
+                        QLOG_INFO() << "MERGE KEEP MAIN";
                         m_Data->updateRecord(rec);
                         break;
                     case ACollection::MERGE_MANUAL:
