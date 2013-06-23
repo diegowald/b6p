@@ -3,31 +3,36 @@
 #include "dlgemployee.h"
 #include "datastore.h"
 #include <QMultiMap>
-
+#include <QsLog.h>
 
 Empleados::Empleados(QObject *parent) :
     ACollection(tr("Employees"), "Employees", true, ACollection::MERGE_MANUAL, parent)
 {
+    QLOG_TRACE() << "Empleados::Empleados(QObject *parent)";
 }
 
 Empleados::~Empleados()
 {
+    QLOG_TRACE() << "Empleados::~Empleados()";
 }
 
 QString Empleados::getSelectFromMainDB()
 {
+    QLOG_TRACE() << "QString Empleados::getSelectFromMainDB()";
     return QString("select ID, Apellido, Nombres, Legajo, FechaIngreso, isBaja, RecordStatus from empleados "
                    " where LastUpdate >= :LASTUPDATE ;");
 }
 
 QString Empleados::getSqlString()
 {
+    QLOG_TRACE() << "QString Empleados::getSqlString()";
     return QString("select ID, Apellido, Nombres, Legajo, FechaIngreso, isBaja, sent from empleados")
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
 void Empleados::addRecord(RecordPtr record, bool setNew)
 {
+    QLOG_TRACE() << "void Empleados::addRecord(RecordPtr record, bool setNew)";
     EmpleadoPtr e = boost::make_shared<Empleado>(false, this);
     e->IDEmpleado().setValue((*record)["ID"].toInt());
     e->Apellido().setValue((*record)["Apellido"].toString());
@@ -47,6 +52,7 @@ void Empleados::addRecord(RecordPtr record, bool setNew)
 
 void Empleados::updateRecord(RecordPtr record)
 {
+    QLOG_TRACE() << "void Empleados::updateRecord(RecordPtr record)";
     EmpleadoPtr e = getEmpleado((*record)["ID"].toInt(), true);
 //Aca debo mostrar una ventana que indique que hay modificaciones locales.
     e->Apellido().setValue((*record)["Apellido"].toString());
@@ -59,18 +65,21 @@ void Empleados::updateRecord(RecordPtr record)
 
 void Empleados::deleteRecord(RecordPtr record)
 {
+    QLOG_TRACE() << "void Empleados::deleteRecord(RecordPtr record)";
     EmpleadoPtr e = getEmpleado((*record)["ID"].toInt(), true);
     e->IsBaja().setValue(true);
 }
 
 bool Empleados::exists(RecordPtr record)
 {
+    QLOG_TRACE() << "bool Empleados::exists(RecordPtr record)";
     EmpleadoPtr e = getEmpleado((*record)["ID"].toInt(), true);
     return (e != EmpleadoPtr());
 }
 
 bool Empleados::isRecordUnsent(RecordPtr record)
 {
+    QLOG_TRACE() << "bool Empleados::isRecordUnsent(RecordPtr record)";
     if (!exists(record))
         return false;
     EmpleadoPtr e = getEmpleado((*record)["ID"].toInt(), true);
@@ -79,12 +88,14 @@ bool Empleados::isRecordUnsent(RecordPtr record)
 
 RecordPtr Empleados::getLocalRecord(RecordPtr record)
 {
+    QLOG_TRACE() << "RecordPtr Empleados::getLocalRecord(RecordPtr record)";
     EmpleadoPtr e = getEmpleado((*record)["ID"].toInt(), true);
     return e->asRecordPtr();
 }
 
 QStringList Empleados::getFieldsToShowInMerge()
 {
+    QLOG_TRACE() << "QStringList Empleados::getFieldsToShowInMerge()";
     return QStringList() << "Apellido"
                          << "Legajo"
                          << "Nombres";
@@ -92,17 +103,20 @@ QStringList Empleados::getFieldsToShowInMerge()
 
 QString Empleados::getDeleteStatement()
 {
+    QLOG_TRACE() << "QString Empleados::getDeleteStatement()";
     return QString("update empleados set isBaja = 1, RecordStatus = %1 where ID = :RECORD_ID;").arg(RECORD_MODIFIED);
 }
 
 QString Empleados::getUpdateStatement()
 {
+    QLOG_TRACE() << "QString Empleados::getUpdateStatement()";
     return QString("update empleados set Apellido = :Apellido, Nombres = :Nombres, "
                    " Legajo = :Legajo, FechaIngreso = :FechaIngreso, RecordStatus = %1  where ID = :RECORD_ID;").arg(RECORD_MODIFIED);
 }
 
 QString Empleados::getInsertStatement(bool IncludeIDs)
 {
+    QLOG_TRACE() << "QString Empleados::getInsertStatement(bool IncludeIDs)";
     if (IncludeIDs)
         return QString("insert into empleados (ID, Apellido, Nombres, Legajo, FechaIngreso, RecordStatus, isBaja) "
                        " values "
@@ -116,12 +130,14 @@ QString Empleados::getInsertStatement(bool IncludeIDs)
 
 QString Empleados::getSQLExistsInMainDB()
 {
+    QLOG_TRACE() << "QString Empleados::getSQLExistsInMainDB()";
     return QString("select ID from empleados "
                    " where ID = :RECORD_ID ;");
 }
 
 RecordSet Empleados::getRecords(RecordStatus status)
 {
+    QLOG_TRACE() << "RecordSet Empleados::getRecords(RecordStatus status)";
     RecordSet res = boost::make_shared<QList<RecordPtr> >();
     foreach(EmpleadoPtr e, m_Empleados.values())
     {
@@ -148,6 +164,7 @@ RecordSet Empleados::getRecords(RecordStatus status)
 
 RecordSet Empleados::getUnsent()
 {
+    QLOG_TRACE() << "RecordSet Empleados::getUnsent()";
     RecordSet res = boost::make_shared<QList<RecordPtr> >();
     foreach(EmpleadoPtr e, m_Empleados.values())
     {
@@ -159,6 +176,7 @@ RecordSet Empleados::getUnsent()
 
 EmpleadoPtr Empleados::getEmpleado(int idEmpleado, bool includeDeleted)
 {
+    QLOG_TRACE() << "EmpleadoPtr Empleados::getEmpleado(int idEmpleado, bool includeDeleted)";
     if (m_Empleados.find(idEmpleado) == m_Empleados.end())
         return EmpleadoPtr();
     else
@@ -172,6 +190,7 @@ EmpleadoPtr Empleados::getEmpleado(int idEmpleado, bool includeDeleted)
 
 EmpleadosLst Empleados::getAll(bool includeDeleted)
 {
+    QLOG_TRACE() << "EmpleadosLst Empleados::getAll(bool includeDeleted)";
     EmpleadosLst res = boost::make_shared<QList<EmpleadoPtr> >();
     foreach(EmpleadoPtr e, m_Empleados.values())
     {
@@ -187,6 +206,7 @@ EmpleadosLst Empleados::getAll(bool includeDeleted)
 
 EmpleadosLst Empleados::getPowerUsers()
 {
+    QLOG_TRACE() << "EmpleadosLst Empleados::getPowerUsers()";
     EmpleadosLst res = boost::make_shared<QList<EmpleadoPtr> >();
     foreach (EmpleadoPtr e, m_Empleados.values())
     {
@@ -198,6 +218,7 @@ EmpleadosLst Empleados::getPowerUsers()
 
 EmployeeCalculatedCapacityLst Empleados::getAll(int IDSector, int IDSubSector, QDate Fecha, int HoraInicio, int HoraFin, bool includeDeleted)
 {
+    QLOG_TRACE() << "EmployeeCalculatedCapacityLst Empleados::getAll(int IDSector, int IDSubSector, QDate Fecha, int HoraInicio, int HoraFin, bool includeDeleted)";
     EmployeeCalculatedCapacityLst res = boost::make_shared<QList<EmployeeCalculatedCapacityPtr> >();
     QMultiMap<int, EmployeeCalculatedCapacityPtr> candidates;
     //QMap<int, EmployeeCalculatedCapacityPtr> candidates;
@@ -228,6 +249,7 @@ EmployeeCalculatedCapacityLst Empleados::getAll(int IDSector, int IDSubSector, Q
 
 void Empleados::defineHeaders(QStringList &list)
 {
+    QLOG_TRACE() << "void Empleados::defineHeaders(QStringList &list)";
     list << tr("Lastname")
             << tr("Firstname")
             << tr("ID")
@@ -236,6 +258,7 @@ void Empleados::defineHeaders(QStringList &list)
 
 boost::shared_ptr<QList<QStringList> > Empleados::getAll()
 {
+    QLOG_TRACE() << "boost::shared_ptr<QList<QStringList> > Empleados::getAll()";
     boost::shared_ptr<QList<QStringList> > res = boost::make_shared<QList<QStringList> >();
 
     EmpleadosLst lst = getAll(false);
@@ -255,6 +278,7 @@ boost::shared_ptr<QList<QStringList> > Empleados::getAll()
 
 void Empleados::fillData(QTreeWidget &tree)
 {
+    QLOG_TRACE() << "void Empleados::fillData(QTreeWidget &tree)";
     tree.clear();
     EmpleadosLst emps = getAll(false);
     foreach(EmpleadoPtr emp, *emps)
@@ -271,12 +295,14 @@ void Empleados::fillData(QTreeWidget &tree)
 
 bool Empleados::addNew()
 {
+    QLOG_TRACE() << "bool Empleados::addNew()";
     int id = -1;
     return edit(id);
 }
 
 bool Empleados::edit(QVariant ID)
 {
+    QLOG_TRACE() << "bool Empleados::edit(QVariant ID)";
     EmpleadoPtr e;
     if (ID == -1)
         e = boost::make_shared<Empleado>(true, this);
@@ -303,6 +329,7 @@ bool Empleados::edit(QVariant ID)
 
 bool Empleados::canBeDeleted(QVariant ID)
 {
+    QLOG_TRACE() << "bool Empleados::canBeDeleted(QVariant ID)";
     bool result = false;
     if (m_Empleados.find(ID.toInt()) != m_Empleados.end())
     {
@@ -313,6 +340,7 @@ bool Empleados::canBeDeleted(QVariant ID)
 
 bool Empleados::deleteElement(QVariant ID)
 {
+    QLOG_TRACE() << "bool Empleados::deleteElement(QVariant ID)";
     bool result = false;
     if (m_Empleados.find(ID.toInt()) != m_Empleados.end())
     {
@@ -324,6 +352,7 @@ bool Empleados::deleteElement(QVariant ID)
 
 void Empleados::refreshID(int oldID, int newRecordId)
 {
+    QLOG_TRACE() << "void Empleados::refreshID(int oldID, int newRecordId)";
     EmpleadoPtr e = m_Empleados[oldID];
     e->updateID(newRecordId);
     m_Empleados.remove(oldID);
@@ -332,12 +361,14 @@ void Empleados::refreshID(int oldID, int newRecordId)
 
 void Empleados::saveDependants()
 {
+    QLOG_TRACE() << "void Empleados::saveDependants()";
     DataStore::instance()->getCapacidades()->save();
     DataStore::instance()->getCalendarios()->save();
 }
 
 void Empleados::setStatusToUnmodified(bool removeDeleted)
 {
+    QLOG_TRACE() << "void Empleados::setStatusToUnmodified(bool removeDeleted)";
     QList<int> toDelete;
     foreach (EmpleadoPtr e, m_Empleados.values())
     {
@@ -352,6 +383,7 @@ void Empleados::setStatusToUnmodified(bool removeDeleted)
 
 bool Empleados::printSelectedRecord(QVariant IDElement, QTextDocument &textDoc)
 {
+    QLOG_TRACE() << "bool Empleados::printSelectedRecord(QVariant IDElement, QTextDocument &textDoc)";
     EmpleadoPtr e;
     if (IDElement.toInt() == -1)
         return false;

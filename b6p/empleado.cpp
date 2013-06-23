@@ -2,6 +2,7 @@
 #include "datastore.h"
 #include "days.h"
 #include "timehelper.h"
+#include<QsLog.h>
 
 // Printing support
 #include <QUrl>
@@ -10,6 +11,7 @@
 EmployeeCalculatedCapacity::EmployeeCalculatedCapacity(Empleado* parentEmpleado, QDate Dia) :
     QObject(parentEmpleado)
 {
+    QLOG_TRACE() << "EmployeeCalculatedCapacity::EmployeeCalculatedCapacity(Empleado* parentEmpleado, QDate Dia)";
     empleado = parentEmpleado;
     capacityForTask = -1000;
     dia = Dia;
@@ -17,21 +19,25 @@ EmployeeCalculatedCapacity::EmployeeCalculatedCapacity(Empleado* parentEmpleado,
 
 void EmployeeCalculatedCapacity::setCapacity(int value)
 {
+    QLOG_TRACE() << "void EmployeeCalculatedCapacity::setCapacity(int value)";
     capacityForTask = value;
 }
 
 Empleado* EmployeeCalculatedCapacity::EmpleadoAsignado()
 {
+    QLOG_TRACE() << "Empleado* EmployeeCalculatedCapacity::EmpleadoAsignado()";
     return empleado;
 }
 
 int EmployeeCalculatedCapacity::Capacity()
 {
+    QLOG_TRACE() << "int EmployeeCalculatedCapacity::Capacity()";
     return capacityForTask;
 }
 
 int EmployeeCalculatedCapacity::HorasPreviamenteTrabajadas()
 {
+    QLOG_TRACE() << "int EmployeeCalculatedCapacity::HorasPreviamenteTrabajadas()";
     int horas = 0;
     // Esta no es la mejor manera de obtener un valor, ya que se puede reescribir si eventualmente
     // se conecta a otro lugar, pero si se tiene en cuenta que un solo slot va a estar conectado, entonces
@@ -42,6 +48,7 @@ int EmployeeCalculatedCapacity::HorasPreviamenteTrabajadas()
 
 int EmployeeCalculatedCapacity::DiasPreviamenteTrabajados()
 {
+    QLOG_TRACE() << "int EmployeeCalculatedCapacity::DiasPreviamenteTrabajados()";
     PlanificacionSubSectorLst diasTrabajados =
             DataStore::instance()->getPlanificacionesSubSectores()
             ->getDiasAnterioresTrabajadosPorEmpleado(dia, empleado->IDEmpleado().value());
@@ -51,18 +58,21 @@ int EmployeeCalculatedCapacity::DiasPreviamenteTrabajados()
 
 bool EmployeeCalculatedCapacity::hasWarningsDias()
 {
+    QLOG_TRACE() << "bool EmployeeCalculatedCapacity::hasWarningsDias()";
     bool warningDias = (DiasPreviamenteTrabajados() > DataStore::instance()->getParametros()->getValue(Parametros::MAX_DAYS_BETWEEN_FREE_DAY, 0));
     return warningDias;
 }
 
 bool EmployeeCalculatedCapacity::hasWarningsHorasMenorAMinimo()
 {
+    QLOG_TRACE() << "bool EmployeeCalculatedCapacity::hasWarningsHorasMenorAMinimo()";
     bool warningHoras = (HorasPreviamenteTrabajadas() < DataStore::instance()->getParametros()->getValue(Parametros::EMPLOYEE_MIN_HOURS, 0));
     return warningHoras;
 }
 
 bool EmployeeCalculatedCapacity::hasWarningsHorasMayorAMaximo()
 {
+    QLOG_TRACE() << "bool EmployeeCalculatedCapacity::hasWarningsHorasMayorAMaximo()";
     bool warningHoras = (HorasPreviamenteTrabajadas() > DataStore::instance()->getParametros()->getValue(Parametros::EMPLOYEE_MAX_HOURS, 24));
     return warningHoras;
 }
@@ -70,6 +80,7 @@ bool EmployeeCalculatedCapacity::hasWarningsHorasMayorAMaximo()
 Empleado::Empleado(bool isNew, QObject *parent) :
     QObject(parent)
 {
+    QLOG_TRACE() << "Empleado::Empleado(bool isNew, QObject *parent)";
     if (isNew)
         idEmpleado.setValue(-1);
     else
@@ -93,6 +104,7 @@ Empleado::Empleado(bool isNew, QObject *parent) :
 
 RecordPtr Empleado::asRecordPtr()
 {
+    QLOG_TRACE() << "RecordPtr Empleado::asRecordPtr()";
     RecordPtr res = boost::make_shared<Record>();
 
     (*res)["Legajo"] = legajo.toVariant();
@@ -108,36 +120,43 @@ RecordPtr Empleado::asRecordPtr()
 
 NullableField<int>& Empleado::IDEmpleado()
 {
+    QLOG_TRACE() << "NullableField<int>& Empleado::IDEmpleado()";
     return idEmpleado;
 }
 
 NullableField<QString>& Empleado::Apellido()
 {
+    QLOG_TRACE() << "NullableField<QString>& Empleado::Apellido()";
     return apellido;
 }
 
 NullableField<QString>& Empleado::Nombre()
 {
+    QLOG_TRACE() << "NullableField<QString>& Empleado::Nombre()";
     return nombre;
 }
 
 NullableField<QString>& Empleado::Legajo()
 {
+    QLOG_TRACE() << "NullableField<QString>& Empleado::Legajo()";
     return legajo;
 }
 
 NullableField<QDate>& Empleado::FechaIngreso()
 {
+    QLOG_TRACE() << "NullableField<QDate>& Empleado::FechaIngreso()";
     return fechaIngreso;
 }
 
 NullableField<bool>& Empleado::IsBaja()
 {
+    QLOG_TRACE() << "NullableField<bool>& Empleado::IsBaja()";
     return isBaja;
 }
 
 CapacidadPersonaSectorLst Empleado::Capacities()
 {
+    QLOG_TRACE() << "CapacidadPersonaSectorLst Empleado::Capacities()";
     if (IDEmpleado().isNull())
         return boost::make_shared<QList<CapacidadPersonaSectorPtr> >();
     else
@@ -146,18 +165,21 @@ CapacidadPersonaSectorLst Empleado::Capacities()
 
 void Empleado::updateCapacities(CapacidadPersonaSectorLst newCapacities)
 {
+    QLOG_TRACE() << "void Empleado::updateCapacities(CapacidadPersonaSectorLst newCapacities)";
     CapacidadesPersonaSectorPtr ptr = DataStore::instance()->getCapacidades();
     ptr->updateCapacityfromData(newCapacities);
 }
 
 void Empleado::updateDisponibilidades(CalendarioPersonaLst newDisponibilidades)
 {
+    QLOG_TRACE() << "void Empleado::updateDisponibilidades(CalendarioPersonaLst newDisponibilidades)";
     CalendarioPersonasPtr ptr = DataStore::instance()->getCalendarios();
     ptr->updateCalendarFromData(newDisponibilidades);
 }
 
 CalendarioPersonaLst Empleado::Disponibilidades()
 {
+    QLOG_TRACE() << "CalendarioPersonaLst Empleado::Disponibilidades()";
     if (IDEmpleado().isNull() || IDEmpleado().value() == -1)
         return boost::make_shared<QList<CalendarioPersonaPtr> >();
     else
@@ -166,6 +188,7 @@ CalendarioPersonaLst Empleado::Disponibilidades()
 
 void Empleado::updateID(int newId)
 {
+    QLOG_TRACE() << "void Empleado::updateID(int newId)";
     DataStore::instance()->getCalendarios()->updateCalendarWithNewIDEmpleado(-1, newId);
 
 
@@ -181,6 +204,7 @@ void Empleado::updateID(int newId)
 
 EmployeeCalculatedCapacityPtr Empleado::canWork(QDate &Fecha, int IDSector, int IDSubSector, int HoraInicio, int HoraFin)
 {
+    QLOG_TRACE() << "EmployeeCalculatedCapacityPtr Empleado::canWork(QDate &Fecha, int IDSector, int IDSubSector, int HoraInicio, int HoraFin)";
     EmployeeCalculatedCapacityPtr res = boost::make_shared<EmployeeCalculatedCapacity>(this, Fecha);
     // Verifico si puede trabajar en el sector y subsector
     CapacidadPersonaSectorPtr cap =
@@ -214,16 +238,19 @@ EmployeeCalculatedCapacityPtr Empleado::canWork(QDate &Fecha, int IDSector, int 
 
 bool Empleado::canBeDeleted()
 {
+    QLOG_TRACE() << "bool Empleado::canBeDeleted()";
     return true;
 }
 
 bool Empleado::DadoDeBaja()
 {
+    QLOG_TRACE() << "bool Empleado::DadoDeBaja()";
     return IsBaja().isNull() ? false : IsBaja().value();
 }
 
 bool Empleado::isPowerUser()
 {
+    QLOG_TRACE() << "bool Empleado::isPowerUser()";
     // Devuelve true si el empleado esta en el grupo Gerencia o Supervisor
     CapacidadPersonaSectorPtr c = DataStore::instance()->getCapacidades()->get(idEmpleado.value(), 8, 0, false);
     if (c.get())
@@ -234,6 +261,7 @@ bool Empleado::isPowerUser()
 
 bool Empleado::print(QTextDocument &textDoc)
 {
+    QLOG_TRACE() << "bool Empleado::print(QTextDocument &textDoc)";
     QString html("<table width=\"100%\" border=1 cellspacing=0>\n");
     // Escribo el header
 

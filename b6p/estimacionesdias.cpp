@@ -3,34 +3,39 @@
 #include "dlgaddmanyestimationdays.h"
 #include "dlgapproveplanifications.h"
 #include "datastore.h"
-
+#include <QsLog.h>
 
 EstimacionesDias::EstimacionesDias(QObject *parent)
     : ACollection(tr("Day Estimations"),
                   "Day Estimations",false, ACollection::MERGE_KEEP_LOCAL, parent)
 {
+    QLOG_TRACE() << "EstimacionesDias::EstimacionesDias(QObject *parent)";
 }
 
 QString EstimacionesDias::getSelectFromMainDB()
 {
+    QLOG_TRACE() << "QString EstimacionesDias::getSelectFromMainDB()";
     return QString("select Dia, HorasEstimadas, LastUpdate from planificaciondias "
                    " where LastUpdate >= :LASTUPDATE ;");
 }
 
 QString EstimacionesDias::getSqlString()
 {
+    QLOG_TRACE() << "QString EstimacionesDias::getSqlString()";
     return QString("select Dia, HorasEstimadas, sent from planificaciondias ")
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
 QString EstimacionesDias::getSQLExistsInMainDB()
 {
+    QLOG_TRACE() << "QString EstimacionesDias::getSQLExistsInMainDB()";
     return QString("select Dia, HorasEstimadas from planificaciondias ")
             + QString(" where Dia = :Dia;");
 }
 
 void EstimacionesDias::addRecord(RecordPtr record, bool setNew)
 {
+    QLOG_TRACE() << "void EstimacionesDias::addRecord(RecordPtr record, bool setNew)";
     EstimacionDiaPtr e = boost::make_shared<EstimacionDia>(this);
     e->Dia().setValue(QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date());
     e->EstimacionHoras().setValue((*record)["HorasEstimadas"].toInt());
@@ -46,6 +51,7 @@ void EstimacionesDias::addRecord(RecordPtr record, bool setNew)
 
 void EstimacionesDias::updateRecord(RecordPtr record)
 {
+    QLOG_TRACE() << "void EstimacionesDias::updateRecord(RecordPtr record)";
     EstimacionDiaPtr e = m_Estimaciones[QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date()];
     e->EstimacionHoras().setValue((*record)["HorasEstimadas"].toInt());
     e->setSentStatus((*record)["sent"].toInt() == 1);
@@ -54,16 +60,19 @@ void EstimacionesDias::updateRecord(RecordPtr record)
 
 void EstimacionesDias::deleteRecord(RecordPtr record)
 {
+    QLOG_TRACE() << "void EstimacionesDias::deleteRecord(RecordPtr record)";
     m_Estimaciones.remove(QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date());
 }
 
 bool EstimacionesDias::exists(RecordPtr record)
 {
+    QLOG_TRACE() << "bool EstimacionesDias::exists(RecordPtr record)";
     return (m_Estimaciones[QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date()] != EstimacionDiaPtr());
 }
 
 bool EstimacionesDias::isRecordUnsent(RecordPtr record)
 {
+    QLOG_TRACE() << "bool EstimacionesDias::isRecordUnsent(RecordPtr record)";
     if (!exists(record))
         return false;
     EstimacionDiaPtr e = m_Estimaciones[QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date()];
@@ -72,6 +81,7 @@ bool EstimacionesDias::isRecordUnsent(RecordPtr record)
 
 RecordPtr EstimacionesDias::getLocalRecord(RecordPtr record)
 {
+    QLOG_TRACE() << "RecordPtr EstimacionesDias::getLocalRecord(RecordPtr record)";
     if (!exists(record))
         return RecordPtr();
     EstimacionDiaPtr e = m_Estimaciones[QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date()];
@@ -80,11 +90,13 @@ RecordPtr EstimacionesDias::getLocalRecord(RecordPtr record)
 
 QString EstimacionesDias::getDeleteStatement()
 {
+    QLOG_TRACE() << "QString EstimacionesDias::getDeleteStatement()";
     return QString("update planificacionDias set RecordStatus = %1 where Dia = :Dia;").arg(RECORD_DELETED);
 }
 
 QString EstimacionesDias::getUpdateStatement()
 {
+    QLOG_TRACE() << "QString EstimacionesDias::getUpdateStatement()";
     return QString("update planificaciondias set HorasEstimadas = :HorasEstimadas "
                    " , RecordStatus = %1 "
                    " where Dia = :Dia;").arg(RECORD_MODIFIED);
@@ -92,6 +104,7 @@ QString EstimacionesDias::getUpdateStatement()
 
 QString EstimacionesDias::getInsertStatement(bool)
 {
+    QLOG_TRACE() << "QString EstimacionesDias::getInsertStatement(bool)";
     return QString("insert into planificaciondias (Dia, HorasEstimadas, RecordStatus) "
                    " values "
                    " (:Dia, :HorasEstimadas, %1);").arg(RECORD_NEW);
@@ -99,6 +112,7 @@ QString EstimacionesDias::getInsertStatement(bool)
 
 RecordSet EstimacionesDias::getRecords(RecordStatus status)
 {
+    QLOG_TRACE() << "RecordSet EstimacionesDias::getRecords(RecordStatus status)";
     RecordSet res = boost::make_shared<QList<RecordPtr> >();
     foreach(EstimacionDiaPtr e, m_Estimaciones.values())
     {
@@ -125,6 +139,7 @@ RecordSet EstimacionesDias::getRecords(RecordStatus status)
 
 RecordSet EstimacionesDias::getUnsent()
 {
+    QLOG_TRACE() << "RecordSet EstimacionesDias::getUnsent()";
     RecordSet res = boost::make_shared<QList<RecordPtr> >();
     foreach(EstimacionDiaPtr e, m_Estimaciones.values())
     {
@@ -136,6 +151,7 @@ RecordSet EstimacionesDias::getUnsent()
 
 boost::shared_ptr<QList<QAction*> > EstimacionesDias::getActions()
 {
+    QLOG_TRACE() << "boost::shared_ptr<QList<QAction*> > EstimacionesDias::getActions()";
     boost::shared_ptr<QList<QAction*> >actions = boost::make_shared<QList<QAction*> >();
 
     QAction* action = new QAction(tr("Add Range"), NULL);
@@ -158,11 +174,13 @@ boost::shared_ptr<QList<QAction*> > EstimacionesDias::getActions()
 
 void EstimacionesDias::defineHeaders(QStringList &list)
 {
+    QLOG_TRACE() << "void EstimacionesDias::defineHeaders(QStringList &list)";
     list << tr("Date") << tr("Hours estimation") << tr("Planned");
 }
 
 boost::shared_ptr<QList<QStringList> > EstimacionesDias::getAll()
 {
+    QLOG_TRACE() << "boost::shared_ptr<QList<QStringList> > EstimacionesDias::getAll()";
     boost::shared_ptr<QList<QStringList> > res = boost::make_shared<QList<QStringList> >();
 
     EstimacionDiaLst lst = getAll(false);
@@ -181,12 +199,14 @@ boost::shared_ptr<QList<QStringList> > EstimacionesDias::getAll()
 
 bool EstimacionesDias::isColumnEditable(QVariant ID, int column)
 {
+    QLOG_TRACE() << "bool EstimacionesDias::isColumnEditable(QVariant ID, int column)";
     EstimacionDiaPtr ptr = m_Estimaciones[ID.toDate()];
     return ((column == 1) && (!ptr->isPlanned()));
 }
 
 void EstimacionesDias::fillData(QTreeWidget &tree)
 {
+    QLOG_TRACE() << "void EstimacionesDias::fillData(QTreeWidget &tree)";
     tree.clear();
     foreach(EstimacionDiaPtr e, m_Estimaciones.values())
     {
@@ -202,18 +222,21 @@ void EstimacionesDias::fillData(QTreeWidget &tree)
 
 bool EstimacionesDias::addNew(QTreeWidgetItem *item)
 {
+    QLOG_TRACE() << "bool EstimacionesDias::addNew(QTreeWidgetItem *item)";
     QDate id = QDateTime::fromMSecsSinceEpoch(0).date();
     return edit(item, id);
 }
 
 bool EstimacionesDias::addNew()
 {
+    QLOG_TRACE() << "bool EstimacionesDias::addNew()";
     QDate id = QDateTime::fromMSecsSinceEpoch(0).date();
     return edit(id);
 }
 
 bool EstimacionesDias::edit(QTreeWidgetItem *item, QVariant ID)
 {
+    QLOG_TRACE() << "bool EstimacionesDias::edit(QTreeWidgetItem *item, QVariant ID)";
     EstimacionDiaPtr e = m_Estimaciones[ID.toDate()];
     e->EstimacionHoras().setValue(item->text(1).toInt());
     return true;
@@ -221,6 +244,7 @@ bool EstimacionesDias::edit(QTreeWidgetItem *item, QVariant ID)
 
 bool EstimacionesDias::edit(QVariant ID)
 {
+    QLOG_TRACE() << "bool EstimacionesDias::edit(QVariant ID)";
     EstimacionDiaPtr e;
     if (ID == QDateTime::fromMSecsSinceEpoch(0).date())
         e = boost::make_shared<EstimacionDia>(this);
@@ -241,6 +265,7 @@ bool EstimacionesDias::edit(QVariant ID)
 
 bool EstimacionesDias::deleteElement(QVariant ID)
 {
+    QLOG_TRACE() << "bool EstimacionesDias::deleteElement(QVariant ID)";
     bool result = false;
     if (m_Estimaciones.find(ID.toDate()) != m_Estimaciones.end())
     {
@@ -252,6 +277,7 @@ bool EstimacionesDias::deleteElement(QVariant ID)
 
 bool EstimacionesDias::canBeDeleted(QVariant ID)
 {
+    QLOG_TRACE() << "bool EstimacionesDias::canBeDeleted(QVariant ID)";
     bool result = false;
     if (m_Estimaciones.find(ID.toDate()) != m_Estimaciones.end())
         result = m_Estimaciones[ID.toDate()]->canBeDeleted();
@@ -260,10 +286,12 @@ bool EstimacionesDias::canBeDeleted(QVariant ID)
 
 void EstimacionesDias::refreshID(int, int)
 {
+    QLOG_TRACE() << "void EstimacionesDias::refreshID(int, int)";
 }
 
 EstimacionDiaLst EstimacionesDias::getAll(bool includeDeleted)
 {
+    QLOG_TRACE() << "EstimacionDiaLst EstimacionesDias::getAll(bool includeDeleted)";
     EstimacionDiaLst res = boost::make_shared<QList<EstimacionDiaPtr> >();
 
     foreach (EstimacionDiaPtr e, m_Estimaciones.values())
@@ -280,6 +308,7 @@ EstimacionDiaLst EstimacionesDias::getAll(bool includeDeleted)
 
 EstimacionDiaLst EstimacionesDias::getUnplanned(bool includeDeleted)
 {
+    QLOG_TRACE() << "EstimacionDiaLst EstimacionesDias::getUnplanned(bool includeDeleted)";
     EstimacionDiaLst res = boost::make_shared<QList<EstimacionDiaPtr> >();
 
     foreach(EstimacionDiaPtr e, m_Estimaciones.values())
@@ -299,6 +328,7 @@ EstimacionDiaLst EstimacionesDias::getUnplanned(bool includeDeleted)
 
 EstimacionDiaPtr EstimacionesDias::get(QDate dia, bool includeDeleted)
 {
+    QLOG_TRACE() << "EstimacionDiaPtr EstimacionesDias::get(QDate dia, bool includeDeleted)";
     if (m_Estimaciones.find(dia) == m_Estimaciones.end())
         return EstimacionDiaPtr();
     else
@@ -318,6 +348,7 @@ EstimacionDiaPtr EstimacionesDias::get(QDate dia, bool includeDeleted)
 
 void EstimacionesDias::setStatusToUnmodified(bool removeDeleted)
 {
+    QLOG_TRACE() << "void EstimacionesDias::setStatusToUnmodified(bool removeDeleted)";
     QList<QDate> toDelete;
     foreach (EstimacionDiaPtr e, m_Estimaciones.values())
     {
@@ -334,6 +365,7 @@ void EstimacionesDias::setStatusToUnmodified(bool removeDeleted)
 
 void EstimacionesDias::addManyDays()
 {
+    QLOG_TRACE() << "void EstimacionesDias::addManyDays()";
     DlgAddManyEstimationDays dlg;
     dlg.setFrom(QDate::currentDate());
     dlg.setTo(QDate::currentDate().addMonths(1));
@@ -358,6 +390,7 @@ void EstimacionesDias::addManyDays()
 
 void EstimacionesDias::approveSelected()
 {
+    QLOG_TRACE() << "void EstimacionesDias::approveSelected()";
     DlgApprovePlanifications dlg;
     dlg.setData(DataStore::instance()->getPlanificacionesDias()->getAllReadyForApproval());
     if (dlg.exec() == QDialog::Accepted)

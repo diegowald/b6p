@@ -14,11 +14,14 @@
 #include <QDebug>
 #include <QTextDocument>
 
+#include <QsLog.h>
+
 
 MainWindow::MainWindow(int LoggedUser, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow())
 {
+    QLOG_TRACE() << "MainWindow::MainWindow(int LoggedUser, QWidget *parent)";
     //DataStore::instance()->initialize(this);
 
     ui->setupUi(this);
@@ -42,11 +45,13 @@ MainWindow::MainWindow(int LoggedUser, QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    QLOG_TRACE() << "MainWindow::~MainWindow()";
     delete ui;
 }
 
 void MainWindow::on_actionOpen_triggered()
 {
+    QLOG_TRACE() << "void MainWindow::on_actionOpen_triggered()";
     // Open Planification List
     GenericList *wnd = new GenericList(m_LoggedUser, DataStore::instance()->getPlanificacionesDias(), false, this);
     ui->mdiArea->addSubWindow(wnd);
@@ -56,6 +61,7 @@ void MainWindow::on_actionOpen_triggered()
 
 void MainWindow::print(QPrinter *printer)
 {
+    QLOG_TRACE() << "void MainWindow::print(QPrinter *printer)";
     if (selectedWindowToPrint) {
         QTextDocument textDoc;
         textDoc.setHtml(selectedWindowToPrint->getHTMLReport());
@@ -65,6 +71,7 @@ void MainWindow::print(QPrinter *printer)
 
 void MainWindow::printSelected(QPrinter *printer)
 {
+    QLOG_TRACE() << "void MainWindow::printSelected(QPrinter *printer)";
     if (selectedWindowToPrint) {
         QTextDocument textDoc;
         selectedWindowToPrint->printSelectedRecord(textDoc);
@@ -74,6 +81,7 @@ void MainWindow::printSelected(QPrinter *printer)
 
 void MainWindow::on_actionPrint_triggered()
 {
+    QLOG_TRACE() << "void MainWindow::on_actionPrint_triggered()";
     if (ui->mdiArea->activeSubWindow()) {
         selectedWindowToPrint = qobject_cast<GenericList *>(ui->mdiArea->activeSubWindow()->widget());
         // Prints ActiveWindow
@@ -91,6 +99,7 @@ void MainWindow::on_actionPrint_triggered()
 
 void MainWindow::on_actionPrint_Preview_triggered()
 {
+    QLOG_TRACE() << "void MainWindow::on_actionPrint_Preview_triggered()";
     if (ui->mdiArea->activeSubWindow()) {
         selectedWindowToPrint = qobject_cast<GenericList *>(ui->mdiArea->activeSubWindow()->widget());
         QPrinter printer(QPrinter::HighResolution);
@@ -105,6 +114,7 @@ void MainWindow::on_actionPrint_Preview_triggered()
 
 void MainWindow::on_actionPrint_Selected_triggered()
 {
+    QLOG_TRACE() << "void MainWindow::on_actionPrint_Selected_triggered()";
     if (ui->mdiArea->activeSubWindow()) {
         selectedWindowToPrint = qobject_cast<GenericList *>(ui->mdiArea->activeSubWindow()->widget());
         // Prints to printer selected record
@@ -122,6 +132,7 @@ void MainWindow::on_actionPrint_Selected_triggered()
 
 void MainWindow::on_actionPrint_Preview_Selected_Record_triggered()
 {
+    QLOG_TRACE() << "void MainWindow::on_actionPrint_Preview_Selected_Record_triggered()";
     if (ui->mdiArea->activeSubWindow()) {
         selectedWindowToPrint = qobject_cast<GenericList *>(ui->mdiArea->activeSubWindow()->widget());
         // Prints Selected record on active window
@@ -138,12 +149,14 @@ void MainWindow::on_actionPrint_Preview_Selected_Record_triggered()
 
 void MainWindow::on_actionExit_triggered()
 {
+    QLOG_TRACE() << "void MainWindow::on_actionExit_triggered()";
     // Exits application
     QApplication::exit(0);
 }
 
 void MainWindow::on_actionView_triggered()
 {
+    QLOG_TRACE() << "void MainWindow::on_actionView_triggered()";
     // Open Employees list
     GenericList *wnd = new GenericList(m_LoggedUser, DataStore::instance()->getEmpleados(), false, this);
     ui->mdiArea->addSubWindow(wnd);
@@ -153,6 +166,7 @@ void MainWindow::on_actionView_triggered()
 
 void MainWindow::on_actionSetup_days_triggered()
 {
+    QLOG_TRACE() << "void MainWindow::on_actionSetup_days_triggered()";
     // Open days setup list.
     GenericList *wnd = new GenericList(m_LoggedUser, DataStore::instance()->getEstimacionesDias(), true, this);
     wnd->AllowAdd(false);
@@ -163,6 +177,7 @@ void MainWindow::on_actionSetup_days_triggered()
 
 void MainWindow::on_actionParameters_triggered()
 {
+    QLOG_TRACE() << "void MainWindow::on_actionParameters_triggered()";
     // Open Parameters
     DlgParametros dlg(this);
     if (dlg.exec() == QDialog::Accepted)
@@ -174,33 +189,39 @@ void MainWindow::on_actionParameters_triggered()
 
 void MainWindow::on_actionAbout_triggered()
 {
+    QLOG_TRACE() << "void MainWindow::on_actionAbout_triggered()";
     // Opens About box.
     QMessageBox::about(this, tr("About B6P"), tr("B6Planner"));
 }
 
 void MainWindow::datastore_loaded(QString name)
 {
+    QLOG_TRACE() << "void MainWindow::datastore_loaded(QString name)";
     ui->statusBar->showMessage(tr("%1 Loaded.").arg(name));
 }
 
 void MainWindow::datastore_loading(QString name)
 {
+    QLOG_TRACE() << "void MainWindow::datastore_loading(QString name)";
     ui->statusBar->showMessage(tr("Loading %1...").arg(name));
 }
 
 void MainWindow::datastore_saved(QString name)
 {
+    QLOG_TRACE() << "void MainWindow::datastore_saved(QString name)";
     ui->statusBar->showMessage(tr("%1 Saved.").arg(name));
 }
 
 void MainWindow::datastore_saving(QString name)
 {
+    QLOG_TRACE() << "void MainWindow::datastore_saving(QString name)";
     ui->statusBar->showMessage(tr("Saving %1...").arg(name));
 }
 
 
 void MainWindow::EnableActions()
 {
+    QLOG_TRACE() << "void MainWindow::EnableActions()";
     if (m_LoggedUser > 0)
     {
         QString feature = DataStore::instance()->getEmpleados()->invariableName();
@@ -229,6 +250,7 @@ void MainWindow::EnableActions()
 
 void MainWindow::on_actionSynchronize_triggered()
 {
+    QLOG_TRACE() << "void MainWindow::on_actionSynchronize_triggered()";
     DlgSynchronization dlg;
     dlg.exec();
 }

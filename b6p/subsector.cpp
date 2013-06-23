@@ -1,9 +1,12 @@
 #include "subsector.h"
 #include "datastore.h"
+#include <QsLog.h>
+
 
 SubSector::SubSector(QObject *parent) :
     QObject(parent)
 {
+    QLOG_TRACE() << "SubSector::SubSector(QObject *parent)";
     m_IDSector.setNull();
     m_IDSubSector.setNull();
     m_Nombre.setNull();
@@ -18,6 +21,7 @@ SubSector::SubSector(QObject *parent) :
 
 RecordPtr SubSector::asRecordPtr()
 {
+    QLOG_TRACE() << "RecordPtr SubSector::asRecordPtr()";
     RecordPtr res = boost::make_shared<Record>();
 
     (*res)["IDSector"] = m_IDSector.toVariant();
@@ -31,25 +35,30 @@ RecordPtr SubSector::asRecordPtr()
 
 NullableField<int> &SubSector::IDSector()
 {
+    QLOG_TRACE() << "NullableField<int> &SubSector::IDSector()";
     return m_IDSector;
 }
 
 NullableField<int> &SubSector::IDSubsector()
 {
+    QLOG_TRACE() << "NullableField<int> &SubSector::IDSubsector()";
     return m_IDSubSector;
 }
 
 NullableField<QString> &SubSector::Nombre()
 {
+    QLOG_TRACE() << "NullableField<QString> &SubSector::Nombre()";
     return m_Nombre;
 }
 
 NullableField<QString> &SubSector::Descripcion()
 {
+    QLOG_TRACE() << "NullableField<QString> &SubSector::Descripcion()";
     return m_Descripcion;
 }
 
 SectorPtr SubSector::getSector()
 {
+    QLOG_TRACE() << "SectorPtr SubSector::getSector()";
     return DataStore::instance()->getSectores()->getSector(m_IDSector.value());
 }

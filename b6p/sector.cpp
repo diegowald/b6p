@@ -1,9 +1,12 @@
 #include "sector.h"
 #include <boost/make_shared.hpp>
+#include <QsLog.h>
+
 
 Sector::Sector(QObject *parent) :
     QObject(parent)
 {
+    QLOG_TRACE() << "Sector::Sector(QObject *parent)";
     m_IDSector.setNull();
     m_Nombre.setNull();
     m_Descripcion.setNull();
@@ -17,6 +20,7 @@ Sector::Sector(QObject *parent) :
 
 RecordPtr Sector::asRecordPtr()
 {
+    QLOG_TRACE() << "RecordPtr Sector::asRecordPtr()";
     RecordPtr res = boost::make_shared<Record>();
 
     (*res)["IDSector"] = m_IDSector.toVariant();
@@ -31,20 +35,24 @@ RecordPtr Sector::asRecordPtr()
 
 NullableField<int> &Sector::IDSector()
 {
+    QLOG_TRACE() << "NullableField<int> &Sector::IDSector()";
     return m_IDSector;
 }
 
 NullableField<QString> &Sector::Nombre()
 {
+    QLOG_TRACE() << "NullableField<QString> &Sector::Nombre()";
     return m_Nombre;
 }
 
 NullableField<QString> &Sector::Descripcion()
 {
+    QLOG_TRACE() << "NullableField<QString> &Sector::Descripcion()";
     return m_Descripcion;
 }
 
 NullableField<bool> &Sector::ShowInPlanification()
 {
+    QLOG_TRACE() << "NullableField<bool> &Sector::ShowInPlanification()";
     return m_ShowInPlanification;
 }

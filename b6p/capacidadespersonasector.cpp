@@ -1,13 +1,17 @@
 #include "capacidadespersonasector.h"
+#include <QsLog.h>
+
 
 CapacidadesPersonaSector::CapacidadesPersonaSector(QObject *parent) :
     ACollection(tr("Employee capacity by Sector"),
                 "Employee capacity by Sector", false, ACollection::MERGE_KEEP_LOCAL, parent)
 {
+    QLOG_TRACE() << "CapacidadesPersonaSector::CapacidadesPersonaSector(QObject *parent)";
 }
 
 CapacidadPersonaSectorLst CapacidadesPersonaSector::getAll(int IDEmpleado, bool includeDeleted)
 {
+    QLOG_TRACE() << "CapacidadPersonaSectorLst CapacidadesPersonaSector::getAll(int IDEmpleado, bool includeDeleted)";
     CapacidadPersonaSectorLst res = boost::make_shared<QList<CapacidadPersonaSectorPtr> >();
     foreach(CapacidadPersonaSectorPtr cap, m_Capacidades)
     {
@@ -25,6 +29,7 @@ CapacidadPersonaSectorLst CapacidadesPersonaSector::getAll(int IDEmpleado, bool 
 
 CapacidadPersonaSectorPtr CapacidadesPersonaSector::get(int idEmpleado, int IDSector, int IDSubSector, bool includeDeleted)
 {
+    QLOG_TRACE() << "CapacidadPersonaSectorPtr CapacidadesPersonaSector::get(int idEmpleado, int IDSector, int IDSubSector, bool includeDeleted)";
     CapacidadPersonaSectorLst all = getAll(idEmpleado, includeDeleted);
     foreach(CapacidadPersonaSectorPtr c, *all)
     {
@@ -36,24 +41,28 @@ CapacidadPersonaSectorPtr CapacidadesPersonaSector::get(int idEmpleado, int IDSe
 
 QString CapacidadesPersonaSector::getSelectFromMainDB()
 {
+    QLOG_TRACE() << "QString CapacidadesPersonaSector::getSelectFromMainDB()";
     return QString("select IDSector, IDSubSector, IDEmpleado, Capacidad, LastUpdate from capacidadespersonassector "
                    " where LastUpdate >= :LASTUPDATE ;");
 }
 
 QString CapacidadesPersonaSector::getSqlString()
 {
+    QLOG_TRACE() << "QString CapacidadesPersonaSector::getSqlString()";
     return QString("select IDSector, IDSubSector, IDEmpleado, Capacidad, sent from capacidadespersonassector ")
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
 QString CapacidadesPersonaSector::getSQLExistsInMainDB()
 {
+    QLOG_TRACE() << "QString CapacidadesPersonaSector::getSQLExistsInMainDB()";
     return QString("select IDSector, IDSubSector, IDEmpleado, Capacidad from capacidadespersonassector "
                    " where IDSector = :IDSector and IDSubSector = :IDSubSector and IDEmpleado = :IDEmpleado;");
 }
 
 void CapacidadesPersonaSector::addRecord(RecordPtr record, bool setNew)
 {
+    QLOG_TRACE() << "void CapacidadesPersonaSector::addRecord(RecordPtr record, bool setNew)";
     CapacidadPersonaSectorPtr c = boost::make_shared<CapacidadPersonaSector>(this);
 
     c->IDSector().setValue((*record)["IDSector"].toInt());
@@ -72,6 +81,7 @@ void CapacidadesPersonaSector::addRecord(RecordPtr record, bool setNew)
 
 void CapacidadesPersonaSector::updateRecord(RecordPtr record)
 {
+    QLOG_TRACE() << "void CapacidadesPersonaSector::updateRecord(RecordPtr record)";
     CapacidadPersonaSectorPtr c = get((*record)["IDEmpleado"].toInt(),
             (*record)["IDSector"].toInt(),
             (*record)["IDSubSector"].toInt(), true);
@@ -81,6 +91,7 @@ void CapacidadesPersonaSector::updateRecord(RecordPtr record)
 
 void CapacidadesPersonaSector::deleteRecord(RecordPtr record)
 {
+    QLOG_TRACE() << "void CapacidadesPersonaSector::deleteRecord(RecordPtr record)";
     CapacidadPersonaSectorPtr c = get((*record)["IDEmpleado"].toInt(),
             (*record)["IDSector"].toInt(),
             (*record)["IDSubSector"].toInt(), true);
@@ -90,6 +101,7 @@ void CapacidadesPersonaSector::deleteRecord(RecordPtr record)
 
 bool CapacidadesPersonaSector::exists(RecordPtr record)
 {
+    QLOG_TRACE() << "bool CapacidadesPersonaSector::exists(RecordPtr record)";
     CapacidadPersonaSectorPtr c = get((*record)["IDEmpleado"].toInt(),
             (*record)["IDSector"].toInt(),
             (*record)["IDSubSector"].toInt(), true);
@@ -98,6 +110,7 @@ bool CapacidadesPersonaSector::exists(RecordPtr record)
 
 bool CapacidadesPersonaSector::isRecordUnsent(RecordPtr record)
 {
+    QLOG_TRACE() << "bool CapacidadesPersonaSector::isRecordUnsent(RecordPtr record)";
     if (!exists(record))
         return false;
     CapacidadPersonaSectorPtr c = get((*record)["IDEmpleado"].toInt(),
@@ -108,6 +121,7 @@ bool CapacidadesPersonaSector::isRecordUnsent(RecordPtr record)
 
 RecordPtr CapacidadesPersonaSector::getLocalRecord(RecordPtr record)
 {
+    QLOG_TRACE() << "RecordPtr CapacidadesPersonaSector::getLocalRecord(RecordPtr record)";
     if (!exists(record))
         return RecordPtr();
     CapacidadPersonaSectorPtr c = get((*record)["IDEmpleado"].toInt(),
@@ -118,12 +132,14 @@ RecordPtr CapacidadesPersonaSector::getLocalRecord(RecordPtr record)
 
 QString CapacidadesPersonaSector::getDeleteStatement()
 {
+    QLOG_TRACE() << "QString CapacidadesPersonaSector::getDeleteStatement()";
     return QString("update capacidadespersonassector set RecordStatus = %1 where IDSector = :IDSector "
                    " and IDSubSector = :IDSubSector and IDEmpleado = :IDEmpleado;").arg(RECORD_DELETED);
 }
 
 QString CapacidadesPersonaSector::getUpdateStatement()
 {
+    QLOG_TRACE() << "QString CapacidadesPersonaSector::getUpdateStatement()";
     return QString("update capacidadespersonassector set "
                    " Capacidad = :Capacidad, RecordStatus = %1 "
                    " where "
@@ -133,6 +149,7 @@ QString CapacidadesPersonaSector::getUpdateStatement()
 
 QString CapacidadesPersonaSector::getInsertStatement(bool)
 {
+    QLOG_TRACE() << "QString CapacidadesPersonaSector::getInsertStatement(bool)";
     return QString("insert into capacidadespersonassector "
                    " (IDSector, IDSubSector, IDEmpleado, Capacidad, RecordStatus) "
                    " values "
@@ -141,6 +158,7 @@ QString CapacidadesPersonaSector::getInsertStatement(bool)
 
 RecordSet CapacidadesPersonaSector::getRecords(RecordStatus status)
 {
+    QLOG_TRACE() << "RecordSet CapacidadesPersonaSector::getRecords(RecordStatus status)";
     RecordSet res = boost::make_shared<QList<RecordPtr> >();
     foreach(CapacidadPersonaSectorPtr c, m_Capacidades)
     {
@@ -167,6 +185,7 @@ RecordSet CapacidadesPersonaSector::getRecords(RecordStatus status)
 
 RecordSet CapacidadesPersonaSector::getUnsent()
 {
+    QLOG_TRACE() << "RecordSet CapacidadesPersonaSector::getUnsent()";
     RecordSet res = boost::make_shared<QList<RecordPtr> >();
     foreach(CapacidadPersonaSectorPtr c, m_Capacidades)
     {
@@ -178,39 +197,47 @@ RecordSet CapacidadesPersonaSector::getUnsent()
 
 void CapacidadesPersonaSector::defineHeaders(QStringList &)
 {
+    QLOG_TRACE() << "void CapacidadesPersonaSector::defineHeaders(QStringList &)";
 }
 
 boost::shared_ptr<QList<QStringList> > CapacidadesPersonaSector::getAll()
 {
+    QLOG_TRACE() << "boost::shared_ptr<QList<QStringList> > CapacidadesPersonaSector::getAll()";
     return boost::make_shared<QList<QStringList> >();
 }
 
 void CapacidadesPersonaSector::fillData(QTreeWidget &)
 {
+    QLOG_TRACE() << "void CapacidadesPersonaSector::fillData(QTreeWidget &)";
 }
 
 bool CapacidadesPersonaSector::addNew()
 {
+    QLOG_TRACE() << "bool CapacidadesPersonaSector::addNew()";
     return false;
 }
 
 bool CapacidadesPersonaSector::edit(QVariant)
 {
+    QLOG_TRACE() << "bool CapacidadesPersonaSector::edit(QVariant)";
     return false;
 }
 
 bool CapacidadesPersonaSector::deleteElement(QVariant)
 {
+    QLOG_TRACE() << "bool CapacidadesPersonaSector::deleteElement(QVariant)";
     return false;
 }
 
 bool CapacidadesPersonaSector::canBeDeleted(QVariant)
 {
+    QLOG_TRACE() << "bool CapacidadesPersonaSector::canBeDeleted(QVariant)";
     return false;
 }
 
 void CapacidadesPersonaSector::updateCapacityfromData(CapacidadPersonaSectorLst dataFrom)
 {
+    QLOG_TRACE() << "void CapacidadesPersonaSector::updateCapacityfromData(CapacidadPersonaSectorLst dataFrom)";
     if (dataFrom->count() > 0)
     {
         CapacidadPersonaSectorLst capsEmpleado = getAll(dataFrom->at(0)->IDEmpleado().value(), false);
@@ -237,6 +264,7 @@ void CapacidadesPersonaSector::updateCapacityfromData(CapacidadPersonaSectorLst 
 
 void CapacidadesPersonaSector::setStatusToUnmodified(bool removeDeleted)
 {
+    QLOG_TRACE() << "void CapacidadesPersonaSector::setStatusToUnmodified(bool removeDeleted)";
     QList<CapacidadPersonaSectorPtr> toDelete;
     foreach(CapacidadPersonaSectorPtr c, m_Capacidades)
     {

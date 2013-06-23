@@ -1,22 +1,25 @@
 #include "dlgmerge.h"
 #include "ui_dlgmerge.h"
 #include <boost/make_shared.hpp>
-#include <QDebug>
+#include <QsLog.h>
 
 DlgMerge::DlgMerge(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DlgMerge)
 {
+    QLOG_TRACE() << "DlgMerge::DlgMerge(QWidget *parent)";
     ui->setupUi(this);
 }
 
 DlgMerge::~DlgMerge()
 {
+    QLOG_TRACE() << "DlgMerge::~DlgMerge()";
     delete ui;
 }
 
 void DlgMerge::setData(RecordPtr ServerRecord, RecordPtr localRecord, QStringList fieldsToShow)
 {
+    QLOG_TRACE() << "void DlgMerge::setData(RecordPtr ServerRecord, RecordPtr localRecord, QStringList fieldsToShow)";
     local = localRecord;
     server = ServerRecord;
     foreach (QString key, ServerRecord->keys()) {
@@ -49,6 +52,7 @@ void DlgMerge::setData(RecordPtr ServerRecord, RecordPtr localRecord, QStringLis
 
 RecordPtr DlgMerge::mergedRecord()
 {
+    QLOG_TRACE() << "RecordPtr DlgMerge::mergedRecord()";
     RecordPtr result = boost::make_shared<Record>();
 
     foreach (QString key, server->keys()) {
@@ -75,6 +79,7 @@ RecordPtr DlgMerge::mergedRecord()
 
 void DlgMerge::on_tblData_cellClicked(int row, int column)
 {
+    QLOG_TRACE() << "void DlgMerge::on_tblData_cellClicked(int row, int column)";
     if ((column == 1) || (column == 2))
     {
         ui->tblData->item(row, 3)->setText(ui->tblData->item(row, column)->text());

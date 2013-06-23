@@ -2,22 +2,26 @@
 #include "ui_dlgemployee.h"
 #include "capacitywidget.h"
 #include "datastore.h"
+#include <QsLog.h>
 
 DlgEmployee::DlgEmployee(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DlgEmployee)
 {
+    QLOG_TRACE() << "DlgEmployee::DlgEmployee(QWidget *parent)";
     ui->setupUi(this);
     setupScreen();
 }
 
 DlgEmployee::~DlgEmployee()
 {
+    QLOG_TRACE() << "DlgEmployee::~DlgEmployee()";
     delete ui;
 }
 
 void DlgEmployee::setData(EmpleadoPtr empleado)
 {
+    QLOG_TRACE() << "void DlgEmployee::setData(EmpleadoPtr empleado)";
     m_Empleado = empleado;
     // Informacion basica
     if (empleado->Legajo().isNull())
@@ -93,6 +97,7 @@ void DlgEmployee::setData(EmpleadoPtr empleado)
 
 void DlgEmployee::setupAssignment(AvailabilityWidget *w, int day)
 {
+    QLOG_TRACE() << "void DlgEmployee::setupAssignment(AvailabilityWidget *w, int day)";
     w->setDay(day);
     w->setFrom(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0));
     w->setTo(DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 24 * 3600));
@@ -100,6 +105,7 @@ void DlgEmployee::setupAssignment(AvailabilityWidget *w, int day)
 
 void DlgEmployee::setupScreen()
 {
+    QLOG_TRACE() << "void DlgEmployee::setupScreen()";
     ui->txtID->setText("");
     ui->txtLastName->setText("");
     ui->txtNames->setText("");
@@ -115,26 +121,31 @@ void DlgEmployee::setupScreen()
 
 QString DlgEmployee::Apellido()
 {
+    QLOG_TRACE() << "QString DlgEmployee::Apellido()";
     return ui->txtLastName->text();
 }
 
 QString DlgEmployee::Nombres()
 {
+    QLOG_TRACE() << "QString DlgEmployee::Nombres()";
     return ui->txtNames->text();
 }
 
 QDate DlgEmployee::FechaIngreso()
 {
+    QLOG_TRACE() << "QDate DlgEmployee::FechaIngreso()";
     return ui->dateStart->date();
 }
 
 QString DlgEmployee::Legajo()
 {
+    QLOG_TRACE() << "QString DlgEmployee::Legajo()";
     return ui->txtID->text();
 }
 
 CapacidadPersonaSectorLst DlgEmployee::Capacities()
 {
+    QLOG_TRACE() << "CapacidadPersonaSectorLst DlgEmployee::Capacities()";
     CapacidadPersonaSectorLst res = boost::make_shared<QList<CapacidadPersonaSectorPtr> >();
 
     for (int i = 0; i < ui->treeCapacities->topLevelItemCount(); i++)
@@ -154,6 +165,7 @@ CapacidadPersonaSectorLst DlgEmployee::Capacities()
 
 CalendarioPersonaPtr DlgEmployee::getAssignment(AvailabilityWidget *w)
 {
+    QLOG_TRACE() << "CalendarioPersonaPtr DlgEmployee::getAssignment(AvailabilityWidget *w)";
     CalendarioPersonaPtr p = boost::make_shared<CalendarioPersona>();
 
     p->IDEmpleado().setValue(m_Empleado->IDEmpleado().value());
@@ -167,6 +179,7 @@ CalendarioPersonaPtr DlgEmployee::getAssignment(AvailabilityWidget *w)
 
 CalendarioPersonaLst DlgEmployee::Disponibilidades()
 {
+    QLOG_TRACE() << "CalendarioPersonaLst DlgEmployee::Disponibilidades()";
     CalendarioPersonaLst res = boost::make_shared<QList<CalendarioPersonaPtr> >();
 
     res->push_back(getAssignment(ui->TimeSunday));
@@ -182,6 +195,7 @@ CalendarioPersonaLst DlgEmployee::Disponibilidades()
 
 void DlgEmployee::on_btnAdd_pressed()
 {
+    QLOG_TRACE() << "void DlgEmployee::on_btnAdd_pressed()";
     QTreeWidgetItem *item = new QTreeWidgetItem();
     ui->treeCapacities->addTopLevelItem(item);
     CapacityWidget *w = new CapacityWidget();
@@ -190,6 +204,7 @@ void DlgEmployee::on_btnAdd_pressed()
 
 void DlgEmployee::on_btnDelete_pressed()
 {
+    QLOG_TRACE() << "void DlgEmployee::on_btnDelete_pressed()";
     QTreeWidgetItem *item = ui->treeCapacities->currentItem();
     if (item)
     {

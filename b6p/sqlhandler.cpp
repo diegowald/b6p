@@ -7,9 +7,11 @@
 #include <QSqlRecord>
 #include <QSqlField>
 #include <QSqlDriver>
+#include <QsLog.h>
 
 SQLHandler::SQLHandler(QString database)
 {
+    QLOG_TRACE() << "SQLHandler::SQLHandler(QString database)";
     m_database = database;
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setHostName("localhost");
@@ -19,6 +21,7 @@ SQLHandler::SQLHandler(QString database)
 
 SQLHandler::SQLHandler(QString Server, QString Database, QString User, QString Password)
 {
+    QLOG_TRACE() << "SQLHandler::SQLHandler(QString Server, QString Database, QString User, QString Password)";
     m_Server = Server;
     m_database = Database;
     m_User = User;
@@ -33,6 +36,7 @@ SQLHandler::SQLHandler(QString Server, QString Database, QString User, QString P
 
 bool SQLHandler::tryReconnect()
 {
+    QLOG_TRACE() << "bool SQLHandler::tryReconnect()";
     if (!db.isOpen() && !db.open())
     {
         if (m_UsingSQLITE)
@@ -60,6 +64,7 @@ bool SQLHandler::tryReconnect()
 
 RecordSet SQLHandler::getAll(QString &query)
 {
+    QLOG_TRACE() << "RecordSet SQLHandler::getAll(QString &query)";
     RecordSet response = boost::make_shared<QList<RecordPtr> >();
 
     if (!tryReconnect())
@@ -96,6 +101,7 @@ RecordSet SQLHandler::getAll(QString &query)
 
 RecordSet SQLHandler::getAll(QString &query, RecordPtr record)
 {
+    QLOG_TRACE() << "RecordSet SQLHandler::getAll(QString &query, RecordPtr record)";
     RecordSet response = boost::make_shared<QList<RecordPtr> >();
 
     if (!tryReconnect())
@@ -135,6 +141,7 @@ RecordSet SQLHandler::getAll(QString &query, RecordPtr record)
 
 void SQLHandler::addParameters(QSqlQuery &query, QString &SQL, RecordPtr record)
 {
+    QLOG_TRACE() << "void SQLHandler::addParameters(QSqlQuery &query, QString &SQL, RecordPtr record)";
     foreach(QString key, record->keys())
     {
         QString param(":" + key);
@@ -166,6 +173,7 @@ void SQLHandler::addParameters(QSqlQuery &query, QString &SQL, RecordPtr record)
 
 int SQLHandler::executeQuery(QString &cmd, RecordPtr record, bool returnLastInsertedID)
 {
+    QLOG_TRACE() << "int SQLHandler::executeQuery(QString &cmd, RecordPtr record, bool returnLastInsertedID)";
     if (!tryReconnect())
     {
         db = QSqlDatabase::addDatabase("QSQLITE"/*, "local"*/);
@@ -192,6 +200,7 @@ int SQLHandler::executeQuery(QString &cmd, RecordPtr record, bool returnLastInse
 
 void SQLHandler::executeCommand(QString &cmd)
 {
+    QLOG_TRACE() << "void SQLHandler::executeCommand(QString &cmd)";
     if (!tryReconnect())
     {
         db = QSqlDatabase::addDatabase("QSQLITE"/*, "local"*/);

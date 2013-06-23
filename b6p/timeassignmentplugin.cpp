@@ -2,6 +2,7 @@
 #include "timeassignment.h"
 #include <QtPlugin>
 
+
 TimeAssignmentPlugin::TimeAssignmentPlugin(QWidget *parent)
     : QObject(parent)
 {

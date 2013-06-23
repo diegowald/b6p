@@ -64,10 +64,13 @@ int main(int argc, char *argv[])
         QFont font = a.font();
         font.setPixelSize(12);
         a.setFont(font);
-        return a.exec();
+        int result = a.exec();
+        QLOG_INFO() << "Program ended: result = " << result;
+        return result;
     }
     else
     {
+        QLOG_INFO() << "Program can't run";
         return -1;
     }
 }

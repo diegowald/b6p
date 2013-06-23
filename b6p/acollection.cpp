@@ -4,6 +4,8 @@
 #include <QMessageBox>
 #include <QFile>
 #include <QTextStream>
+#include <QsLog.h>
+
 
 ACollection::ACollection(QString Name, QString InvariableName, bool useLastInsertId, MERGE_STRATEGY MergeStrategy, QObject *parent) :
     QObject(parent),
@@ -13,11 +15,13 @@ ACollection::ACollection(QString Name, QString InvariableName, bool useLastInser
     usesLastInsertedId(useLastInsertId),
     m_MergeStrategy(MergeStrategy)
 {
+    QLOG_TRACE() << "ACollection::ACollection(QString Name, QString InvariableName, bool useLastInsertId, MERGE_STRATEGY MergeStrategy, QObject *parent)";
 }
 
 
 void ACollection::load()
 {
+    QLOG_TRACE() << "void ACollection::load()";
     emit loading(m_Name);
 
     QString sqlString = getSqlString();
@@ -33,6 +37,7 @@ void ACollection::load()
 
 void ACollection::save(bool includeIDs)
 {
+    QLOG_TRACE() << "void ACollection::save(bool includeIDs)";
     emit saving(m_Name);
 
     deleteRecordsDB();
@@ -46,21 +51,25 @@ void ACollection::save(bool includeIDs)
 
 void ACollection::deleteRecordsDB()
 {
+    QLOG_TRACE() << "void ACollection::deleteRecordsDB()";
     executeCommand(getDeleteStatement(), DELETED);
 }
 
 void ACollection::updateRecordsToDB()
 {
+    QLOG_TRACE() << "void ACollection::updateRecordsToDB()";
     executeCommand(getUpdateStatement(), MODIFIED);
 }
 
 void ACollection::addNewRecordsToDB(bool includeIDs)
 {
+    QLOG_TRACE() << "void ACollection::addNewRecordsToDB(bool includeIDs)";
     executeCommand(getInsertStatement(includeIDs), NEW);
 }
 
 void ACollection::executeCommand(QString cmd, RecordStatus status)
 {
+    QLOG_TRACE() << "void ACollection::executeCommand(QString cmd, RecordStatus status)";
     RecordSet set = getRecords(status);
     foreach(RecordPtr r, *set)
     {
@@ -72,6 +81,7 @@ void ACollection::executeCommand(QString cmd, RecordStatus status)
 
 bool ACollection::addNewRecord(QTreeWidgetItem *item)
 {
+    QLOG_TRACE() << "bool ACollection::addNewRecord(QTreeWidgetItem *item)";
     bool result = addNew(item);
     if (result)
         save();
@@ -80,6 +90,7 @@ bool ACollection::addNewRecord(QTreeWidgetItem *item)
 
 bool ACollection::addNewRecord()
 {
+    QLOG_TRACE() << "bool ACollection::addNewRecord()";
     bool result = addNew();
     if (result)
         save();
@@ -88,6 +99,7 @@ bool ACollection::addNewRecord()
 
 bool ACollection::editRecord(QTreeWidgetItem *item, QVariant ID)
 {
+    QLOG_TRACE() << "bool ACollection::editRecord(QTreeWidgetItem *item, QVariant ID)";
     bool result = edit(item, ID);
     if (result)
         save();
@@ -96,6 +108,7 @@ bool ACollection::editRecord(QTreeWidgetItem *item, QVariant ID)
 
 bool ACollection::editRecord(QVariant ID)
 {
+    QLOG_TRACE() << "bool ACollection::editRecord(QVariant ID)";
     bool result = edit(ID);
     if (result)
         save();
@@ -104,6 +117,7 @@ bool ACollection::editRecord(QVariant ID)
 
 bool ACollection::deleteRecord(QVariant ID)
 {
+    QLOG_TRACE() << "bool ACollection::deleteRecord(QVariant ID)";
     bool result = false;
     if (canBeDeleted(ID))
     {
@@ -134,16 +148,19 @@ bool ACollection::deleteRecord(QVariant ID)
 
 QString &ACollection::name()
 {
+    QLOG_TRACE() << "QString &ACollection::name()";
     return m_Name;
 }
 
 QString ACollection::invariableName() const
 {
+    QLOG_TRACE() << "QString ACollection::invariableName() const";
     return m_InvariableName;
 }
 
 void ACollection::setSentFlagIntoDatabase()
 {
+    QLOG_TRACE() << "void ACollection::setSentFlagIntoDatabase()";
     QString sql = "UPDATE %1 set sent = 1;";
     sql = sql.arg(getTableName());
     sqlEngine.executeCommand(sql);
@@ -151,6 +168,7 @@ void ACollection::setSentFlagIntoDatabase()
 
 void ACollection::exportTo(const QString &filename)
 {
+    QLOG_TRACE() << "void ACollection::exportTo(const QString &filename)";
     QString fileName = (filename.toLower().endsWith(".csv") ? filename: filename + ".csv");
     QFile file(fileName);
     if (file.open(QFile::WriteOnly))
@@ -182,6 +200,7 @@ void ACollection::exportTo(const QString &filename)
 
 QString ACollection::asHTML()
 {
+    QLOG_TRACE() << "QString ACollection::asHTML()";
     QString html("<table width=\"100%\" border=1 cellspacing=0>\n");
     // Escribo el header
     QStringList headers;
@@ -208,5 +227,6 @@ QString ACollection::asHTML()
 
 ACollection::MERGE_STRATEGY ACollection::mergeStrategy() const
 {
+    QLOG_TRACE() << "ACollection::MERGE_STRATEGY ACollection::mergeStrategy() const";
     return m_MergeStrategy;
 }

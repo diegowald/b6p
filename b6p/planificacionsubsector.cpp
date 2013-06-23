@@ -1,9 +1,11 @@
 #include "planificacionsubsector.h"
 #include "datastore.h"
+#include <QsLog.h>
 
 PlanificacionSubSector::PlanificacionSubSector(QObject *parent) :
     QObject(parent)
 {
+    QLOG_TRACE() << "PlanificacionSubSector::PlanificacionSubSector(QObject *parent)";
     m_IDRecord.setNull();
     m_Dia.setNull();
     m_IDSector.setNull();
@@ -24,6 +26,7 @@ PlanificacionSubSector::PlanificacionSubSector(QObject *parent) :
 
 RecordPtr PlanificacionSubSector::asRecordPtr()
 {
+    QLOG_TRACE() << "RecordPtr PlanificacionSubSector::asRecordPtr()";
     RecordPtr res = boost::make_shared<Record>();
 
     (*res)["IDRecord"] = m_IDRecord.toVariant();
@@ -42,61 +45,73 @@ RecordPtr PlanificacionSubSector::asRecordPtr()
 
 NullableField<int> &PlanificacionSubSector::IDRecord()
 {
+    QLOG_TRACE() << "NullableField<int> &PlanificacionSubSector::IDRecord()";
     return m_IDRecord;
 }
 
 NullableField<QDate> &PlanificacionSubSector::Dia()
 {
+    QLOG_TRACE() << "NullableField<QDate> &PlanificacionSubSector::Dia()";
     return m_Dia;
 }
 
 NullableField<int> &PlanificacionSubSector::IDSector()
 {
+    QLOG_TRACE() << "NullableField<int> &PlanificacionSubSector::IDSector()";
     return m_IDSector;
 }
 
 NullableField<int> &PlanificacionSubSector::IDSubSector()
 {
+    QLOG_TRACE() << "NullableField<int> &PlanificacionSubSector::IDSubSector()";
     return m_IDSubSector;
 }
 
 NullableField<int> &PlanificacionSubSector::IDEmpleado()
 {
+    QLOG_TRACE() << "NullableField<int> &PlanificacionSubSector::IDEmpleado()";
     return m_IDEmpleado;
 }
 
 NullableField<int> &PlanificacionSubSector::HoraInicio()
 {
+    QLOG_TRACE() << "NullableField<int> &PlanificacionSubSector::HoraInicio()";
     return m_HoraInicio;
 }
 
 NullableField<int> &PlanificacionSubSector::HoraFin()
 {
+    QLOG_TRACE() << "NullableField<int> &PlanificacionSubSector::HoraFin()";
     return m_HoraFin;
 }
 
 NullableField<bool> &PlanificacionSubSector::AllowOverWorking()
 {
+    QLOG_TRACE() << "NullableField<bool> &PlanificacionSubSector::AllowOverWorking()";
     return m_AllowOverworking;
 }
 
 SectorPtr PlanificacionSubSector::getSector()
 {
+    QLOG_TRACE() << "SectorPtr PlanificacionSubSector::getSector()";
     return DataStore::instance()->getSectores()->getSector(m_IDSector.value());
 }
 
 SubSectorPtr PlanificacionSubSector::getSubsector()
 {
+    QLOG_TRACE() << "SubSectorPtr PlanificacionSubSector::getSubsector()";
     return DataStore::instance()->getSubSectores()->getSubSector(m_IDSubSector.value());
 }
 
 EmpleadoPtr PlanificacionSubSector::getEmpleado()
 {
+    QLOG_TRACE() << "EmpleadoPtr PlanificacionSubSector::getEmpleado()";
     return DataStore::instance()->getEmpleados()->getEmpleado(m_IDEmpleado.value(), false);
 }
 
 double PlanificacionSubSector::CantidadHoras()
 {
+    QLOG_TRACE() << "double PlanificacionSubSector::CantidadHoras()";
     if (m_HoraFin.isNull())
         return 0;
     if (m_HoraInicio.isNull())
@@ -106,11 +121,13 @@ double PlanificacionSubSector::CantidadHoras()
 
 bool PlanificacionSubSector::isEqualsTo(PlanificacionSubSectorPtr other)
 {
+    QLOG_TRACE() << "bool PlanificacionSubSector::isEqualsTo(PlanificacionSubSectorPtr other)";
     return (m_IDRecord.value() == other->IDRecord().value());
 }
 
 void PlanificacionSubSector::updateWith(PlanificacionSubSectorPtr other)
 {
+    QLOG_TRACE() << "void PlanificacionSubSector::updateWith(PlanificacionSubSectorPtr other)";
     if (other->Dia().isNull())
         m_Dia.setNull();
     else
@@ -147,6 +164,7 @@ void PlanificacionSubSector::updateWith(PlanificacionSubSectorPtr other)
 
 void PlanificacionSubSector::updateID(int newID)
 {
+    QLOG_TRACE() << "void PlanificacionSubSector::updateID(int newID)";
     m_IDRecord.setValue(newID);
     setUnmodified();
 }

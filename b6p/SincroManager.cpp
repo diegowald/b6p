@@ -3,12 +3,12 @@
 #include <QMessageBox>
 #include "datastore.h"
 
-\#include <QsLog.h>
+#include <QsLog.h>
 
 SincroManager::SincroManager(QObject *parent) :
     QObject(parent)
 {
-    QLOG_INFO() << "SincroManager::SincroManager";
+    QLOG_TRACE() << "SincroManager::SincroManager(QObject *parent)";
     m_SQL = boost::make_shared<SQLHandler>(
                 DataStore::instance()->getParametros()->getValue(Parametros::SERVER_NAME, "127.0.0.1"),
                 DataStore::instance()->getParametros()->getValue(Parametros::DATABASE_NAME, "b6p"),
@@ -36,7 +36,7 @@ SincroManager::SincroManager(QObject *parent) :
 
 void SincroManager::runSincro()
 {
-    QLOG_INFO() << "SincroManager::runSincro";
+    QLOG_TRACE() << "void SincroManager::runSincro()";
     emit startingSynchro();
     obtenerFechaUltimaSincronizacion();
     obtenerActualizacionesDeBaseCentral();
@@ -61,7 +61,7 @@ void SincroManager::runSincro()
 
 void SincroManager::obtenerFechaUltimaSincronizacion()
 {
-    QLOG_INFO() << "SincroManager::obtenerFechaUltimaSincronizacion()";
+    QLOG_TRACE() << "void SincroManager::obtenerFechaUltimaSincronizacion()";
 
     m_FechaUltimaSincronizacion =
             DataStore::instance()->getParametros()->getValue(
@@ -70,7 +70,7 @@ void SincroManager::obtenerFechaUltimaSincronizacion()
 
 void SincroManager::obtenerActualizacionesDeBaseCentral()
 {
-    QLOG_INFO() << "SincroManager::obtenerActualizacionesDeBaseCentral()";
+    QLOG_TRACE() << "void SincroManager::obtenerActualizacionesDeBaseCentral()";
     foreach(DatabaseSynchronizationPtr db, m_Synchronizationtables)
     {
         QLOG_INFO() << "Getting updates for " << db->name();
@@ -83,7 +83,7 @@ void SincroManager::obtenerActualizacionesDeBaseCentral()
 
 void SincroManager::enviarDatosADBCentral()
 {
-    QLOG_INFO() << "SincroManager::enviarDatosADBCentral()";
+    QLOG_TRACE() << "void SincroManager::enviarDatosADBCentral()";
     foreach(DatabaseSynchronizationPtr db, m_Synchronizationtables)
     {
         QLOG_INFO() << "Sending data for " << db->name();
@@ -95,6 +95,7 @@ void SincroManager::enviarDatosADBCentral()
 
 void SincroManager::grabarFechaUltimaSincronizacion()
 {
+    QLOG_TRACE() << "void SincroManager::grabarFechaUltimaSincronizacion()";
     QString UltimaSincro;
     QString query("SELECT NOW() as Fecha;");
 
@@ -107,6 +108,7 @@ void SincroManager::grabarFechaUltimaSincronizacion()
 
 void SincroManager::establishConnections()
 {
+    QLOG_TRACE() << "void SincroManager::establishConnections()";
     foreach(DatabaseSynchronizationPtr dbPtr, m_Synchronizationtables)
     {
         establishConnections(dbPtr);
@@ -115,6 +117,7 @@ void SincroManager::establishConnections()
 
 void SincroManager::establishConnections(DatabaseSynchronizationPtr db)
 {
+    QLOG_TRACE() << "void SincroManager::establishConnections(DatabaseSynchronizationPtr db)";
     connect(db.get(), SIGNAL(gettingDataFromCentralDB(QString &)), this, SIGNAL(gettingDataFromCentralDB(QString&)));
     connect(db.get(), SIGNAL(applyingChanges(QString &)), this, SIGNAL(applyingChanges(QString&)));
     connect(db.get(), SIGNAL(checkingChanges(QString &)), this, SIGNAL(checkingChanges(QString&)));
@@ -123,6 +126,7 @@ void SincroManager::establishConnections(DatabaseSynchronizationPtr db)
 
 QStringList SincroManager::getSincroTableNames()
 {
+    QLOG_TRACE() << "QStringList SincroManager::getSincroTableNames()";
     QStringList res;
     foreach(DatabaseSynchronizationPtr dbPtr, m_Synchronizationtables)
     {

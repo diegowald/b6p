@@ -2,21 +2,25 @@
 #include "ui_dlgapproveplanifications.h"
 #include <boost/make_shared.hpp>
 #include "datastore.h"
+#include <QsLog.h>
 
 DlgApprovePlanifications::DlgApprovePlanifications(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DlgApprovePlanifications)
 {
+    QLOG_TRACE() << "DlgApprovePlanifications::DlgApprovePlanifications(QWidget *parent)";
     ui->setupUi(this);
 }
 
 DlgApprovePlanifications::~DlgApprovePlanifications()
 {
+    QLOG_TRACE() << "DlgApprovePlanifications::~DlgApprovePlanifications()";
     delete ui;
 }
 
 void DlgApprovePlanifications::setData(PlanificacionDiaLst data)
 {
+    QLOG_TRACE() << "void DlgApprovePlanifications::setData(PlanificacionDiaLst data)";
     ui->treePlanifications->setColumnCount(7);
     foreach(PlanificacionDiaPtr p, *data)
     {
@@ -39,6 +43,7 @@ void DlgApprovePlanifications::setData(PlanificacionDiaLst data)
 
 PlanificacionDiaLst DlgApprovePlanifications::getPlanificacionToApprove()
 {
+    QLOG_TRACE() << "PlanificacionDiaLst DlgApprovePlanifications::getPlanificacionToApprove()";
     PlanificacionDiaLst res = boost::make_shared<QList<PlanificacionDiaPtr> >();
 
     for (int i = 0; i < ui->treePlanifications->topLevelItemCount(); ++i)

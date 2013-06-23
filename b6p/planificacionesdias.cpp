@@ -2,32 +2,39 @@
 #include "datastore.h"
 #include "dlgselectorbytdate.h"
 #include "dlgplanificaciondia.h"
+#include <QsLog.h>
+
 
 PlanificacionesDias::PlanificacionesDias(QObject *parent) :
     ACollection(tr("Days Planifications"),
                 "Days Planifications", false, ACollection::MERGE_KEEP_MAIN, parent)
 {
+    QLOG_TRACE() << "PlanificacionesDias::PlanificacionesDias(QObject *parent)";
 }
 
 QString PlanificacionesDias::getSelectFromMainDB()
 {//, EstadoPlanificacion
+    QLOG_TRACE() << "QString PlanificacionesDias::getSelectFromMainDB()";
     return QString("select Dia, Notas, IDSupervisor, LastUpdate from planificaciondia "
                    " where LastUpdate >= :LASTUPDATE ;");
 }
 
 QString PlanificacionesDias::getSqlString()
 {
+    QLOG_TRACE() << "QString PlanificacionesDias::getSqlString()";
     return QString("select Dia, Notas, IDSupervisor, sent, EstadoPlanificacion from planificaciondia ")
             + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
 QString PlanificacionesDias::getSQLExistsInMainDB()
 {
+    QLOG_TRACE() << "QString PlanificacionesDias::getSQLExistsInMainDB()";
     return QString("select Dia, Notas, IDSupervisor, EstadoPlanificacion from planificaciondia where Dia = :Dia;");
 }
 
 void PlanificacionesDias::addRecord(RecordPtr record, bool setNew)
 {
+    QLOG_TRACE() << "void PlanificacionesDias::addRecord(RecordPtr record, bool setNew)";
     PlanificacionDiaPtr p = boost::make_shared<PlanificacionDia>(this);
 
     p->Dia().setValue(QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date());
@@ -46,6 +53,7 @@ void PlanificacionesDias::addRecord(RecordPtr record, bool setNew)
 
 void PlanificacionesDias::updateRecord(RecordPtr record)
 {
+    QLOG_TRACE() << "void PlanificacionesDias::updateRecord(RecordPtr record)";
     PlanificacionDiaPtr p = m_Planificaciones[QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date()];
 
     p->Notas().setValue((*record)["Notas"].toString());
@@ -56,16 +64,19 @@ void PlanificacionesDias::updateRecord(RecordPtr record)
 
 void PlanificacionesDias::deleteRecord(RecordPtr record)
 {
+    QLOG_TRACE() << "void PlanificacionesDias::deleteRecord(RecordPtr record)";
     m_Planificaciones.remove(QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date());
 }
 
 bool PlanificacionesDias::exists(RecordPtr record)
 {
+    QLOG_TRACE() << "bool PlanificacionesDias::exists(RecordPtr record)";
     return (PlanificacionDiaPtr() != m_Planificaciones[QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date()]);
 }
 
 bool PlanificacionesDias::isRecordUnsent(RecordPtr record)
 {
+    QLOG_TRACE() << "bool PlanificacionesDias::isRecordUnsent(RecordPtr record)";
     if (!exists(record))
         return false;
     PlanificacionDiaPtr p = m_Planificaciones[QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date()];
@@ -74,6 +85,7 @@ bool PlanificacionesDias::isRecordUnsent(RecordPtr record)
 
 RecordPtr PlanificacionesDias::getLocalRecord(RecordPtr record)
 {
+    QLOG_TRACE() << "RecordPtr PlanificacionesDias::getLocalRecord(RecordPtr record)";
     if (!exists(record))
         return RecordPtr();
     PlanificacionDiaPtr p = m_Planificaciones[QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date()];
@@ -82,6 +94,7 @@ RecordPtr PlanificacionesDias::getLocalRecord(RecordPtr record)
 
 QString PlanificacionesDias::getDeleteStatement()
 {
+    QLOG_TRACE() << "QString PlanificacionesDias::getDeleteStatement()";
     return QString("update planificaciondia "
                    " set RecordStatus = %1 "
                    " where Dia = :Dia;").arg(RECORD_DELETED);
@@ -89,6 +102,7 @@ QString PlanificacionesDias::getDeleteStatement()
 
 QString PlanificacionesDias::getUpdateStatement()
 {
+    QLOG_TRACE() << "QString PlanificacionesDias::getUpdateStatement()";
     return QString("update planificaciondia "
                    " set Notas = :Notas, IDSupervisor = :IDSupervisor, "
                    " RecordStatus = %1, EstadoPlanificacion = :EstadoPlanificacion "
@@ -98,6 +112,7 @@ QString PlanificacionesDias::getUpdateStatement()
 
 QString PlanificacionesDias::getInsertStatement(bool)
 {
+    QLOG_TRACE() << "QString PlanificacionesDias::getInsertStatement(bool)";
     return QString("insert into planificaciondia "
                    " (Dia, Notas, IDSupervisor, RecordStatus, EstadoPlanificacion) "
                    " values "
@@ -106,6 +121,7 @@ QString PlanificacionesDias::getInsertStatement(bool)
 
 RecordSet PlanificacionesDias::getRecords(RecordStatus status)
 {
+    QLOG_TRACE() << "RecordSet PlanificacionesDias::getRecords(RecordStatus status)";
     RecordSet res = boost::make_shared<QList<RecordPtr> >();
     foreach(PlanificacionDiaPtr p, m_Planificaciones.values())
     {
@@ -132,6 +148,7 @@ RecordSet PlanificacionesDias::getRecords(RecordStatus status)
 
 RecordSet PlanificacionesDias::getUnsent()
 {
+    QLOG_TRACE() << "RecordSet PlanificacionesDias::getUnsent()";
     RecordSet res = boost::make_shared<QList<RecordPtr> >();
     foreach(PlanificacionDiaPtr p, m_Planificaciones.values())
     {
@@ -143,6 +160,7 @@ RecordSet PlanificacionesDias::getUnsent()
 
 void PlanificacionesDias::defineHeaders(QStringList &list)
 {
+    QLOG_TRACE() << "void PlanificacionesDias::defineHeaders(QStringList &list)";
     list << tr("Date") << tr("Supervisor")
          << tr("Notes") << tr("Estimated hours")
          << tr("Planned hours") << tr("Status")
@@ -151,6 +169,7 @@ void PlanificacionesDias::defineHeaders(QStringList &list)
 
 boost::shared_ptr<QList<QStringList> > PlanificacionesDias::getAll()
 {
+    QLOG_TRACE() << "boost::shared_ptr<QList<QStringList> > PlanificacionesDias::getAll()";
     boost::shared_ptr<QList<QStringList> > res = boost::make_shared<QList<QStringList> >();
 
     PlanificacionDiaLst lst = getAll(false);
@@ -170,6 +189,7 @@ boost::shared_ptr<QList<QStringList> > PlanificacionesDias::getAll()
 
 void PlanificacionesDias::fillData(QTreeWidget &tree)
 {
+    QLOG_TRACE() << "void PlanificacionesDias::fillData(QTreeWidget &tree)";
     tree.clear();
     foreach(PlanificacionDiaPtr p, m_Planificaciones.values())
     {
@@ -191,6 +211,7 @@ void PlanificacionesDias::fillData(QTreeWidget &tree)
 
 bool PlanificacionesDias::addNew()
 {
+    QLOG_TRACE() << "bool PlanificacionesDias::addNew()";
     DlgSelectorBytDate dlg;
     EstimacionDiaLst diasSinEstimar = DataStore::instance()->getEstimacionesDias()->getUnplanned(false);
     QList<QDate> dias;
@@ -213,6 +234,7 @@ bool PlanificacionesDias::addNew()
 
 bool PlanificacionesDias::edit(QVariant ID)
 {
+    QLOG_TRACE() << "bool PlanificacionesDias::edit(QVariant ID)";
     PlanificacionDiaPtr p;
     p = getByDay(ID.toDate(), false);
     if (!p.get())
@@ -237,6 +259,7 @@ bool PlanificacionesDias::edit(QVariant ID)
 
 bool PlanificacionesDias::deleteElement(QVariant ID)
 {
+    QLOG_TRACE() << "bool PlanificacionesDias::deleteElement(QVariant ID)";
     bool result = false;
     if (m_Planificaciones.find(ID.toDate()) != m_Planificaciones.end())
     {
@@ -248,6 +271,7 @@ bool PlanificacionesDias::deleteElement(QVariant ID)
 
 bool PlanificacionesDias::canBeDeleted(QVariant ID)
 {
+    QLOG_TRACE() << "bool PlanificacionesDias::canBeDeleted(QVariant ID)";
     bool result = false;
     if (m_Planificaciones.find(ID.toDate()) != m_Planificaciones.end())
         result = m_Planificaciones[ID.toDate()];
@@ -256,10 +280,12 @@ bool PlanificacionesDias::canBeDeleted(QVariant ID)
 
 void PlanificacionesDias::refreshID(int, int)
 {
+    QLOG_TRACE() << "void PlanificacionesDias::refreshID(int, int)";
 }
 
 PlanificacionDiaLst PlanificacionesDias::getAll(bool includeDeleted)
 {
+    QLOG_TRACE() << "PlanificacionDiaLst PlanificacionesDias::getAll(bool includeDeleted)";
     PlanificacionDiaLst res = boost::make_shared<QList<PlanificacionDiaPtr> >();
     foreach (PlanificacionDiaPtr p, m_Planificaciones.values())
     {
@@ -274,6 +300,7 @@ PlanificacionDiaLst PlanificacionesDias::getAll(bool includeDeleted)
 
 PlanificacionDiaPtr PlanificacionesDias::getByDay(QDate day, bool includeDeleted)
 {
+    QLOG_TRACE() << "PlanificacionDiaPtr PlanificacionesDias::getByDay(QDate day, bool includeDeleted)";
     if (m_Planificaciones.find(day) == m_Planificaciones.end())
         return PlanificacionDiaPtr();
     else
@@ -294,6 +321,7 @@ PlanificacionDiaPtr PlanificacionesDias::getByDay(QDate day, bool includeDeleted
 
 PlanificacionDiaLst PlanificacionesDias::getAllReadyForApproval()
 {
+    QLOG_TRACE() << "PlanificacionDiaLst PlanificacionesDias::getAllReadyForApproval()";
     PlanificacionDiaLst res = boost::make_shared<QList<PlanificacionDiaPtr> >();
     foreach (PlanificacionDiaPtr p, m_Planificaciones.values())
     {
@@ -306,11 +334,13 @@ PlanificacionDiaLst PlanificacionesDias::getAllReadyForApproval()
 
 void PlanificacionesDias::saveDependants()
 {
+    QLOG_TRACE() << "void PlanificacionesDias::saveDependants()";
     DataStore::instance()->getPlanificacionesSubSectores()->save();
 }
 
 void PlanificacionesDias::setStatusToUnmodified(bool removeDeleted)
 {
+    QLOG_TRACE() << "void PlanificacionesDias::setStatusToUnmodified(bool removeDeleted)";
     QList<QDate> toDelete;
     foreach(PlanificacionDiaPtr p, m_Planificaciones.values())
     {
@@ -327,6 +357,7 @@ void PlanificacionesDias::setStatusToUnmodified(bool removeDeleted)
 
 boost::shared_ptr<QList<QAction*> > PlanificacionesDias::getActions()
 {
+    QLOG_TRACE() << "boost::shared_ptr<QList<QAction*> > PlanificacionesDias::getActions()";
     boost::shared_ptr<QList<QAction*> >actions = boost::make_shared<QList<QAction*> >();
 
     QAction *action = new QAction(tr("Approve"), NULL);
@@ -343,6 +374,7 @@ boost::shared_ptr<QList<QAction*> > PlanificacionesDias::getActions()
 
 bool PlanificacionesDias::printSelectedRecord(QVariant IDElement, QTextDocument &textDoc)
 {
+    QLOG_TRACE() << "bool PlanificacionesDias::printSelectedRecord(QVariant IDElement, QTextDocument &textDoc)";
     PlanificacionDiaPtr p;
     p = getByDay(IDElement.toDate(), false);
     if (p.get())

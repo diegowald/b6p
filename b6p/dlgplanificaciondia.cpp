@@ -6,12 +6,14 @@
 #include "datastore.h"
 #include "timehelper.h"
 #include <QTextStream>
+#include <QsLog.h>
 
 
 DlgPlanificacionDia::DlgPlanificacionDia(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DlgPlanificacionDia)
 {
+    QLOG_TRACE() << "DlgPlanificacionDia::DlgPlanificacionDia(QWidget *parent)";
     ui->setupUi(this);
     newID = 0;
     SubsectorsToDelete.clear();
@@ -20,11 +22,13 @@ DlgPlanificacionDia::DlgPlanificacionDia(QWidget *parent) :
 
 DlgPlanificacionDia::~DlgPlanificacionDia()
 {
+    QLOG_TRACE() << "DlgPlanificacionDia::~DlgPlanificacionDia()";
     delete ui;
 }
 
 void DlgPlanificacionDia::setData(PlanificacionDiaPtr data)
 {
+    QLOG_TRACE() << "void DlgPlanificacionDia::setData(PlanificacionDiaPtr data)";
     ui->lblDia->setText(tr("Date: %1").arg(data->Dia().value().toString(Qt::TextDate)));
     ui->lblHorasEstimadas->setText(tr("Estimation: %1 hs").arg(QString::number(data->Estimacion()->EstimacionHoras().value())));
     ui->lblStatus->setText(tr("Status: %1").arg(data->Estado()));
@@ -75,6 +79,7 @@ void DlgPlanificacionDia::setData(PlanificacionDiaPtr data)
 
 void DlgPlanificacionDia::on_btnAdd_pressed()
 {
+    QLOG_TRACE() << "void DlgPlanificacionDia::on_btnAdd_pressed()";
     QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget);
     ui->treeWidget->addTopLevelItem(item);
     TimeAssignmentItemEdit *time = new TimeAssignmentItemEdit();
@@ -90,15 +95,18 @@ void DlgPlanificacionDia::on_btnAdd_pressed()
 
 void DlgPlanificacionDia::on_btnEdit_pressed()
 {
+    QLOG_TRACE() << "void DlgPlanificacionDia::on_btnEdit_pressed()";
 }
 
 void DlgPlanificacionDia::displayPlannedHours(double hours)
 {
+    QLOG_TRACE() << "void DlgPlanificacionDia::displayPlannedHours(double hours)";
     ui->lblHorasPlanificadas->setText(tr("Planned: %1 hs").arg(QString::number(hours)));
 }
 
 void DlgPlanificacionDia::slot_AssignmentChanged(int, int)
 {
+    QLOG_TRACE() << "void DlgPlanificacionDia::slot_AssignmentChanged(int, int)";
     double CantHoras = 0;
     for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
     {
@@ -111,21 +119,25 @@ void DlgPlanificacionDia::slot_AssignmentChanged(int, int)
 
 QDate DlgPlanificacionDia::Dia()
 {
+    QLOG_TRACE() << "QDate DlgPlanificacionDia::Dia()";
     return m_Dia;
 }
 
 QString DlgPlanificacionDia::Notas()
 {
+    QLOG_TRACE() << "QString DlgPlanificacionDia::Notas()";
     return ui->txtNotes->text();
 }
 
 int DlgPlanificacionDia::IDSupervisor()
 {
+    QLOG_TRACE() << "int DlgPlanificacionDia::IDSupervisor()";
     return -1;
 }
 
 PlanificacionSubSectorLst DlgPlanificacionDia::Planificaciones()
 {
+    QLOG_TRACE() << "PlanificacionSubSectorLst DlgPlanificacionDia::Planificaciones()";
     PlanificacionSubSectorLst res = boost::make_shared<QList<PlanificacionSubSectorPtr> >();
 
     for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
@@ -166,6 +178,7 @@ PlanificacionSubSectorLst DlgPlanificacionDia::Planificaciones()
 
 void DlgPlanificacionDia::setReadOnly()
 {
+    QLOG_TRACE() << "void DlgPlanificacionDia::setReadOnly()";
     ui->btnAdd->setEnabled(false);
     ui->btnDelete->setEnabled(false);
     ui->btnEdit->setEnabled(false);
@@ -180,6 +193,7 @@ void DlgPlanificacionDia::setReadOnly()
 
 void DlgPlanificacionDia::on_btnDelete_pressed()
 {
+    QLOG_TRACE() << "void DlgPlanificacionDia::on_btnDelete_pressed()";
     QTreeWidgetItem *item = ui->treeWidget->currentItem();
     if (item)
     {
@@ -194,6 +208,7 @@ void DlgPlanificacionDia::on_btnDelete_pressed()
 
 void DlgPlanificacionDia::on_calcularHoras(int IDEmpleado, int &horas)
 {
+    QLOG_TRACE() << "void DlgPlanificacionDia::on_calcularHoras(int IDEmpleado, int &horas)";
     for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = ui->treeWidget->topLevelItem(i);
@@ -206,6 +221,7 @@ void DlgPlanificacionDia::on_calcularHoras(int IDEmpleado, int &horas)
 
 void DlgPlanificacionDia::on_refreshColorAssignments()
 {
+    QLOG_TRACE() << "void DlgPlanificacionDia::on_refreshColorAssignments()";
     for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = ui->treeWidget->topLevelItem(i);
@@ -217,6 +233,7 @@ void DlgPlanificacionDia::on_refreshColorAssignments()
 
 void DlgPlanificacionDia::on_AllowOverWorkingForEmployee(int IDEmpleado)
 {
+    QLOG_TRACE() << "void DlgPlanificacionDia::on_AllowOverWorkingForEmployee(int IDEmpleado)";
     for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = ui->treeWidget->topLevelItem(i);
@@ -228,6 +245,7 @@ void DlgPlanificacionDia::on_AllowOverWorkingForEmployee(int IDEmpleado)
 
 void DlgPlanificacionDia::on_btnExport_pressed()
 {
+    QLOG_TRACE() << "void DlgPlanificacionDia::on_btnExport_pressed()";
     QString suggestedName = "x"; //model->suggestedFileName();
 
     QString filename =
@@ -268,6 +286,7 @@ void DlgPlanificacionDia::on_btnExport_pressed()
 
 QStringList DlgPlanificacionDia::getHeaders()
 {
+    QLOG_TRACE() << "QStringList DlgPlanificacionDia::getHeaders()";
     QStringList res;
     res << tr("Sector") << tr("SubSector")
         << tr("From") << tr("To")
@@ -277,6 +296,7 @@ QStringList DlgPlanificacionDia::getHeaders()
 
 boost::shared_ptr<QList<QStringList> > DlgPlanificacionDia::getAll()
 {
+    QLOG_TRACE() << "boost::shared_ptr<QList<QStringList> > DlgPlanificacionDia::getAll()";
     boost::shared_ptr<QList<QStringList> > res = boost::make_shared<QList<QStringList> >();
 
     for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
@@ -291,6 +311,7 @@ boost::shared_ptr<QList<QStringList> > DlgPlanificacionDia::getAll()
 
 QStringList DlgPlanificacionDia::getRecord(TimeAssignmentItemEdit *time)
 {
+    QLOG_TRACE() << "QStringList DlgPlanificacionDia::getRecord(TimeAssignmentItemEdit *time)";
     QStringList res;
 
     res << DataStore::instance()->getSectores()->getSector(time->IDSector())->Nombre().value();

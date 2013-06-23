@@ -2,11 +2,14 @@
 #include "ui_dlgparametros.h"
 #include "datastore.h"
 #include "sqlhandler.h"
+#include <QsLog.h>
+
 
 DlgParametros::DlgParametros(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DlgParametros)
 {
+    QLOG_TRACE() << "DlgParametros::DlgParametros(QWidget *parent)";
     ui->setupUi(this);
     ui->timeOpen->SetSecondsVisibility(false);
     ui->timeOpen->setbeyondThisDayVisibility(false);
@@ -32,17 +35,20 @@ DlgParametros::DlgParametros(QWidget *parent) :
 
 DlgParametros::~DlgParametros()
 {
+    QLOG_TRACE() << "DlgParametros::~DlgParametros()";
     delete ui;
 }
 
 int DlgParametros::getCloseTime()
 {
+    QLOG_TRACE() << "int DlgParametros::getCloseTime()";
     int timeClose = ui->timeClose->timeSeconds();
     return timeClose;
 }
 
 void DlgParametros::accept()
 {
+    QLOG_TRACE() << "void DlgParametros::accept()";
     DataStore::instance()->getParametros()->setValue(Parametros::OPEN_STORE, ui->timeOpen->timeSeconds());
     DataStore::instance()->getParametros()->setValue(Parametros::CLOSE_STORE, getCloseTime());
     DataStore::instance()->getParametros()->setValue(Parametros::MIN_WORKING_HOURS, ui->MinWorkingHours->text().toInt());
@@ -60,6 +66,7 @@ void DlgParametros::accept()
 
 void DlgParametros::on_pushButton_pressed()
 {
+    QLOG_TRACE() << "void DlgParametros::on_pushButton_pressed()";
     QString sql = "SELECT 1;";
     SQLHandler h(ui->txtServer->text(), ui->txtDatabase->text(), ui->txtUser->text(), ui->txtPassword->text());
     RecordSet rs = h.getAll(sql);
@@ -71,5 +78,6 @@ void DlgParametros::on_pushButton_pressed()
 
 void DlgParametros::TimeInvalid(const QString &cause)
 {
+    QLOG_TRACE() << "void DlgParametros::TimeInvalid(const QString &cause)";
     ui->lblMessage->setText(cause);
 }

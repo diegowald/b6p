@@ -1,6 +1,6 @@
 #include "parametros.h"
 
-
+#include <QsLog.h>
 
 const QString Parametros::OPEN_STORE("openStore");
 const QString Parametros::CLOSE_STORE("closeStore");
@@ -19,60 +19,72 @@ Parametros::Parametros(QObject *parent) :
     ACollection(tr("Parameters"),
                 "Parameters", false, ACollection::MERGE_KEEP_LOCAL, parent)
 {
+    QLOG_TRACE() << "Parametros::Parametros(QObject *parent)";
     m_recordsWereCreated = false;
 }
 
 QString Parametros::getSelectFromMainDB()
 {
+    QLOG_TRACE() << "QString Parametros::getSelectFromMainDB()";
     return "";
 }
 
 QString Parametros::getSqlString()
 {
+    QLOG_TRACE() << "QString Parametros::getSqlString()";
     return "select Key, Value from parametros;";
 }
 
 void Parametros::addRecord(RecordPtr record, bool)
 {
+    QLOG_TRACE() << "void Parametros::addRecord(RecordPtr record, bool)";
     m_recordsWereCreated = true;
     m_Dictionary[(*record)["Key"].toString()] = (*record)["Value"].toString();
 }
 
 void Parametros::updateRecord(RecordPtr)
 {
+    QLOG_TRACE() << "void Parametros::updateRecord(RecordPtr)";
 }
 
 void Parametros::deleteRecord(RecordPtr)
 {
+    QLOG_TRACE() << "void Parametros::deleteRecord(RecordPtr)";
 }
 
 bool Parametros::exists(RecordPtr)
 {
+    QLOG_TRACE() << "bool Parametros::exists(RecordPtr)";
     return true;
 }
 
 QString Parametros::getDeleteStatement()
 {
+    QLOG_TRACE() << "QString Parametros::getDeleteStatement()";
     return "delete from parametros where Key = :Key;";
 }
 
 QString Parametros::getUpdateStatement()
 {
+    QLOG_TRACE() << "QString Parametros::getUpdateStatement()";
     return "update parametros set Value = :Value where Key = :Key;";
 }
 
 QString Parametros::getInsertStatement(bool)
 {
+    QLOG_TRACE() << "QString Parametros::getInsertStatement(bool)";
     return "insert into parametros (Key, Value) values (:Key, :Value);";
 }
 
 QString Parametros::getSQLExistsInMainDB()
 {
+    QLOG_TRACE() << "QString Parametros::getSQLExistsInMainDB()";
     return "select Key, Value from Parametros where Key = :Key;";
 }
 
 RecordSet Parametros::getRecords(RecordStatus status)
 {
+    QLOG_TRACE() << "RecordSet Parametros::getRecords(RecordStatus status)";
     RecordSet rs = boost::make_shared<QList<RecordPtr> >();
     if (status == DELETED)
         return rs;
@@ -96,39 +108,47 @@ RecordSet Parametros::getRecords(RecordStatus status)
 
 RecordSet Parametros::getUnsent()
 {
+    QLOG_TRACE() << "RecordSet Parametros::getUnsent()";
     return boost::make_shared<QList<RecordPtr> >();
 }
 
 void Parametros::defineHeaders(QStringList &)
 {
+    QLOG_TRACE() << "void Parametros::defineHeaders(QStringList &)";
 }
 
 boost::shared_ptr<QList<QStringList> > Parametros::getAll()
 {
+    QLOG_TRACE() << "boost::shared_ptr<QList<QStringList> > Parametros::getAll()";
     return boost::make_shared<QList<QStringList> >();
 }
 
 void Parametros::fillData(QTreeWidget &)
 {
+    QLOG_TRACE() << "void Parametros::fillData(QTreeWidget &)";
 }
 
 bool Parametros::addNew()
 {
+    QLOG_TRACE() << "bool Parametros::addNew()";
     return false;
 }
 
 bool Parametros::edit(QVariant)
 {
+    QLOG_TRACE() << "bool Parametros::edit(QVariant)";
     return false;
 }
 
 bool Parametros::deleteElement(QVariant)
 {
+    QLOG_TRACE() << "bool Parametros::deleteElement(QVariant)";
     return false;
 }
 
 QString Parametros::getValue(QString key, QString defaultValue)
 {
+    QLOG_TRACE() << "QString Parametros::getValue(QString key, QString defaultValue)";
     if (m_Dictionary.find(key) == m_Dictionary.end())
         return defaultValue;
     else
@@ -137,11 +157,13 @@ QString Parametros::getValue(QString key, QString defaultValue)
 
 void Parametros::setValue(QString key, QString value)
 {
+    QLOG_TRACE() << "void Parametros::setValue(QString key, QString value)";
     m_Dictionary[key] = value;
 }
 
 int Parametros::getValue(QString key, int defaultValue)
 {
+    QLOG_TRACE() << "int Parametros::getValue(QString key, int defaultValue)";
     QString v = getValue(key, "");
     if (v == "")
         return defaultValue;
@@ -150,5 +172,6 @@ int Parametros::getValue(QString key, int defaultValue)
 
 void Parametros::setValue(QString key, int value)
 {
+    QLOG_TRACE() << "void Parametros::setValue(QString key, int value)";
     setValue(key, QString::number(value));
 }
