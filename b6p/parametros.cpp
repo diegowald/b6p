@@ -15,6 +15,8 @@ const QString Parametros::DATABASE_NAME("Database Name");
 const QString Parametros::USER_NAME("User Name");
 const QString Parametros::PASSWORD("Password");
 
+const QString Parametros::LOG_LEVEL("LOG_LEVEL");
+
 Parametros::Parametros(QObject *parent) :
     ACollection(tr("Parameters"),
                 "Parameters", false, ACollection::MERGE_KEEP_LOCAL, parent)
@@ -174,4 +176,19 @@ void Parametros::setValue(QString key, int value)
 {
     QLOG_TRACE() << "void Parametros::setValue(QString key, int value)";
     setValue(key, QString::number(value));
+}
+
+QsLogging::Level Parametros::getLoggingLevel()
+{
+    QLOG_TRACE() << "QsLogging::Level Parametros::getLoggingLever()";
+    QString v = getValue(LOG_LEVEL, "0");
+
+    if (v == "")
+        return QsLogging::TraceLevel;
+
+    int logLevel = v.toInt();
+    if ((logLevel < 0) || (logLevel > 6))
+        logLevel = 6;
+
+    return (QsLogging::Level)logLevel;
 }

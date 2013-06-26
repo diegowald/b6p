@@ -21,6 +21,8 @@ MainWindow::MainWindow(int LoggedUser, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow())
 {
+    QsLogging::Logger::instance().setLoggingLevel(DataStore::instance()->getParametros()->getLoggingLevel());
+
     QLOG_TRACE() << "MainWindow::MainWindow(int LoggedUser, QWidget *parent)";
     //DataStore::instance()->initialize(this);
 

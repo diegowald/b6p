@@ -41,12 +41,14 @@ bool SQLHandler::tryReconnect()
     {
         if (m_UsingSQLITE)
         {
+            QLOG_TRACE() << "Database trying to reconnect: SQLite Database";
             db = QSqlDatabase::addDatabase("QSQLITE");
             db.setHostName("localhost");
             db.setDatabaseName(m_database);
         }
         else
         {
+            QLOG_TRACE() << "Database trying to reconnect: MySQL Database";
             db = QSqlDatabase::addDatabase("QMYSQL");
             db.setHostName(m_Server);
             db.setDatabaseName(m_database);
@@ -69,6 +71,10 @@ RecordSet SQLHandler::getAll(QString &query)
 
     if (!tryReconnect())
     {
+        QLOG_ERROR() << QObject::tr("Can't open Database.")
+                     << QObject::tr("Reason: ")
+                     << db.lastError().text();
+
         QMessageBox::information(NULL, QObject::tr("DB Error"), QObject::tr("Can't open Database")
                                  + '\n'
                                  + QObject::tr("Reason: ")
@@ -93,6 +99,8 @@ RecordSet SQLHandler::getAll(QString &query)
 
     if (q.lastError().type() != QSqlError::NoError)
     {
+        QLOG_ERROR() << QObject::tr("SQL Error: ")
+                     << q.lastError().text();
         QMessageBox::information(NULL, QObject::tr("SQL Error"), q.lastError().text());
     }
     db.close();
@@ -106,6 +114,10 @@ RecordSet SQLHandler::getAll(QString &query, RecordPtr record)
 
     if (!tryReconnect())
     {
+        QLOG_ERROR() <<  QObject::tr("Can't open Database. ")
+                      << QObject::tr("Reason: ")
+                      << db.lastError().text();
+
         QMessageBox::information(NULL, QObject::tr("DB Error"), QObject::tr("Can't open Database")
                                  + '\n'
                                  + QObject::tr("Reason: ")
@@ -132,6 +144,7 @@ RecordSet SQLHandler::getAll(QString &query, RecordPtr record)
 
     if (q.lastError().type() != QSqlError::NoError)
     {
+        QLOG_ERROR() << QObject::tr("SQL Error") <<  q.lastError().text();
         QMessageBox::information(NULL, QObject::tr("SQL Error"), q.lastError().text());
     }
     db.close();
@@ -187,6 +200,7 @@ int SQLHandler::executeQuery(QString &cmd, RecordPtr record, bool returnLastInse
     q.exec();
     if (q.lastError().type() != QSqlError::NoError)
     {
+        QLOG_ERROR() << QObject::tr("SQL Error:") << q.lastError().text();
         QMessageBox::information(NULL, QObject::tr("SQL Error"), q.lastError().text());
     }
 
@@ -214,9 +228,9 @@ void SQLHandler::executeCommand(QString &cmd)
 
     if (q.lastError().type() != QSqlError::NoError)
     {
+        QLOG_ERROR() << QObject::tr("SQL Error: ") << q.lastError().text();
         QMessageBox::information(NULL, QObject::tr("SQL Error"), q.lastError().text());
     }
 
     db.close();
-
 }

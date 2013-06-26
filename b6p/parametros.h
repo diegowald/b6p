@@ -50,6 +50,7 @@ public:
     int getValue(QString key, int defaultValue);
     void setValue(QString key, int value);
 
+    QsLogging::Level getLoggingLevel();
 
     static const QString OPEN_STORE;
     static const QString CLOSE_STORE;
@@ -63,6 +64,8 @@ public:
     static const QString DATABASE_NAME;
     static const QString USER_NAME;
     static const QString PASSWORD;
+
+    static const QString LOG_LEVEL;
 
 signals:
     

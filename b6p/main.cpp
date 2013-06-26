@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     QsLogging::Logger & logger = QsLogging::Logger::instance();
-    logger.setLoggingLevel(QsLogging::InfoLevel);
+    logger.setLoggingLevel(QsLogging::TraceLevel);
 
     const QString logPath(QDir(a.applicationDirPath()).filePath("b6p.log"));
 

@@ -10,7 +10,7 @@
 #include <QAction>
 #include <QList>
 #include <QTextDocument>
-
+#include <QsLogLevel.h>
 
 class ACollection : public QObject
 {
