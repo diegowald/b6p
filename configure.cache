@@ -1,0 +1,32 @@
+-platform 
+win32-g++ 
+-opensource 
+-debug 
+-debug-and-release 
+-no-phonon 
+-no-webkit
+-fast 
+-nomake examples 
+-nomake demos 
+-no-dsp 
+-no-vcproj 
+-no-cetest 
+-no-s60 
+-qt-sql-odbc 
+-qt-sql-sqlite 
+-qt-sql-mysql 
+-plugin-sql-odbc 
+-plugin-sql-sqlite 
+-plugin-sql-mysql 
+-no-qt3support 
+-no-opengl 
+-no-openvg 
+-no-incredibuild-xge 
+-l 
+mysql 
+-I 
+c:\qt-4.8.4\MariaDB5.5\include 
+-I 
+c:\qt-4.8.4\MariaDB5.5\include\mysql 
+-L 
+c:\qt-4.8.4\MariaDB5.5\lib 
