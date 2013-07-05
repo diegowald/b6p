@@ -35,6 +35,10 @@ QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+greaterThan(QT_MAJOR_VERSION, 4) {
+    QT *= printsupport
+}
+
 TARGET = b6p
 TEMPLATE = app
 

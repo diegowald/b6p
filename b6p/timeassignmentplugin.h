@@ -1,4 +1,4 @@
-#ifndef TIMEASSIGNMENTPLUGIN_H
+/*#ifndef TIMEASSIGNMENTPLUGIN_H
 #define TIMEASSIGNMENTPLUGIN_H
 
 #include <QtDesigner/QDesignerCustomWidgetInterface>
@@ -28,3 +28,4 @@ private:
 };
 
 #endif // TIMEASSIGNMENTPLUGIN_H
+*/

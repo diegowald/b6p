@@ -1,3 +1,4 @@
+/*
 #include "timeassignmentplugin.h"
 #include "timeassignment.h"
 #include <QtPlugin>
@@ -9,7 +10,7 @@ TimeAssignmentPlugin::TimeAssignmentPlugin(QWidget *parent)
     initialized = false;
 }
 
-void TimeAssignmentPlugin::initialize(QDesignerFormEditorInterface */*core*/)
+void TimeAssignmentPlugin::initialize(QDesignerFormEditorInterface *-/-*core*-/)
 {
     if (initialized)
         return;
@@ -88,3 +89,4 @@ QString TimeAssignmentPlugin::includeFile() const
 
 
 Q_EXPORT_PLUGIN2(timeAssignmentPlugin, TimeAssignmentPlugin)
+*/

@@ -7,8 +7,8 @@
 #include <QMessageBox>
 
 // Printing
-#include <QPrintDialog>
-#include <QPrintPreviewDialog>
+#include <QtPrintSupport/QPrintDialog>
+#include <QtPrintSupport/QPrintPreviewDialog>
 #include <QPainter>
 #include <QMdiSubWindow>
 #include <QDebug>

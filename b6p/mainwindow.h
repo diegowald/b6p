@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 //Printing
-#include <QPrinter>
+#include <QtPrintSupport/QPrinter>
 #include "genericlist.h"
 
 
