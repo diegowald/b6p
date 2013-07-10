@@ -76,6 +76,18 @@ bool Sectores::exists(RecordPtr record)
     return (s.get() != NULL);
 }
 
+bool Sectores::localRecordIsEqualsTo(RecordPtr record)
+{
+    QLOG_TRACE() << "bool Sectores::localRecordIsEqualsTo(RecordPtr record)";
+    SectorPtr s = getSector((*record)["ID"].toInt());
+    if (NULL != s.get())
+    {
+        return s->isEqualsTo(record);
+    }
+    else
+        return false;
+}
+
 bool Sectores::isRecordUnsent(RecordPtr record)
 {
     QLOG_TRACE() << "bool Sectores::isRecordUnsent(RecordPtr record)";

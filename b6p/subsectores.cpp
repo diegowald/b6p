@@ -70,6 +70,18 @@ bool SubSectores::exists(RecordPtr record)
     return (getSubSector((*record)["ID"].toInt()) != SubSectorPtr());
 }
 
+bool SubSectores::localRecordIsEqualsTo(RecordPtr record)
+{
+    QLOG_TRACE() << "bool SubSectores::localRecordIsEqualsTo(RecordPtr record)";
+    SubSectorPtr s = getSubSector((*record)["ID"].toInt());
+    if (SubSectorPtr() != s)
+    {
+        return s->isEqualsTo(record);
+    }
+    else
+        return false;
+}
+
 bool SubSectores::isRecordUnsent(RecordPtr record)
 {
     QLOG_TRACE() << "bool SubSectores::isRecordUnsent(RecordPtr record)";

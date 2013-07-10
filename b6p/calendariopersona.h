@@ -22,6 +22,7 @@ public:
     NullableField<int>& HoraEgreso();
 
     virtual RecordPtr asRecordPtr();
+    virtual bool isEqualsTo(RecordPtr record);
     bool EqualsTo(CalendarioPersonaPtr other);
     void updateWith(CalendarioPersonaPtr other);
 

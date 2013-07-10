@@ -81,6 +81,18 @@ bool CalendarioPersonas::exists(RecordPtr record)
     return false;
 }
 
+bool CalendarioPersonas::localRecordIsEqualsTo(RecordPtr record)
+{
+    QLOG_TRACE() << "bool CalendarioPersonas::localRecordIsEqualsTo(RecordPtr record)";
+    foreach (CalendarioPersonaPtr c, m_Calendarios) {
+        if ((c->Dia().value() == (*record)["Dia"]) && (c->IDEmpleado().value() == (*record)["IDEmpleado"]))
+        {
+            return c->isEqualsTo(record);
+        }
+    }
+    return false;
+}
+
 bool CalendarioPersonas::isRecordUnsent(RecordPtr record)
 {
     QLOG_TRACE() << "bool CalendarioPersonas::isRecordUnsent(RecordPtr record)";

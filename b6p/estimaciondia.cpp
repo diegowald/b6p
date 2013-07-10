@@ -31,6 +31,14 @@ RecordPtr EstimacionDia::asRecordPtr()
     return res;
 }
 
+bool EstimacionDia::isEqualsTo(RecordPtr record)
+{
+    QLOG_TRACE() << "bool EstimacionDia::isEqualsTo(RecordPtr record)";
+    bool res = ((*record)["Dia"] == m_Dia.toVariant())
+            && ((*record)["HorasEstimadas"] == m_EstimacionHoras.toVariant());
+    return res;
+}
+
 NullableField<QDate> &EstimacionDia::Dia()
 {
     QLOG_TRACE() << "NullableField<QDate> &EstimacionDia::Dia()";

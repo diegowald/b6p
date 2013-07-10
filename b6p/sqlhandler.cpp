@@ -61,7 +61,22 @@ bool SQLHandler::tryReconnect()
     if (db.isOpen())
         return true;
 
-    return db.open();
+    bool result = db.open();
+    if (!result)
+    {
+        QLOG_ERROR() << "DB cannot be opened. Reason:" << db.lastError().text();
+    }
+    return result;
+}
+
+bool SQLHandler::checkConnection()
+{
+    QLOG_TRACE() << "bool SQLHandler::checkConnection()";
+    if (!tryReconnect())
+        return false;
+    QString sql = "SELECT 1;";
+    RecordSet rs = getAll(sql);
+    return (1 == rs->count());
 }
 
 RecordSet SQLHandler::getAll(QString &query)

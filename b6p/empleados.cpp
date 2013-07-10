@@ -77,6 +77,18 @@ bool Empleados::exists(RecordPtr record)
     return (e != EmpleadoPtr());
 }
 
+bool Empleados::localRecordIsEqualsTo(RecordPtr record)
+{
+    QLOG_INFO() << "virtual bool Empleados::localRecordIsEqualsTo(RecordPtr record)";
+    EmpleadoPtr e = getEmpleado((*record)["ID"].toInt(), true);
+    if (e != EmpleadoPtr())
+    {
+        return e->isEqualsTo(record);
+    }
+    else
+        return false;
+}
+
 bool Empleados::isRecordUnsent(RecordPtr record)
 {
     QLOG_TRACE() << "bool Empleados::isRecordUnsent(RecordPtr record)";

@@ -60,6 +60,12 @@ bool Parametros::exists(RecordPtr)
     return true;
 }
 
+bool Parametros::localRecordIsEqualsTo(RecordPtr)
+{
+    QLOG_INFO() << "virtual bool Parametros::localRecordIsEqualsTo(RecordPtr record)";
+    return true;
+}
+
 QString Parametros::getDeleteStatement()
 {
     QLOG_TRACE() << "QString Parametros::getDeleteStatement()";

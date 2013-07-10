@@ -74,6 +74,18 @@ bool PlanificacionesDias::exists(RecordPtr record)
     return (PlanificacionDiaPtr() != m_Planificaciones[QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date()]);
 }
 
+bool PlanificacionesDias::localRecordIsEqualsTo(RecordPtr record)
+{
+    QLOG_INFO() << "bool PlanificacionesDias::localRecordIsEqualsTo(RecordPtr record)";
+    PlanificacionDiaPtr p = m_Planificaciones[QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date()];
+    if (p != PlanificacionDiaPtr())
+    {
+        return p->isEqualsTo(record);
+    }
+    else
+        return false;
+}
+
 bool PlanificacionesDias::isRecordUnsent(RecordPtr record)
 {
     QLOG_TRACE() << "bool PlanificacionesDias::isRecordUnsent(RecordPtr record)";

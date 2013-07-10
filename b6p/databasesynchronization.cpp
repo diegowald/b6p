@@ -12,6 +12,12 @@ DatabaseSynchronization::DatabaseSynchronization(boost::shared_ptr<ACollection> 
     m_SQLHandler = sqlHandler;
 }
 
+bool DatabaseSynchronization::checkConnection()
+{
+    QLOG_TRACE() << "void DatabaseSynchronization::getDataFromDB(QString dateFrom)";
+    return m_SQLHandler->checkConnection();
+}
+
 void DatabaseSynchronization::getDataFromDB(QString dateFrom)
 {
     QLOG_TRACE() << "void DatabaseSynchronization::getDataFromDB(QString dateFrom)";
@@ -42,18 +48,18 @@ void DatabaseSynchronization::applyChanges()
                 m_Data->deleteRecord(rec);
             saveAfter = true;
             break;
+        case UNINITIALIZED:
+            // Fall through
+            QLOG_INFO() << "Status Uninitialized";
+        case UNMODIFIED:
+            QLOG_INFO() << "Status Unmodified";
+            break;
         case NEW:
             // Fall through
             QLOG_INFO() << "Status New";
         case MODIFIED:
             // Fall through
             QLOG_INFO() << "Status Modified";
-        case UNMODIFIED:
-            // Fall through
-            QLOG_INFO() << "Status Unmodified";
-        case UNINITIALIZED:
-            // Fall through
-            QLOG_INFO() << "Status Uninitialized";
         default:
             if (!m_Data->exists(rec))
             {
@@ -87,13 +93,16 @@ void DatabaseSynchronization::applyChanges()
                         break;
                     case ACollection::MERGE_MANUAL:
                         // Aca hay que preguntar cuales son los cambios mas importantes.
-                        DlgMerge dlg;
                         RecordPtr localRec = m_Data->getLocalRecord(rec);
-                        dlg.setData(rec, localRec, m_Data->getFieldsToShowInMerge());
-                        if (dlg.exec() == QDialog::Accepted)
+                        if (!m_Data->localRecordIsEqualsTo(rec))
                         {
-                            RecordPtr modifiedRec = dlg.mergedRecord();
-                            m_Data->updateRecord(modifiedRec);
+                            DlgMerge dlg;
+                            dlg.setData(rec, localRec, m_Data->getFieldsToShowInMerge());
+                            if (dlg.exec() == QDialog::Accepted)
+                            {
+                                RecordPtr modifiedRec = dlg.mergedRecord();
+                                m_Data->updateRecord(modifiedRec);
+                            }
                         }
                         break;
                     }

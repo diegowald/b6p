@@ -43,6 +43,20 @@ RecordPtr PlanificacionSubSector::asRecordPtr()
     return res;
 }
 
+bool PlanificacionSubSector::isEqualsTo(RecordPtr record)
+{
+    QLOG_TRACE() << "bool PlanificacionSubSector::isEqualsTo(RecordPtr record)";
+    bool res = ((*record)["IDRecord"] == m_IDRecord.toVariant())
+            && ((*record)["Dia"] == m_Dia.toVariant())
+            && ((*record)["IDSector"] == m_IDSector.toVariant())
+            && ((*record)["IDSubSector"] == m_IDSubSector.toVariant())
+            && ((*record)["IDEmpleado"] == m_IDEmpleado.toVariant())
+            && ((*record)["HoraInicio"] == m_HoraInicio.toVariant())
+            && ((*record)["HoraFin"] == m_HoraFin.toVariant())
+            && ((*record)["AllowOverWorking"] == (m_AllowOverworking.value() ? 1 : 0));
+    return res;
+}
+
 NullableField<int> &PlanificacionSubSector::IDRecord()
 {
     QLOG_TRACE() << "NullableField<int> &PlanificacionSubSector::IDRecord()";

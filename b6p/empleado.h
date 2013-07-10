@@ -68,6 +68,7 @@ public:
     void updateDisponibilidades(CalendarioPersonaLst newDisponibilidades);
 
     virtual RecordPtr asRecordPtr();
+    bool isEqualsTo(RecordPtr record);
 
     bool DadoDeBaja();
     bool isPowerUser();

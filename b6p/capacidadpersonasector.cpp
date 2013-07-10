@@ -31,6 +31,16 @@ RecordPtr CapacidadPersonaSector::asRecordPtr()
     return res;
 }
 
+bool CapacidadPersonaSector::isEqualsTo(RecordPtr record)
+{
+    QLOG_TRACE() << "bool CapacidadesPersonaSector::isEqualsTo(RecordPtr record)";
+    bool res = ((*record)["IDSector"] == m_IDSector.toVariant())
+            && ((*record)["IDSubSector"] == m_ID_SubSector.toVariant())
+            && ((*record)["IDEmpleado"] == m_IDEmpleado.toVariant())
+            && ((*record)["Capacidad"] == m_Capacidad.toVariant());
+    return res;
+}
+
 NullableField<int> &CapacidadPersonaSector::IDSector()
 {
     QLOG_TRACE() << "NullableField<int> &CapacidadPersonaSector::IDSector()";

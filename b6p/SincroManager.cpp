@@ -74,9 +74,12 @@ void SincroManager::obtenerActualizacionesDeBaseCentral()
     foreach(DatabaseSynchronizationPtr db, m_Synchronizationtables)
     {
         QLOG_INFO() << "Getting updates for " << db->name();
-        db->getDataFromDB(m_FechaUltimaSincronizacion);
-        db->applyChanges();
-        db->checkConsistency();
+        if (db->checkConnection())
+        {
+            db->getDataFromDB(m_FechaUltimaSincronizacion);
+            db->applyChanges();
+            db->checkConsistency();
+        }
         QCoreApplication::processEvents();
     }
 }
@@ -87,8 +90,11 @@ void SincroManager::enviarDatosADBCentral()
     foreach(DatabaseSynchronizationPtr db, m_Synchronizationtables)
     {
         QLOG_INFO() << "Sending data for " << db->name();
-        db->sendData();
-        db->saveLocalChanges();
+        if (db->checkConnection())
+        {
+            db->sendData();
+            db->saveLocalChanges();
+        }
         QCoreApplication::processEvents();
     }
 }

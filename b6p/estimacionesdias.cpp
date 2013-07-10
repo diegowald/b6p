@@ -70,6 +70,18 @@ bool EstimacionesDias::exists(RecordPtr record)
     return (m_Estimaciones[QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date()] != EstimacionDiaPtr());
 }
 
+bool EstimacionesDias::localRecordIsEqualsTo(RecordPtr record)
+{
+    QLOG_TRACE() << "virtual bool EstimacionesDias::localRecordIsEqualsTo(RecordPtr record)";
+    EstimacionDiaPtr e = m_Estimaciones[QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date()];
+    if (e != EstimacionDiaPtr())
+    {
+        return e->isEqualsTo(record);
+    }
+    else
+        return false;
+}
+
 bool EstimacionesDias::isRecordUnsent(RecordPtr record)
 {
     QLOG_TRACE() << "bool EstimacionesDias::isRecordUnsent(RecordPtr record)";

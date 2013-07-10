@@ -57,6 +57,12 @@ bool Accesos::exists(RecordPtr)
     return true;
 }
 
+bool Accesos::localRecordIsEqualsTo(RecordPtr)
+{
+    QLOG_TRACE() << "bool Accesos::localRecordIsEqualsTo(RecordPtr record)";
+    return true;
+}
+
 RecordSet Accesos::getRecords(RecordStatus)
 {
     QLOG_TRACE() << "RecordSet Accesos::getRecords(RecordStatus)";

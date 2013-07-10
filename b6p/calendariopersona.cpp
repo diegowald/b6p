@@ -30,6 +30,16 @@ RecordPtr CalendarioPersona::asRecordPtr()
     return res;
 }
 
+bool CalendarioPersona::isEqualsTo(RecordPtr record)
+{
+    QLOG_TRACE() << "bool CalendarioPersona::isEqualsTo(RecordPtr record)";
+    bool res = ((*record)["Dia"] == m_Dia.toVariant())
+            && ((*record)["IDEmpleado"] == m_IDEmpleado.toVariant())
+            && ((*record)["HoraIngreso"] == m_HoraIngreso.toVariant())
+            && ((*record)["HoraEgreso"] == m_HoraEgreso.toVariant());
+    return res;
+}
+
 NullableField<int> &CalendarioPersona::Dia()
 {
     QLOG_TRACE() << "NullableField<int> &CalendarioPersona::Dia()";

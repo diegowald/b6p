@@ -118,6 +118,16 @@ RecordPtr Empleado::asRecordPtr()
     return res;
 }
 
+bool Empleado::isEqualsTo(RecordPtr record)
+{
+    bool res = ((*record)["Legajo"] == legajo.toVariant())
+            && ((*record)["Apellido"] == apellido.toVariant())
+            && ((*record)["Nombres"] == nombre.toVariant())
+            && ((*record)["FechaIngreso"] == fechaIngreso.toVariant())
+            && ((*record)["isBaja"] == isBaja.toVariant());
+    return res;
+}
+
 NullableField<int>& Empleado::IDEmpleado()
 {
     QLOG_TRACE() << "NullableField<int>& Empleado::IDEmpleado()";

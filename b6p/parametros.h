@@ -14,6 +14,7 @@ public:
     virtual void updateRecord(RecordPtr record);
     virtual void deleteRecord(RecordPtr record);
     virtual bool exists(RecordPtr record);
+    virtual bool localRecordIsEqualsTo(RecordPtr record);
     virtual bool isRecordUnsent(RecordPtr) { return false; }
     virtual RecordPtr getLocalRecord(RecordPtr) { return RecordPtr(); }
     virtual QStringList getFieldsToShowInMerge() { return QStringList(); }

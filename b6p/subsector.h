@@ -19,6 +19,7 @@ public:
     SectorPtr getSector();
 
     virtual RecordPtr asRecordPtr();
+    virtual bool isEqualsTo(RecordPtr record);
 signals:
     
 public slots:

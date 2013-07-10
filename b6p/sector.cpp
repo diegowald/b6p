@@ -33,6 +33,16 @@ RecordPtr Sector::asRecordPtr()
     return res;
 }
 
+bool Sector::isEqualsTo(RecordPtr record)
+{
+    QLOG_TRACE() << "bool Sector::isEqualsTo(RecordPtr record)";
+    bool res = ((*record)["IDSector"] == m_IDSector.toVariant())
+            && ((*record)["Nombre"] == m_Nombre.toVariant())
+            && ((*record)["Descripcion"] == m_Descripcion.toVariant())
+            && ((*record)["showInPlanification"] == m_ShowInPlanification.toVariant());
+    return res;
+}
+
 NullableField<int> &Sector::IDSector()
 {
     QLOG_TRACE() << "NullableField<int> &Sector::IDSector()";

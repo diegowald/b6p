@@ -19,6 +19,7 @@ public:
     bool canBeDeleted();
 
     virtual RecordPtr asRecordPtr();
+    virtual bool isEqualsTo(RecordPtr record);
 signals:
     
 public slots:

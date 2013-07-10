@@ -79,6 +79,18 @@ bool PlanificacionesDiasSubSectores::exists(RecordPtr record)
     return (m_Planificacion[(*record)["IDRecord"].toInt()] != PlanificacionSubSectorPtr());
 }
 
+bool PlanificacionesDiasSubSectores::localRecordIsEqualsTo(RecordPtr record)
+{
+    QLOG_TRACE() << "bool PlanificacionesDiasSubSectores::localRecordIsEqualsTo(RecordPtr record)";
+    PlanificacionSubSectorPtr p = m_Planificacion[(*record)["IDRecord"].toInt()];
+    if (p != PlanificacionSubSectorPtr())
+    {
+        return p->isEqualsTo(record);
+    }
+    else
+        return false;
+}
+
 bool PlanificacionesDiasSubSectores::isRecordUnsent(RecordPtr record)
 {
     QLOG_TRACE() << "bool PlanificacionesDiasSubSectores::isRecordUnsent(RecordPtr record)";

@@ -34,6 +34,7 @@ public:
     EmpleadoPtr Supervisor();
     EstimacionDiaPtr Estimacion();
     virtual RecordPtr asRecordPtr();
+    virtual bool isEqualsTo(RecordPtr record);
     QString Estado();
     void approve();
 

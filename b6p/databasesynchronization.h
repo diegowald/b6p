@@ -15,6 +15,7 @@ class DatabaseSynchronization : public QObject
 public:
     explicit DatabaseSynchronization(boost::shared_ptr<ACollection> data, boost::shared_ptr<SQLHandler> sqlHandler, QObject *parent = 0);
 
+    bool checkConnection();
     void getDataFromDB(QString dateFrom);
     void applyChanges();
     void checkConsistency();

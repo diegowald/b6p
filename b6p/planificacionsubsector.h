@@ -39,6 +39,7 @@ public:
     void updateWith(PlanificacionSubSectorPtr other);
 
     virtual RecordPtr asRecordPtr();
+    virtual bool isEqualsTo(RecordPtr record);
 
     double CantidadHoras();
 

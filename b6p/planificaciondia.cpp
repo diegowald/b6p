@@ -55,6 +55,16 @@ RecordPtr PlanificacionDia::asRecordPtr()
     return res;
 }
 
+bool PlanificacionDia::isEqualsTo(RecordPtr record)
+{
+    QLOG_TRACE() << "bool PlanificacionDia::isEqualsTo(RecordPtr record)";
+    bool res = ((*record)["Dia"] == m_Dia.toVariant())
+            && ((*record)["Notas"] == m_Notas.toVariant())
+            && ((*record)["IDSupervisor"] == m_IDSupervisor.toVariant())
+            && ((*record)["EstadoPlanificacion"] == m_EstadosPlanificacion.toVariant());
+    return res;
+}
+
 NullableField<QDate> &PlanificacionDia::Dia()
 {
     QLOG_TRACE() << "NullableField<QDate> &PlanificacionDia::Dia()";

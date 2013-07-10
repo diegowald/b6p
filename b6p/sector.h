@@ -19,6 +19,7 @@ public:
     NullableField<bool> &ShowInPlanification();
 
     virtual RecordPtr asRecordPtr();
+    virtual bool isEqualsTo(RecordPtr record);
 
 signals:
     

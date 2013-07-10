@@ -108,6 +108,20 @@ bool CapacidadesPersonaSector::exists(RecordPtr record)
     return (c != CapacidadPersonaSectorPtr());
 }
 
+bool CapacidadesPersonaSector::localRecordIsEqualsTo(RecordPtr record)
+{
+    QLOG_TRACE() << "bool CapacidadesPersonaSector::localRecordIsEqualsTo(RecordPtr record)";
+    CapacidadPersonaSectorPtr c = get((*record)["IDEmpleado"].toInt(),
+            (*record)["IDSector"].toInt(),
+            (*record)["IDSubSector"].toInt(), true);
+    if (c != CapacidadPersonaSectorPtr())
+    {
+        return c->isEqualsTo(record);
+    }
+    else
+        return false;
+}
+
 bool CapacidadesPersonaSector::isRecordUnsent(RecordPtr record)
 {
     QLOG_TRACE() << "bool CapacidadesPersonaSector::isRecordUnsent(RecordPtr record)";

@@ -32,6 +32,7 @@ public:
     SubSectorPtr getSubSector();
 
     virtual RecordPtr asRecordPtr();
+    virtual bool isEqualsTo(RecordPtr record);
     void updateIDEmpleado(int newId);
 
     bool canWork(int IDSector, int IDSubSector);

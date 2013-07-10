@@ -56,6 +56,8 @@ public:
 
     virtual QString getSelectFromMainDB();
 
+    virtual bool localRecordIsEqualsTo(RecordPtr record);
+
 protected:
     virtual bool addNew();
     virtual bool addNew(QTreeWidgetItem *item);
