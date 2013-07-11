@@ -121,7 +121,7 @@ QString Empleados::getDeleteStatement()
 
 QString Empleados::getUpdateStatement()
 {
-    QLOG_TRACE() << "QString Empleados::getUpdateStatement()";
+     QLOG_TRACE() << "QString Empleados::getUpdateStatement()";
     return QString("update empleados set Apellido = :Apellido, Nombres = :Nombres, "
                    " Legajo = :Legajo, FechaIngreso = :FechaIngreso, RecordStatus = %1, sent = 0  where ID = :RECORD_ID;").arg(RECORD_MODIFIED);
 }

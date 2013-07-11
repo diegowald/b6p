@@ -94,8 +94,10 @@ void DatabaseSynchronization::applyChanges()
                     case ACollection::MERGE_MANUAL:
                         // Aca hay que preguntar cuales son los cambios mas importantes.
                         RecordPtr localRec = m_Data->getLocalRecord(rec);
+                        QLOG_DEBUG() << rec;
                         if (!m_Data->localRecordIsEqualsTo(rec))
                         {
+                            QLOG_DEBUG() << "Needs to be merged";
                             DlgMerge dlg;
                             dlg.setData(rec, localRec, m_Data->getFieldsToShowInMerge());
                             if (dlg.exec() == QDialog::Accepted)
@@ -103,6 +105,10 @@ void DatabaseSynchronization::applyChanges()
                                 RecordPtr modifiedRec = dlg.mergedRecord();
                                 m_Data->updateRecord(modifiedRec);
                             }
+                        }
+                        else
+                        {
+                            QLOG_DEBUG() << "Record is equal to local.";
                         }
                         break;
                     }
