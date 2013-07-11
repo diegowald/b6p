@@ -48,12 +48,16 @@ struct IRecord
     void setModified()
     {
         if (status == UNMODIFIED)
+        {
             status = MODIFIED;
+            setSentStatus(false);
+        }
     }
 
     void setDeleted()
     {
         status = DELETED;
+        setSentStatus(false);
     }
     void setNew()
     {
@@ -72,6 +76,11 @@ struct IRecord
     void setSentStatus(bool sent)
     {
         Sent = sent;
+    }
+
+    RecordStatus getRecordStatus() const
+    {
+        return status;
     }
 
 private:

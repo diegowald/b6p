@@ -113,18 +113,19 @@ RecordPtr Empleado::asRecordPtr()
     (*res)["FechaIngreso"] = fechaIngreso.toVariant();
     (*res)["isBaja"] = isBaja.toVariant();
     (*res)["ID"] = idEmpleado.toVariant();
+    (*res)["RecordStatus"] = getRecordStatus();
 
     (*res)[RECORD_ID] = idEmpleado.toVariant();
     return res;
 }
 
-bool Empleado::isEqualsTo(RecordPtr record)
+bool Empleado::isEqualsTo(RecordPtr record, const QStringList &fieldsToMerge)
 {
-    bool res = ((*record)["Legajo"] == legajo.toVariant())
-            && ((*record)["Apellido"] == apellido.toVariant())
-            && ((*record)["Nombres"] == nombre.toVariant())
-            && ((*record)["FechaIngreso"] == fechaIngreso.toVariant())
-            && ((*record)["isBaja"] == isBaja.toVariant());
+    bool res = true;
+    RecordPtr localRec = asRecordPtr();
+    foreach (QString fld, fieldsToMerge) {
+        res &= ((*record)[fld] == (*localRec)[fld]);
+    }
     return res;
 }
 

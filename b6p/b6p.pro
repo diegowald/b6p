@@ -32,6 +32,7 @@
  #simulator: warning(This example does not work on Simulator platform)
 
 QT       += core gui sql
+CONFIG += qt
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 

@@ -83,7 +83,7 @@ bool Empleados::localRecordIsEqualsTo(RecordPtr record)
     EmpleadoPtr e = getEmpleado((*record)["ID"].toInt(), true);
     if (e != EmpleadoPtr())
     {
-        return e->isEqualsTo(record);
+        return e->isEqualsTo(record, getFieldsToShowInMerge());
     }
     else
         return false;
@@ -116,14 +116,14 @@ QStringList Empleados::getFieldsToShowInMerge()
 QString Empleados::getDeleteStatement()
 {
     QLOG_TRACE() << "QString Empleados::getDeleteStatement()";
-    return QString("update empleados set isBaja = 1, RecordStatus = %1 where ID = :RECORD_ID;").arg(RECORD_MODIFIED);
+    return QString("update empleados set isBaja = 1, RecordStatus = %1, sent = 0 where ID = :RECORD_ID;").arg(RECORD_MODIFIED);
 }
 
 QString Empleados::getUpdateStatement()
 {
     QLOG_TRACE() << "QString Empleados::getUpdateStatement()";
     return QString("update empleados set Apellido = :Apellido, Nombres = :Nombres, "
-                   " Legajo = :Legajo, FechaIngreso = :FechaIngreso, RecordStatus = %1  where ID = :RECORD_ID;").arg(RECORD_MODIFIED);
+                   " Legajo = :Legajo, FechaIngreso = :FechaIngreso, RecordStatus = %1, sent = 0  where ID = :RECORD_ID;").arg(RECORD_MODIFIED);
 }
 
 QString Empleados::getInsertStatement(bool IncludeIDs)
@@ -357,6 +357,7 @@ bool Empleados::deleteElement(QVariant ID)
     if (m_Empleados.find(ID.toInt()) != m_Empleados.end())
     {
         m_Empleados[ID.toInt()]->setDeleted();
+        m_Empleados[ID.toInt()]->IsBaja().setValue(true);
         result = true;
     }
     return result;

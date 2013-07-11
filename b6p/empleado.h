@@ -68,7 +68,7 @@ public:
     void updateDisponibilidades(CalendarioPersonaLst newDisponibilidades);
 
     virtual RecordPtr asRecordPtr();
-    bool isEqualsTo(RecordPtr record);
+    bool isEqualsTo(RecordPtr record, const QStringList &fieldsToMerge);
 
     bool DadoDeBaja();
     bool isPowerUser();
