@@ -109,7 +109,7 @@ QString SubSectores::getDeleteStatement()
 QString SubSectores::getUpdateStatement()
 {
     QLOG_TRACE() << "QString SubSectores::getUpdateStatement()";
-    return "update subsectores set IDSector = :IDSector, Nombre = :Nombre, Descripcion = :Descripcion where ID = :ID;";
+    return "update subsectores set IDSector = :IDSector, Nombre = :Nombre, Descripcion = :Descripcion, sent = 0 where ID = :ID;";
 }
 
 QString SubSectores::getInsertStatement(bool IncludeIDs)
@@ -117,14 +117,14 @@ QString SubSectores::getInsertStatement(bool IncludeIDs)
     QLOG_TRACE() << "QString SubSectores::getInsertStatement(bool IncludeIDs)";
     if (IncludeIDs)
         return "insert into subsectores "
-                " (ID, IDSector, Nombre, Descripcion) "
+                " (ID, IDSector, Nombre, Descripcion, sent) "
                 " values "
-                " (:RECORD_ID, :IDSector, :Nombre, :Descripcion );";
+                " (:RECORD_ID, :IDSector, :Nombre, :Descripcion, 0 );";
     else
         return " insert into subsectores "
-                " (IDSector, Nombre, Descripcion) "
+                " (IDSector, Nombre, Descripcion, sent) "
                 " values "
-                " (:IDSector, :Nombre, :Descripcion );";
+                " (:IDSector, :Nombre, :Descripcion, 0 );";
 }
 
 RecordSet SubSectores::getRecords(RecordStatus status)

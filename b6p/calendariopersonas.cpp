@@ -120,14 +120,14 @@ RecordPtr CalendarioPersonas::getLocalRecord(RecordPtr record)
 QString CalendarioPersonas::getDeleteStatement()
 {
     QLOG_TRACE() << "QString CalendarioPersonas::getDeleteStatement()";
-    return QString("update calendariopersonas set RecordStatus = %1 where Dia = :Dia and IDEmpleado = :IDEmpleado;").arg(RECORD_DELETED);
+    return QString("update calendariopersonas set RecordStatus = %1, sent = 0 where Dia = :Dia and IDEmpleado = :IDEmpleado;").arg(RECORD_DELETED);
 }
 
 QString CalendarioPersonas::getUpdateStatement()
 {
     QLOG_TRACE() << "QString CalendarioPersonas::getUpdateStatement()";
     return QString("update calendariopersonas set HoraIngreso = :HoraIngreso, HoraEgreso = :HoraEgreso, "
-                   " RecordStatus = %1 "
+                   " RecordStatus = %1, sent = 0 "
                    " where Dia = :Dia and IDEmpleado = :IDEmpleado;").arg(RECORD_MODIFIED);
 }
 
@@ -135,9 +135,9 @@ QString CalendarioPersonas::getInsertStatement(bool)
 {
     QLOG_TRACE() << "QString CalendarioPersonas::getInsertStatement(bool)";
     return QString("insert into calendariopersonas "
-            " (Dia, IDEmpleado, HoraIngreso, HoraEgreso, RecordStatus) "
+            " (Dia, IDEmpleado, HoraIngreso, HoraEgreso, RecordStatus, sent) "
             " values "
-            " (:Dia, :IDEmpleado, :HoraIngreso, :HoraEgreso, %1);").arg(RECORD_NEW);
+            " (:Dia, :IDEmpleado, :HoraIngreso, :HoraEgreso, %1, 0);").arg(RECORD_NEW);
 }
 
 RecordSet CalendarioPersonas::getRecords(RecordStatus status)

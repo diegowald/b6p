@@ -115,7 +115,7 @@ QString Sectores::getDeleteStatement()
 QString Sectores::getUpdateStatement()
 {
     QLOG_TRACE() << "QString Sectores::getUpdateStatement()";
-    return "update sectores set Nombre = :Nombre, Descripcion = :Descripcion, showInPlanification = :showInPlanification where ID = :RECORD_ID;";
+    return "update sectores set Nombre = :Nombre, Descripcion = :Descripcion, showInPlanification = :showInPlanification, sent = 0 where ID = :RECORD_ID;";
 }
 
 QString Sectores::getInsertStatement(bool IncludeIDs)
@@ -123,14 +123,14 @@ QString Sectores::getInsertStatement(bool IncludeIDs)
     QLOG_TRACE() << "QString Sectores::getInsertStatement(bool IncludeIDs)";
     if (IncludeIDs)
         return "insert into sectores "
-                " (ID, Nombre, Descripcion, showInPlanification) "
+                " (ID, Nombre, Descripcion, showInPlanification, sent) "
                 " values "
-                " (:RECORD_ID, :Nombre, :Descripcion, :showInPlanification);";
+                " (:RECORD_ID, :Nombre, :Descripcion, :showInPlanification, 0);";
     else
         return "insert into sectores "
-            " (Nombre, Descripcion, showInPlanification) "
+            " (Nombre, Descripcion, showInPlanification, sent) "
             " values "
-            " (:Nombre, :Descripcion, :showInPlanification);";
+            " (:Nombre, :Descripcion, :showInPlanification, 0);";
 }
 
 RecordSet Sectores::getRecords(RecordStatus status)

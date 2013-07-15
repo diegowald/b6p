@@ -103,23 +103,23 @@ RecordPtr EstimacionesDias::getLocalRecord(RecordPtr record)
 QString EstimacionesDias::getDeleteStatement()
 {
     QLOG_TRACE() << "QString EstimacionesDias::getDeleteStatement()";
-    return QString("update planificacionDias set RecordStatus = %1 where Dia = :Dia;").arg(RECORD_DELETED);
+    return QString("update planificacionDias set RecordStatus = %1, sent = 0 where Dia = :Dia;").arg(RECORD_DELETED);
 }
 
 QString EstimacionesDias::getUpdateStatement()
 {
     QLOG_TRACE() << "QString EstimacionesDias::getUpdateStatement()";
     return QString("update planificaciondias set HorasEstimadas = :HorasEstimadas "
-                   " , RecordStatus = %1 "
+                   " , RecordStatus = %1, sent = 0 "
                    " where Dia = :Dia;").arg(RECORD_MODIFIED);
 }
 
 QString EstimacionesDias::getInsertStatement(bool)
 {
     QLOG_TRACE() << "QString EstimacionesDias::getInsertStatement(bool)";
-    return QString("insert into planificaciondias (Dia, HorasEstimadas, RecordStatus) "
+    return QString("insert into planificaciondias (Dia, HorasEstimadas, RecordStatus, sent) "
                    " values "
-                   " (:Dia, :HorasEstimadas, %1);").arg(RECORD_NEW);
+                   " (:Dia, :HorasEstimadas, %1, 0);").arg(RECORD_NEW);
 }
 
 RecordSet EstimacionesDias::getRecords(RecordStatus status)

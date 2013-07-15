@@ -113,7 +113,7 @@ QString PlanificacionesDiasSubSectores::getDeleteStatement()
 {
     QLOG_TRACE() << "QString PlanificacionesDiasSubSectores::getDeleteStatement()";
     return QString("update planificacionsubsector "
-                   " set RecordStatus = %1 "
+                   " set RecordStatus = %1, sent = 0 "
                    " where IDRecord = :IDRecord;").arg(RECORD_DELETED);
 }
 
@@ -135,14 +135,14 @@ QString PlanificacionesDiasSubSectores::getInsertStatement(bool IncludeIDs)
     QLOG_TRACE() << "QString PlanificacionesDiasSubSectores::getInsertStatement(bool IncludeIDs)";
     if (IncludeIDs)
         return QString("insert into planificacionsubsector "
-                       " (IDRecord, Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, AllowOverWorking, RecordStatus) "
+                       " (IDRecord, Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, AllowOverWorking, RecordStatus, sent) "
                        " values "
-                       " (:IDRecord, :Dia, :IDSector, :IDSubSector, :IDEmpleado, :HoraInicio, :HoraFin, :AllowOverWorking, %1);").arg(RECORD_NEW);
+                       " (:IDRecord, :Dia, :IDSector, :IDSubSector, :IDEmpleado, :HoraInicio, :HoraFin, :AllowOverWorking, %1, 0);").arg(RECORD_NEW);
     else
         return QString("insert into planificacionsubsector "
-                       " (Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, AllowOverWorking, RecordStatus) "
+                       " (Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, AllowOverWorking, RecordStatus, 0) "
                        " values "
-                       " (:Dia, :IDSector, :IDSubSector, :IDEmpleado, :HoraInicio, :HoraFin, :AllowOverWorking, %1);").arg(RECORD_NEW);
+                       " (:Dia, :IDSector, :IDSubSector, :IDEmpleado, :HoraInicio, :HoraFin, :AllowOverWorking, %1, 0);").arg(RECORD_NEW);
 }
 
 RecordSet PlanificacionesDiasSubSectores::getRecords(RecordStatus status)

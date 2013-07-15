@@ -130,13 +130,13 @@ QString Empleados::getInsertStatement(bool IncludeIDs)
 {
     QLOG_TRACE() << "QString Empleados::getInsertStatement(bool IncludeIDs)";
     if (IncludeIDs)
-        return QString("insert into empleados (ID, Apellido, Nombres, Legajo, FechaIngreso, RecordStatus, isBaja) "
+        return QString("insert into empleados (ID, Apellido, Nombres, Legajo, FechaIngreso, RecordStatus, isBaja, sent) "
                        " values "
                        "( :RECORD_ID, :Apellido, :Nombres, :Legajo, :FechaIngreso, %1, 0);").arg(RECORD_NEW);
     else
         return QString("insert into empleados (Apellido, Nombres, Legajo, FechaIngreso, RecordStatus, isBaja) "
                        " values "
-                       "( :Apellido, :Nombres, :Legajo, :FechaIngreso, %1, 0);").arg(RECORD_NEW);
+                       "( :Apellido, :Nombres, :Legajo, :FechaIngreso, %1, 0, 0);").arg(RECORD_NEW);
 }
 
 

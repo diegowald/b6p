@@ -108,7 +108,7 @@ QString PlanificacionesDias::getDeleteStatement()
 {
     QLOG_TRACE() << "QString PlanificacionesDias::getDeleteStatement()";
     return QString("update planificaciondia "
-                   " set RecordStatus = %1 "
+                   " set RecordStatus = %1, sent = 0 "
                    " where Dia = :Dia;").arg(RECORD_DELETED);
 }
 
@@ -117,7 +117,7 @@ QString PlanificacionesDias::getUpdateStatement()
     QLOG_TRACE() << "QString PlanificacionesDias::getUpdateStatement()";
     return QString("update planificaciondia "
                    " set Notas = :Notas, IDSupervisor = :IDSupervisor, "
-                   " RecordStatus = %1, EstadoPlanificacion = :EstadoPlanificacion "
+                   " RecordStatus = %1, EstadoPlanificacion = :EstadoPlanificacion, sent = 0 "
                    " where Dia = :Dia;").arg(RECORD_MODIFIED);
 
 }
@@ -126,9 +126,9 @@ QString PlanificacionesDias::getInsertStatement(bool)
 {
     QLOG_TRACE() << "QString PlanificacionesDias::getInsertStatement(bool)";
     return QString("insert into planificaciondia "
-                   " (Dia, Notas, IDSupervisor, RecordStatus, EstadoPlanificacion) "
+                   " (Dia, Notas, IDSupervisor, RecordStatus, EstadoPlanificacion, sent) "
                    " values "
-                   " (:Dia, :Notas, :IDSupervisor, %1, :EstadoPlanificacion);").arg(RECORD_NEW);
+                   " (:Dia, :Notas, :IDSupervisor, %1, :EstadoPlanificacion, 0);").arg(RECORD_NEW);
 }
 
 RecordSet PlanificacionesDias::getRecords(RecordStatus status)
