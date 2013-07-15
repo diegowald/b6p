@@ -17,6 +17,7 @@ public:
 protected:
     void obtenerFechaUltimaSincronizacion();
     void obtenerActualizacionesDeBaseCentral();
+    void obtenerFechaDesdeServerCentral();
 
     void enviarDatosADBCentral();
 
@@ -39,6 +40,7 @@ private:
     QString m_FechaUltimaSincronizacion;
     QList<DatabaseSynchronizationPtr> m_Synchronizationtables;
     boost::shared_ptr<SQLHandler> m_SQL;
+    QString m_FechaSincro;
 };
 
 #endif // QMYSQL_H

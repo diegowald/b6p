@@ -38,6 +38,7 @@ void SincroManager::runSincro()
 {
     QLOG_TRACE() << "void SincroManager::runSincro()";
     emit startingSynchro();
+    obtenerFechaDesdeServerCentral();
     obtenerFechaUltimaSincronizacion();
     obtenerActualizacionesDeBaseCentral();
 
@@ -99,16 +100,20 @@ void SincroManager::enviarDatosADBCentral()
     }
 }
 
-void SincroManager::grabarFechaUltimaSincronizacion()
+void SincroManager::obtenerFechaDesdeServerCentral()
 {
-    QLOG_TRACE() << "void SincroManager::grabarFechaUltimaSincronizacion()";
-    QString UltimaSincro;
+    QLOG_TRACE() << "void SincroManager::obtenerFechaDesdeServerCentral()";
     QString query("SELECT NOW() as Fecha;");
 
     RecordSet res = m_SQL->getAll(query);
-    UltimaSincro = (*res->at(0))["Fecha"].toDateTime().toString("yyyy-MM-dd hh:mm:ss");
+    m_FechaSincro = (*res->at(0))["Fecha"].toDateTime().toString("yyyy-MM-dd hh:mm:ss");
+}
 
-    DataStore::instance()->getParametros()->setValue(Parametros::LAST_SYNCHRO, UltimaSincro);
+void SincroManager::grabarFechaUltimaSincronizacion()
+{
+    QLOG_TRACE() << "void SincroManager::grabarFechaUltimaSincronizacion()";
+
+    DataStore::instance()->getParametros()->setValue(Parametros::LAST_SYNCHRO, m_FechaSincro);
     DataStore::instance()->getParametros()->save();
 }
 
