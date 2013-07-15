@@ -32,14 +32,14 @@ int main(int argc, char *argv[])
 
     QTranslator appTranslator;
 
-    /*if (appTranslator.load("b6p_esAR", a.applicationDirPath()))
+    if (appTranslator.load("b6p_esAR", a.applicationDirPath()))
     {
         a.installTranslator(&appTranslator);
     }
-    else */if (appTranslator.load("b6p_" + QLocale::system().name(), a.applicationDirPath()))
+    /*else if (appTranslator.load("b6p_" + QLocale::system().name(), a.applicationDirPath()))
     {
         a.installTranslator(&appTranslator);
-    }
+    }*/
 
     QLOG_INFO() << "Program started";
 

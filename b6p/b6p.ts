@@ -280,7 +280,7 @@
     <message>
         <location filename="dlgmerge.ui" line="14"/>
         <source>Dialog</source>
-        <translation>Dialog</translation>
+        <translation>Simultaneous edition conflict</translation>
     </message>
     <message>
         <location filename="dlgmerge.ui" line="36"/>
