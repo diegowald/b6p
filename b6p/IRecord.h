@@ -27,7 +27,10 @@ struct IRecord
     virtual void setInitialized()
     {
         if (status != NEW)
+        {
             status = UNMODIFIED;
+            setSentStatus(true);
+        }
     }
 
     virtual bool isModified()

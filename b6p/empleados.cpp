@@ -123,7 +123,7 @@ QString Empleados::getUpdateStatement()
 {
      QLOG_TRACE() << "QString Empleados::getUpdateStatement()";
     return QString("update empleados set Apellido = :Apellido, Nombres = :Nombres, "
-                   " Legajo = :Legajo, FechaIngreso = :FechaIngreso, RecordStatus = %1, sent = 0  where ID = :RECORD_ID;").arg(RECORD_MODIFIED);
+                   " Legajo = :Legajo, FechaIngreso = :FechaIngreso, RecordStatus = %1, isBaja = :isBaja, sent = 0  where ID = :RECORD_ID;").arg(RECORD_MODIFIED);
 }
 
 QString Empleados::getInsertStatement(bool IncludeIDs)
@@ -132,9 +132,9 @@ QString Empleados::getInsertStatement(bool IncludeIDs)
     if (IncludeIDs)
         return QString("insert into empleados (ID, Apellido, Nombres, Legajo, FechaIngreso, RecordStatus, isBaja, sent) "
                        " values "
-                       "( :RECORD_ID, :Apellido, :Nombres, :Legajo, :FechaIngreso, %1, 0);").arg(RECORD_NEW);
+                       "( :RECORD_ID, :Apellido, :Nombres, :Legajo, :FechaIngreso, %1, 0, 0);").arg(RECORD_NEW);
     else
-        return QString("insert into empleados (Apellido, Nombres, Legajo, FechaIngreso, RecordStatus, isBaja) "
+        return QString("insert into empleados (Apellido, Nombres, Legajo, FechaIngreso, RecordStatus, isBaja, sent) "
                        " values "
                        "( :Apellido, :Nombres, :Legajo, :FechaIngreso, %1, 0, 0);").arg(RECORD_NEW);
 }

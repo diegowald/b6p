@@ -73,7 +73,8 @@ void DatabaseSynchronization::applyChanges()
                 {
                     QLOG_INFO() << "Just update record here";
                     // El registro no ha sido modificado localmente. se toman los datos del server central
-                    m_Data->updateRecord(rec);
+                    if (!m_Data->localRecordIsEqualsTo(rec))
+                        m_Data->updateRecord(rec);
                 }
                 else
                 {

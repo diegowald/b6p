@@ -6,6 +6,7 @@
 #include <boost/shared_ptr.hpp>
 #include "sqlhandler.h"
 
+
 class SincroManager : public QObject
 {
     Q_OBJECT
