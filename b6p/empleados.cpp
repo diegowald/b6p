@@ -116,7 +116,7 @@ QStringList Empleados::getFieldsToShowInMerge()
 QString Empleados::getDeleteStatement()
 {
     QLOG_TRACE() << "QString Empleados::getDeleteStatement()";
-    return QString("update empleados set isBaja = 1, RecordStatus = %1, sent = 0 where ID = :RECORD_ID;").arg(RECORD_MODIFIED);
+    return QString("update empleados set isBaja = 1, RecordStatus = %1, sent = 0 where ID = :RECORD_ID;").arg(RECORD_DELETED);
 }
 
 QString Empleados::getUpdateStatement()
