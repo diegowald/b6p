@@ -44,14 +44,14 @@ void Parametros::addRecord(RecordPtr record, bool)
     m_Dictionary[(*record)["Key"].toString()] = (*record)["Value"].toString();
 }
 
-void Parametros::updateRecord(RecordPtr)
+void Parametros::updateRecord(RecordPtr, bool)
 {
-    QLOG_TRACE() << "void Parametros::updateRecord(RecordPtr)";
+    QLOG_TRACE() << "void Parametros::updateRecord(RecordPtr, bool)";
 }
 
-void Parametros::deleteRecord(RecordPtr)
+void Parametros::deleteRecord(RecordPtr, bool)
 {
-    QLOG_TRACE() << "void Parametros::deleteRecord(RecordPtr)";
+    QLOG_TRACE() << "void Parametros::deleteRecord(RecordPtr, bool)";
 }
 
 bool Parametros::exists(RecordPtr)

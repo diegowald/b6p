@@ -48,17 +48,17 @@ void SubSectores::addRecord(RecordPtr record, bool setNew)
     m_SubSectores[s->IDSubsector().value()] = s;
 }
 
-void SubSectores::updateRecord(RecordPtr record)
+void SubSectores::updateRecord(RecordPtr record, bool isFromSincro)
 {
     QLOG_TRACE() << "void SubSectores::updateRecord(RecordPtr record)";
     SubSectorPtr s = getSubSector((*record)["ID"].toInt());
 
     s->Nombre().setValue((*record)["Nombre"].toString());
     s->Descripcion().setValue((*record)["Descripcion"].toString());
-
+    s->setSentStatus(isFromSincro);
 }
 
-void SubSectores::deleteRecord(RecordPtr record)
+void SubSectores::deleteRecord(RecordPtr record, bool)
 {
     QLOG_TRACE() << "void SubSectores::deleteRecord(RecordPtr record)";
     m_SubSectores.remove((*record)["ID"].toInt());

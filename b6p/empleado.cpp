@@ -126,6 +126,7 @@ bool Empleado::isEqualsTo(RecordPtr record, const QStringList &fieldsToMerge)
     foreach (QString fld, fieldsToMerge) {
         res &= ((*record)[fld] == (*localRec)[fld]);
     }
+    res &= ((*record)["RecordStatus"] == (*localRec)["RecordStatus"]);
     return res;
 }
 

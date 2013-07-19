@@ -45,7 +45,9 @@ void DatabaseSynchronization::applyChanges()
         case DELETED:
             QLOG_INFO() << "Status Deleted";
             if (m_Data->exists(rec))
-                m_Data->deleteRecord(rec);
+            {
+                m_Data->deleteRecord(rec, true);
+            }
             saveAfter = true;
             break;
         case UNINITIALIZED:
@@ -74,7 +76,9 @@ void DatabaseSynchronization::applyChanges()
                     QLOG_INFO() << "Just update record here";
                     // El registro no ha sido modificado localmente. se toman los datos del server central
                     if (!m_Data->localRecordIsEqualsTo(rec))
-                        m_Data->updateRecord(rec);
+                    {
+                        m_Data->updateRecord(rec, true);
+                    }
                 }
                 else
                 {
@@ -90,7 +94,7 @@ void DatabaseSynchronization::applyChanges()
                     case ACollection::MERGE_KEEP_MAIN:
                         // Se hacen los cambios sin preguntar, ya que los cambios centrales son mas importantes.
                         QLOG_INFO() << "MERGE KEEP MAIN";
-                        m_Data->updateRecord(rec);
+                        m_Data->updateRecord(rec, false);
                         break;
                     case ACollection::MERGE_MANUAL:
                         // Aca hay que preguntar cuales son los cambios mas importantes.
@@ -104,7 +108,7 @@ void DatabaseSynchronization::applyChanges()
                             if (dlg.exec() == QDialog::Accepted)
                             {
                                 RecordPtr modifiedRec = dlg.mergedRecord();
-                                m_Data->updateRecord(modifiedRec);
+                                m_Data->updateRecord(modifiedRec, false);
                             }
                         }
                         else

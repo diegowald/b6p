@@ -54,7 +54,7 @@ void CalendarioPersonas::addRecord(RecordPtr record, bool setNew)
     m_Calendarios.push_back(c);
 }
 
-void CalendarioPersonas::updateRecord(RecordPtr record)
+void CalendarioPersonas::updateRecord(RecordPtr record, bool isFromSincro)
 {
     QLOG_TRACE() << "void CalendarioPersonas::updateRecord(RecordPtr record)";
     CalendarioPersonaPtr c;
@@ -64,9 +64,10 @@ void CalendarioPersonas::updateRecord(RecordPtr record)
     }
     c->HoraIngreso().setValue((*record)["HoraIngreso"].toInt());
     c->HoraEgreso().setValue((*record)["HoraEgreso"].toInt());
+    c->setSentStatus(isFromSincro);
 }
 
-void CalendarioPersonas::deleteRecord(RecordPtr)
+void CalendarioPersonas::deleteRecord(RecordPtr, bool)
 {
     QLOG_TRACE() << "void CalendarioPersonas::deleteRecord(RecordPtr)";
 }

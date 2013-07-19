@@ -49,16 +49,16 @@ void EstimacionesDias::addRecord(RecordPtr record, bool setNew)
     m_Estimaciones[e->Dia().value()] = e;
 }
 
-void EstimacionesDias::updateRecord(RecordPtr record)
+void EstimacionesDias::updateRecord(RecordPtr record, bool isFromSincro)
 {
     QLOG_TRACE() << "void EstimacionesDias::updateRecord(RecordPtr record)";
     EstimacionDiaPtr e = m_Estimaciones[QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date()];
     e->EstimacionHoras().setValue((*record)["HorasEstimadas"].toInt());
     e->setSentStatus((*record)["sent"].toInt() == 1);
-    e->setSentStatus(false);
+    e->setSentStatus(isFromSincro);
 }
 
-void EstimacionesDias::deleteRecord(RecordPtr record)
+void EstimacionesDias::deleteRecord(RecordPtr record, bool)
 {
     QLOG_TRACE() << "void EstimacionesDias::deleteRecord(RecordPtr record)";
     m_Estimaciones.remove(QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date());

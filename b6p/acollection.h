@@ -47,8 +47,8 @@ public:
     virtual void addRecord(RecordPtr record, bool setNew = false) = 0;
 
     virtual bool exists(RecordPtr record) = 0;
-    virtual void updateRecord(RecordPtr record) = 0;
-    virtual void deleteRecord(RecordPtr record) = 0;
+    virtual void updateRecord(RecordPtr record, bool isFromSincro) = 0;
+    virtual void deleteRecord(RecordPtr record, bool isFromSincro) = 0;
     virtual bool isRecordUnsent(RecordPtr record) = 0;
     virtual RecordPtr getLocalRecord(RecordPtr record) = 0;
     virtual QStringList getFieldsToShowInMerge() = 0;

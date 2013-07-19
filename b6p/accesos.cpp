@@ -41,12 +41,12 @@ void Accesos::addRecord(RecordPtr record, bool)
     m_AccessList[id] = a;
 }
 
-void Accesos::updateRecord(RecordPtr)
+void Accesos::updateRecord(RecordPtr, bool)
 {
     QLOG_TRACE() << "void Accesos::updateRecord(RecordPtr)";
 }
 
-void Accesos::deleteRecord(RecordPtr)
+void Accesos::deleteRecord(RecordPtr, bool)
 {
     QLOG_TRACE() << "void Accesos::deleteRecord(RecordPtr)";
 }

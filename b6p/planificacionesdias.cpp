@@ -51,7 +51,7 @@ void PlanificacionesDias::addRecord(RecordPtr record, bool setNew)
     m_Planificaciones[p->Dia().value()] = p;
 }
 
-void PlanificacionesDias::updateRecord(RecordPtr record)
+void PlanificacionesDias::updateRecord(RecordPtr record, bool isFromSincro)
 {
     QLOG_TRACE() << "void PlanificacionesDias::updateRecord(RecordPtr record)";
     PlanificacionDiaPtr p = m_Planificaciones[QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date()];
@@ -59,10 +59,10 @@ void PlanificacionesDias::updateRecord(RecordPtr record)
     p->Notas().setValue((*record)["Notas"].toString());
     p->IDSupervisor().setValue((*record)["IDSupervisor"].toInt());
     p->EstadoPlanificacion().setValue((EstadosPlanificacion)(*record)["EstadoPlanificacion"].toInt());
-
+    p->setSentStatus(isFromSincro);
 }
 
-void PlanificacionesDias::deleteRecord(RecordPtr record)
+void PlanificacionesDias::deleteRecord(RecordPtr record, bool)
 {
     QLOG_TRACE() << "void PlanificacionesDias::deleteRecord(RecordPtr record)";
     m_Planificaciones.remove(QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date());

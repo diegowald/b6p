@@ -79,7 +79,7 @@ void CapacidadesPersonaSector::addRecord(RecordPtr record, bool setNew)
     m_Capacidades.push_back(c);
 }
 
-void CapacidadesPersonaSector::updateRecord(RecordPtr record)
+void CapacidadesPersonaSector::updateRecord(RecordPtr record, bool isFromSincro)
 {
     QLOG_TRACE() << "void CapacidadesPersonaSector::updateRecord(RecordPtr record)";
     CapacidadPersonaSectorPtr c = get((*record)["IDEmpleado"].toInt(),
@@ -87,9 +87,10 @@ void CapacidadesPersonaSector::updateRecord(RecordPtr record)
             (*record)["IDSubSector"].toInt(), true);
 
     c->Capacidad().setValue((*record)["Capacidad"].toInt());
+    c->setSentStatus(isFromSincro);
 }
 
-void CapacidadesPersonaSector::deleteRecord(RecordPtr record)
+void CapacidadesPersonaSector::deleteRecord(RecordPtr record, bool)
 {
     QLOG_TRACE() << "void CapacidadesPersonaSector::deleteRecord(RecordPtr record)";
     CapacidadPersonaSectorPtr c = get((*record)["IDEmpleado"].toInt(),

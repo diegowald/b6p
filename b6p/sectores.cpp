@@ -51,7 +51,7 @@ void Sectores::addRecord(RecordPtr record, bool setNew)
     m_Sectores[s->IDSector().value()] = s;
 }
 
-void Sectores::updateRecord(RecordPtr record)
+void Sectores::updateRecord(RecordPtr record, bool isFromSincro)
 {
     QLOG_TRACE() << "void Sectores::updateRecord(RecordPtr record)";
     SectorPtr s = getSector((*record)["ID"].toInt());
@@ -61,12 +61,14 @@ void Sectores::updateRecord(RecordPtr record)
         s->ShowInPlanification().setValue(false);
     else
         s->ShowInPlanification().setValue(true);
+    s->setSentStatus(isFromSincro);
 }
 
-void Sectores::deleteRecord(RecordPtr record)
+void Sectores::deleteRecord(RecordPtr record, bool isFromSincro)
 {
     QLOG_TRACE() << "void Sectores::deleteRecord(RecordPtr record)";
     SectorPtr s = getSector((*record)["ID"].toInt());
+    s->setSentStatus(isFromSincro);
 }
 
 bool Sectores::exists(RecordPtr record)

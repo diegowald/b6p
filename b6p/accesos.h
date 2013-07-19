@@ -30,8 +30,8 @@ public:
 
     virtual QString getSqlString();
     virtual void addRecord(RecordPtr record, bool setNew = true);
-    virtual void updateRecord(RecordPtr record);
-    virtual void deleteRecord(RecordPtr record);
+    virtual void updateRecord(RecordPtr record, bool isFromSincro);
+    virtual void deleteRecord(RecordPtr record, bool isFromSincro);
     virtual bool exists(RecordPtr record);
     virtual bool isRecordUnsent(RecordPtr) { return false; }
     virtual RecordPtr getLocalRecord(RecordPtr) { return RecordPtr(); }

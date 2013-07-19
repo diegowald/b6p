@@ -53,7 +53,7 @@ void PlanificacionesDiasSubSectores::addRecord(RecordPtr record, bool setNew)
     m_Planificacion[p->IDRecord().value()] = p;
 }
 
-void PlanificacionesDiasSubSectores::updateRecord(RecordPtr record)
+void PlanificacionesDiasSubSectores::updateRecord(RecordPtr record, bool isFromSincro)
 {
     QLOG_TRACE() << "void PlanificacionesDiasSubSectores::updateRecord(RecordPtr record)";
     PlanificacionSubSectorPtr p = m_Planificacion[(*record)["IDRecord"].toInt()];
@@ -65,9 +65,10 @@ void PlanificacionesDiasSubSectores::updateRecord(RecordPtr record)
     p->HoraInicio().setValue((*record)["HoraInicio"].toInt());
     p->HoraFin().setValue((*record)["HoraFin"].toInt());
     p->AllowOverWorking().setValue((*record)["AllowOverWorking"].toInt() == 1 ? true : false);
+    p->setSentStatus(isFromSincro);
 }
 
-void PlanificacionesDiasSubSectores::deleteRecord(RecordPtr record)
+void PlanificacionesDiasSubSectores::deleteRecord(RecordPtr record, bool)
 {
     QLOG_TRACE() << "void PlanificacionesDiasSubSectores::deleteRecord(RecordPtr record)";
     m_Planificacion.remove((*record)["IDRecord"].toInt());

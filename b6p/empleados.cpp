@@ -50,7 +50,7 @@ void Empleados::addRecord(RecordPtr record, bool setNew)
     m_Empleados[e->IDEmpleado().value()] = e;
 }
 
-void Empleados::updateRecord(RecordPtr record)
+void Empleados::updateRecord(RecordPtr record, bool isFromSincro)
 {
     QLOG_TRACE() << "void Empleados::updateRecord(RecordPtr record)";
     EmpleadoPtr e = getEmpleado((*record)["ID"].toInt(), true);
@@ -60,14 +60,15 @@ void Empleados::updateRecord(RecordPtr record)
     e->Legajo().setValue((*record)["Legajo"].toString());
     e->FechaIngreso().setValue(QDateTime::fromMSecsSinceEpoch((*record)["FechaIngreso"].toLongLong()).date());
     e->IsBaja().setValue((*record)["isBaja"].toBool());
-    e->setSentStatus(false);
+    e->setSentStatus(isFromSincro);
 }
 
-void Empleados::deleteRecord(RecordPtr record)
+void Empleados::deleteRecord(RecordPtr record, bool isFromSincro)
 {
     QLOG_TRACE() << "void Empleados::deleteRecord(RecordPtr record)";
     EmpleadoPtr e = getEmpleado((*record)["ID"].toInt(), true);
     e->IsBaja().setValue(true);
+    e->setSentStatus(isFromSincro);
 }
 
 bool Empleados::exists(RecordPtr record)
