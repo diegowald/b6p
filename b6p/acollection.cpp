@@ -40,31 +40,31 @@ void ACollection::save(bool includeIDs)
     QLOG_TRACE() << "void ACollection::save(bool includeIDs)";
     emit saving(m_Name);
 
-    deleteRecordsDB();
-    updateRecordsToDB();
-    addNewRecordsToDB(includeIDs);
+    deleteRecordsDB(false);
+    updateRecordsToDB(false);
+    addNewRecordsToDB(includeIDs, false);
     saveDependants();
     setStatusToUnmodified(true);
     emit dataUpdated();
     emit saved(m_Name);
 }
 
-void ACollection::deleteRecordsDB()
+void ACollection::deleteRecordsDB(bool includeSenderMachine)
 {
     QLOG_TRACE() << "void ACollection::deleteRecordsDB()";
-    executeCommand(getDeleteStatement(), DELETED);
+    executeCommand(getDeleteStatement(includeSenderMachine), DELETED);
 }
 
-void ACollection::updateRecordsToDB()
+void ACollection::updateRecordsToDB(bool includeSenderMachine)
 {
     QLOG_TRACE() << "void ACollection::updateRecordsToDB()";
-    executeCommand(getUpdateStatement(), MODIFIED);
+    executeCommand(getUpdateStatement(includeSenderMachine), MODIFIED);
 }
 
-void ACollection::addNewRecordsToDB(bool includeIDs)
+void ACollection::addNewRecordsToDB(bool includeIDs, bool includeSenderMachine)
 {
     QLOG_TRACE() << "void ACollection::addNewRecordsToDB(bool includeIDs)";
-    executeCommand(getInsertStatement(includeIDs), NEW);
+    executeCommand(getInsertStatement(includeIDs, includeSenderMachine), NEW);
 }
 
 void ACollection::executeCommand(QString cmd, RecordStatus status)
@@ -164,6 +164,7 @@ void ACollection::setSentFlagIntoDatabase()
     QString sql = "UPDATE %1 set sent = 1;";
     sql = sql.arg(getTableName());
     sqlEngine.executeCommand(sql);
+    setSentFlagIntoMemory();
 }
 
 void ACollection::exportTo(const QString &filename)

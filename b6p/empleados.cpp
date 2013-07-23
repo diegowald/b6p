@@ -20,14 +20,14 @@ QString Empleados::getSelectFromMainDB()
 {
     QLOG_TRACE() << "QString Empleados::getSelectFromMainDB()";
     return QString("select ID, Apellido, Nombres, Legajo, FechaIngreso, isBaja, RecordStatus from empleados "
-                   " where LastUpdate >= :LASTUPDATE ;");
+                   " where LastUpdate >= :LASTUPDATE AND SenderMachine <> :SenderMachine;");
 }
 
 QString Empleados::getSqlString()
 {
     QLOG_TRACE() << "QString Empleados::getSqlString()";
-    return QString("select ID, Apellido, Nombres, Legajo, FechaIngreso, isBaja, sent from empleados")
-            + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
+    return QString("select ID, Apellido, Nombres, Legajo, FechaIngreso, isBaja, sent from empleados");
+            //+ QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
 void Empleados::addRecord(RecordPtr record, bool setNew)
@@ -42,10 +42,16 @@ void Empleados::addRecord(RecordPtr record, bool setNew)
     e->IsBaja().setValue((*record)["isBaja"].toBool());
     e->setSentStatus((*record)["sent"].toInt() == 1);
 
+
+
     if (setNew)
         e->setNew();
     else
+    {
+        if (e->IsBaja().value())
+            e->setDeleted();
         e->setInitialized();
+    }
 
     m_Empleados[e->IDEmpleado().value()] = e;
 }
@@ -114,30 +120,71 @@ QStringList Empleados::getFieldsToShowInMerge()
                          << "Nombres";
 }
 
-QString Empleados::getDeleteStatement()
+QString Empleados::getDeleteStatement(bool includeSenderMachine)
 {
     QLOG_TRACE() << "QString Empleados::getDeleteStatement()";
-    return QString("update empleados set isBaja = 1, RecordStatus = %1, sent = 0 where ID = :RECORD_ID;").arg(RECORD_DELETED);
+    if (includeSenderMachine)
+        return QString("update empleados set isBaja = 1, RecordStatus = %1, sent = 0, SenderMachine = :SenderMachine where ID = :RECORD_ID;").arg(RECORD_DELETED);
+    else
+        return QString("update empleados set isBaja = 1, RecordStatus = %1, sent = 0 where ID = :RECORD_ID;").arg(RECORD_DELETED);
 }
 
-QString Empleados::getUpdateStatement()
+QString Empleados::getUpdateStatement(bool includeSenderMachine)
 {
-     QLOG_TRACE() << "QString Empleados::getUpdateStatement()";
-    return QString("update empleados set Apellido = :Apellido, Nombres = :Nombres, "
+    QLOG_TRACE() << "QString Empleados::getUpdateStatement()";
+    if (includeSenderMachine)
+        return QString("update empleados set Apellido = :Apellido, Nombres = :Nombres, "
+                       " Legajo = :Legajo, FechaIngreso = :FechaIngreso, RecordStatus = %1, isBaja = :isBaja, sent = 0, "
+                       " SenderMachine = :SenderMachine where ID = :RECORD_ID;").arg(RECORD_MODIFIED);
+    else
+        return QString("update empleados set Apellido = :Apellido, Nombres = :Nombres, "
                    " Legajo = :Legajo, FechaIngreso = :FechaIngreso, RecordStatus = %1, isBaja = :isBaja, sent = 0  where ID = :RECORD_ID;").arg(RECORD_MODIFIED);
 }
 
-QString Empleados::getInsertStatement(bool IncludeIDs)
+QString Empleados::getInsertStatement(bool IncludeIDs, bool includeSenderMachine)
 {
-    QLOG_TRACE() << "QString Empleados::getInsertStatement(bool IncludeIDs)";
+    QLOG_TRACE() << "QString Empleados::getInsertStatement(bool IncludeIDs, bool includeSenderMachine)";
+    QStringList fields;
+    QStringList parameters;
     if (IncludeIDs)
-        return QString("insert into empleados (ID, Apellido, Nombres, Legajo, FechaIngreso, RecordStatus, isBaja, sent) "
-                       " values "
-                       "( :RECORD_ID, :Apellido, :Nombres, :Legajo, :FechaIngreso, %1, 0, 0);").arg(RECORD_NEW);
-    else
-        return QString("insert into empleados (Apellido, Nombres, Legajo, FechaIngreso, RecordStatus, isBaja, sent) "
-                       " values "
-                       "( :Apellido, :Nombres, :Legajo, :FechaIngreso, %1, 0, 0);").arg(RECORD_NEW);
+    {
+        fields.append("ID");
+        parameters.append(":RECORD_ID");
+    }
+    fields.append("Apellido");
+    parameters.append(":Apellido");
+
+    fields.append("Nombres");
+    parameters.append(":Nombres");
+
+    fields.append("Legajo");
+    parameters.append(":Legajo");
+
+    fields.append("FechaIngreso");
+    parameters.append(":FechaIngreso");
+
+    fields.append("RecordStatus");
+    parameters.append("%1");
+
+    fields.append("isBaja");
+    parameters.append("0");
+
+    fields.append("sent");
+    parameters.append("0");
+
+    if (includeSenderMachine)
+    {
+        fields.append("SenderMachine");
+        parameters.append(":SenderMachine");
+    }
+
+    QString sql = "insert into empleados ("
+            + fields.join(", ")
+            + ") VALUES ("
+            + parameters.join(", ")
+            + ");";
+
+    return sql;
 }
 
 
@@ -185,6 +232,16 @@ RecordSet Empleados::getUnsent()
             res->push_back(e->asRecordPtr());
     }
     return res;
+}
+
+void Empleados::setSentFlagIntoMemory()
+{
+    QLOG_TRACE() << "void Empleados::setSentFlagIntoMemory()";
+    RecordSet res = boost::make_shared<QList<RecordPtr> >();
+    foreach(EmpleadoPtr e, m_Empleados.values())
+    {
+        e->setSentStatus(true);
+    }
 }
 
 EmpleadoPtr Empleados::getEmpleado(int idEmpleado, bool includeDeleted)

@@ -16,11 +16,11 @@ public:
     explicit DatabaseSynchronization(boost::shared_ptr<ACollection> data, boost::shared_ptr<SQLHandler> sqlHandler, QObject *parent = 0);
 
     bool checkConnection();
-    void getDataFromDB(QString dateFrom);
+    void getDataFromDB(const QString &dateFrom, const QString &senderMachine);
     void applyChanges();
     void checkConsistency();
 
-    void sendData();
+    void sendData(const QString &senderMachine);
     void saveLocalChanges();
 
     QString name();

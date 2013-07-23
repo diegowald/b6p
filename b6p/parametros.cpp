@@ -1,6 +1,7 @@
 #include "parametros.h"
 
 #include <QsLog.h>
+#include <QtNetwork/QHostInfo>
 
 const QString Parametros::OPEN_STORE("openStore");
 const QString Parametros::CLOSE_STORE("closeStore");
@@ -66,19 +67,19 @@ bool Parametros::localRecordIsEqualsTo(RecordPtr)
     return true;
 }
 
-QString Parametros::getDeleteStatement()
+QString Parametros::getDeleteStatement(bool)
 {
     QLOG_TRACE() << "QString Parametros::getDeleteStatement()";
     return "delete from parametros where Key = :Key;";
 }
 
-QString Parametros::getUpdateStatement()
+QString Parametros::getUpdateStatement(bool)
 {
     QLOG_TRACE() << "QString Parametros::getUpdateStatement()";
     return "update parametros set Value = :Value where Key = :Key;";
 }
 
-QString Parametros::getInsertStatement(bool)
+QString Parametros::getInsertStatement(bool, bool)
 {
     QLOG_TRACE() << "QString Parametros::getInsertStatement(bool)";
     return "insert into parametros (Key, Value) values (:Key, :Value);";
@@ -197,4 +198,12 @@ QsLogging::Level Parametros::getLoggingLevel()
         logLevel = 6;
 
     return (QsLogging::Level)logLevel;
+}
+
+QString Parametros::getLocalMachine() const
+{
+    QLOG_TRACE() << "QString Parametros::getLocalMachine() const";
+    QHostInfo hostInfo;
+    hostInfo = QHostInfo::fromName(QHostInfo::localHostName());
+    return hostInfo.hostName();
 }

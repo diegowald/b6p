@@ -110,7 +110,7 @@ RecordPtr PlanificacionesDiasSubSectores::getLocalRecord(RecordPtr record)
     return p->asRecordPtr();
 }
 
-QString PlanificacionesDiasSubSectores::getDeleteStatement()
+QString PlanificacionesDiasSubSectores::getDeleteStatement(bool)
 {
     QLOG_TRACE() << "QString PlanificacionesDiasSubSectores::getDeleteStatement()";
     return QString("update planificacionsubsector "
@@ -118,7 +118,7 @@ QString PlanificacionesDiasSubSectores::getDeleteStatement()
                    " where IDRecord = :IDRecord;").arg(RECORD_DELETED);
 }
 
-QString PlanificacionesDiasSubSectores::getUpdateStatement()
+QString PlanificacionesDiasSubSectores::getUpdateStatement(bool)
 {
     QLOG_TRACE() << "QString PlanificacionesDiasSubSectores::getUpdateStatement()";
     return QString("update planificacionsubsector "
@@ -131,7 +131,7 @@ QString PlanificacionesDiasSubSectores::getUpdateStatement()
                    " where IDRecord = :IDRecord;").arg(RECORD_MODIFIED);
 }
 
-QString PlanificacionesDiasSubSectores::getInsertStatement(bool IncludeIDs)
+QString PlanificacionesDiasSubSectores::getInsertStatement(bool IncludeIDs, bool)
 {
     QLOG_TRACE() << "QString PlanificacionesDiasSubSectores::getInsertStatement(bool IncludeIDs)";
     if (IncludeIDs)
@@ -183,6 +183,15 @@ RecordSet PlanificacionesDiasSubSectores::getUnsent()
             res->push_back(p->asRecordPtr());
     }
     return res;
+}
+
+void PlanificacionesDiasSubSectores::setSentFlagIntoMemory()
+{
+    QLOG_TRACE() << "void PlanificacionesDiasSubSectores::setSentFlagIntoMemory()";
+    foreach(PlanificacionSubSectorPtr p, m_Planificacion)
+    {
+        p->setSentStatus(true);
+    }
 }
 
 void PlanificacionesDiasSubSectores::defineHeaders(QStringList &)

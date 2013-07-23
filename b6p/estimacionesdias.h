@@ -22,12 +22,14 @@ public:
     virtual bool printSelectedRecord(QVariant, QTextDocument &) { return false; }
 
     virtual QString getTableName() { return "planificaciondias"; }
-    virtual QString getDeleteStatement();
-    virtual QString getUpdateStatement();
-    virtual QString getInsertStatement(bool IncludeIDs);
+    virtual QString getDeleteStatement(bool includeSenderMachine);
+    virtual QString getUpdateStatement(bool includeSenderMachine);
+    virtual QString getInsertStatement(bool IncludeIDs, bool includeSenderMachine);
     virtual QString getSQLExistsInMainDB();
     virtual RecordSet getRecords(RecordStatus status);
     virtual RecordSet getUnsent();
+    virtual void setSentFlagIntoMemory();
+
 
     virtual QString getSelectFromMainDB();
 

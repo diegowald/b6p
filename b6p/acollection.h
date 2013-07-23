@@ -67,9 +67,9 @@ public:
     void setSentFlagIntoDatabase();
 
     virtual QString getTableName() = 0;
-    virtual QString getDeleteStatement() = 0;
-    virtual QString getUpdateStatement() = 0;
-    virtual QString getInsertStatement(bool IncludeIDs) = 0;
+    virtual QString getDeleteStatement(bool includeSenderMachine) = 0;
+    virtual QString getUpdateStatement(bool includeSenderMachine) = 0;
+    virtual QString getInsertStatement(bool IncludeIDs, bool includeSenderMachine) = 0;
     virtual QString getSQLExistsInMainDB() = 0;
     virtual RecordSet getRecords(RecordStatus status) = 0;
     virtual RecordSet getUnsent() = 0;
@@ -82,6 +82,8 @@ public:
     virtual QString getSelectFromMainDB() = 0;
 
     virtual bool localRecordIsEqualsTo(RecordPtr record) = 0;
+
+    virtual void setSentFlagIntoMemory() = 0;
 
 protected:
     virtual bool addNew() = 0;
@@ -100,9 +102,9 @@ signals:
 public slots:
 
 protected:
-    virtual void deleteRecordsDB();
-    virtual void updateRecordsToDB();
-    virtual void addNewRecordsToDB(bool includeIDs);
+    virtual void deleteRecordsDB(bool includeSenderMachine);
+    virtual void updateRecordsToDB(bool includeSenderMachine);
+    virtual void addNewRecordsToDB(bool includeIDs, bool includeSenderMachine);
     virtual void executeCommand(QString cmd, RecordStatus status);
 private:
     QString m_Name;

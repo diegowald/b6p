@@ -77,7 +77,8 @@ void SincroManager::obtenerActualizacionesDeBaseCentral()
         QLOG_INFO() << "Getting updates for " << db->name();
         if (db->checkConnection())
         {
-            db->getDataFromDB(m_FechaUltimaSincronizacion);
+            db->getDataFromDB(m_FechaUltimaSincronizacion,
+                              DataStore::instance()->getParametros()->getLocalMachine());
             db->applyChanges();
             db->checkConsistency();
         }
@@ -93,7 +94,7 @@ void SincroManager::enviarDatosADBCentral()
         QLOG_INFO() << "Sending data for " << db->name();
         if (db->checkConnection())
         {
-            db->sendData();
+            db->sendData(DataStore::instance()->getParametros()->getLocalMachine());
             db->saveLocalChanges();
         }
         QCoreApplication::processEvents();

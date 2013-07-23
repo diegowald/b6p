@@ -108,19 +108,19 @@ RecordPtr Sectores::getLocalRecord(RecordPtr record)
     return s->asRecordPtr();
 }
 
-QString Sectores::getDeleteStatement()
+QString Sectores::getDeleteStatement(bool)
 {
     QLOG_TRACE() << "QString Sectores::getDeleteStatement()";
     return "delete from sectores where ID = :ID;";
 }
 
-QString Sectores::getUpdateStatement()
+QString Sectores::getUpdateStatement(bool)
 {
     QLOG_TRACE() << "QString Sectores::getUpdateStatement()";
     return "update sectores set Nombre = :Nombre, Descripcion = :Descripcion, showInPlanification = :showInPlanification, sent = 0 where ID = :RECORD_ID;";
 }
 
-QString Sectores::getInsertStatement(bool IncludeIDs)
+QString Sectores::getInsertStatement(bool IncludeIDs, bool)
 {
     QLOG_TRACE() << "QString Sectores::getInsertStatement(bool IncludeIDs)";
     if (IncludeIDs)
@@ -172,6 +172,15 @@ RecordSet Sectores::getUnsent()
             res->push_back(s->asRecordPtr());
     }
     return res;
+}
+
+void Sectores::setSentFlagIntoMemory()
+{
+    QLOG_TRACE() << "void Sectores::setSentFlagIntoMemory()";
+    foreach(SectorPtr s, m_Sectores.values())
+    {
+        s->setSentStatus(true);
+    }
 }
 
 SectorPtr Sectores::getSector(int IDSector)

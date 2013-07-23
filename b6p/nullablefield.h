@@ -95,9 +95,9 @@ private:
         if (status == Unmodified)
         {
             status = Updated;
-            if (parent != NULL)
-                parent->setModified();
         }
+        if (parent != NULL)
+            parent->setModified();
     }
 
 private:

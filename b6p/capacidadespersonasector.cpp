@@ -145,14 +145,14 @@ RecordPtr CapacidadesPersonaSector::getLocalRecord(RecordPtr record)
     return c->asRecordPtr();
 }
 
-QString CapacidadesPersonaSector::getDeleteStatement()
+QString CapacidadesPersonaSector::getDeleteStatement(bool)
 {
     QLOG_TRACE() << "QString CapacidadesPersonaSector::getDeleteStatement()";
     return QString("update capacidadespersonassector set RecordStatus = %1, sent = 0 where IDSector = :IDSector "
                    " and IDSubSector = :IDSubSector and IDEmpleado = :IDEmpleado;").arg(RECORD_DELETED);
 }
 
-QString CapacidadesPersonaSector::getUpdateStatement()
+QString CapacidadesPersonaSector::getUpdateStatement(bool)
 {
     QLOG_TRACE() << "QString CapacidadesPersonaSector::getUpdateStatement()";
     return QString("update capacidadespersonassector set "
@@ -162,7 +162,7 @@ QString CapacidadesPersonaSector::getUpdateStatement()
                    " and IDEmpleado = :IDEmpleado;").arg(RECORD_MODIFIED);
 }
 
-QString CapacidadesPersonaSector::getInsertStatement(bool)
+QString CapacidadesPersonaSector::getInsertStatement(bool, bool)
 {
     QLOG_TRACE() << "QString CapacidadesPersonaSector::getInsertStatement(bool)";
     return QString("insert into capacidadespersonassector "
@@ -208,6 +208,15 @@ RecordSet CapacidadesPersonaSector::getUnsent()
             res->push_back(c->asRecordPtr());
     }
     return res;
+}
+
+void CapacidadesPersonaSector::setSentFlagIntoMemory()
+{
+    QLOG_TRACE() << "void CapacidadesPersonaSector::setSentFlagIntoMemory()";
+    foreach(CapacidadPersonaSectorPtr c, m_Capacidades)
+    {
+        c->setSentStatus(true);
+    }
 }
 
 void CapacidadesPersonaSector::defineHeaders(QStringList &)

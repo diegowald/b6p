@@ -18,7 +18,7 @@ bool DatabaseSynchronization::checkConnection()
     return m_SQLHandler->checkConnection();
 }
 
-void DatabaseSynchronization::getDataFromDB(QString dateFrom)
+void DatabaseSynchronization::getDataFromDB(const QString &dateFrom, const QString &senderMachine)
 {
     QLOG_TRACE() << "void DatabaseSynchronization::getDataFromDB(QString dateFrom)";
     QString syncroName = name();
@@ -27,6 +27,7 @@ void DatabaseSynchronization::getDataFromDB(QString dateFrom)
     Q_ASSERT(SQL != "");
     RecordPtr r = boost::make_shared<Record>();
     (*r)["LASTUPDATE"] = dateFrom;
+    (*r)["SenderMachine"] = senderMachine;
     m_QueryResult = m_SQLHandler->getAll(SQL, r);
 }
 
@@ -134,7 +135,7 @@ void DatabaseSynchronization::checkConsistency()
     emit checkingChanges(syncroName);
 }
 
-void DatabaseSynchronization::sendData()
+void DatabaseSynchronization::sendData(const QString &senderMachine)
 {
     QLOG_TRACE() << "void DatabaseSynchronization::sendData()";
     QString syncroName = name();
@@ -145,6 +146,7 @@ void DatabaseSynchronization::sendData()
     RecordSet toSend = m_Data->getUnsent();
     foreach(RecordPtr rec, *toSend)
     {
+        (*rec)["SenderMachine"] = senderMachine;
         RecordStatus recStatus = (RecordStatus)(*rec)["RecordStatus"].toInt();
         switch(recStatus)
         {
@@ -195,7 +197,7 @@ bool DatabaseSynchronization::existsInMainDB(RecordPtr rec)
 void DatabaseSynchronization::addRecord(RecordPtr rec)
 {
     QLOG_TRACE() << "void DatabaseSynchronization::addRecord(RecordPtr rec)";
-    QString sql = m_Data->getInsertStatement(true);
+    QString sql = m_Data->getInsertStatement(true, true);
     Q_ASSERT(sql != "");
     m_SQLHandler->executeQuery(sql, rec, false);
 }
@@ -203,7 +205,7 @@ void DatabaseSynchronization::addRecord(RecordPtr rec)
 void DatabaseSynchronization::updateRecord(RecordPtr rec)
 {
     QLOG_TRACE() << "void DatabaseSynchronization::updateRecord(RecordPtr rec)";
-    QString sql = m_Data->getUpdateStatement();
+    QString sql = m_Data->getUpdateStatement(true);
     Q_ASSERT(sql != "");
     m_SQLHandler->executeQuery(sql, rec, false);
 }
@@ -211,7 +213,7 @@ void DatabaseSynchronization::updateRecord(RecordPtr rec)
 void DatabaseSynchronization::deleteRecord(RecordPtr rec)
 {
     QLOG_TRACE() << "void DatabaseSynchronization::deleteRecord(RecordPtr rec)";
-    QString sql = m_Data->getDeleteStatement();
+    QString sql = m_Data->getDeleteStatement(true);
     Q_ASSERT(sql != "");
     m_SQLHandler->executeQuery(sql, rec, false);
 }

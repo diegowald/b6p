@@ -100,19 +100,19 @@ RecordPtr SubSectores::getLocalRecord(RecordPtr record)
     return s->asRecordPtr();
 }
 
-QString SubSectores::getDeleteStatement()
+QString SubSectores::getDeleteStatement(bool)
 {
     QLOG_TRACE() << "QString SubSectores::getDeleteStatement()";
     return "delete from subsectores where ID = :ID;";
 }
 
-QString SubSectores::getUpdateStatement()
+QString SubSectores::getUpdateStatement(bool)
 {
     QLOG_TRACE() << "QString SubSectores::getUpdateStatement()";
     return "update subsectores set IDSector = :IDSector, Nombre = :Nombre, Descripcion = :Descripcion, sent = 0 where ID = :ID;";
 }
 
-QString SubSectores::getInsertStatement(bool IncludeIDs)
+QString SubSectores::getInsertStatement(bool IncludeIDs, bool)
 {
     QLOG_TRACE() << "QString SubSectores::getInsertStatement(bool IncludeIDs)";
     if (IncludeIDs)
@@ -164,6 +164,15 @@ RecordSet SubSectores::getUnsent()
             res->push_back(s->asRecordPtr());
     }
     return res;
+}
+
+void SubSectores::setSentFlagIntoMemory()
+{
+    QLOG_TRACE() << "void SubSectores::setSentFlagIntoMemory()";
+    foreach(SubSectorPtr s, m_SubSectores.values())
+    {
+        s->setSentStatus(true);
+    }
 }
 
 SubSectorPtr SubSectores::getSubSector(int idSubSector)

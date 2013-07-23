@@ -42,10 +42,12 @@ public:
     virtual boost::shared_ptr<QList<QStringList> > getAll();
     virtual void fillData(QTreeWidget &tree);
     virtual QString getTableName() { return "access"; }
-    virtual QString getDeleteStatement() { return ""; }
-    virtual QString getUpdateStatement() { return ""; }
-    virtual QString getInsertStatement(bool) { return ""; }
+    virtual QString getDeleteStatement(bool) { return ""; }
+    virtual QString getUpdateStatement(bool) { return ""; }
+    virtual QString getInsertStatement(bool, bool ) { return ""; }
     virtual QString getSQLExistsInMainDB() { return ""; }
+
+    virtual void setSentFlagIntoMemory() { };
 
     virtual RecordSet getRecords(RecordStatus);
     virtual RecordSet getUnsent();

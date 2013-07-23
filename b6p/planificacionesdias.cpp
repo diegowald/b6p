@@ -104,7 +104,7 @@ RecordPtr PlanificacionesDias::getLocalRecord(RecordPtr record)
     return p->asRecordPtr();
 }
 
-QString PlanificacionesDias::getDeleteStatement()
+QString PlanificacionesDias::getDeleteStatement(bool)
 {
     QLOG_TRACE() << "QString PlanificacionesDias::getDeleteStatement()";
     return QString("update planificaciondia "
@@ -112,7 +112,7 @@ QString PlanificacionesDias::getDeleteStatement()
                    " where Dia = :Dia;").arg(RECORD_DELETED);
 }
 
-QString PlanificacionesDias::getUpdateStatement()
+QString PlanificacionesDias::getUpdateStatement(bool)
 {
     QLOG_TRACE() << "QString PlanificacionesDias::getUpdateStatement()";
     return QString("update planificaciondia "
@@ -122,7 +122,7 @@ QString PlanificacionesDias::getUpdateStatement()
 
 }
 
-QString PlanificacionesDias::getInsertStatement(bool)
+QString PlanificacionesDias::getInsertStatement(bool, bool)
 {
     QLOG_TRACE() << "QString PlanificacionesDias::getInsertStatement(bool)";
     return QString("insert into planificaciondia "
@@ -168,6 +168,15 @@ RecordSet PlanificacionesDias::getUnsent()
             res->push_back(p->asRecordPtr());
     }
     return res;
+}
+
+void PlanificacionesDias::setSentFlagIntoMemory()
+{
+    QLOG_TRACE() << "void PlanificacionesDias::setSentFlagIntoMemory()";
+    foreach(PlanificacionDiaPtr p, m_Planificaciones.values())
+    {
+        p->setSentStatus(true);
+    }
 }
 
 void PlanificacionesDias::defineHeaders(QStringList &list)

@@ -22,12 +22,13 @@ public:
 
 
     virtual QString getTableName() { return "parametros"; }
-    virtual QString getDeleteStatement();
-    virtual QString getUpdateStatement();
-    virtual QString getInsertStatement(bool IncludeIDs);
+    virtual QString getDeleteStatement(bool includeSenderMachine);
+    virtual QString getUpdateStatement(bool includeSenderMachine);
+    virtual QString getInsertStatement(bool IncludeIDs, bool includeSenderMachine);
     virtual QString getSQLExistsInMainDB();
     virtual RecordSet getRecords(RecordStatus status);
     virtual RecordSet getUnsent();
+    virtual void setSentFlagIntoMemory() { }
 
     virtual bool canBeDeleted(QVariant) { return false; }
 
@@ -52,6 +53,7 @@ public:
     void setValue(QString key, int value);
 
     QsLogging::Level getLoggingLevel();
+    QString getLocalMachine() const;
 
     static const QString OPEN_STORE;
     static const QString CLOSE_STORE;
@@ -65,8 +67,8 @@ public:
     static const QString DATABASE_NAME;
     static const QString USER_NAME;
     static const QString PASSWORD;
-
     static const QString LOG_LEVEL;
+
 
 signals:
     

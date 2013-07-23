@@ -22,11 +22,12 @@ public:
     virtual bool printSelectedRecord(QVariant IDElement, QTextDocument &textDoc);
 
     virtual QString getTableName() { return "planificaciondia"; }
-    virtual QString getDeleteStatement();
-    virtual QString getUpdateStatement();
-    virtual QString getInsertStatement(bool IncludeIDs);
+    virtual QString getDeleteStatement(bool includeSenderMachine);
+    virtual QString getUpdateStatement(bool includeSenderMachine);
+    virtual QString getInsertStatement(bool IncludeIDs, bool includeSenderMachine);
     virtual RecordSet getRecords(RecordStatus status);
     virtual RecordSet getUnsent();
+    virtual void setSentFlagIntoMemory();
     virtual QString getSelectFromMainDB();
     virtual void defineHeaders(QStringList &list);
     virtual boost::shared_ptr<QList<QStringList> > getAll();

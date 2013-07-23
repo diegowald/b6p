@@ -118,13 +118,13 @@ RecordPtr CalendarioPersonas::getLocalRecord(RecordPtr record)
     return RecordPtr();
 }
 
-QString CalendarioPersonas::getDeleteStatement()
+QString CalendarioPersonas::getDeleteStatement(bool)
 {
     QLOG_TRACE() << "QString CalendarioPersonas::getDeleteStatement()";
     return QString("update calendariopersonas set RecordStatus = %1, sent = 0 where Dia = :Dia and IDEmpleado = :IDEmpleado;").arg(RECORD_DELETED);
 }
 
-QString CalendarioPersonas::getUpdateStatement()
+QString CalendarioPersonas::getUpdateStatement(bool)
 {
     QLOG_TRACE() << "QString CalendarioPersonas::getUpdateStatement()";
     return QString("update calendariopersonas set HoraIngreso = :HoraIngreso, HoraEgreso = :HoraEgreso, "
@@ -132,7 +132,7 @@ QString CalendarioPersonas::getUpdateStatement()
                    " where Dia = :Dia and IDEmpleado = :IDEmpleado;").arg(RECORD_MODIFIED);
 }
 
-QString CalendarioPersonas::getInsertStatement(bool)
+QString CalendarioPersonas::getInsertStatement(bool, bool)
 {
     QLOG_TRACE() << "QString CalendarioPersonas::getInsertStatement(bool)";
     return QString("insert into calendariopersonas "
@@ -179,6 +179,16 @@ RecordSet CalendarioPersonas::getUnsent()
     }
     return res;
 }
+
+void CalendarioPersonas::setSentFlagIntoMemory()
+{
+    QLOG_TRACE() << "void CalendarioPersonas::setSentFlagIntoMemory()";
+    foreach(CalendarioPersonaPtr c, m_Calendarios)
+    {
+        c->setSentStatus(true);
+    }
+}
+
 
 void CalendarioPersonas::defineHeaders(QStringList &)
 {
