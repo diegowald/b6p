@@ -164,7 +164,7 @@ QString Empleados::getInsertStatement(bool IncludeIDs, bool includeSenderMachine
     parameters.append(":FechaIngreso");
 
     fields.append("RecordStatus");
-    parameters.append("%1");
+    parameters.append(QString::number(RECORD_NEW));
 
     fields.append("isBaja");
     parameters.append("0");
