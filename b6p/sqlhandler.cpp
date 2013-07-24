@@ -125,6 +125,7 @@ RecordSet SQLHandler::getAll(QString &query)
 RecordSet SQLHandler::getAll(QString &query, RecordPtr record)
 {
     QLOG_TRACE() << "RecordSet SQLHandler::getAll(QString &query, RecordPtr record)";
+    QLOG_DEBUG() << "Query: " << query;
     RecordSet response = boost::make_shared<QList<RecordPtr> >();
 
     if (!tryReconnect())
@@ -195,6 +196,7 @@ void SQLHandler::addParameters(QSqlQuery &query, QString &SQL, RecordPtr record)
                 break;
             }
             query.bindValue(param, value);
+            QLOG_DEBUG() << "Parameter: " << param << ", Value: " << value;
         }
     }
 }
@@ -202,6 +204,8 @@ void SQLHandler::addParameters(QSqlQuery &query, QString &SQL, RecordPtr record)
 int SQLHandler::executeQuery(QString &cmd, RecordPtr record, bool returnLastInsertedID)
 {
     QLOG_TRACE() << "int SQLHandler::executeQuery(QString &cmd, RecordPtr record, bool returnLastInsertedID)";
+    QLOG_DEBUG() << "cmd: " << cmd;
+    QLOG_DEBUG() << "returnLastInsertedID: " << returnLastInsertedID;
     if (!tryReconnect())
     {
         db = QSqlDatabase::addDatabase("QSQLITE"/*, "local"*/);
@@ -230,6 +234,7 @@ int SQLHandler::executeQuery(QString &cmd, RecordPtr record, bool returnLastInse
 void SQLHandler::executeCommand(QString &cmd)
 {
     QLOG_TRACE() << "void SQLHandler::executeCommand(QString &cmd)";
+    QLOG_DEBUG() << "cmd: " << cmd;
     if (!tryReconnect())
     {
         db = QSqlDatabase::addDatabase("QSQLITE"/*, "local"*/);
