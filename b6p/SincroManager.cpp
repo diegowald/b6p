@@ -38,12 +38,20 @@ void SincroManager::runSincro()
 {
     QLOG_TRACE() << "void SincroManager::runSincro()";
     emit startingSynchro();
-    obtenerFechaDesdeServerCentral();
-    obtenerFechaUltimaSincronizacion();
-    obtenerActualizacionesDeBaseCentral();
+    if (conexionADBOK())
+    {
+        obtenerFechaDesdeServerCentral();
+        obtenerFechaUltimaSincronizacion();
+        obtenerActualizacionesDeBaseCentral();
 
-    enviarDatosADBCentral();
-    grabarFechaUltimaSincronizacion();
+        enviarDatosADBCentral();
+        grabarFechaUltimaSincronizacion();
+    }
+    else
+    {
+        QLOG_ERROR() << "No se puede conectar a la base de datos.";
+        QMessageBox::information(NULL, tr("Unable to connect to database"), tr("Please check connection parameters"));
+    }
     emit SynchroEnded();
     /**
  * Secuencia
@@ -59,6 +67,16 @@ void SincroManager::runSincro()
  */
 }
 
+bool SincroManager::conexionADBOK()
+{
+    QLOG_TRACE() << "bool SincroManager::conexionADBOK()";
+
+    if (m_Synchronizationtables.count() == 0)
+        return false;
+
+    DatabaseSynchronizationPtr db = m_Synchronizationtables.at(0);
+    return db->checkConnection();
+}
 
 void SincroManager::obtenerFechaUltimaSincronizacion()
 {

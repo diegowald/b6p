@@ -26,6 +26,7 @@ protected:
 
     void establishConnections();
     void establishConnections(DatabaseSynchronizationPtr db);
+    bool conexionADBOK();
 
 signals:
     void startingSynchro();
