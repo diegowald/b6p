@@ -102,6 +102,10 @@ signals:
 public slots:
 
 protected:
+///DIEGO///
+    //aca me parece que conviene desdoblar el abm a sqlite y a la db central
+    //asi queda todo mas claro.
+
     virtual void deleteRecordsDB(bool includeSenderMachine);
     virtual void updateRecordsToDB(bool includeSenderMachine);
     virtual void addNewRecordsToDB(bool includeIDs, bool includeSenderMachine);

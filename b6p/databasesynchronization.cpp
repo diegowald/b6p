@@ -144,6 +144,9 @@ void DatabaseSynchronization::sendData(const QString &senderMachine)
     // estos serian los registros que estan con el flag de enviado en false.
 
     RecordSet toSend = m_Data->getUnsent();
+    ///DIEGO///
+    //aca tengo que traer los registros que no fueron enviados a la base central
+    //en record status estoy obteniendo el estado de los registros en memoria.
     foreach(RecordPtr rec, *toSend)
     {
         (*rec)["SenderMachine"] = senderMachine;

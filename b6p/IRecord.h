@@ -87,7 +87,14 @@ struct IRecord
     }
 
 private:
+    DIEGO///
+    //aca hay que setear local status para cuando se maneja en memoria y
+    //el status para cuando se refiere a los elementos en la base central
     RecordStatus status;
+
+    RecordStatus inMemoryStatus;
+    RecordStatus localStatus;
+
     bool Sent;
 };
 

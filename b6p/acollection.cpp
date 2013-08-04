@@ -44,7 +44,10 @@ void ACollection::save(bool includeIDs)
     updateRecordsToDB(false);
     addNewRecordsToDB(includeIDs, false);
     saveDependants();
-    setStatusToUnmodified(true);
+    ///DIEGO///
+    //la instruccion de abajo debe setear la bandera de que los registros en memoria estan
+    //        seteados a grabados a local storage.
+    setStatusToUnmodified(false); // antes true
     emit dataUpdated();
     emit saved(m_Name);
 }
