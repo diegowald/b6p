@@ -100,34 +100,49 @@ RecordPtr SubSectores::getLocalRecord(RecordPtr record)
     return s->asRecordPtr();
 }
 
-QString SubSectores::getDeleteStatement(bool)
+QString SubSectores::getLocalDeleteStatement()
 {
-    QLOG_TRACE() << "QString SubSectores::getDeleteStatement()";
+    QLOG_TRACE() << "QString SubSectores::getLocalDeleteStatement()";
     return "delete from subsectores where ID = :ID;";
 }
 
-QString SubSectores::getUpdateStatement(bool)
+QString SubSectores::getCentralDeleteStatement()
 {
-    QLOG_TRACE() << "QString SubSectores::getUpdateStatement()";
+    QLOG_TRACE() << "QString SubSectores::getCentralDeleteStatement()";
+    return "delete from subsectores where ID = :ID;";
+}
+
+QString SubSectores::getLocalUpdateStatement()
+{
+    QLOG_TRACE() << "QString SubSectores::getLocalUpdateStatement()";
     return "update subsectores set IDSector = :IDSector, Nombre = :Nombre, Descripcion = :Descripcion, sent = 0 where ID = :ID;";
 }
 
-QString SubSectores::getInsertStatement(bool IncludeIDs, bool)
+QString SubSectores::getCentralUpdateStatement()
 {
-    QLOG_TRACE() << "QString SubSectores::getInsertStatement(bool IncludeIDs)";
-    if (IncludeIDs)
-        return "insert into subsectores "
-                " (ID, IDSector, Nombre, Descripcion, sent) "
-                " values "
-                " (:RECORD_ID, :IDSector, :Nombre, :Descripcion, 0 );";
-    else
-        return " insert into subsectores "
-                " (IDSector, Nombre, Descripcion, sent) "
-                " values "
-                " (:IDSector, :Nombre, :Descripcion, 0 );";
+    QLOG_TRACE() << "QString SubSectores::getCentralUpdateStatement()";
+    return "update subsectores set IDSector = :IDSector, Nombre = :Nombre, Descripcion = :Descripcion, sent = 0 where ID = :ID;";
 }
 
-RecordSet SubSectores::getRecords(RecordStatus status)
+QString SubSectores::getLocalInsertStatement()
+{
+    QLOG_TRACE() << "QString SubSectores::getLocalInsertStatement()";
+    return " insert into subsectores "
+            " (IDSector, Nombre, Descripcion, sent) "
+            " values "
+            " (:IDSector, :Nombre, :Descripcion, 0 );";
+}
+
+QString SubSectores::getCentralInsertStatement()
+{
+    QLOG_TRACE() << "QString SubSectores::getCentralInsertStatement()";
+    return "insert into subsectores "
+            " (ID, IDSector, Nombre, Descripcion, sent) "
+            " values "
+            " (:RECORD_ID, :IDSector, :Nombre, :Descripcion, 0 );";
+}
+
+RecordSet SubSectores::getRecords(RecordStatus status, bool fromMemory)
 {
     QLOG_TRACE() << "RecordSet SubSectores::getRecords(RecordStatus status)";
     RecordSet res = boost::make_shared<QList<RecordPtr> >();
@@ -140,9 +155,12 @@ RecordSet SubSectores::getRecords(RecordStatus status)
                 res->push_back(s->asRecordPtr());
             break;
         case MODIFIED:
-            if (s->isModified())
+        {
+            bool modified = (fromMemory ? s->isModifiedInMemory() : s->isLocallyModified());
+            if (modified)
                 res->push_back(s->asRecordPtr());
             break;
+        }
         case DELETED:
             if (s->isDeleted())
                 res->push_back(s->asRecordPtr());

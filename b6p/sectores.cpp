@@ -108,34 +108,49 @@ RecordPtr Sectores::getLocalRecord(RecordPtr record)
     return s->asRecordPtr();
 }
 
-QString Sectores::getDeleteStatement(bool)
+QString Sectores::getLocalDeleteStatement()
 {
-    QLOG_TRACE() << "QString Sectores::getDeleteStatement()";
+    QLOG_TRACE() << "QString Sectores::getLocalDeleteStatement()";
     return "delete from sectores where ID = :ID;";
 }
 
-QString Sectores::getUpdateStatement(bool)
+QString Sectores::getCentralDeleteStatement()
 {
-    QLOG_TRACE() << "QString Sectores::getUpdateStatement()";
+    QLOG_TRACE() << "QString Sectores::getCentralDeleteStatement()";
+    return "delete from sectores where ID = :ID;";
+}
+
+QString Sectores::getLocalUpdateStatement()
+{
+    QLOG_TRACE() << "QString Sectores::getLocalUpdateStatement()";
     return "update sectores set Nombre = :Nombre, Descripcion = :Descripcion, showInPlanification = :showInPlanification, sent = 0 where ID = :RECORD_ID;";
 }
 
-QString Sectores::getInsertStatement(bool IncludeIDs, bool)
+QString Sectores::getCentralUpdateStatement()
 {
-    QLOG_TRACE() << "QString Sectores::getInsertStatement(bool IncludeIDs)";
-    if (IncludeIDs)
-        return "insert into sectores "
-                " (ID, Nombre, Descripcion, showInPlanification, sent) "
-                " values "
-                " (:RECORD_ID, :Nombre, :Descripcion, :showInPlanification, 0);";
-    else
-        return "insert into sectores "
+    QLOG_TRACE() << "QString Sectores::getCentralUpdateStatement()";
+    return "update sectores set Nombre = :Nombre, Descripcion = :Descripcion, showInPlanification = :showInPlanification, sent = 0 where ID = :RECORD_ID;";
+}
+
+QString Sectores::getLocalInsertStatement()
+{
+    QLOG_TRACE() << "QString Sectores::getLocalInsertStatement()";
+    return "insert into sectores "
             " (Nombre, Descripcion, showInPlanification, sent) "
             " values "
             " (:Nombre, :Descripcion, :showInPlanification, 0);";
 }
 
-RecordSet Sectores::getRecords(RecordStatus status)
+QString Sectores::getCentralInsertStatement()
+{
+    QLOG_TRACE() << "QString Sectores::getCentralInsertStatement()";
+    return "insert into sectores "
+            " (ID, Nombre, Descripcion, showInPlanification, sent) "
+            " values "
+            " (:RECORD_ID, :Nombre, :Descripcion, :showInPlanification, 0);";
+}
+
+RecordSet Sectores::getRecords(RecordStatus status, bool fromMemory)
 {
     QLOG_TRACE() << "RecordSet Sectores::getRecords(RecordStatus status)";
     RecordSet res = boost::make_shared<QList<RecordPtr> >();
@@ -148,9 +163,12 @@ RecordSet Sectores::getRecords(RecordStatus status)
                 res->push_back(s->asRecordPtr());
             break;
         case MODIFIED:
-            if (s->isModified())
+        {
+            bool modified = (fromMemory ? s->isModifiedInMemory() : s->isLocallyModified());
+            if (modified)
                 res->push_back(s->asRecordPtr());
             break;
+        }
         case DELETED:
             if (s->isDeleted())
                 res->push_back(s->asRecordPtr());

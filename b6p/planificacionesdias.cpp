@@ -104,34 +104,60 @@ RecordPtr PlanificacionesDias::getLocalRecord(RecordPtr record)
     return p->asRecordPtr();
 }
 
-QString PlanificacionesDias::getDeleteStatement(bool)
+
+QString PlanificacionesDias::getLocalDeleteStatement()
 {
-    QLOG_TRACE() << "QString PlanificacionesDias::getDeleteStatement()";
+    QLOG_TRACE() << "QString PlanificacionesDias::getLocalDeleteStatement()";
     return QString("update planificaciondia "
                    " set RecordStatus = %1, sent = 0 "
                    " where Dia = :Dia;").arg(RECORD_DELETED);
 }
 
-QString PlanificacionesDias::getUpdateStatement(bool)
+QString PlanificacionesDias::getCentralDeleteStatement()
 {
-    QLOG_TRACE() << "QString PlanificacionesDias::getUpdateStatement()";
+    QLOG_TRACE() << "QString PlanificacionesDias::getCentralDeleteStatement()";
+    return QString("update planificaciondia "
+                   " set RecordStatus = %1, sent = 0 "
+                   " where Dia = :Dia;").arg(RECORD_DELETED);
+}
+
+QString PlanificacionesDias::getLocalUpdateStatement()
+{
+    QLOG_TRACE() << "QString PlanificacionesDias::getLocalUpdateStatement()";
     return QString("update planificaciondia "
                    " set Notas = :Notas, IDSupervisor = :IDSupervisor, "
                    " RecordStatus = %1, EstadoPlanificacion = :EstadoPlanificacion, sent = 0 "
                    " where Dia = :Dia;").arg(RECORD_MODIFIED);
-
 }
 
-QString PlanificacionesDias::getInsertStatement(bool, bool)
+QString PlanificacionesDias::getCentralUpdateStatement()
 {
-    QLOG_TRACE() << "QString PlanificacionesDias::getInsertStatement(bool)";
+    QLOG_TRACE() << "QString PlanificacionesDias::getCentralUpdateStatement()";
+    return QString("update planificaciondia "
+                   " set Notas = :Notas, IDSupervisor = :IDSupervisor, "
+                   " RecordStatus = %1, EstadoPlanificacion = :EstadoPlanificacion, sent = 0 "
+                   " where Dia = :Dia;").arg(RECORD_MODIFIED);
+}
+
+QString PlanificacionesDias::getLocalInsertStatement()
+{
+    QLOG_TRACE() << "QString PlanificacionesDias::getLocalInsertStatement()";
     return QString("insert into planificaciondia "
                    " (Dia, Notas, IDSupervisor, RecordStatus, EstadoPlanificacion, sent) "
                    " values "
                    " (:Dia, :Notas, :IDSupervisor, %1, :EstadoPlanificacion, 0);").arg(RECORD_NEW);
 }
 
-RecordSet PlanificacionesDias::getRecords(RecordStatus status)
+QString PlanificacionesDias::getCentralInsertStatement()
+{
+    QLOG_TRACE() << "QString PlanificacionesDias::getCentralInsertStatement()";
+    return QString("insert into planificaciondia "
+                   " (Dia, Notas, IDSupervisor, RecordStatus, EstadoPlanificacion, sent) "
+                   " values "
+                   " (:Dia, :Notas, :IDSupervisor, %1, :EstadoPlanificacion, 0);").arg(RECORD_NEW);
+}
+
+RecordSet PlanificacionesDias::getRecords(RecordStatus status, bool fromMemory)
 {
     QLOG_TRACE() << "RecordSet PlanificacionesDias::getRecords(RecordStatus status)";
     RecordSet res = boost::make_shared<QList<RecordPtr> >();
@@ -144,9 +170,12 @@ RecordSet PlanificacionesDias::getRecords(RecordStatus status)
                 res->push_back(p->asRecordPtr());
             break;
         case MODIFIED:
-            if (p->isModified())
+        {
+            bool modified = ( fromMemory ? p->isModifiedInMemory() : p->isLocallyModified());
+            if (modified)
                 res->push_back(p->asRecordPtr());
             break;
+        }
         case DELETED:
             if (p->isDeleted())
                 res->push_back(p->asRecordPtr());
