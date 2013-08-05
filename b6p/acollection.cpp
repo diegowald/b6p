@@ -40,9 +40,9 @@ void ACollection::save(bool includeIDs)
     QLOG_TRACE() << "void ACollection::save(bool includeIDs)";
     emit saving(m_Name);
 
-    deleteRecordsDB(false);
-    updateRecordsToDB(false);
-    addNewRecordsToDB(includeIDs, false);
+    deleteRecordsLocally();
+    updateRecordsLocally();
+    addNewRecordsLocally();
     saveDependants();
     ///DIEGO///
     //la instruccion de abajo debe setear la bandera de que los registros en memoria estan
@@ -52,28 +52,64 @@ void ACollection::save(bool includeIDs)
     emit saved(m_Name);
 }
 
-void ACollection::deleteRecordsDB(bool includeSenderMachine)
+void ACollection::saveLocally()
 {
-    QLOG_TRACE() << "void ACollection::deleteRecordsDB()";
-    executeCommand(getDeleteStatement(includeSenderMachine), DELETED);
+    QLOG_TRACE() << "void ACollection::saveLocally()";
+    emit saving(m_Name);
+
+    deleteRecordsLocally();
+    updateRecordsLocally();
+    addNewRecordsLocally();
+    saveDependants();
+    ///DIEGO///
+    //la instruccion de abajo debe setear la bandera de que los registros en memoria estan
+    //        seteados a grabados a local storage.
+    setStatusToUnmodified(false); // antes true
+    emit dataUpdated();
+    emit saved(m_Name);
 }
 
-void ACollection::updateRecordsToDB(bool includeSenderMachine)
+void ACollection::deleteRecordsLocally()
 {
-    QLOG_TRACE() << "void ACollection::updateRecordsToDB()";
-    executeCommand(getUpdateStatement(includeSenderMachine), MODIFIED);
+    QLOG_TRACE() << "void ACollection::deleteRecordsLocally()";
+    executeCommand(getLocalDeleteStatement(), DELETED, true);
 }
 
-void ACollection::addNewRecordsToDB(bool includeIDs, bool includeSenderMachine)
+void ACollection::updateRecordsLocally()
 {
-    QLOG_TRACE() << "void ACollection::addNewRecordsToDB(bool includeIDs)";
-    executeCommand(getInsertStatement(includeIDs, includeSenderMachine), NEW);
+    QLOG_TRACE() << "void ACollection::updateRecordsLocally()";
+    executeCommand(getLocalUpdateStatement(), MODIFIED, true);
 }
 
-void ACollection::executeCommand(QString cmd, RecordStatus status)
+void ACollection::addNewRecordsLocally()
+{
+    QLOG_TRACE() << "void ACollection::addNewRecordsLocally()";
+    executeCommand(getLocalInsertStatement(), NEW, true);
+}
+
+void ACollection::deleteRecordsCentralDB()
+{
+    QLOG_TRACE() << "void ACollection::deleteRecordsCentralDB()";
+    executeCommand(getCentralDeleteStatement(), DELETED, false);
+}
+
+void ACollection::updateRecordsCentralDB()
+{
+    QLOG_TRACE() << "void ACollection::updateRecordsCentralDB()";
+    executeCommand(getCentralUpdateStatement(), MODIFIED, false);
+}
+
+void ACollection::addNewRecordsCentralDB()
+{
+    QLOG_TRACE() << "void ACollection::addNewRecordsCentralDB()";
+    executeCommand(getCentralInsertStatement(), NEW, false);
+}
+
+
+void ACollection::executeCommand(QString cmd, RecordStatus status, bool impactLocalDatabase)
 {
     QLOG_TRACE() << "void ACollection::executeCommand(QString cmd, RecordStatus status)";
-    RecordSet set = getRecords(status);
+    RecordSet set = getRecords(status, impactLocalDatabase);
     foreach(RecordPtr r, *set)
     {
         int newID = sqlEngine.executeQuery(cmd, r, usesLastInsertedId);

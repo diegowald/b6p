@@ -36,6 +36,7 @@ public:
     virtual void exportTo(const QString &filename);
     virtual void load();
     virtual void save(bool includeIDs = false);
+    virtual void saveLocally();
     virtual QString asHTML();
     virtual bool printSelectedRecord(QVariant IDElement, QTextDocument &textDoc) = 0;
 
@@ -67,11 +68,21 @@ public:
     void setSentFlagIntoDatabase();
 
     virtual QString getTableName() = 0;
-    virtual QString getDeleteStatement(bool includeSenderMachine) = 0;
+/*    virtual QString getDeleteStatement(bool includeSenderMachine) = 0;
     virtual QString getUpdateStatement(bool includeSenderMachine) = 0;
-    virtual QString getInsertStatement(bool IncludeIDs, bool includeSenderMachine) = 0;
+    virtual QString getInsertStatement(bool IncludeIDs, bool includeSenderMachine) = 0;*/
+
+    virtual QString getLocalDeleteStatement() = 0;
+    virtual QString getLocalUpdateStatement() = 0;
+    virtual QString getLocalInsertStatement() = 0;
+
+    virtual QString getCentralDeleteStatement() = 0;
+    virtual QString getCentralUpdateStatement() = 0;
+    virtual QString getCentralInsertStatement() = 0;
+
+
     virtual QString getSQLExistsInMainDB() = 0;
-    virtual RecordSet getRecords(RecordStatus status) = 0;
+    virtual RecordSet getRecords(RecordStatus status, bool fromMemory) = 0;
     virtual RecordSet getUnsent() = 0;
 
     virtual void refreshID(int oldID, int newRecordId) = 0;
@@ -106,10 +117,19 @@ protected:
     //aca me parece que conviene desdoblar el abm a sqlite y a la db central
     //asi queda todo mas claro.
 
-    virtual void deleteRecordsDB(bool includeSenderMachine);
+    /*virtual void deleteRecordsDB(bool includeSenderMachine);
     virtual void updateRecordsToDB(bool includeSenderMachine);
-    virtual void addNewRecordsToDB(bool includeIDs, bool includeSenderMachine);
-    virtual void executeCommand(QString cmd, RecordStatus status);
+    virtual void addNewRecordsToDB(bool includeIDs, bool includeSenderMachine);*/
+
+    virtual void deleteRecordsLocally();
+    virtual void updateRecordsLocally();
+    virtual void addNewRecordsLocally();
+
+    virtual void deleteRecordsCentralDB();
+    virtual void updateRecordsCentralDB();
+    virtual void addNewRecordsCentralDB();
+
+    virtual void executeCommand(QString cmd, RecordStatus status, bool impactLocalDatabase);
 private:
     QString m_Name;
     QString m_InvariableName;

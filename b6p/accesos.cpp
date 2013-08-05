@@ -63,7 +63,7 @@ bool Accesos::localRecordIsEqualsTo(RecordPtr)
     return true;
 }
 
-RecordSet Accesos::getRecords(RecordStatus)
+RecordSet Accesos::getRecords(RecordStatus, bool)
 {
     QLOG_TRACE() << "RecordSet Accesos::getRecords(RecordStatus)";
     RecordSet res = boost::make_shared<QList<RecordPtr> >();

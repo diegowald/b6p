@@ -42,11 +42,17 @@ public:
 
 
     virtual QString getTableName() { return "empleados"; }
-    virtual QString getDeleteStatement(bool includeSenderMachine);
-    virtual QString getUpdateStatement(bool includeSenderMachine);
-    virtual QString getInsertStatement(bool IncludeIDs, bool includeSenderMachine);
+
+    virtual QString getLocalDeleteStatement();
+    virtual QString getLocalUpdateStatement();
+    virtual QString getLocalInsertStatement();
+
+    virtual QString getCentralDeleteStatement();
+    virtual QString getCentralUpdateStatement();
+    virtual QString getCentralInsertStatement();
+
     virtual QString getSQLExistsInMainDB();
-    virtual RecordSet getRecords(RecordStatus status);
+    virtual RecordSet getRecords(RecordStatus status, bool fromMemory);
     virtual RecordSet getUnsent();
     virtual void setSentFlagIntoMemory();
 

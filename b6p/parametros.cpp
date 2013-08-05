@@ -67,23 +67,43 @@ bool Parametros::localRecordIsEqualsTo(RecordPtr)
     return true;
 }
 
-QString Parametros::getDeleteStatement(bool)
+
+QString Parametros::getLocalDeleteStatement()
 {
-    QLOG_TRACE() << "QString Parametros::getDeleteStatement()";
+    QLOG_TRACE() << "QString Parametros::getLocalDeleteStatement()";
     return "delete from parametros where Key = :Key;";
 }
 
-QString Parametros::getUpdateStatement(bool)
+QString Parametros::getLocalUpdateStatement()
 {
-    QLOG_TRACE() << "QString Parametros::getUpdateStatement()";
+    QLOG_TRACE() << "QString Parametros::getLocalUpdateStatement()";
     return "update parametros set Value = :Value where Key = :Key;";
 }
 
-QString Parametros::getInsertStatement(bool, bool)
+QString Parametros::getLocalInsertStatement()
 {
-    QLOG_TRACE() << "QString Parametros::getInsertStatement(bool)";
+    QLOG_TRACE() << "QString Parametros::getLocalInsertStatement()";
     return "insert into parametros (Key, Value) values (:Key, :Value);";
 }
+
+QString Parametros::getCentralDeleteStatement()
+{
+    QLOG_TRACE() << "QString Parametros::getCentralDeleteStatement()";
+    return "delete from parametros where Key = :Key;";
+}
+
+QString Parametros::getCentralUpdateStatement()
+{
+    QLOG_TRACE() << "QString Parametros::getCentralUpdateStatement()";
+    return "update parametros set Value = :Value where Key = :Key;";
+}
+
+QString Parametros::getCentralInsertStatement()
+{
+    QLOG_TRACE() << "QString Parametros::getCentralInsertStatement()";
+    return "insert into parametros (Key, Value) values (:Key, :Value);";
+}
+
 
 QString Parametros::getSQLExistsInMainDB()
 {
@@ -91,7 +111,7 @@ QString Parametros::getSQLExistsInMainDB()
     return "select Key, Value from Parametros where Key = :Key;";
 }
 
-RecordSet Parametros::getRecords(RecordStatus status)
+RecordSet Parametros::getRecords(RecordStatus status, bool fromMemory)
 {
     QLOG_TRACE() << "RecordSet Parametros::getRecords(RecordStatus status)";
     RecordSet rs = boost::make_shared<QList<RecordPtr> >();

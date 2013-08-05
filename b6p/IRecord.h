@@ -20,55 +20,70 @@ enum RecordStatus
 
 struct IRecord
 {
-    IRecord() { status = UNINITIALIZED; Sent = false; }
+    IRecord() {
+        inMemoryStatus = UNINITIALIZED;
+        localStatus = UNINITIALIZED;
+        //status = UNINITIALIZED;
+        Sent = false; }
 
     virtual RecordPtr asRecordPtr() = 0;
 
     virtual void setInitialized()
     {
-        if (status != NEW)
+        if (inMemoryStatus != NEW)
         {
-            status = UNMODIFIED;
+            inMemoryStatus = UNMODIFIED;
             setSentStatus(true);
         }
     }
 
-    virtual bool isModified()
+    virtual bool isModifiedInMemory()
     {
-        return status == MODIFIED;
+        return inMemoryStatus == MODIFIED;
+    }
+
+    virtual bool isLocallyModified()
+    {
+        return localStatus == MODIFIED;
     }
 
     virtual bool isDeleted()
     {
-        return status == DELETED;
+        return localStatus == DELETED;
+        //return status == DELETED;
     }
 
     virtual bool isNew()
     {
-        return status == NEW;
+        return inMemoryStatus == NEW;
     }
 
     void setModified()
     {
-        if (status == UNMODIFIED)
+        if (inMemoryStatus == UNMODIFIED)
         {
-            status = MODIFIED;
+            inMemoryStatus = MODIFIED;
+            localStatus = MODIFIED;
             setSentStatus(false);
         }
     }
 
     void setDeleted()
     {
-        status = DELETED;
+        inMemoryStatus = DELETED;
+        localStatus = DELETED;
         setSentStatus(false);
     }
+
     void setNew()
     {
-        status = NEW;
+        inMemoryStatus = NEW;
+        localStatus = NEW;
     }
+
     void setUnmodified()
     {
-        status = UNMODIFIED;
+        inMemoryStatus = UNMODIFIED;
     }
 
     bool isUnSent()
@@ -81,16 +96,22 @@ struct IRecord
         Sent = sent;
     }
 
-    RecordStatus getRecordStatus() const
+    RecordStatus getInMemoryRecordStatus() const
     {
-        return status;
+        return inMemoryStatus;
+    }
+
+    RecordStatus getLocalRecordStatus() const
+    {
+        return localStatus;
     }
 
 private:
-    DIEGO///
+    ///DIEGO///
     //aca hay que setear local status para cuando se maneja en memoria y
     //el status para cuando se refiere a los elementos en la base central
-    RecordStatus status;
+
+    //RecordStatus status; ahora se desdobla en InMemoryStatus y LocalStatus
 
     RecordStatus inMemoryStatus;
     RecordStatus localStatus;

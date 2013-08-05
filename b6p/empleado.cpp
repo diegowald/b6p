@@ -113,7 +113,7 @@ RecordPtr Empleado::asRecordPtr()
     (*res)["FechaIngreso"] = fechaIngreso.toVariant();
     (*res)["isBaja"] = isBaja.toVariant();
     (*res)["ID"] = idEmpleado.toVariant();
-    (*res)["RecordStatus"] = getRecordStatus();
+    (*res)["RecordStatus"] = getLocalRecordStatus(); // Capaz que es inmemoryRecordStatus
 
     (*res)[RECORD_ID] = idEmpleado.toVariant();
     return res;
