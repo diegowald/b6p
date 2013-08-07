@@ -37,25 +37,25 @@ struct IRecord
         }
     }
 
-    virtual bool isModifiedInMemory()
+    virtual bool isModified(bool inMemory)
     {
-        return inMemoryStatus == MODIFIED;
+        return (inMemory ?
+                    (inMemoryStatus == MODIFIED) :
+                    (localStatus == MODIFIED));
     }
 
-    virtual bool isLocallyModified()
+    virtual bool isDeleted(bool inMemory)
     {
-        return localStatus == MODIFIED;
+        return (inMemory ?
+                    (inMemoryStatus == DELETED) :
+                    (localStatus == DELETED));
     }
 
-    virtual bool isDeleted()
+    virtual bool isNew(bool inMemory)
     {
-        return localStatus == DELETED;
-        //return status == DELETED;
-    }
-
-    virtual bool isNew()
-    {
-        return inMemoryStatus == NEW;
+        return (inMemory ?
+                    (inMemoryStatus == NEW) :
+                    (localStatus == NEW));
     }
 
     void setModified()
@@ -107,12 +107,6 @@ struct IRecord
     }
 
 private:
-    ///DIEGO///
-    //aca hay que setear local status para cuando se maneja en memoria y
-    //el status para cuando se refiere a los elementos en la base central
-
-    //RecordStatus status; ahora se desdobla en InMemoryStatus y LocalStatus
-
     RecordStatus inMemoryStatus;
     RecordStatus localStatus;
 

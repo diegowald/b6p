@@ -151,18 +151,17 @@ RecordSet SubSectores::getRecords(RecordStatus status, bool fromMemory)
         switch (status)
         {
         case NEW:
-            if (s->isNew())
+            if (s->isNew(fromMemory))
                 res->push_back(s->asRecordPtr());
             break;
         case MODIFIED:
         {
-            bool modified = (fromMemory ? s->isModifiedInMemory() : s->isLocallyModified());
-            if (modified)
+            if (s->isModified(fromMemory))
                 res->push_back(s->asRecordPtr());
             break;
         }
         case DELETED:
-            if (s->isDeleted())
+            if (s->isDeleted(fromMemory))
                 res->push_back(s->asRecordPtr());
             break;
         default:
@@ -220,7 +219,7 @@ SubSectoresLst SubSectores::getAll(bool includeDeleted)
     SubSectoresLst res = boost::make_shared<QList<SubSectorPtr> >();
     foreach(SubSectorPtr s, m_SubSectores.values())
     {
-        if (!s->isDeleted())
+        if (!s->isDeleted(true))
             res->push_back(s);
         else
         {
@@ -240,7 +239,7 @@ SubSectoresLst SubSectores::getAll(int IDSector, bool includeDeleted)
     {
         if (subsector->IDSector().value() == IDSector)
         {
-            if (!subsector->isDeleted())
+            if (!subsector->isDeleted(true))
                 res->push_back(subsector);
             else
                 if (includeDeleted)
@@ -296,7 +295,7 @@ void SubSectores::setStatusToUnmodified(bool removeDeleted)
     QList<int> toDelete;
     foreach(SubSectorPtr s, m_SubSectores.values())
     {
-        if (removeDeleted && s->isDeleted())
+        if (removeDeleted && s->isDeleted(true))
             toDelete.push_back(s->IDSubsector().value());
         else
             s->setUnmodified();

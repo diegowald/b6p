@@ -118,30 +118,53 @@ RecordPtr CalendarioPersonas::getLocalRecord(RecordPtr record)
     return RecordPtr();
 }
 
-QString CalendarioPersonas::getDeleteStatement(bool)
+QString CalendarioPersonas::getLocalDeleteStatement()
 {
-    QLOG_TRACE() << "QString CalendarioPersonas::getDeleteStatement()";
+    QLOG_TRACE() << "QString CalendarioPersonas::getLocalDeleteStatement()";
     return QString("update calendariopersonas set RecordStatus = %1, sent = 0 where Dia = :Dia and IDEmpleado = :IDEmpleado;").arg(RECORD_DELETED);
 }
 
-QString CalendarioPersonas::getUpdateStatement(bool)
+QString CalendarioPersonas::getCentralDeleteStatement()
 {
-    QLOG_TRACE() << "QString CalendarioPersonas::getUpdateStatement()";
+    QLOG_TRACE() << "QString CalendarioPersonas::getCentralDeleteStatement()";
+    return QString("update calendariopersonas set RecordStatus = %1, sent = 0 where Dia = :Dia and IDEmpleado = :IDEmpleado;").arg(RECORD_DELETED);
+}
+
+QString CalendarioPersonas::getLocalUpdateStatement()
+{
+    QLOG_TRACE() << "QString CalendarioPersonas::getLocalUpdateStatement()";
     return QString("update calendariopersonas set HoraIngreso = :HoraIngreso, HoraEgreso = :HoraEgreso, "
                    " RecordStatus = %1, sent = 0 "
                    " where Dia = :Dia and IDEmpleado = :IDEmpleado;").arg(RECORD_MODIFIED);
 }
 
-QString CalendarioPersonas::getInsertStatement(bool, bool)
+QString CalendarioPersonas::getCentralUpdateStatement()
 {
-    QLOG_TRACE() << "QString CalendarioPersonas::getInsertStatement(bool)";
+    QLOG_TRACE() << "QString CalendarioPersonas::getCentralUpdateStatement()";
+    return QString("update calendariopersonas set HoraIngreso = :HoraIngreso, HoraEgreso = :HoraEgreso, "
+                   " RecordStatus = %1, sent = 0 "
+                   " where Dia = :Dia and IDEmpleado = :IDEmpleado;").arg(RECORD_MODIFIED);
+}
+
+QString CalendarioPersonas::getLocalInsertStatement()
+{
+    QLOG_TRACE() << "QString CalendarioPersonas::getLocalInsertStatement()";
     return QString("insert into calendariopersonas "
             " (Dia, IDEmpleado, HoraIngreso, HoraEgreso, RecordStatus, sent) "
             " values "
             " (:Dia, :IDEmpleado, :HoraIngreso, :HoraEgreso, %1, 0);").arg(RECORD_NEW);
 }
 
-RecordSet CalendarioPersonas::getRecords(RecordStatus status)
+QString CalendarioPersonas::getCentralInsertStatement()
+{
+    QLOG_TRACE() << "QString CalendarioPersonas::getCentralInsertStatement()";
+    return QString("insert into calendariopersonas "
+            " (Dia, IDEmpleado, HoraIngreso, HoraEgreso, RecordStatus, sent) "
+            " values "
+            " (:Dia, :IDEmpleado, :HoraIngreso, :HoraEgreso, %1, 0);").arg(RECORD_NEW);
+}
+
+RecordSet CalendarioPersonas::getRecords(RecordStatus status, bool fromMemory)
 {
     QLOG_TRACE() << "RecordSet CalendarioPersonas::getRecords(RecordStatus status)";
     RecordSet res = boost::make_shared<QList<RecordPtr> >();
@@ -150,15 +173,17 @@ RecordSet CalendarioPersonas::getRecords(RecordStatus status)
         switch (status)
         {
         case NEW:
-            if (c->isNew())
+            if (c->isNew(fromMemory))
                 res->push_back(c->asRecordPtr());
             break;
         case MODIFIED:
-            if (c->isModified())
+        {
+            if (c->isModified(fromMemory))
                 res->push_back(c->asRecordPtr());
             break;
+        }
         case DELETED:
-            if (c->isDeleted())
+            if (c->isDeleted(fromMemory))
                 res->push_back(c->asRecordPtr());
             break;
         default:
@@ -238,7 +263,7 @@ CalendarioPersonaLst CalendarioPersonas::getAll(int IDEmpleado, bool includeDele
     {
         if (cal->IDEmpleado().value() == IDEmpleado)
         {
-            if (!cal->isDeleted())
+            if (!cal->isDeleted(true))
                 res->push_back(cal);
             else
                 if (includeDeleted)
@@ -256,7 +281,7 @@ CalendarioPersonaPtr CalendarioPersonas::get(int IDEmpleado, int Dia, int HoraIn
     {
         if (c->canWork(Dia, HoraInicio, HoraFin))
         {
-            if (!c->isDeleted())
+            if (!c->isDeleted(true))
                 return c;
             else
             {
@@ -316,7 +341,7 @@ void CalendarioPersonas::setStatusToUnmodified(bool removeDeleted)
     QList<CalendarioPersonaPtr> toDelete;
     foreach(CalendarioPersonaPtr c, m_Calendarios)
     {
-        if (removeDeleted && c->isDeleted())
+        if (removeDeleted && c->isDeleted(true))
             toDelete.push_back(c);
         else
             c->setUnmodified();

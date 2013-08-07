@@ -125,7 +125,7 @@ void DatabaseSynchronization::applyChanges()
         }
     }
     if (saveAfter)
-        m_Data->save(true);
+        m_Data->save();
 }
 
 void DatabaseSynchronization::checkConsistency()
@@ -200,7 +200,7 @@ bool DatabaseSynchronization::existsInMainDB(RecordPtr rec)
 void DatabaseSynchronization::addRecord(RecordPtr rec)
 {
     QLOG_TRACE() << "void DatabaseSynchronization::addRecord(RecordPtr rec)";
-    QString sql = m_Data->getInsertStatement(true, true);
+    QString sql = m_Data->getCentralInsertStatement();
     Q_ASSERT(sql != "");
     m_SQLHandler->executeQuery(sql, rec, false);
 }
@@ -208,7 +208,7 @@ void DatabaseSynchronization::addRecord(RecordPtr rec)
 void DatabaseSynchronization::updateRecord(RecordPtr rec)
 {
     QLOG_TRACE() << "void DatabaseSynchronization::updateRecord(RecordPtr rec)";
-    QString sql = m_Data->getUpdateStatement(true);
+    QString sql = m_Data->getCentralUpdateStatement();
     Q_ASSERT(sql != "");
     m_SQLHandler->executeQuery(sql, rec, false);
 }
@@ -216,7 +216,7 @@ void DatabaseSynchronization::updateRecord(RecordPtr rec)
 void DatabaseSynchronization::deleteRecord(RecordPtr rec)
 {
     QLOG_TRACE() << "void DatabaseSynchronization::deleteRecord(RecordPtr rec)";
-    QString sql = m_Data->getDeleteStatement(true);
+    QString sql = m_Data->getCentralDeleteStatement();
     Q_ASSERT(sql != "");
     m_SQLHandler->executeQuery(sql, rec, false);
 }

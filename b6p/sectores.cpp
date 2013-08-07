@@ -159,18 +159,17 @@ RecordSet Sectores::getRecords(RecordStatus status, bool fromMemory)
         switch (status)
         {
         case NEW:
-            if (s->isNew())
+            if (s->isNew(fromMemory))
                 res->push_back(s->asRecordPtr());
             break;
         case MODIFIED:
         {
-            bool modified = (fromMemory ? s->isModifiedInMemory() : s->isLocallyModified());
-            if (modified)
+            if (s->isModified(fromMemory))
                 res->push_back(s->asRecordPtr());
             break;
         }
         case DELETED:
-            if (s->isDeleted())
+            if (s->isDeleted(fromMemory))
                 res->push_back(s->asRecordPtr());
             break;
         default:
@@ -229,7 +228,7 @@ SectorLst Sectores::getAll(bool onlyShowInPlanification, bool includeDeleted)
     foreach(SectorPtr s, m_Sectores.values())
     {
         bool add = false;
-        add = (s->isDeleted() ? (includeDeleted ? true : false) : true);
+        add = (s->isDeleted(true) ? (includeDeleted ? true : false) : true);
         if (onlyShowInPlanification)
             add &= s->ShowInPlanification().value();
 
@@ -285,7 +284,7 @@ void Sectores::setStatusToUnmodified(bool removeDeleted)
     QList<int> toDelete;
     foreach(SectorPtr s, m_Sectores.values())
     {
-        if (removeDeleted && s->isDeleted())
+        if (removeDeleted && s->isDeleted(true))
             toDelete.push_back(s->IDSector().value());
         else
             s->setUnmodified();

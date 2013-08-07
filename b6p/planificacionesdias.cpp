@@ -166,18 +166,17 @@ RecordSet PlanificacionesDias::getRecords(RecordStatus status, bool fromMemory)
         switch (status)
         {
         case NEW:
-            if (p->isNew())
+            if (p->isNew(fromMemory))
                 res->push_back(p->asRecordPtr());
             break;
         case MODIFIED:
         {
-            bool modified = ( fromMemory ? p->isModifiedInMemory() : p->isLocallyModified());
-            if (modified)
+            if (p->isModified(fromMemory))
                 res->push_back(p->asRecordPtr());
             break;
         }
         case DELETED:
-            if (p->isDeleted())
+            if (p->isDeleted(fromMemory))
                 res->push_back(p->asRecordPtr());
             break;
         default:
@@ -339,7 +338,7 @@ PlanificacionDiaLst PlanificacionesDias::getAll(bool includeDeleted)
     PlanificacionDiaLst res = boost::make_shared<QList<PlanificacionDiaPtr> >();
     foreach (PlanificacionDiaPtr p, m_Planificaciones.values())
     {
-        if (!p->isDeleted())
+        if (!p->isDeleted(true))
             res->push_back(p);
         else
             if (includeDeleted)
@@ -356,7 +355,7 @@ PlanificacionDiaPtr PlanificacionesDias::getByDay(QDate day, bool includeDeleted
     else
     {
         PlanificacionDiaPtr p = m_Planificaciones[day];
-        if (!p->isDeleted())
+        if (!p->isDeleted(true))
             return p;
         else
         {
@@ -394,7 +393,7 @@ void PlanificacionesDias::setStatusToUnmodified(bool removeDeleted)
     QList<QDate> toDelete;
     foreach(PlanificacionDiaPtr p, m_Planificaciones.values())
     {
-        if (removeDeleted && p->isDeleted())
+        if (removeDeleted && p->isDeleted(true))
             toDelete.push_back(p->Dia().value());
         else
             p->setUnmodified();

@@ -35,7 +35,7 @@ public:
     
     virtual void exportTo(const QString &filename);
     virtual void load();
-    virtual void save(bool includeIDs = false);
+    virtual void save();
     virtual void saveLocally();
     virtual QString asHTML();
     virtual bool printSelectedRecord(QVariant IDElement, QTextDocument &textDoc) = 0;

@@ -17,7 +17,7 @@ CapacidadPersonaSectorLst CapacidadesPersonaSector::getAll(int IDEmpleado, bool 
     {
         if (cap->IDEmpleado().value() == IDEmpleado)
         {
-            if (!cap->isDeleted())
+            if (!cap->isDeleted(true))
                 res->push_back(cap);
             else
                 if (includeDeleted)
@@ -145,16 +145,23 @@ RecordPtr CapacidadesPersonaSector::getLocalRecord(RecordPtr record)
     return c->asRecordPtr();
 }
 
-QString CapacidadesPersonaSector::getDeleteStatement(bool)
+QString CapacidadesPersonaSector::getLocalDeleteStatement()
 {
-    QLOG_TRACE() << "QString CapacidadesPersonaSector::getDeleteStatement()";
+    QLOG_TRACE() << "QString CapacidadesPersonaSector::getLocalDeleteStatement()";
     return QString("update capacidadespersonassector set RecordStatus = %1, sent = 0 where IDSector = :IDSector "
                    " and IDSubSector = :IDSubSector and IDEmpleado = :IDEmpleado;").arg(RECORD_DELETED);
 }
 
-QString CapacidadesPersonaSector::getUpdateStatement(bool)
+QString CapacidadesPersonaSector::getCentralDeleteStatement()
 {
-    QLOG_TRACE() << "QString CapacidadesPersonaSector::getUpdateStatement()";
+    QLOG_TRACE() << "QString CapacidadesPersonaSector::getCentralDeleteStatement()";
+    return QString("update capacidadespersonassector set RecordStatus = %1, sent = 0 where IDSector = :IDSector "
+                   " and IDSubSector = :IDSubSector and IDEmpleado = :IDEmpleado;").arg(RECORD_DELETED);
+}
+
+QString CapacidadesPersonaSector::getLocalUpdateStatement()
+{
+    QLOG_TRACE() << "QString CapacidadesPersonaSector::getLocalUpdateStatement()";
     return QString("update capacidadespersonassector set "
                    " Capacidad = :Capacidad, RecordStatus = %1, sent = 0 "
                    " where "
@@ -162,16 +169,35 @@ QString CapacidadesPersonaSector::getUpdateStatement(bool)
                    " and IDEmpleado = :IDEmpleado;").arg(RECORD_MODIFIED);
 }
 
-QString CapacidadesPersonaSector::getInsertStatement(bool, bool)
+QString CapacidadesPersonaSector::getCentralUpdateStatement()
 {
-    QLOG_TRACE() << "QString CapacidadesPersonaSector::getInsertStatement(bool)";
+    QLOG_TRACE() << "QString CapacidadesPersonaSector::getCentralUpdateStatement()";
+    return QString("update capacidadespersonassector set "
+                   " Capacidad = :Capacidad, RecordStatus = %1, sent = 0 "
+                   " where "
+                   " IDSector = :IDSector and IDSubSector = :IDSubSector "
+                   " and IDEmpleado = :IDEmpleado;").arg(RECORD_MODIFIED);
+}
+
+QString CapacidadesPersonaSector::getLocalInsertStatement()
+{
+    QLOG_TRACE() << "QString CapacidadesPersonaSector::getLocalInsertStatement()";
     return QString("insert into capacidadespersonassector "
                    " (IDSector, IDSubSector, IDEmpleado, Capacidad, RecordStatus, sent) "
                    " values "
                    " (:IDSector, :IDSubSector, :IDEmpleado, :Capacidad, %1, 0);").arg(RECORD_NEW);
 }
 
-RecordSet CapacidadesPersonaSector::getRecords(RecordStatus status)
+QString CapacidadesPersonaSector::getCentralInsertStatement()
+{
+    QLOG_TRACE() << "QString CapacidadesPersonaSector::getCentralInsertStatement()";
+    return QString("insert into capacidadespersonassector "
+                   " (IDSector, IDSubSector, IDEmpleado, Capacidad, RecordStatus, sent) "
+                   " values "
+                   " (:IDSector, :IDSubSector, :IDEmpleado, :Capacidad, %1, 0);").arg(RECORD_NEW);
+}
+
+RecordSet CapacidadesPersonaSector::getRecords(RecordStatus status, bool fromMemory)
 {
     QLOG_TRACE() << "RecordSet CapacidadesPersonaSector::getRecords(RecordStatus status)";
     RecordSet res = boost::make_shared<QList<RecordPtr> >();
@@ -180,15 +206,17 @@ RecordSet CapacidadesPersonaSector::getRecords(RecordStatus status)
         switch (status)
         {
         case NEW:
-            if (c->isNew())
+            if (c->isNew(fromMemory))
                 res->push_back(c->asRecordPtr());
             break;
         case MODIFIED:
-            if (c->isModified())
+        {
+            if (c->isModified(fromMemory))
                 res->push_back(c->asRecordPtr());
             break;
+        }
         case DELETED:
-            if (c->isDeleted())
+            if (c->isDeleted(fromMemory))
                 res->push_back(c->asRecordPtr());
             break;
         default:
@@ -292,7 +320,7 @@ void CapacidadesPersonaSector::setStatusToUnmodified(bool removeDeleted)
     QList<CapacidadPersonaSectorPtr> toDelete;
     foreach(CapacidadPersonaSectorPtr c, m_Capacidades)
     {
-        if (removeDeleted && c->isDeleted())
+        if (removeDeleted && c->isDeleted(true))
             toDelete.push_back(c);
         else
             c->setUnmodified();

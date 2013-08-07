@@ -223,10 +223,16 @@ int SQLHandler::executeQuery(QString &cmd, RecordPtr record, bool returnLastInse
         QMessageBox::information(NULL, QObject::tr("SQL Error"), q.lastError().text());
     }
 
+    qlonglong lastID = (returnLastInsertedID ? q.lastInsertId().toLongLong() : -1);
     db.close();
 
     if (returnLastInsertedID)
-        return q.lastInsertId().toInt();
+    {
+        QLOG_DEBUG() << q.lastInsertId();
+        QLOG_DEBUG() << lastID;
+        //return q.lastInsertId().toInt();
+        return (int)lastID;
+    }
     else
         return 0;
 }

@@ -35,7 +35,7 @@ void ACollection::load()
     emit loaded(m_Name);
 }
 
-void ACollection::save(bool includeIDs)
+void ACollection::save()
 {
     QLOG_TRACE() << "void ACollection::save(bool includeIDs)";
     emit saving(m_Name);

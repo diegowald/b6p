@@ -153,18 +153,17 @@ RecordSet EstimacionesDias::getRecords(RecordStatus status, bool fromMemory)
         switch (status)
         {
         case NEW:
-            if (e->isNew())
+            if (e->isNew(fromMemory))
                 res->push_back(e->asRecordPtr());
             break;
         case MODIFIED:
         {
-            bool modified = (fromMemory ? e->isModifiedInMemory() : e->isLocallyModified());
-            if (modified)
+            if (e->isModified(fromMemory))
                 res->push_back(e->asRecordPtr());
             break;
         }
         case DELETED:
-            if (e->isDeleted())
+            if (e->isDeleted(fromMemory))
                 res->push_back(e->asRecordPtr());
             break;
         default:
@@ -342,7 +341,7 @@ EstimacionDiaLst EstimacionesDias::getAll(bool includeDeleted)
 
     foreach (EstimacionDiaPtr e, m_Estimaciones.values())
     {
-        if (!e->isDeleted())
+        if (!e->isDeleted(true))
             res->push_back(e);
         else
             if (includeDeleted)
@@ -361,7 +360,7 @@ EstimacionDiaLst EstimacionesDias::getUnplanned(bool includeDeleted)
     {
         if (!e->isPlanned())
         {
-            if (!e->isDeleted())
+            if (!e->isDeleted(true))
                 res->push_back(e);
             else
                 if (includeDeleted)
@@ -380,7 +379,7 @@ EstimacionDiaPtr EstimacionesDias::get(QDate dia, bool includeDeleted)
     else
     {
         EstimacionDiaPtr e = m_Estimaciones[dia];
-        if (!e->isDeleted())
+        if (!e->isDeleted(true))
             return e;
         else
         {
@@ -398,7 +397,7 @@ void EstimacionesDias::setStatusToUnmodified(bool removeDeleted)
     QList<QDate> toDelete;
     foreach (EstimacionDiaPtr e, m_Estimaciones.values())
     {
-        if (removeDeleted && e->isDeleted())
+        if (removeDeleted && e->isDeleted(true))
             toDelete.push_back(e->Dia().value());
         else
             e->setUnmodified();

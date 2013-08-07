@@ -180,18 +180,17 @@ RecordSet PlanificacionesDiasSubSectores::getRecords(RecordStatus status, bool f
         switch (status)
         {
         case NEW:
-            if (p->isNew())
+            if (p->isNew(fromMemory))
                 res->push_back(p->asRecordPtr());
             break;
         case MODIFIED:
         {
-            bool modified = (fromMemory ? p->isModifiedInMemory() : p->isLocallyModified());
-            if (modified)
+            if (p->isModified(fromMemory))
                 res->push_back(p->asRecordPtr());
             break;
         }
         case DELETED:
-            if (p->isDeleted())
+            if (p->isDeleted(fromMemory))
                 res->push_back(p->asRecordPtr());
             break;
         default:
@@ -271,7 +270,7 @@ PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getAll(QDate Dia, bool
     {
         if (p->Dia().value() == Dia)
         {
-            if (!p->isDeleted())
+            if (!p->isDeleted(true))
                 res->push_back(p);
             else
             {
@@ -296,7 +295,7 @@ PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getDiasAnterioresTraba
     {
         if ((p->Dia().value() < Dia) && (p->IDEmpleado().value() == IDEmpleado))
         {
-            if (!p->isDeleted())
+            if (!p->isDeleted(true))
                 diasTrabajados[p->Dia().value()] = p;
         }
     }
@@ -327,7 +326,7 @@ void PlanificacionesDiasSubSectores::updateWithOtherData(PlanificacionSubSectorL
         {
             if (ps->isEqualsTo(o))
             {
-                if (o->isDeleted())
+                if (o->isDeleted(true))
                     ps->setDeleted();
                 else
                     ps->updateWith(o);
@@ -350,7 +349,7 @@ void PlanificacionesDiasSubSectores::setStatusToUnmodified(bool removeDeleted)
     QList<int> toDelete;
     foreach(PlanificacionSubSectorPtr p, m_Planificacion)
     {
-        if (removeDeleted && p->isDeleted())
+        if (removeDeleted && p->isDeleted(true))
             toDelete.push_back(p->IDRecord().value());
         else
             p->setUnmodified();

@@ -241,17 +241,15 @@ RecordSet Empleados::getRecords(RecordStatus status, bool fromMemory)
         switch (status)
         {
         case NEW:
-            if (e->isNew())
+            if (e->isNew(fromMemory))
                 res->push_back(e->asRecordPtr());
             break;
         case MODIFIED:
-            if (fromMemory && e->isModifiedInMemory())
-                res->push_back(e->asRecordPtr());
-            if (!fromMemory && e->isLocallyModified())
+            if (e->isModified(fromMemory))
                 res->push_back(e->asRecordPtr());
             break;
         case DELETED:
-            if (e->isDeleted())
+            if (e->isDeleted(fromMemory))
                 res->push_back(e->asRecordPtr());
             break;
         default:
@@ -336,7 +334,7 @@ EmployeeCalculatedCapacityLst Empleados::getAll(int IDSector, int IDSubSector, Q
         EmployeeCalculatedCapacityPtr capacity = e->canWork(Fecha, IDSector, IDSubSector, HoraInicio, HoraFin);
         if (capacity->Capacity() > 0)
         {
-            if (!e->isDeleted() || includeDeleted)
+            if (!e->isDeleted(false) || includeDeleted)
                 candidates.insert(capacity->Capacity(), capacity);
         }
     }
@@ -482,7 +480,7 @@ void Empleados::setStatusToUnmodified(bool removeDeleted)
     QList<int> toDelete;
     foreach (EmpleadoPtr e, m_Empleados.values())
     {
-        if (removeDeleted && e->isDeleted())
+        if (removeDeleted && e->isDeleted(true))
             toDelete.push_back(e->IDEmpleado().value());
         else
             e->setUnmodified();
