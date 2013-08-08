@@ -26,7 +26,7 @@ QString Empleados::getSelectFromMainDB()
 QString Empleados::getSqlString()
 {
     QLOG_TRACE() << "QString Empleados::getSqlString()";
-    return QString("select ID, Apellido, Nombres, Legajo, FechaIngreso, isBaja, sent from empleados");
+    return QString("select ID, Apellido, Nombres, Legajo, FechaIngreso, isBaja, sent, RecordStatus from empleados");
             //+ QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
@@ -41,6 +41,7 @@ void Empleados::addRecord(RecordPtr record, bool setNew)
     e->FechaIngreso().setValue(QDateTime::fromMSecsSinceEpoch((*record)["FechaIngreso"].toLongLong()).date());
     e->IsBaja().setValue((*record)["isBaja"].toBool());
     e->setSentStatus((*record)["sent"].toInt() == 1);
+    e->setLocalRecordStatus((RecordStatus)((*record)["RecordStatus"].toInt()));
 
 
 

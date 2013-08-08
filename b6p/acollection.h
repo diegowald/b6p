@@ -16,13 +16,13 @@ class ACollection : public QObject
 {
     Q_OBJECT
 public:
-    enum RECORD_STATUS
+    /*enum RECORD_STATUS
     {
         RECORD_UNMODIFIED,
         RECORD_NEW,
         RECORD_MODIFIED,
         RECORD_DELETED
-    };
+    };*/
 
     enum MERGE_STRATEGY
     {

@@ -106,6 +106,11 @@ struct IRecord
         return localStatus;
     }
 
+    void setLocalRecordStatus(RecordStatus newStatus)
+    {
+        localStatus = newStatus;
+    }
+
 private:
     RecordStatus inMemoryStatus;
     RecordStatus localStatus;
