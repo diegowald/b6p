@@ -25,7 +25,7 @@ QString CalendarioPersonas::getSqlString()
 {
     QLOG_TRACE() << "QString CalendarioPersonas::getSqlString()";
     return QString("select Dia, IDEmpleado, HoraIngreso, HoraEgreso, sent from calendariopersonas "
-            " where RecordStatus <> %1;").arg(RECORD_DELETED);
+            " where RecordStatus <> %1;").arg(DELETED);
 }
 
 QString CalendarioPersonas::getSQLExistsInMainDB()
@@ -121,13 +121,13 @@ RecordPtr CalendarioPersonas::getLocalRecord(RecordPtr record)
 QString CalendarioPersonas::getLocalDeleteStatement()
 {
     QLOG_TRACE() << "QString CalendarioPersonas::getLocalDeleteStatement()";
-    return QString("update calendariopersonas set RecordStatus = %1, sent = 0 where Dia = :Dia and IDEmpleado = :IDEmpleado;").arg(RECORD_DELETED);
+    return QString("update calendariopersonas set RecordStatus = %1, sent = 0 where Dia = :Dia and IDEmpleado = :IDEmpleado;").arg(DELETED);
 }
 
 QString CalendarioPersonas::getCentralDeleteStatement()
 {
     QLOG_TRACE() << "QString CalendarioPersonas::getCentralDeleteStatement()";
-    return QString("update calendariopersonas set RecordStatus = %1, sent = 0 where Dia = :Dia and IDEmpleado = :IDEmpleado;").arg(RECORD_DELETED);
+    return QString("update calendariopersonas set RecordStatus = %1, sent = 0 where Dia = :Dia and IDEmpleado = :IDEmpleado;").arg(DELETED);
 }
 
 QString CalendarioPersonas::getLocalUpdateStatement()
@@ -135,7 +135,7 @@ QString CalendarioPersonas::getLocalUpdateStatement()
     QLOG_TRACE() << "QString CalendarioPersonas::getLocalUpdateStatement()";
     return QString("update calendariopersonas set HoraIngreso = :HoraIngreso, HoraEgreso = :HoraEgreso, "
                    " RecordStatus = %1, sent = 0 "
-                   " where Dia = :Dia and IDEmpleado = :IDEmpleado;").arg(RECORD_MODIFIED);
+                   " where Dia = :Dia and IDEmpleado = :IDEmpleado;").arg(MODIFIED);
 }
 
 QString CalendarioPersonas::getCentralUpdateStatement()
@@ -143,7 +143,7 @@ QString CalendarioPersonas::getCentralUpdateStatement()
     QLOG_TRACE() << "QString CalendarioPersonas::getCentralUpdateStatement()";
     return QString("update calendariopersonas set HoraIngreso = :HoraIngreso, HoraEgreso = :HoraEgreso, "
                    " RecordStatus = %1, sent = 0 "
-                   " where Dia = :Dia and IDEmpleado = :IDEmpleado;").arg(RECORD_MODIFIED);
+                   " where Dia = :Dia and IDEmpleado = :IDEmpleado;").arg(MODIFIED);
 }
 
 QString CalendarioPersonas::getLocalInsertStatement()
@@ -152,7 +152,7 @@ QString CalendarioPersonas::getLocalInsertStatement()
     return QString("insert into calendariopersonas "
             " (Dia, IDEmpleado, HoraIngreso, HoraEgreso, RecordStatus, sent) "
             " values "
-            " (:Dia, :IDEmpleado, :HoraIngreso, :HoraEgreso, %1, 0);").arg(RECORD_NEW);
+            " (:Dia, :IDEmpleado, :HoraIngreso, :HoraEgreso, %1, 0);").arg(NEW);
 }
 
 QString CalendarioPersonas::getCentralInsertStatement()
@@ -161,7 +161,7 @@ QString CalendarioPersonas::getCentralInsertStatement()
     return QString("insert into calendariopersonas "
             " (Dia, IDEmpleado, HoraIngreso, HoraEgreso, RecordStatus, sent) "
             " values "
-            " (:Dia, :IDEmpleado, :HoraIngreso, :HoraEgreso, %1, 0);").arg(RECORD_NEW);
+            " (:Dia, :IDEmpleado, :HoraIngreso, :HoraEgreso, %1, 0);").arg(NEW);
 }
 
 RecordSet CalendarioPersonas::getRecords(RecordStatus status, bool fromMemory)

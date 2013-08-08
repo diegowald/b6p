@@ -23,7 +23,7 @@ QString PlanificacionesDias::getSqlString()
 {
     QLOG_TRACE() << "QString PlanificacionesDias::getSqlString()";
     return QString("select Dia, Notas, IDSupervisor, sent, EstadoPlanificacion from planificaciondia ")
-            + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
+            + QString(" where RecordStatus <> ") + QString::number(DELETED) + QString(";");
 }
 
 QString PlanificacionesDias::getSQLExistsInMainDB()
@@ -110,7 +110,7 @@ QString PlanificacionesDias::getLocalDeleteStatement()
     QLOG_TRACE() << "QString PlanificacionesDias::getLocalDeleteStatement()";
     return QString("update planificaciondia "
                    " set RecordStatus = %1, sent = 0 "
-                   " where Dia = :Dia;").arg(RECORD_DELETED);
+                   " where Dia = :Dia;").arg(DELETED);
 }
 
 QString PlanificacionesDias::getCentralDeleteStatement()
@@ -118,7 +118,7 @@ QString PlanificacionesDias::getCentralDeleteStatement()
     QLOG_TRACE() << "QString PlanificacionesDias::getCentralDeleteStatement()";
     return QString("update planificaciondia "
                    " set RecordStatus = %1, sent = 0 "
-                   " where Dia = :Dia;").arg(RECORD_DELETED);
+                   " where Dia = :Dia;").arg(DELETED);
 }
 
 QString PlanificacionesDias::getLocalUpdateStatement()
@@ -127,7 +127,7 @@ QString PlanificacionesDias::getLocalUpdateStatement()
     return QString("update planificaciondia "
                    " set Notas = :Notas, IDSupervisor = :IDSupervisor, "
                    " RecordStatus = %1, EstadoPlanificacion = :EstadoPlanificacion, sent = 0 "
-                   " where Dia = :Dia;").arg(RECORD_MODIFIED);
+                   " where Dia = :Dia;").arg(MODIFIED);
 }
 
 QString PlanificacionesDias::getCentralUpdateStatement()
@@ -136,7 +136,7 @@ QString PlanificacionesDias::getCentralUpdateStatement()
     return QString("update planificaciondia "
                    " set Notas = :Notas, IDSupervisor = :IDSupervisor, "
                    " RecordStatus = %1, EstadoPlanificacion = :EstadoPlanificacion, sent = 0 "
-                   " where Dia = :Dia;").arg(RECORD_MODIFIED);
+                   " where Dia = :Dia;").arg(MODIFIED);
 }
 
 QString PlanificacionesDias::getLocalInsertStatement()
@@ -145,7 +145,7 @@ QString PlanificacionesDias::getLocalInsertStatement()
     return QString("insert into planificaciondia "
                    " (Dia, Notas, IDSupervisor, RecordStatus, EstadoPlanificacion, sent) "
                    " values "
-                   " (:Dia, :Notas, :IDSupervisor, %1, :EstadoPlanificacion, 0);").arg(RECORD_NEW);
+                   " (:Dia, :Notas, :IDSupervisor, %1, :EstadoPlanificacion, 0);").arg(NEW);
 }
 
 QString PlanificacionesDias::getCentralInsertStatement()
@@ -154,7 +154,7 @@ QString PlanificacionesDias::getCentralInsertStatement()
     return QString("insert into planificaciondia "
                    " (Dia, Notas, IDSupervisor, RecordStatus, EstadoPlanificacion, sent) "
                    " values "
-                   " (:Dia, :Notas, :IDSupervisor, %1, :EstadoPlanificacion, 0);").arg(RECORD_NEW);
+                   " (:Dia, :Notas, :IDSupervisor, %1, :EstadoPlanificacion, 0);").arg(NEW);
 }
 
 RecordSet PlanificacionesDias::getRecords(RecordStatus status, bool fromMemory)

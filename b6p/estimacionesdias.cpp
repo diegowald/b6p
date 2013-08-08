@@ -23,7 +23,7 @@ QString EstimacionesDias::getSqlString()
 {
     QLOG_TRACE() << "QString EstimacionesDias::getSqlString()";
     return QString("select Dia, HorasEstimadas, sent from planificaciondias ")
-            + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
+            + QString(" where RecordStatus <> ") + QString::number(DELETED) + QString(";");
 }
 
 QString EstimacionesDias::getSQLExistsInMainDB()
@@ -103,13 +103,13 @@ RecordPtr EstimacionesDias::getLocalRecord(RecordPtr record)
 QString EstimacionesDias::getLocalDeleteStatement()
 {
     QLOG_TRACE() << "QString EstimacionesDias::getLocalDeleteStatement()";
-    return QString("update planificacionDias set RecordStatus = %1, sent = 0 where Dia = :Dia;").arg(RECORD_DELETED);
+    return QString("update planificacionDias set RecordStatus = %1, sent = 0 where Dia = :Dia;").arg(DELETED);
 }
 
 QString EstimacionesDias::getCentralDeleteStatement()
 {
     QLOG_TRACE() << "QString EstimacionesDias::getCentralDeleteStatement()";
-    return QString("update planificacionDias set RecordStatus = %1, sent = 0 where Dia = :Dia;").arg(RECORD_DELETED);
+    return QString("update planificacionDias set RecordStatus = %1, sent = 0 where Dia = :Dia;").arg(DELETED);
 }
 
 QString EstimacionesDias::getLocalUpdateStatement()
@@ -117,7 +117,7 @@ QString EstimacionesDias::getLocalUpdateStatement()
     QLOG_TRACE() << "QString EstimacionesDias::getLocalUpdateStatement()";
     return QString("update planificaciondias set HorasEstimadas = :HorasEstimadas "
                    " , RecordStatus = %1, sent = 0 "
-                   " where Dia = :Dia;").arg(RECORD_MODIFIED);
+                   " where Dia = :Dia;").arg(MODIFIED);
 }
 
 QString EstimacionesDias::getCentralUpdateStatement()
@@ -125,7 +125,7 @@ QString EstimacionesDias::getCentralUpdateStatement()
     QLOG_TRACE() << "QString EstimacionesDias::getCentralUpdateStatement()";
     return QString("update planificaciondias set HorasEstimadas = :HorasEstimadas "
                    " , RecordStatus = %1, sent = 0 "
-                   " where Dia = :Dia;").arg(RECORD_MODIFIED);
+                   " where Dia = :Dia;").arg(MODIFIED);
 }
 
 QString EstimacionesDias::getLocalInsertStatement()
@@ -133,7 +133,7 @@ QString EstimacionesDias::getLocalInsertStatement()
     QLOG_TRACE() << "QString EstimacionesDias::getLocalInsertStatement()";
     return QString("insert into planificaciondias (Dia, HorasEstimadas, RecordStatus, sent) "
                    " values "
-                   " (:Dia, :HorasEstimadas, %1, 0);").arg(RECORD_NEW);
+                   " (:Dia, :HorasEstimadas, %1, 0);").arg(NEW);
 }
 
 QString EstimacionesDias::getCentralInsertStatement()
@@ -141,7 +141,7 @@ QString EstimacionesDias::getCentralInsertStatement()
     QLOG_TRACE() << "QString EstimacionesDias::getCentralInsertStatement()";
     return QString("insert into planificaciondias (Dia, HorasEstimadas, RecordStatus, sent) "
                    " values "
-                   " (:Dia, :HorasEstimadas, %1, 0);").arg(RECORD_NEW);
+                   " (:Dia, :HorasEstimadas, %1, 0);").arg(NEW);
 }
 
 RecordSet EstimacionesDias::getRecords(RecordStatus status, bool fromMemory)

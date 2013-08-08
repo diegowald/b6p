@@ -50,7 +50,7 @@ QString CapacidadesPersonaSector::getSqlString()
 {
     QLOG_TRACE() << "QString CapacidadesPersonaSector::getSqlString()";
     return QString("select IDSector, IDSubSector, IDEmpleado, Capacidad, sent from capacidadespersonassector ")
-            + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
+            + QString(" where RecordStatus <> ") + QString::number(DELETED) + QString(";");
 }
 
 QString CapacidadesPersonaSector::getSQLExistsInMainDB()
@@ -149,14 +149,14 @@ QString CapacidadesPersonaSector::getLocalDeleteStatement()
 {
     QLOG_TRACE() << "QString CapacidadesPersonaSector::getLocalDeleteStatement()";
     return QString("update capacidadespersonassector set RecordStatus = %1, sent = 0 where IDSector = :IDSector "
-                   " and IDSubSector = :IDSubSector and IDEmpleado = :IDEmpleado;").arg(RECORD_DELETED);
+                   " and IDSubSector = :IDSubSector and IDEmpleado = :IDEmpleado;").arg(DELETED);
 }
 
 QString CapacidadesPersonaSector::getCentralDeleteStatement()
 {
     QLOG_TRACE() << "QString CapacidadesPersonaSector::getCentralDeleteStatement()";
     return QString("update capacidadespersonassector set RecordStatus = %1, sent = 0 where IDSector = :IDSector "
-                   " and IDSubSector = :IDSubSector and IDEmpleado = :IDEmpleado;").arg(RECORD_DELETED);
+                   " and IDSubSector = :IDSubSector and IDEmpleado = :IDEmpleado;").arg(DELETED);
 }
 
 QString CapacidadesPersonaSector::getLocalUpdateStatement()
@@ -166,7 +166,7 @@ QString CapacidadesPersonaSector::getLocalUpdateStatement()
                    " Capacidad = :Capacidad, RecordStatus = %1, sent = 0 "
                    " where "
                    " IDSector = :IDSector and IDSubSector = :IDSubSector "
-                   " and IDEmpleado = :IDEmpleado;").arg(RECORD_MODIFIED);
+                   " and IDEmpleado = :IDEmpleado;").arg(MODIFIED);
 }
 
 QString CapacidadesPersonaSector::getCentralUpdateStatement()
@@ -176,7 +176,7 @@ QString CapacidadesPersonaSector::getCentralUpdateStatement()
                    " Capacidad = :Capacidad, RecordStatus = %1, sent = 0 "
                    " where "
                    " IDSector = :IDSector and IDSubSector = :IDSubSector "
-                   " and IDEmpleado = :IDEmpleado;").arg(RECORD_MODIFIED);
+                   " and IDEmpleado = :IDEmpleado;").arg(MODIFIED);
 }
 
 QString CapacidadesPersonaSector::getLocalInsertStatement()
@@ -185,7 +185,7 @@ QString CapacidadesPersonaSector::getLocalInsertStatement()
     return QString("insert into capacidadespersonassector "
                    " (IDSector, IDSubSector, IDEmpleado, Capacidad, RecordStatus, sent) "
                    " values "
-                   " (:IDSector, :IDSubSector, :IDEmpleado, :Capacidad, %1, 0);").arg(RECORD_NEW);
+                   " (:IDSector, :IDSubSector, :IDEmpleado, :Capacidad, %1, 0);").arg(NEW);
 }
 
 QString CapacidadesPersonaSector::getCentralInsertStatement()
@@ -194,7 +194,7 @@ QString CapacidadesPersonaSector::getCentralInsertStatement()
     return QString("insert into capacidadespersonassector "
                    " (IDSector, IDSubSector, IDEmpleado, Capacidad, RecordStatus, sent) "
                    " values "
-                   " (:IDSector, :IDSubSector, :IDEmpleado, :Capacidad, %1, 0);").arg(RECORD_NEW);
+                   " (:IDSector, :IDSubSector, :IDEmpleado, :Capacidad, %1, 0);").arg(NEW);
 }
 
 RecordSet CapacidadesPersonaSector::getRecords(RecordStatus status, bool fromMemory)

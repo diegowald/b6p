@@ -124,20 +124,20 @@ QStringList Empleados::getFieldsToShowInMerge()
 QString Empleados::getLocalDeleteStatement()
 {
     QLOG_TRACE() << "QString Empleados::getLocalDeleteStatement()";
-    return QString("update empleados set isBaja = 1, RecordStatus = %1, sent = 0 where ID = :RECORD_ID;").arg(RECORD_DELETED);
+    return QString("update empleados set isBaja = 1, RecordStatus = %1, sent = 0 where ID = :RECORD_ID;").arg(DELETED);
 }
 
 QString Empleados::getCentralDeleteStatement()
 {
     QLOG_TRACE() << "QString Empleados::getCentralDeleteStatement()";
-    return QString("update empleados set isBaja = 1, RecordStatus = %1, sent = 0, SenderMachine = :SenderMachine where ID = :RECORD_ID;").arg(RECORD_DELETED);
+    return QString("update empleados set isBaja = 1, RecordStatus = %1, sent = 0, SenderMachine = :SenderMachine where ID = :RECORD_ID;").arg(DELETED);
 }
 
 QString Empleados::getLocalUpdateStatement()
 {
     QLOG_TRACE() << "QString Empleados::getLocalUpdateStatement()";
     return QString("update empleados set Apellido = :Apellido, Nombres = :Nombres, "
-                   " Legajo = :Legajo, FechaIngreso = :FechaIngreso, RecordStatus = %1, isBaja = :isBaja, sent = 0  where ID = :RECORD_ID;").arg(RECORD_MODIFIED);
+                   " Legajo = :Legajo, FechaIngreso = :FechaIngreso, RecordStatus = %1, isBaja = :isBaja, sent = 0  where ID = :RECORD_ID;").arg(MODIFIED);
 }
 
 QString Empleados::getCentralUpdateStatement()
@@ -145,7 +145,7 @@ QString Empleados::getCentralUpdateStatement()
     QLOG_TRACE() << "QString Empleados::getCentralUpdateStatement()";
     return QString("update empleados set Apellido = :Apellido, Nombres = :Nombres, "
                    " Legajo = :Legajo, FechaIngreso = :FechaIngreso, RecordStatus = %1, isBaja = :isBaja, sent = 0, "
-                   " SenderMachine = :SenderMachine where ID = :RECORD_ID;").arg(RECORD_MODIFIED);
+                   " SenderMachine = :SenderMachine where ID = :RECORD_ID;").arg(MODIFIED);
 }
 
 QString Empleados::getLocalInsertStatement()
@@ -167,7 +167,7 @@ QString Empleados::getLocalInsertStatement()
     parameters.append(":FechaIngreso");
 
     fields.append("RecordStatus");
-    parameters.append(QString::number(RECORD_NEW));
+    parameters.append(QString::number(NEW));
 
     fields.append("isBaja");
     parameters.append("0");
@@ -206,7 +206,7 @@ QString Empleados::getCentralInsertStatement()
     parameters.append(":FechaIngreso");
 
     fields.append("RecordStatus");
-    parameters.append(QString::number(RECORD_NEW));
+    parameters.append(QString::number(NEW));
 
     fields.append("isBaja");
     parameters.append("0");

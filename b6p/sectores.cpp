@@ -19,7 +19,7 @@ QString Sectores::getSqlString()
 {
     QLOG_TRACE() << "QString Sectores::getSqlString()";
     return QString("select ID, Nombre, Descripcion, ShowInPlanification, sent from sectores ")
-            + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
+            + QString(" where RecordStatus <> ") + QString::number(DELETED) + QString(";");
 }
 
 QString Sectores::getSQLExistsInMainDB()
