@@ -24,7 +24,7 @@ QString CalendarioPersonas::getSelectFromMainDB()
 QString CalendarioPersonas::getSqlString()
 {
     QLOG_TRACE() << "QString CalendarioPersonas::getSqlString()";
-    return QString("select Dia, IDEmpleado, HoraIngreso, HoraEgreso, sent from calendariopersonas "
+    return QString("select Dia, IDEmpleado, HoraIngreso, HoraEgreso, sent, RecordStatus from calendariopersonas "
             " where RecordStatus <> %1;").arg(DELETED);
 }
 
@@ -44,7 +44,8 @@ void CalendarioPersonas::addRecord(RecordPtr record, bool setNew)
     c->IDEmpleado().setValue((*record)["IDEmpleado"].toInt());
     c->HoraIngreso().setValue((*record)["HoraIngreso"].toInt());
     c->HoraEgreso().setValue((*record)["HoraEgreso"].toInt());
-    c->setSentStatus((*record)["sent"].toInt() == 1);
+    c->setLocalRecordStatus((RecordStatus)(*record)["RecordStatus"].toInt());
+    //c->setSentStatus((*record)["sent"].toInt() == 1);
 
     if (setNew)
         c->setNew();
@@ -64,7 +65,7 @@ void CalendarioPersonas::updateRecord(RecordPtr record, bool isFromSincro)
     }
     c->HoraIngreso().setValue((*record)["HoraIngreso"].toInt());
     c->HoraEgreso().setValue((*record)["HoraEgreso"].toInt());
-    c->setSentStatus(isFromSincro);
+    //c->setSentStatus(isFromSincro);
 }
 
 void CalendarioPersonas::deleteRecord(RecordPtr, bool)
@@ -208,10 +209,10 @@ RecordSet CalendarioPersonas::getUnsent()
 void CalendarioPersonas::setSentFlagIntoMemory()
 {
     QLOG_TRACE() << "void CalendarioPersonas::setSentFlagIntoMemory()";
-    foreach(CalendarioPersonaPtr c, m_Calendarios)
+    /*foreach(CalendarioPersonaPtr c, m_Calendarios)
     {
         c->setSentStatus(true);
-    }
+    }*/
 }
 
 

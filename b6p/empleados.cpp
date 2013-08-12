@@ -40,7 +40,7 @@ void Empleados::addRecord(RecordPtr record, bool setNew)
     e->Legajo().setValue((*record)["Legajo"].toString());
     e->FechaIngreso().setValue(QDateTime::fromMSecsSinceEpoch((*record)["FechaIngreso"].toLongLong()).date());
     e->IsBaja().setValue((*record)["isBaja"].toBool());
-    e->setSentStatus((*record)["sent"].toInt() == 1);
+    //e->setSentStatus((*record)["sent"].toInt() == 1);
     e->setLocalRecordStatus((RecordStatus)((*record)["RecordStatus"].toInt()));
 
 
@@ -67,7 +67,7 @@ void Empleados::updateRecord(RecordPtr record, bool isFromSincro)
     e->Legajo().setValue((*record)["Legajo"].toString());
     e->FechaIngreso().setValue(QDateTime::fromMSecsSinceEpoch((*record)["FechaIngreso"].toLongLong()).date());
     e->IsBaja().setValue((*record)["isBaja"].toBool());
-    e->setSentStatus(isFromSincro);
+    //e->setSentStatus(isFromSincro);
 }
 
 void Empleados::deleteRecord(RecordPtr record, bool isFromSincro)
@@ -75,7 +75,7 @@ void Empleados::deleteRecord(RecordPtr record, bool isFromSincro)
     QLOG_TRACE() << "void Empleados::deleteRecord(RecordPtr record)";
     EmpleadoPtr e = getEmpleado((*record)["ID"].toInt(), true);
     e->IsBaja().setValue(true);
-    e->setSentStatus(isFromSincro);
+    //e->setSentStatus(isFromSincro);
 }
 
 bool Empleados::exists(RecordPtr record)
@@ -275,11 +275,11 @@ RecordSet Empleados::getUnsent()
 void Empleados::setSentFlagIntoMemory()
 {
     QLOG_TRACE() << "void Empleados::setSentFlagIntoMemory()";
-    RecordSet res = boost::make_shared<QList<RecordPtr> >();
+    /*RecordSet res = boost::make_shared<QList<RecordPtr> >();
     foreach(EmpleadoPtr e, m_Empleados.values())
     {
         e->setSentStatus(true);
-    }
+    }*/
 }
 
 EmpleadoPtr Empleados::getEmpleado(int idEmpleado, bool includeDeleted)

@@ -41,7 +41,7 @@ void PlanificacionesDias::addRecord(RecordPtr record, bool setNew)
     p->Notas().setValue((*record)["Notas"].toString());
     p->IDSupervisor().setValue((*record)["IDSupervisor"].toInt());
     p->EstadoPlanificacion().setValue((EstadosPlanificacion)(*record)["EstadoPlanificacion"].toInt());
-    p->setSentStatus((*record)["sent"].toInt() == 1);
+    //p->setSentStatus((*record)["sent"].toInt() == 1);
 
     if (setNew)
         p->setNew();
@@ -59,7 +59,7 @@ void PlanificacionesDias::updateRecord(RecordPtr record, bool isFromSincro)
     p->Notas().setValue((*record)["Notas"].toString());
     p->IDSupervisor().setValue((*record)["IDSupervisor"].toInt());
     p->EstadoPlanificacion().setValue((EstadosPlanificacion)(*record)["EstadoPlanificacion"].toInt());
-    p->setSentStatus(isFromSincro);
+    //p->setSentStatus(isFromSincro);
 }
 
 void PlanificacionesDias::deleteRecord(RecordPtr record, bool)
@@ -201,10 +201,10 @@ RecordSet PlanificacionesDias::getUnsent()
 void PlanificacionesDias::setSentFlagIntoMemory()
 {
     QLOG_TRACE() << "void PlanificacionesDias::setSentFlagIntoMemory()";
-    foreach(PlanificacionDiaPtr p, m_Planificaciones.values())
+    /*foreach(PlanificacionDiaPtr p, m_Planificaciones.values())
     {
         p->setSentStatus(true);
-    }
+    }*/
 }
 
 void PlanificacionesDias::defineHeaders(QStringList &list)

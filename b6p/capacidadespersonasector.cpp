@@ -69,7 +69,8 @@ void CapacidadesPersonaSector::addRecord(RecordPtr record, bool setNew)
     c->ID_SubSector().setValue((*record)["IDSubSector"].toInt());
     c->IDEmpleado().setValue((*record)["IDEmpleado"].toInt());
     c->Capacidad().setValue((*record)["Capacidad"].toInt());
-    c->setSentStatus((*record)["sent"].toInt() == 1);
+    //c->setSentStatus((*record)["sent"].toInt() == 1);
+    c->setLocalRecordStatus((RecordStatus)(*record)["RecordStatus"].toInt());
 
     if (setNew)
         c->setNew();
@@ -87,7 +88,7 @@ void CapacidadesPersonaSector::updateRecord(RecordPtr record, bool isFromSincro)
             (*record)["IDSubSector"].toInt(), true);
 
     c->Capacidad().setValue((*record)["Capacidad"].toInt());
-    c->setSentStatus(isFromSincro);
+    //c->setSentStatus(isFromSincro);
 }
 
 void CapacidadesPersonaSector::deleteRecord(RecordPtr record, bool)
@@ -241,10 +242,10 @@ RecordSet CapacidadesPersonaSector::getUnsent()
 void CapacidadesPersonaSector::setSentFlagIntoMemory()
 {
     QLOG_TRACE() << "void CapacidadesPersonaSector::setSentFlagIntoMemory()";
-    foreach(CapacidadPersonaSectorPtr c, m_Capacidades)
+    /*foreach(CapacidadPersonaSectorPtr c, m_Capacidades)
     {
         c->setSentStatus(true);
-    }
+    }*/
 }
 
 void CapacidadesPersonaSector::defineHeaders(QStringList &)

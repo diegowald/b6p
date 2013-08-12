@@ -33,7 +33,8 @@ void Accesos::addRecord(RecordPtr record, bool)
     a->canRead().setValue((*record)["canRead"].toBool());
     a->canUpdate().setValue((*record)["canUpdate"].toBool());
     a->canDelete().setValue((*record)["canDelete"].toBool());
-    a->setSentStatus((*record)["sent"].toInt() == 1);
+    a->setLocalRecordStatus(UNMODIFIED);
+    //a->setSentStatus((*record)["sent"].toInt() == 1);
 
     a->setInitialized();
 

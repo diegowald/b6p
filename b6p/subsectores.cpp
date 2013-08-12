@@ -39,7 +39,7 @@ void SubSectores::addRecord(RecordPtr record, bool setNew)
     s->IDSector().setValue((*record)["IDSector"].toInt());
     s->Nombre().setValue((*record)["Nombre"].toString());
     s->Descripcion().setValue((*record)["Descripcion"].toString());
-    s->setSentStatus((*record)["sent"].toInt() == 1);
+    //s->setSentStatus((*record)["sent"].toInt() == 1);
     if (setNew)
         s->setNew();
     else
@@ -55,7 +55,7 @@ void SubSectores::updateRecord(RecordPtr record, bool isFromSincro)
 
     s->Nombre().setValue((*record)["Nombre"].toString());
     s->Descripcion().setValue((*record)["Descripcion"].toString());
-    s->setSentStatus(isFromSincro);
+    //s->setSentStatus(isFromSincro);
 }
 
 void SubSectores::deleteRecord(RecordPtr record, bool)
@@ -186,10 +186,10 @@ RecordSet SubSectores::getUnsent()
 void SubSectores::setSentFlagIntoMemory()
 {
     QLOG_TRACE() << "void SubSectores::setSentFlagIntoMemory()";
-    foreach(SubSectorPtr s, m_SubSectores.values())
+    /*foreach(SubSectorPtr s, m_SubSectores.values())
     {
         s->setSentStatus(true);
-    }
+    }*/
 }
 
 SubSectorPtr SubSectores::getSubSector(int idSubSector)

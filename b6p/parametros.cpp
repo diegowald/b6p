@@ -111,7 +111,7 @@ QString Parametros::getSQLExistsInMainDB()
     return "select Key, Value from Parametros where Key = :Key;";
 }
 
-RecordSet Parametros::getRecords(RecordStatus status, bool fromMemory)
+RecordSet Parametros::getRecords(RecordStatus status, bool)
 {
     QLOG_TRACE() << "RecordSet Parametros::getRecords(RecordStatus status)";
     RecordSet rs = boost::make_shared<QList<RecordPtr> >();

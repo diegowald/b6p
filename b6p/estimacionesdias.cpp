@@ -39,7 +39,7 @@ void EstimacionesDias::addRecord(RecordPtr record, bool setNew)
     EstimacionDiaPtr e = boost::make_shared<EstimacionDia>(this);
     e->Dia().setValue(QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date());
     e->EstimacionHoras().setValue((*record)["HorasEstimadas"].toInt());
-    e->setSentStatus((*record)["sent"].toInt() == 1);
+    //e->setSentStatus((*record)["sent"].toInt() == 1);
 
     if (setNew)
         e->setNew();
@@ -54,8 +54,8 @@ void EstimacionesDias::updateRecord(RecordPtr record, bool isFromSincro)
     QLOG_TRACE() << "void EstimacionesDias::updateRecord(RecordPtr record)";
     EstimacionDiaPtr e = m_Estimaciones[QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date()];
     e->EstimacionHoras().setValue((*record)["HorasEstimadas"].toInt());
-    e->setSentStatus((*record)["sent"].toInt() == 1);
-    e->setSentStatus(isFromSincro);
+    //e->setSentStatus((*record)["sent"].toInt() == 1);
+    //e->setSentStatus(isFromSincro);
 }
 
 void EstimacionesDias::deleteRecord(RecordPtr record, bool)
@@ -188,10 +188,10 @@ RecordSet EstimacionesDias::getUnsent()
 void EstimacionesDias::setSentFlagIntoMemory()
 {
     QLOG_TRACE() << "void EstimacionesDias::setSentFlagIntoMemory()";
-    foreach(EstimacionDiaPtr e, m_Estimaciones.values())
+    /*foreach(EstimacionDiaPtr e, m_Estimaciones.values())
     {
         e->setSentStatus(true);
-    }
+    }*/
 }
 
 boost::shared_ptr<QList<QAction*> > EstimacionesDias::getActions()

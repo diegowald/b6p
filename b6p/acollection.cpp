@@ -44,7 +44,6 @@ void ACollection::save()
     updateRecordsLocally();
     addNewRecordsLocally();
     saveDependants();
-    ///DIEGO///
     //la instruccion de abajo debe setear la bandera de que los registros en memoria estan
     //        seteados a grabados a local storage.
     setStatusToUnmodified(false); // antes true
