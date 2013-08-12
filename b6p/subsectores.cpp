@@ -19,7 +19,7 @@ QString SubSectores::getSelectFromMainDB()
 QString SubSectores::getSqlString()
 {
     QLOG_TRACE() << "QString SubSectores::getSqlString()";
-    return QString("select ID, IDSector, Nombre, Descripcion, sent, x from subsectores ")
+    return QString("select ID, IDSector, Nombre, Descripcion, sent, RecordStatus from subsectores ")
             + QString(" where RecordStatus <> ") + QString::number(DELETED) + QString(";");
 }
 

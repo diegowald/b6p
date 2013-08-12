@@ -18,7 +18,7 @@ QString Accesos::getSelectFromMainDB()
 QString Accesos::getSqlString()
 {
     QLOG_TRACE() << "QString Accesos::getSqlString()";
-    return QString("select IDSector, Feature, canRead, canCreate, canUpdate, canDelete, sent, RecordStatus from access ");
+    return QString("select IDSector, Feature, canRead, canCreate, canUpdate, canDelete, sent from access ");
 //            + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 

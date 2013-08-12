@@ -89,7 +89,7 @@ struct IRecord
     bool isUnSent()
     {
         //return !Sent;
-        return localStatus != UNMODIFIED;
+        return ((localStatus != UNMODIFIED) || (localStatus != UNINITIALIZED));
     }
 
     /*void setSentStatus(bool sent)

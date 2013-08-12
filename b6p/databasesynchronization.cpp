@@ -157,6 +157,7 @@ void DatabaseSynchronization::sendData(const QString &senderMachine)
             // Fall through
         case UNMODIFIED:
             // Fall through
+            break;
         case NEW:
             // Fall through
         case MODIFIED:
