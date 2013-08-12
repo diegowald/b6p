@@ -54,13 +54,11 @@ public:
 
     virtual QString getSQLExistsInMainDB() { return ""; }
 
-    virtual void setSentFlagIntoMemory() { }
-
     virtual RecordSet getRecords(RecordStatus, bool);
     virtual RecordSet getUnsent();
     virtual void refreshID(int, int) {}
     virtual void saveDependants() {}
-    virtual void setStatusToUnmodified(bool removeDeleted);
+    virtual void setStatusToUnmodified(bool removeDeleted, bool impactInMemmory, bool impactLocal);
     virtual bool canBeDeleted(QVariant ID);
 
     virtual QString getSelectFromMainDB();

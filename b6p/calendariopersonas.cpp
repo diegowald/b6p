@@ -6,17 +6,17 @@ CalendarioPersonas::CalendarioPersonas(QObject *parent) :
     ACollection(tr("Employee availability"),
                 "Employee availability", false, ACollection::MERGE_KEEP_LOCAL, parent)
 {
-    QLOG_TRACE() << "CalendarioPersonas::CalendarioPersonas(QObject *parent)";
+    QLOG_TRACE() << __FUNCTION__;
 }
 
 CalendarioPersonas::~CalendarioPersonas()
 {
-    QLOG_TRACE() << "CalendarioPersonas::~CalendarioPersonas()";
+    QLOG_TRACE() << __FUNCTION__;
 }
 
 QString CalendarioPersonas::getSelectFromMainDB()
 {
-    QLOG_TRACE() << "QString CalendarioPersonas::getSelectFromMainDB()";
+    QLOG_TRACE() << __FUNCTION__;
     return QString("select Dia, IDEmpleado, HoraIngreso, HoraEgreso, LastUpdate from calendariopersonas "
                    " where LastUpdate >= :LASTUPDATE ;");
 }
@@ -65,6 +65,11 @@ void CalendarioPersonas::updateRecord(RecordPtr record, bool isFromSincro)
     }
     c->HoraIngreso().setValue((*record)["HoraIngreso"].toInt());
     c->HoraEgreso().setValue((*record)["HoraEgreso"].toInt());
+    if (isFromSincro)
+    {
+        c->setInMemoryRecordStatus(UNMODIFIED);
+        c->setLocalRecordStatus(UNMODIFIED);
+    }
     //c->setSentStatus(isFromSincro);
 }
 
@@ -206,16 +211,6 @@ RecordSet CalendarioPersonas::getUnsent()
     return res;
 }
 
-void CalendarioPersonas::setSentFlagIntoMemory()
-{
-    QLOG_TRACE() << "void CalendarioPersonas::setSentFlagIntoMemory()";
-    /*foreach(CalendarioPersonaPtr c, m_Calendarios)
-    {
-        c->setSentStatus(true);
-    }*/
-}
-
-
 void CalendarioPersonas::defineHeaders(QStringList &)
 {
     QLOG_TRACE() << "void CalendarioPersonas::defineHeaders(QStringList &)";
@@ -336,7 +331,7 @@ void CalendarioPersonas::updateCalendarWithNewIDEmpleado(int oldId, int newId)
     }
 }
 
-void CalendarioPersonas::setStatusToUnmodified(bool removeDeleted)
+void CalendarioPersonas::setStatusToUnmodified(bool removeDeleted, bool impactInMemmory, bool impactLocal)
 {
     QLOG_TRACE() << "void CalendarioPersonas::setStatusToUnmodified(bool removeDeleted)";
     QList<CalendarioPersonaPtr> toDelete;
@@ -345,7 +340,12 @@ void CalendarioPersonas::setStatusToUnmodified(bool removeDeleted)
         if (removeDeleted && c->isDeleted(true))
             toDelete.push_back(c);
         else
-            c->setUnmodified();
+        {
+            if (impactInMemmory)
+                c->setInMemoryRecordStatus(UNMODIFIED);
+            if (impactLocal)
+                c->setLocalRecordStatus(UNMODIFIED);
+        }
     }
     foreach(CalendarioPersonaPtr c, toDelete)
     {

@@ -34,7 +34,6 @@ public:
     virtual QString getSQLExistsInMainDB();
     virtual RecordSet getRecords(RecordStatus status, bool fromMemory);
     virtual RecordSet getUnsent();
-    virtual void setSentFlagIntoMemory() { }
 
     virtual bool canBeDeleted(QVariant) { return false; }
 
@@ -48,7 +47,7 @@ public:
     virtual bool deleteElement(QVariant ID);
     virtual void refreshID(int, int) {}
     virtual void saveDependants() {}
-    virtual void setStatusToUnmodified(bool) {}
+    virtual void setStatusToUnmodified(bool, bool, bool) {}
 
     virtual QString getSelectFromMainDB();
 

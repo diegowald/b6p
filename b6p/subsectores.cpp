@@ -19,7 +19,7 @@ QString SubSectores::getSelectFromMainDB()
 QString SubSectores::getSqlString()
 {
     QLOG_TRACE() << "QString SubSectores::getSqlString()";
-    return QString("select ID, IDSector, Nombre, Descripcion, sent from subsectores ")
+    return QString("select ID, IDSector, Nombre, Descripcion, sent, x from subsectores ")
             + QString(" where RecordStatus <> ") + QString::number(DELETED) + QString(";");
 }
 
@@ -39,6 +39,7 @@ void SubSectores::addRecord(RecordPtr record, bool setNew)
     s->IDSector().setValue((*record)["IDSector"].toInt());
     s->Nombre().setValue((*record)["Nombre"].toString());
     s->Descripcion().setValue((*record)["Descripcion"].toString());
+    s->setLocalRecordStatus((RecordStatus)((*record)["RecordStatus"].toInt()));
     //s->setSentStatus((*record)["sent"].toInt() == 1);
     if (setNew)
         s->setNew();
@@ -55,6 +56,11 @@ void SubSectores::updateRecord(RecordPtr record, bool isFromSincro)
 
     s->Nombre().setValue((*record)["Nombre"].toString());
     s->Descripcion().setValue((*record)["Descripcion"].toString());
+    if (isFromSincro)
+    {
+        s->setInMemoryRecordStatus(UNMODIFIED);
+        s->setLocalRecordStatus(UNMODIFIED);
+    }
     //s->setSentStatus(isFromSincro);
 }
 
@@ -183,15 +189,6 @@ RecordSet SubSectores::getUnsent()
     return res;
 }
 
-void SubSectores::setSentFlagIntoMemory()
-{
-    QLOG_TRACE() << "void SubSectores::setSentFlagIntoMemory()";
-    /*foreach(SubSectorPtr s, m_SubSectores.values())
-    {
-        s->setSentStatus(true);
-    }*/
-}
-
 SubSectorPtr SubSectores::getSubSector(int idSubSector)
 {
     QLOG_TRACE() << "SubSectorPtr SubSectores::getSubSector(int idSubSector)";
@@ -289,7 +286,7 @@ bool SubSectores::canBeDeleted(QVariant)
     return false;
 }
 
-void SubSectores::setStatusToUnmodified(bool removeDeleted)
+void SubSectores::setStatusToUnmodified(bool removeDeleted, bool impactInMemmory, bool impactLocal)
 {
     QLOG_TRACE() << "void SubSectores::setStatusToUnmodified(bool removeDeleted)";
     QList<int> toDelete;
@@ -298,7 +295,12 @@ void SubSectores::setStatusToUnmodified(bool removeDeleted)
         if (removeDeleted && s->isDeleted(true))
             toDelete.push_back(s->IDSubsector().value());
         else
-            s->setUnmodified();
+        {
+            if (impactInMemmory)
+                s->setInMemoryRecordStatus(UNMODIFIED);
+            if (impactLocal)
+                s->setLocalRecordStatus(UNMODIFIED);
+        }
     }
     foreach(int id, toDelete)
     {

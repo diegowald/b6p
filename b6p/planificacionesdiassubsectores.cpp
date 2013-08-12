@@ -19,7 +19,7 @@ QString PlanificacionesDiasSubSectores::getSelectFromMainDB()
 QString PlanificacionesDiasSubSectores::getSqlString()
 {
     QLOG_TRACE() << "QString PlanificacionesDiasSubSectores::getSqlString()";
-    return QString("select IDRecord, Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, AllowOverWorking, sent from planificacionsubsector ")
+    return QString("select IDRecord, Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, AllowOverWorking, sent, RecordStatus from planificacionsubsector ")
             + QString(" where RecordStatus <> ") + QString::number(DELETED) + QString(";");
 }
 
@@ -44,6 +44,7 @@ void PlanificacionesDiasSubSectores::addRecord(RecordPtr record, bool setNew)
     p->HoraFin().setValue((*record)["HoraFin"].toInt());
     p->AllowOverWorking().setValue((*record)["AllowOverworking"].toInt() == 1 ? true : false);
     //p->setSentStatus((*record)["sent"].toInt() == 1);
+    p->setLocalRecordStatus((RecordStatus)((*record)["RecordStatus"].toInt()));
 
     if (setNew)
         p->setNew();
@@ -66,6 +67,11 @@ void PlanificacionesDiasSubSectores::updateRecord(RecordPtr record, bool isFromS
     p->HoraFin().setValue((*record)["HoraFin"].toInt());
     p->AllowOverWorking().setValue((*record)["AllowOverWorking"].toInt() == 1 ? true : false);
     //p->setSentStatus(isFromSincro);
+    if (isFromSincro)
+    {
+        p->setInMemoryRecordStatus(UNMODIFIED);
+        p->setLocalRecordStatus(UNMODIFIED);
+    }
 }
 
 void PlanificacionesDiasSubSectores::deleteRecord(RecordPtr record, bool)
@@ -212,15 +218,6 @@ RecordSet PlanificacionesDiasSubSectores::getUnsent()
     return res;
 }
 
-void PlanificacionesDiasSubSectores::setSentFlagIntoMemory()
-{
-    QLOG_TRACE() << "void PlanificacionesDiasSubSectores::setSentFlagIntoMemory()";
-    /*foreach(PlanificacionSubSectorPtr p, m_Planificacion)
-    {
-        p->setSentStatus(true);
-    }*/
-}
-
 void PlanificacionesDiasSubSectores::defineHeaders(QStringList &)
 {
     QLOG_TRACE() << "void PlanificacionesDiasSubSectores::defineHeaders(QStringList &)";
@@ -343,7 +340,7 @@ void PlanificacionesDiasSubSectores::updateWithOtherData(PlanificacionSubSectorL
     }
 }
 
-void PlanificacionesDiasSubSectores::setStatusToUnmodified(bool removeDeleted)
+void PlanificacionesDiasSubSectores::setStatusToUnmodified(bool removeDeleted, bool impactInMemmory, bool impactLocal)
 {
     QLOG_TRACE() << "void PlanificacionesDiasSubSectores::setStatusToUnmodified(bool removeDeleted)";
     QList<int> toDelete;
@@ -352,7 +349,12 @@ void PlanificacionesDiasSubSectores::setStatusToUnmodified(bool removeDeleted)
         if (removeDeleted && p->isDeleted(true))
             toDelete.push_back(p->IDRecord().value());
         else
-            p->setUnmodified();
+        {
+            if (impactInMemmory)
+                p->setInMemoryRecordStatus(UNMODIFIED);
+            if (impactLocal)
+                p->setLocalRecordStatus(UNMODIFIED);
+        }
     }
     foreach(int id, toDelete)
     {

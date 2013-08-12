@@ -61,6 +61,12 @@ void Sectores::updateRecord(RecordPtr record, bool isFromSincro)
         s->ShowInPlanification().setValue(false);
     else
         s->ShowInPlanification().setValue(true);
+
+    if (isFromSincro)
+    {
+        s->setInMemoryRecordStatus(UNMODIFIED);
+        s->setLocalRecordStatus(UNMODIFIED);
+    }
     //s->setSentStatus(isFromSincro);
 }
 
@@ -68,6 +74,11 @@ void Sectores::deleteRecord(RecordPtr record, bool isFromSincro)
 {
     QLOG_TRACE() << "void Sectores::deleteRecord(RecordPtr record)";
     SectorPtr s = getSector((*record)["ID"].toInt());
+    if (isFromSincro)
+    {
+        s->setInMemoryRecordStatus(UNMODIFIED);
+        s->setLocalRecordStatus(UNMODIFIED);
+    }
     //s->setSentStatus(isFromSincro);
 }
 
@@ -191,15 +202,6 @@ RecordSet Sectores::getUnsent()
     return res;
 }
 
-void Sectores::setSentFlagIntoMemory()
-{
-    QLOG_TRACE() << "void Sectores::setSentFlagIntoMemory()";
-    /*foreach(SectorPtr s, m_Sectores.values())
-    {
-        s->setSentStatus(true);
-    }*/
-}
-
 SectorPtr Sectores::getSector(int IDSector)
 {
     QLOG_TRACE() << "SectorPtr Sectores::getSector(int IDSector)";
@@ -278,7 +280,7 @@ bool Sectores::canBeDeleted(QVariant)
     return false;
 }
 
-void Sectores::setStatusToUnmodified(bool removeDeleted)
+void Sectores::setStatusToUnmodified(bool removeDeleted, bool impactInMemmory, bool impactLocal)
 {
     QLOG_TRACE() << "void Sectores::setStatusToUnmodified(bool removeDeleted)";
     QList<int> toDelete;
@@ -287,7 +289,12 @@ void Sectores::setStatusToUnmodified(bool removeDeleted)
         if (removeDeleted && s->isDeleted(true))
             toDelete.push_back(s->IDSector().value());
         else
-            s->setUnmodified();
+        {
+            if (impactInMemmory)
+                s->setInMemoryRecordStatus(UNMODIFIED);
+            if (impactLocal)
+                s->setLocalRecordStatus(UNMODIFIED);
+        }
     }
     foreach(int id, toDelete)
     {

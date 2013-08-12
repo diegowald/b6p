@@ -34,7 +34,6 @@ public:
     virtual QString getSQLExistsInMainDB();
     virtual RecordSet getRecords(RecordStatus status, bool fromMemory);
     virtual RecordSet getUnsent();
-    virtual void setSentFlagIntoMemory();
 
 
     virtual QString getSelectFromMainDB();
@@ -53,7 +52,7 @@ public:
     virtual bool deleteElement(QVariant ID);
     virtual void refreshID(int oldID, int newRecordId);
     virtual void saveDependants() {}
-    virtual void setStatusToUnmodified(bool removeDeleted);
+    virtual void setStatusToUnmodified(bool removeDeleted, bool impactInMemmory, bool impactLocal);
 
     EstimacionDiaLst getAll(bool includeDeleted);
     EstimacionDiaPtr get(QDate dia, bool includeDeleted);

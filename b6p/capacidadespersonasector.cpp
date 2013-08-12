@@ -88,6 +88,11 @@ void CapacidadesPersonaSector::updateRecord(RecordPtr record, bool isFromSincro)
             (*record)["IDSubSector"].toInt(), true);
 
     c->Capacidad().setValue((*record)["Capacidad"].toInt());
+    if (isFromSincro)
+    {
+        c->setLocalRecordStatus(UNMODIFIED);
+        c->setInMemoryRecordStatus(UNMODIFIED);
+    }
     //c->setSentStatus(isFromSincro);
 }
 
@@ -239,15 +244,6 @@ RecordSet CapacidadesPersonaSector::getUnsent()
     return res;
 }
 
-void CapacidadesPersonaSector::setSentFlagIntoMemory()
-{
-    QLOG_TRACE() << "void CapacidadesPersonaSector::setSentFlagIntoMemory()";
-    /*foreach(CapacidadPersonaSectorPtr c, m_Capacidades)
-    {
-        c->setSentStatus(true);
-    }*/
-}
-
 void CapacidadesPersonaSector::defineHeaders(QStringList &)
 {
     QLOG_TRACE() << "void CapacidadesPersonaSector::defineHeaders(QStringList &)";
@@ -315,7 +311,7 @@ void CapacidadesPersonaSector::updateCapacityfromData(CapacidadPersonaSectorLst 
     }
 }
 
-void CapacidadesPersonaSector::setStatusToUnmodified(bool removeDeleted)
+void CapacidadesPersonaSector::setStatusToUnmodified(bool removeDeleted, bool impactInMemmory, bool impactLocal)
 {
     QLOG_TRACE() << "void CapacidadesPersonaSector::setStatusToUnmodified(bool removeDeleted)";
     QList<CapacidadPersonaSectorPtr> toDelete;
@@ -324,7 +320,12 @@ void CapacidadesPersonaSector::setStatusToUnmodified(bool removeDeleted)
         if (removeDeleted && c->isDeleted(true))
             toDelete.push_back(c);
         else
-            c->setUnmodified();
+        {
+            if (impactInMemmory)
+                c->setInMemoryRecordStatus(UNMODIFIED);
+            if (impactLocal)
+                c->setLocalRecordStatus(UNMODIFIED);
+        }
     }
     foreach(CapacidadPersonaSectorPtr c, toDelete)
     {

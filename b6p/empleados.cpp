@@ -67,6 +67,11 @@ void Empleados::updateRecord(RecordPtr record, bool isFromSincro)
     e->Legajo().setValue((*record)["Legajo"].toString());
     e->FechaIngreso().setValue(QDateTime::fromMSecsSinceEpoch((*record)["FechaIngreso"].toLongLong()).date());
     e->IsBaja().setValue((*record)["isBaja"].toBool());
+    if (isFromSincro)
+    {
+        e->setInMemoryRecordStatus(UNMODIFIED);
+        e->setLocalRecordStatus(UNMODIFIED);
+    }
     //e->setSentStatus(isFromSincro);
 }
 
@@ -75,6 +80,11 @@ void Empleados::deleteRecord(RecordPtr record, bool isFromSincro)
     QLOG_TRACE() << "void Empleados::deleteRecord(RecordPtr record)";
     EmpleadoPtr e = getEmpleado((*record)["ID"].toInt(), true);
     e->IsBaja().setValue(true);
+    if (isFromSincro)
+    {
+        e->setInMemoryRecordStatus(UNMODIFIED);
+        e->setLocalRecordStatus(UNMODIFIED);
+    }
     //e->setSentStatus(isFromSincro);
 }
 
@@ -272,16 +282,6 @@ RecordSet Empleados::getUnsent()
     return res;
 }
 
-void Empleados::setSentFlagIntoMemory()
-{
-    QLOG_TRACE() << "void Empleados::setSentFlagIntoMemory()";
-    /*RecordSet res = boost::make_shared<QList<RecordPtr> >();
-    foreach(EmpleadoPtr e, m_Empleados.values())
-    {
-        e->setSentStatus(true);
-    }*/
-}
-
 EmpleadoPtr Empleados::getEmpleado(int idEmpleado, bool includeDeleted)
 {
     QLOG_TRACE() << "EmpleadoPtr Empleados::getEmpleado(int idEmpleado, bool includeDeleted)";
@@ -475,7 +475,7 @@ void Empleados::saveDependants()
     DataStore::instance()->getCalendarios()->save();
 }
 
-void Empleados::setStatusToUnmodified(bool removeDeleted)
+void Empleados::setStatusToUnmodified(bool removeDeleted, bool impactInMemmory, bool impactLocal)
 {
     QLOG_TRACE() << "void Empleados::setStatusToUnmodified(bool removeDeleted)";
     QList<int> toDelete;
@@ -484,7 +484,12 @@ void Empleados::setStatusToUnmodified(bool removeDeleted)
         if (removeDeleted && e->isDeleted(true))
             toDelete.push_back(e->IDEmpleado().value());
         else
-            e->setUnmodified();
+        {
+            if (impactInMemmory)
+                e->setInMemoryRecordStatus(UNMODIFIED);
+            if (impactLocal)
+                e->setLocalRecordStatus(UNMODIFIED);
+        }
     }
     foreach(int id, toDelete)
         m_Empleados.remove(id);

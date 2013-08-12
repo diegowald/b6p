@@ -65,7 +65,8 @@ public:
     bool editRecord(QVariant ID);
     bool editRecord(QTreeWidgetItem *item, QVariant ID);
     bool deleteRecord(QVariant ID);
-    void setSentFlagIntoDatabase();
+    void setLocalStatusToUnmodified();
+    void setInMemoryStatusToUnmodified();
 
     virtual QString getTableName() = 0;
 /*    virtual QString getDeleteStatement(bool includeSenderMachine) = 0;
@@ -87,14 +88,12 @@ public:
 
     virtual void refreshID(int oldID, int newRecordId) = 0;
     virtual void saveDependants() = 0;
-    virtual void setStatusToUnmodified(bool removeDeleted) = 0;
+    virtual void setStatusToUnmodified(bool removeDeleted, bool impactInMemmory, bool impactLocal) = 0;
     virtual bool canBeDeleted(QVariant ID) = 0;
 
     virtual QString getSelectFromMainDB() = 0;
 
     virtual bool localRecordIsEqualsTo(RecordPtr record) = 0;
-
-    virtual void setSentFlagIntoMemory() = 0;
 
 protected:
     virtual bool addNew() = 0;

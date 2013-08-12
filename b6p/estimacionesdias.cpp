@@ -22,7 +22,7 @@ QString EstimacionesDias::getSelectFromMainDB()
 QString EstimacionesDias::getSqlString()
 {
     QLOG_TRACE() << "QString EstimacionesDias::getSqlString()";
-    return QString("select Dia, HorasEstimadas, sent from planificaciondias ")
+    return QString("select Dia, HorasEstimadas, sent, RecordStatus from planificaciondias ")
             + QString(" where RecordStatus <> ") + QString::number(DELETED) + QString(";");
 }
 
@@ -40,6 +40,7 @@ void EstimacionesDias::addRecord(RecordPtr record, bool setNew)
     e->Dia().setValue(QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date());
     e->EstimacionHoras().setValue((*record)["HorasEstimadas"].toInt());
     //e->setSentStatus((*record)["sent"].toInt() == 1);
+    e->setLocalRecordStatus((RecordStatus)((*record)["RecordStatus"].toInt()));
 
     if (setNew)
         e->setNew();
@@ -56,6 +57,11 @@ void EstimacionesDias::updateRecord(RecordPtr record, bool isFromSincro)
     e->EstimacionHoras().setValue((*record)["HorasEstimadas"].toInt());
     //e->setSentStatus((*record)["sent"].toInt() == 1);
     //e->setSentStatus(isFromSincro);
+    if (isFromSincro)
+    {
+        e->setInMemoryRecordStatus(UNMODIFIED);
+        e->setLocalRecordStatus(UNMODIFIED);
+    }
 }
 
 void EstimacionesDias::deleteRecord(RecordPtr record, bool)
@@ -183,15 +189,6 @@ RecordSet EstimacionesDias::getUnsent()
             res->push_back(e->asRecordPtr());
     }
     return res;
-}
-
-void EstimacionesDias::setSentFlagIntoMemory()
-{
-    QLOG_TRACE() << "void EstimacionesDias::setSentFlagIntoMemory()";
-    /*foreach(EstimacionDiaPtr e, m_Estimaciones.values())
-    {
-        e->setSentStatus(true);
-    }*/
 }
 
 boost::shared_ptr<QList<QAction*> > EstimacionesDias::getActions()
@@ -391,7 +388,7 @@ EstimacionDiaPtr EstimacionesDias::get(QDate dia, bool includeDeleted)
     }
 }
 
-void EstimacionesDias::setStatusToUnmodified(bool removeDeleted)
+void EstimacionesDias::setStatusToUnmodified(bool removeDeleted, bool impactInMemmory, bool impactLocal)
 {
     QLOG_TRACE() << "void EstimacionesDias::setStatusToUnmodified(bool removeDeleted)";
     QList<QDate> toDelete;
@@ -400,7 +397,12 @@ void EstimacionesDias::setStatusToUnmodified(bool removeDeleted)
         if (removeDeleted && e->isDeleted(true))
             toDelete.push_back(e->Dia().value());
         else
-            e->setUnmodified();
+        {
+            if (impactInMemmory)
+                e->setInMemoryRecordStatus(UNMODIFIED);
+            if (impactLocal)
+                e->setLocalRecordStatus(UNMODIFIED);
+        }
     }
     foreach(QDate dt, toDelete)
     {

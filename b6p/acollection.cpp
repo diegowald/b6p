@@ -46,7 +46,7 @@ void ACollection::save()
     saveDependants();
     //la instruccion de abajo debe setear la bandera de que los registros en memoria estan
     //        seteados a grabados a local storage.
-    setStatusToUnmodified(false); // antes true
+    setStatusToUnmodified(false, true, false); // antes true
     emit dataUpdated();
     emit saved(m_Name);
 }
@@ -63,7 +63,7 @@ void ACollection::saveLocally()
     ///DIEGO///
     //la instruccion de abajo debe setear la bandera de que los registros en memoria estan
     //        seteados a grabados a local storage.
-    setStatusToUnmodified(false); // antes true
+    setStatusToUnmodified(false, true, false); // antes true
     emit dataUpdated();
     emit saved(m_Name);
 }
@@ -196,13 +196,19 @@ QString ACollection::invariableName() const
     return m_InvariableName;
 }
 
-void ACollection::setSentFlagIntoDatabase()
+void ACollection::setLocalStatusToUnmodified()
 {
-    QLOG_TRACE() << "void ACollection::setSentFlagIntoDatabase()";
-    QString sql = "UPDATE %1 set sent = 1;";
-    sql = sql.arg(getTableName());
+    QLOG_TRACE() << "void ACollection::setLocalStatusToUnmodified()";
+    QString sql = "UPDATE %1 set RecordStatus = %2;";
+    sql = sql.arg(getTableName()).arg(UNMODIFIED);
     sqlEngine.executeCommand(sql);
-    setSentFlagIntoMemory();
+    setStatusToUnmodified(false, false, true);
+}
+
+void ACollection::setInMemoryStatusToUnmodified()
+{
+    QLOG_TRACE() << "void ACollection::setInMemoryStatusToUnmodified()";
+    setStatusToUnmodified(false, true, false);
 }
 
 void ACollection::exportTo(const QString &filename)

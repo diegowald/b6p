@@ -36,7 +36,6 @@ public:
 
     virtual RecordSet getRecords(RecordStatus status, bool fromMemory);
     virtual RecordSet getUnsent();
-    virtual void setSentFlagIntoMemory();
     virtual QString getSelectFromMainDB();
     virtual void defineHeaders(QStringList &list);
     virtual boost::shared_ptr<QList<QStringList> > getAll();
@@ -49,7 +48,7 @@ public:
     virtual bool canBeDeleted(QVariant ID);
     virtual void refreshID(int, int) {}
     virtual void saveDependants() {}
-    virtual void setStatusToUnmodified(bool removeDeleted);
+    virtual void setStatusToUnmodified(bool removeDeleted, bool impactInMemmory, bool impactLocal);
 
     CapacidadPersonaSectorLst getAll(int IDEmpleado, bool includeDeleted);
     void updateCapacityfromData(CapacidadPersonaSectorLst dataFrom);

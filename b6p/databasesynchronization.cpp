@@ -179,7 +179,9 @@ void DatabaseSynchronization::sendData(const QString &senderMachine)
 void DatabaseSynchronization::saveLocalChanges()
 {
     QLOG_TRACE() << "void DatabaseSynchronization::saveLocalChanges()";
-    m_Data->setSentFlagIntoDatabase();
+    //m_Data->setSentFlagIntoDatabase();
+    //m_Data->setInMemoryStatusToUnmodified();
+    m_Data->setLocalStatusToUnmodified();
 }
 
 QString DatabaseSynchronization::name()

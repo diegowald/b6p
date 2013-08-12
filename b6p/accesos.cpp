@@ -18,7 +18,7 @@ QString Accesos::getSelectFromMainDB()
 QString Accesos::getSqlString()
 {
     QLOG_TRACE() << "QString Accesos::getSqlString()";
-    return QString("select IDSector, Feature, canRead, canCreate, canUpdate, canDelete, sent from access ");
+    return QString("select IDSector, Feature, canRead, canCreate, canUpdate, canDelete, sent, RecordStatus from access ");
 //            + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
@@ -33,6 +33,7 @@ void Accesos::addRecord(RecordPtr record, bool)
     a->canRead().setValue((*record)["canRead"].toBool());
     a->canUpdate().setValue((*record)["canUpdate"].toBool());
     a->canDelete().setValue((*record)["canDelete"].toBool());
+    a->setLocalRecordStatus((RecordStatus)((*record)["RecordStatus"].toInt()));
     a->setLocalRecordStatus(UNMODIFIED);
     //a->setSentStatus((*record)["sent"].toInt() == 1);
 
@@ -129,7 +130,7 @@ bool Accesos::canBeDeleted(QVariant)
     return false;
 }
 
-void Accesos::setStatusToUnmodified(bool)
+void Accesos::setStatusToUnmodified(bool, bool, bool)
 {
     QLOG_TRACE() << "void Accesos::setStatusToUnmodified(bool)";
 }
