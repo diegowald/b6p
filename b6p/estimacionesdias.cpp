@@ -39,7 +39,6 @@ void EstimacionesDias::addRecord(RecordPtr record, bool setNew)
     EstimacionDiaPtr e = boost::make_shared<EstimacionDia>(this);
     e->Dia().setValue(QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date());
     e->EstimacionHoras().setValue((*record)["HorasEstimadas"].toInt());
-    //e->setSentStatus((*record)["sent"].toInt() == 1);
     e->setLocalRecordStatus((RecordStatus)((*record)["RecordStatus"].toInt()));
 
     if (setNew)
@@ -55,8 +54,6 @@ void EstimacionesDias::updateRecord(RecordPtr record, bool isFromSincro)
     QLOG_TRACE_FN();
     EstimacionDiaPtr e = m_Estimaciones[QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date()];
     e->EstimacionHoras().setValue((*record)["HorasEstimadas"].toInt());
-    //e->setSentStatus((*record)["sent"].toInt() == 1);
-    //e->setSentStatus(isFromSincro);
     if (isFromSincro)
     {
         e->setInMemoryRecordStatus(UNMODIFIED);

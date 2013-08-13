@@ -37,7 +37,7 @@ private slots:
 
     void on_btnDelete_pressed();
     void on_calcularHoras(int IDEmpleado, int& horas);
-    void on_refreshColorAssignments(/*int IDEmpleado*/);
+    void on_refreshColorAssignments();
     void on_AllowOverWorkingForEmployee(int IDEmpleado);
 
     void on_btnExport_pressed();

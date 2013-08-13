@@ -173,7 +173,6 @@ void PlanificacionSubSector::updateWith(PlanificacionSubSectorPtr other)
         m_HoraFin.setValue(other->HoraFin().value());
 
     m_AllowOverworking.setValue(other->AllowOverWorking());
-//    setNew();
 }
 
 void PlanificacionSubSector::updateID(int newID)

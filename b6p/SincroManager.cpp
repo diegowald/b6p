@@ -25,13 +25,6 @@ SincroManager::SincroManager(QObject *parent) :
     m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getPlanificacionesSubSectores(), m_SQL, this));
 
     establishConnections();
-
-
-    /*if (!db.open())
-        QMessageBox::critical(0, QObject::tr("Database Error"),
-                      db.lastError().text());
-
-    db.close();*/
 }
 
 void SincroManager::runSincro()

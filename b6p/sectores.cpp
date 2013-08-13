@@ -41,7 +41,6 @@ void Sectores::addRecord(RecordPtr record, bool setNew)
         s->ShowInPlanification().setValue(false);
     else
         s->ShowInPlanification().setValue(true);
-    //s->setSentStatus((*record)["sent"].toInt() == 1);
 
     if (setNew)
         s->setNew();
@@ -67,7 +66,6 @@ void Sectores::updateRecord(RecordPtr record, bool isFromSincro)
         s->setInMemoryRecordStatus(UNMODIFIED);
         s->setLocalRecordStatus(UNMODIFIED);
     }
-    //s->setSentStatus(isFromSincro);
 }
 
 void Sectores::deleteRecord(RecordPtr record, bool isFromSincro)
@@ -79,7 +77,6 @@ void Sectores::deleteRecord(RecordPtr record, bool isFromSincro)
         s->setInMemoryRecordStatus(UNMODIFIED);
         s->setLocalRecordStatus(UNMODIFIED);
     }
-    //s->setSentStatus(isFromSincro);
 }
 
 bool Sectores::exists(RecordPtr record)

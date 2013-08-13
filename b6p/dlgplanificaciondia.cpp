@@ -246,7 +246,7 @@ void DlgPlanificacionDia::on_AllowOverWorkingForEmployee(int IDEmpleado)
 void DlgPlanificacionDia::on_btnExport_pressed()
 {
     QLOG_TRACE_FN();
-    QString suggestedName = "x"; //model->suggestedFileName();
+    QString suggestedName = "export"; //model->suggestedFileName();
 
     QString filename =
             QFileDialog::getSaveFileName(this, tr("Export to..."),

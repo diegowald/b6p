@@ -205,7 +205,6 @@ bool PlanificacionDia::print(QTextDocument &textDoc)
     // Escribo el header
 
     html += "<tr>";
-    //html += "<td bgcolor=\"lightgray\" colspan=\"8\"><font size=\"+1\">";
     html += "<td bgcolor=\"lightgray\" colspan=\"8\">";
     html += "<b><i>" + tr("Planification") + "</i></b>\n</td>";
     html += "</tr>";

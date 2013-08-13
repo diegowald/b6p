@@ -79,13 +79,11 @@ int TimeAssignment::getNumberOfDivisions()
     // In hours
     delta /= 3600;
 
-    //delta ++;
-
     delta = (delta == 0) ? 1 : delta;
     return delta;
 }
 
-void TimeAssignment::paintEvent(QPaintEvent */*event*/)
+void TimeAssignment::paintEvent(QPaintEvent *)
 {
     QLOG_TRACE_FN();
     QPainter painter(this);

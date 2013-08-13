@@ -13,7 +13,7 @@ PlanificacionesDias::PlanificacionesDias(QObject *parent) :
 }
 
 QString PlanificacionesDias::getSelectFromMainDB()
-{//, EstadoPlanificacion
+{
     QLOG_TRACE_FN();
     return QString("select Dia, Notas, IDSupervisor, LastUpdate from planificaciondia "
                    " where LastUpdate >= :LASTUPDATE ;");
@@ -41,7 +41,6 @@ void PlanificacionesDias::addRecord(RecordPtr record, bool setNew)
     p->Notas().setValue((*record)["Notas"].toString());
     p->IDSupervisor().setValue((*record)["IDSupervisor"].toInt());
     p->EstadoPlanificacion().setValue((EstadosPlanificacion)(*record)["EstadoPlanificacion"].toInt());
-    //p->setSentStatus((*record)["sent"].toInt() == 1);
     p->setLocalRecordStatus((RecordStatus)((*record)["RecordStatus"].toInt()));
 
     if (setNew)
@@ -60,7 +59,6 @@ void PlanificacionesDias::updateRecord(RecordPtr record, bool isFromSincro)
     p->Notas().setValue((*record)["Notas"].toString());
     p->IDSupervisor().setValue((*record)["IDSupervisor"].toInt());
     p->EstadoPlanificacion().setValue((EstadosPlanificacion)(*record)["EstadoPlanificacion"].toInt());
-    //p->setSentStatus(isFromSincro);
     if (isFromSincro)
     {
         p->setInMemoryRecordStatus(UNMODIFIED);

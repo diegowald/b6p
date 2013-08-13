@@ -27,7 +27,6 @@ QString Empleados::getSqlString()
 {
     QLOG_TRACE_FN();
     return QString("select ID, Apellido, Nombres, Legajo, FechaIngreso, isBaja, sent, RecordStatus from empleados");
-            //+ QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
 void Empleados::addRecord(RecordPtr record, bool setNew)
@@ -40,7 +39,6 @@ void Empleados::addRecord(RecordPtr record, bool setNew)
     e->Legajo().setValue((*record)["Legajo"].toString());
     e->FechaIngreso().setValue(QDateTime::fromMSecsSinceEpoch((*record)["FechaIngreso"].toLongLong()).date());
     e->IsBaja().setValue((*record)["isBaja"].toBool());
-    //e->setSentStatus((*record)["sent"].toInt() == 1);
     e->setLocalRecordStatus((RecordStatus)((*record)["RecordStatus"].toInt()));
 
 
@@ -72,7 +70,6 @@ void Empleados::updateRecord(RecordPtr record, bool isFromSincro)
         e->setInMemoryRecordStatus(UNMODIFIED);
         e->setLocalRecordStatus(UNMODIFIED);
     }
-    //e->setSentStatus(isFromSincro);
 }
 
 void Empleados::deleteRecord(RecordPtr record, bool isFromSincro)
@@ -85,7 +82,6 @@ void Empleados::deleteRecord(RecordPtr record, bool isFromSincro)
         e->setInMemoryRecordStatus(UNMODIFIED);
         e->setLocalRecordStatus(UNMODIFIED);
     }
-    //e->setSentStatus(isFromSincro);
 }
 
 bool Empleados::exists(RecordPtr record)
@@ -329,7 +325,6 @@ EmployeeCalculatedCapacityLst Empleados::getAll(int IDSector, int IDSubSector, Q
     QLOG_TRACE_FN();
     EmployeeCalculatedCapacityLst res = boost::make_shared<QList<EmployeeCalculatedCapacityPtr> >();
     QMultiMap<int, EmployeeCalculatedCapacityPtr> candidates;
-    //QMap<int, EmployeeCalculatedCapacityPtr> candidates;
     foreach(EmpleadoPtr e, m_Empleados.values())
     {
         EmployeeCalculatedCapacityPtr capacity = e->canWork(Fecha, IDSector, IDSubSector, HoraInicio, HoraFin);

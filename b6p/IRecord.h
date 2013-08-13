@@ -20,11 +20,11 @@ enum RecordStatus
 
 struct IRecord
 {
-    IRecord() {
+    IRecord()
+    {
         inMemoryStatus = UNINITIALIZED;
         localStatus = UNINITIALIZED;
-        //status = UNINITIALIZED;
-        /*Sent = false;*/ }
+    }
 
     virtual RecordPtr asRecordPtr() = 0;
 
@@ -33,7 +33,6 @@ struct IRecord
         if (inMemoryStatus != NEW)
         {
             inMemoryStatus = UNMODIFIED;
-            //setSentStatus(true);
         }
     }
 
@@ -64,7 +63,6 @@ struct IRecord
         {
             inMemoryStatus = MODIFIED;
             localStatus = MODIFIED;
-            //setSentStatus(false);
         }
     }
 
@@ -72,7 +70,6 @@ struct IRecord
     {
         inMemoryStatus = DELETED;
         localStatus = DELETED;
-        //setSentStatus(false);
     }
 
     void setNew()
@@ -88,14 +85,8 @@ struct IRecord
 
     bool isUnSent()
     {
-        //return !Sent;
         return ((localStatus != UNMODIFIED) || (localStatus != UNINITIALIZED));
     }
-
-    /*void setSentStatus(bool sent)
-    {
-        Sent = sent;
-    }*/
 
     RecordStatus getInMemoryRecordStatus() const
     {
@@ -120,9 +111,6 @@ struct IRecord
 private:
     RecordStatus inMemoryStatus;
     RecordStatus localStatus;
-
-    ///DIEGO///
-    //bool Sent;
 };
 
 #endif // IRECORD_H

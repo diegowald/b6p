@@ -43,7 +43,6 @@ void PlanificacionesDiasSubSectores::addRecord(RecordPtr record, bool setNew)
     p->HoraInicio().setValue((*record)["HoraInicio"].toInt());
     p->HoraFin().setValue((*record)["HoraFin"].toInt());
     p->AllowOverWorking().setValue((*record)["AllowOverworking"].toInt() == 1 ? true : false);
-    //p->setSentStatus((*record)["sent"].toInt() == 1);
     p->setLocalRecordStatus((RecordStatus)((*record)["RecordStatus"].toInt()));
 
     if (setNew)
@@ -66,7 +65,6 @@ void PlanificacionesDiasSubSectores::updateRecord(RecordPtr record, bool isFromS
     p->HoraInicio().setValue((*record)["HoraInicio"].toInt());
     p->HoraFin().setValue((*record)["HoraFin"].toInt());
     p->AllowOverWorking().setValue((*record)["AllowOverWorking"].toInt() == 1 ? true : false);
-    //p->setSentStatus(isFromSincro);
     if (isFromSincro)
     {
         p->setInMemoryRecordStatus(UNMODIFIED);

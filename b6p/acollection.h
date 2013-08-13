@@ -16,13 +16,6 @@ class ACollection : public QObject
 {
     Q_OBJECT
 public:
-    /*enum RECORD_STATUS
-    {
-        RECORD_UNMODIFIED,
-        RECORD_NEW,
-        RECORD_MODIFIED,
-        RECORD_DELETED
-    };*/
 
     enum MERGE_STRATEGY
     {
@@ -69,9 +62,6 @@ public:
     void setInMemoryStatusToUnmodified();
 
     virtual QString getTableName() = 0;
-/*    virtual QString getDeleteStatement(bool includeSenderMachine) = 0;
-    virtual QString getUpdateStatement(bool includeSenderMachine) = 0;
-    virtual QString getInsertStatement(bool IncludeIDs, bool includeSenderMachine) = 0;*/
 
     virtual QString getLocalDeleteStatement() = 0;
     virtual QString getLocalUpdateStatement() = 0;

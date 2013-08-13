@@ -45,7 +45,6 @@ void CalendarioPersonas::addRecord(RecordPtr record, bool setNew)
     c->HoraIngreso().setValue((*record)["HoraIngreso"].toInt());
     c->HoraEgreso().setValue((*record)["HoraEgreso"].toInt());
     c->setLocalRecordStatus((RecordStatus)(*record)["RecordStatus"].toInt());
-    //c->setSentStatus((*record)["sent"].toInt() == 1);
 
     if (setNew)
         c->setNew();
@@ -70,7 +69,6 @@ void CalendarioPersonas::updateRecord(RecordPtr record, bool isFromSincro)
         c->setInMemoryRecordStatus(UNMODIFIED);
         c->setLocalRecordStatus(UNMODIFIED);
     }
-    //c->setSentStatus(isFromSincro);
 }
 
 void CalendarioPersonas::deleteRecord(RecordPtr, bool)

@@ -94,17 +94,6 @@ void TimeEditor::setMaxTime(int seconds)
     maxTimeBeyondThisDay = (maxValue > 86400);
     QIntValidator *validator = new QIntValidator(getHours(minValue), getHours(maxValue), this);
     ui->lineHours->setValidator(validator);
-/*    if (maxTimeBeyondThisDay)
-    {
-        ui->spinHours->setMaximum(24);
-    }
-    else
-    {
-        int hours = getHours(seconds);
-        hours = hours;
-        //ui->spinHours->setMaximum(getHours(seconds));
-        ui->spinHours->setMaximum(hours);
-    }*/
 }
 
 int TimeEditor::maxTimeSeconds()

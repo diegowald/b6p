@@ -69,7 +69,6 @@ void CapacidadesPersonaSector::addRecord(RecordPtr record, bool setNew)
     c->ID_SubSector().setValue((*record)["IDSubSector"].toInt());
     c->IDEmpleado().setValue((*record)["IDEmpleado"].toInt());
     c->Capacidad().setValue((*record)["Capacidad"].toInt());
-    //c->setSentStatus((*record)["sent"].toInt() == 1);
     c->setLocalRecordStatus((RecordStatus)(*record)["RecordStatus"].toInt());
 
     if (setNew)
@@ -93,7 +92,6 @@ void CapacidadesPersonaSector::updateRecord(RecordPtr record, bool isFromSincro)
         c->setLocalRecordStatus(UNMODIFIED);
         c->setInMemoryRecordStatus(UNMODIFIED);
     }
-    //c->setSentStatus(isFromSincro);
 }
 
 void CapacidadesPersonaSector::deleteRecord(RecordPtr record, bool)

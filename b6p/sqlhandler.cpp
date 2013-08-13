@@ -208,7 +208,7 @@ int SQLHandler::executeQuery(QString &cmd, RecordPtr record, bool returnLastInse
     QLOG_DEBUG() << "returnLastInsertedID: " << returnLastInsertedID;
     if (!tryReconnect())
     {
-        db = QSqlDatabase::addDatabase("QSQLITE"/*, "local"*/);
+        db = QSqlDatabase::addDatabase("QSQLITE");
         db.setHostName("localhost");
         db.setDatabaseName(m_database);
     }
@@ -230,7 +230,6 @@ int SQLHandler::executeQuery(QString &cmd, RecordPtr record, bool returnLastInse
     {
         QLOG_DEBUG() << q.lastInsertId();
         QLOG_DEBUG() << lastID;
-        //return q.lastInsertId().toInt();
         return (int)lastID;
     }
     else
@@ -243,7 +242,7 @@ void SQLHandler::executeCommand(QString &cmd)
     QLOG_DEBUG() << "cmd: " << cmd;
     if (!tryReconnect())
     {
-        db = QSqlDatabase::addDatabase("QSQLITE"/*, "local"*/);
+        db = QSqlDatabase::addDatabase("QSQLITE");
         db.setHostName("localhost");
         db.setDatabaseName(m_database);
     }

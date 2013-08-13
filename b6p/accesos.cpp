@@ -19,7 +19,6 @@ QString Accesos::getSqlString()
 {
     QLOG_TRACE_FN();
     return QString("select IDSector, Feature, canRead, canCreate, canUpdate, canDelete, sent from access ");
-//            + QString(" where RecordStatus <> ") + QString::number(RECORD_DELETED) + QString(";");
 }
 
 void Accesos::addRecord(RecordPtr record, bool)
@@ -35,7 +34,6 @@ void Accesos::addRecord(RecordPtr record, bool)
     a->canDelete().setValue((*record)["canDelete"].toBool());
     a->setLocalRecordStatus((RecordStatus)((*record)["RecordStatus"].toInt()));
     a->setLocalRecordStatus(UNMODIFIED);
-    //a->setSentStatus((*record)["sent"].toInt() == 1);
 
     a->setInitialized();
 

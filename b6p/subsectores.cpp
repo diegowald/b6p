@@ -40,7 +40,6 @@ void SubSectores::addRecord(RecordPtr record, bool setNew)
     s->Nombre().setValue((*record)["Nombre"].toString());
     s->Descripcion().setValue((*record)["Descripcion"].toString());
     s->setLocalRecordStatus((RecordStatus)((*record)["RecordStatus"].toInt()));
-    //s->setSentStatus((*record)["sent"].toInt() == 1);
     if (setNew)
         s->setNew();
     else
@@ -61,7 +60,6 @@ void SubSectores::updateRecord(RecordPtr record, bool isFromSincro)
         s->setInMemoryRecordStatus(UNMODIFIED);
         s->setLocalRecordStatus(UNMODIFIED);
     }
-    //s->setSentStatus(isFromSincro);
 }
 
 void SubSectores::deleteRecord(RecordPtr record, bool)

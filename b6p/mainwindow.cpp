@@ -24,7 +24,6 @@ MainWindow::MainWindow(int LoggedUser, QWidget *parent) :
     QsLogging::Logger::instance().setLoggingLevel(DataStore::instance()->getParametros()->getLoggingLevel());
 
     QLOG_TRACE_FN();
-    //DataStore::instance()->initialize(this);
 
     ui->setupUi(this);
 
@@ -138,7 +137,7 @@ void MainWindow::on_actionPrint_Preview_Selected_Record_triggered()
     if (ui->mdiArea->activeSubWindow()) {
         selectedWindowToPrint = qobject_cast<GenericList *>(ui->mdiArea->activeSubWindow()->widget());
         // Prints Selected record on active window
-        QPrinter printer;//(QPrinter::HighResolution);
+        QPrinter printer;
         printer.setOrientation(QPrinter::Landscape);
         QPrintPreviewDialog dlg(&printer, this);
         connect(&dlg, SIGNAL(paintRequested(QPrinter*)), this, SLOT(printSelected(QPrinter*)));
