@@ -4,7 +4,7 @@
 
 Acceso::Acceso(QObject *parent) : QObject(parent)
 {
-    QLOG_TRACE() << "Acceso::Acceso(QObject *parent) : QObject(parent)";
+    QLOG_TRACE_FN();
     m_IDSector.setNull();
     m_Feature.setNull();
     m_canRead.setNull();
@@ -22,12 +22,12 @@ Acceso::Acceso(QObject *parent) : QObject(parent)
 
 Acceso::~Acceso()
 {
-    QLOG_TRACE() << "Acceso::~Acceso()";
+    QLOG_TRACE_FN();
 }
 
 RecordPtr Acceso::asRecordPtr()
 {
-    QLOG_TRACE() << "RecordPtr Acceso::asRecordPtr()";
+    QLOG_TRACE_FN();
     RecordPtr res = boost::make_shared<Record>();
 
     (*res)["IDSector"] = m_IDSector.toVariant();
@@ -42,61 +42,61 @@ RecordPtr Acceso::asRecordPtr()
 
 NullableField<int> &Acceso::IDSector()
 {
-    QLOG_TRACE() << "NullableField<int> &Acceso::IDSector()";
+    QLOG_TRACE_FN();
     return m_IDSector;
 }
 
 NullableField<QString> &Acceso::Feature()
 {
-    QLOG_TRACE() << "NullableField<QString> &Acceso::Feature()";
+    QLOG_TRACE_FN();
     return m_Feature;
 }
 
 NullableField<bool> &Acceso::canRead()
 {
-    QLOG_TRACE() << "NullableField<bool> &Acceso::canRead()";
+    QLOG_TRACE_FN();
     return m_canRead;
 }
 
 NullableField<bool> &Acceso::canCreate()
 {
-    QLOG_TRACE() << "NullableField<bool> &Acceso::canCreate()";
+    QLOG_TRACE_FN();
     return m_canCreate;
 }
 
 NullableField<bool> &Acceso::canUpdate()
 {
-    QLOG_TRACE() << "NullableField<bool> &Acceso::canUpdate()";
+    QLOG_TRACE_FN();
     return m_canUpdate;
 }
 
 NullableField<bool> &Acceso::canDelete()
 {
-    QLOG_TRACE() << "NullableField<bool> &Acceso::canDelete()";
+    QLOG_TRACE_FN();
     return m_canDelete;
 }
 
 
 bool Acceso::CanRead()
 {
-    QLOG_TRACE() << "bool Acceso::CanRead()";
+    QLOG_TRACE_FN();
     return m_canRead.isNull() ? false : m_canRead.value();
 }
 
 bool Acceso::CanCreate()
 {
-    QLOG_TRACE() << "bool Acceso::CanCreate()";
+    QLOG_TRACE_FN();
     return m_canCreate.isNull() ? false : m_canCreate.value();
 }
 
 bool Acceso::CanUpdate()
 {
-    QLOG_TRACE() << "bool Acceso::CanUpdate()";
+    QLOG_TRACE_FN();
     return m_canUpdate.isNull() ? false : m_canUpdate.value();
 }
 
 bool Acceso::CanDelete()
 {
-    QLOG_TRACE() << "bool Acceso::CanDelete()";
+    QLOG_TRACE_FN();
     return m_canDelete.isNull() ? false : m_canDelete.value();
 }

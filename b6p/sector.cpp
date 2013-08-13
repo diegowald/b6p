@@ -6,7 +6,7 @@
 Sector::Sector(QObject *parent) :
     QObject(parent)
 {
-    QLOG_TRACE() << "Sector::Sector(QObject *parent)";
+    QLOG_TRACE_FN();
     m_IDSector.setNull();
     m_Nombre.setNull();
     m_Descripcion.setNull();
@@ -20,7 +20,7 @@ Sector::Sector(QObject *parent) :
 
 RecordPtr Sector::asRecordPtr()
 {
-    QLOG_TRACE() << "RecordPtr Sector::asRecordPtr()";
+    QLOG_TRACE_FN();
     RecordPtr res = boost::make_shared<Record>();
 
     (*res)["IDSector"] = m_IDSector.toVariant();
@@ -35,7 +35,7 @@ RecordPtr Sector::asRecordPtr()
 
 bool Sector::isEqualsTo(RecordPtr record)
 {
-    QLOG_TRACE() << "bool Sector::isEqualsTo(RecordPtr record)";
+    QLOG_TRACE_FN();
     bool res = ((*record)["IDSector"] == m_IDSector.toVariant())
             && ((*record)["Nombre"] == m_Nombre.toVariant())
             && ((*record)["Descripcion"] == m_Descripcion.toVariant())
@@ -45,24 +45,24 @@ bool Sector::isEqualsTo(RecordPtr record)
 
 NullableField<int> &Sector::IDSector()
 {
-    QLOG_TRACE() << "NullableField<int> &Sector::IDSector()";
+    QLOG_TRACE_FN();
     return m_IDSector;
 }
 
 NullableField<QString> &Sector::Nombre()
 {
-    QLOG_TRACE() << "NullableField<QString> &Sector::Nombre()";
+    QLOG_TRACE_FN();
     return m_Nombre;
 }
 
 NullableField<QString> &Sector::Descripcion()
 {
-    QLOG_TRACE() << "NullableField<QString> &Sector::Descripcion()";
+    QLOG_TRACE_FN();
     return m_Descripcion;
 }
 
 NullableField<bool> &Sector::ShowInPlanification()
 {
-    QLOG_TRACE() << "NullableField<bool> &Sector::ShowInPlanification()";
+    QLOG_TRACE_FN();
     return m_ShowInPlanification;
 }

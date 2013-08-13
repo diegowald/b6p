@@ -8,19 +8,19 @@ DlgApprovePlanifications::DlgApprovePlanifications(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DlgApprovePlanifications)
 {
-    QLOG_TRACE() << "DlgApprovePlanifications::DlgApprovePlanifications(QWidget *parent)";
+    QLOG_TRACE_FN();
     ui->setupUi(this);
 }
 
 DlgApprovePlanifications::~DlgApprovePlanifications()
 {
-    QLOG_TRACE() << "DlgApprovePlanifications::~DlgApprovePlanifications()";
+    QLOG_TRACE_FN();
     delete ui;
 }
 
 void DlgApprovePlanifications::setData(PlanificacionDiaLst data)
 {
-    QLOG_TRACE() << "void DlgApprovePlanifications::setData(PlanificacionDiaLst data)";
+    QLOG_TRACE_FN();
     ui->treePlanifications->setColumnCount(7);
     foreach(PlanificacionDiaPtr p, *data)
     {
@@ -43,7 +43,7 @@ void DlgApprovePlanifications::setData(PlanificacionDiaLst data)
 
 PlanificacionDiaLst DlgApprovePlanifications::getPlanificacionToApprove()
 {
-    QLOG_TRACE() << "PlanificacionDiaLst DlgApprovePlanifications::getPlanificacionToApprove()";
+    QLOG_TRACE_FN();
     PlanificacionDiaLst res = boost::make_shared<QList<PlanificacionDiaPtr> >();
 
     for (int i = 0; i < ui->treePlanifications->topLevelItemCount(); ++i)

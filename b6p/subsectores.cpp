@@ -6,33 +6,33 @@ SubSectores::SubSectores(QObject *parent) :
     ACollection(tr("SubSectors"),
                 "SubSectors", false, ACollection::MERGE_KEEP_LOCAL, parent)
 {
-    QLOG_TRACE() << "SubSectores::SubSectores(QObject *parent)";
+    QLOG_TRACE_FN();
 }
 
 QString SubSectores::getSelectFromMainDB()
 {
-    QLOG_TRACE() << "QString SubSectores::getSelectFromMainDB()";
+    QLOG_TRACE_FN();
     return QString("select ID, IDSector, Nombre, Descripcion, LastUpdate from subsectores "
                    " where LastUpdate >= :LASTUPDATE ;");
 }
 
 QString SubSectores::getSqlString()
 {
-    QLOG_TRACE() << "QString SubSectores::getSqlString()";
+    QLOG_TRACE_FN();
     return QString("select ID, IDSector, Nombre, Descripcion, sent, RecordStatus from subsectores ")
             + QString(" where RecordStatus <> ") + QString::number(DELETED) + QString(";");
 }
 
 QString SubSectores::getSQLExistsInMainDB()
 {
-    QLOG_TRACE() << "QString SubSectores::getSQLExistsInMainDB()";
+    QLOG_TRACE_FN();
     return QString("select ID, IDSector, Nombre, Descripcion from subsectores "
                    " where ID = :IDSubSector;");
 }
 
 void SubSectores::addRecord(RecordPtr record, bool setNew)
 {
-    QLOG_TRACE() << "void SubSectores::addRecord(RecordPtr record, bool setNew)";
+    QLOG_TRACE_FN();
     SubSectorPtr s = boost::make_shared<SubSector>(this);
 
     s->IDSubsector().setValue((*record)["ID"].toInt());
@@ -51,7 +51,7 @@ void SubSectores::addRecord(RecordPtr record, bool setNew)
 
 void SubSectores::updateRecord(RecordPtr record, bool isFromSincro)
 {
-    QLOG_TRACE() << "void SubSectores::updateRecord(RecordPtr record)";
+    QLOG_TRACE_FN();
     SubSectorPtr s = getSubSector((*record)["ID"].toInt());
 
     s->Nombre().setValue((*record)["Nombre"].toString());
@@ -66,19 +66,19 @@ void SubSectores::updateRecord(RecordPtr record, bool isFromSincro)
 
 void SubSectores::deleteRecord(RecordPtr record, bool)
 {
-    QLOG_TRACE() << "void SubSectores::deleteRecord(RecordPtr record)";
+    QLOG_TRACE_FN();
     m_SubSectores.remove((*record)["ID"].toInt());
 }
 
 bool SubSectores::exists(RecordPtr record)
 {
-    QLOG_TRACE() << "bool SubSectores::exists(RecordPtr record)";
+    QLOG_TRACE_FN();
     return (getSubSector((*record)["ID"].toInt()) != SubSectorPtr());
 }
 
 bool SubSectores::localRecordIsEqualsTo(RecordPtr record)
 {
-    QLOG_TRACE() << "bool SubSectores::localRecordIsEqualsTo(RecordPtr record)";
+    QLOG_TRACE_FN();
     SubSectorPtr s = getSubSector((*record)["ID"].toInt());
     if (SubSectorPtr() != s)
     {
@@ -90,7 +90,7 @@ bool SubSectores::localRecordIsEqualsTo(RecordPtr record)
 
 bool SubSectores::isRecordUnsent(RecordPtr record)
 {
-    QLOG_TRACE() << "bool SubSectores::isRecordUnsent(RecordPtr record)";
+    QLOG_TRACE_FN();
     if (!exists(record))
         return false;
     SubSectorPtr s = getSubSector((*record)["ID"].toInt());
@@ -99,7 +99,7 @@ bool SubSectores::isRecordUnsent(RecordPtr record)
 
 RecordPtr SubSectores::getLocalRecord(RecordPtr record)
 {
-    QLOG_TRACE() << "RecordPtr SubSectores::getLocalRecord(RecordPtr record)";
+    QLOG_TRACE_FN();
     if (!exists(record))
         return RecordPtr();
     SubSectorPtr s = getSubSector((*record)["ID"].toInt());
@@ -108,31 +108,31 @@ RecordPtr SubSectores::getLocalRecord(RecordPtr record)
 
 QString SubSectores::getLocalDeleteStatement()
 {
-    QLOG_TRACE() << "QString SubSectores::getLocalDeleteStatement()";
+    QLOG_TRACE_FN();
     return "delete from subsectores where ID = :ID;";
 }
 
 QString SubSectores::getCentralDeleteStatement()
 {
-    QLOG_TRACE() << "QString SubSectores::getCentralDeleteStatement()";
+    QLOG_TRACE_FN();
     return "delete from subsectores where ID = :ID;";
 }
 
 QString SubSectores::getLocalUpdateStatement()
 {
-    QLOG_TRACE() << "QString SubSectores::getLocalUpdateStatement()";
+    QLOG_TRACE_FN();
     return "update subsectores set IDSector = :IDSector, Nombre = :Nombre, Descripcion = :Descripcion, sent = 0 where ID = :ID;";
 }
 
 QString SubSectores::getCentralUpdateStatement()
 {
-    QLOG_TRACE() << "QString SubSectores::getCentralUpdateStatement()";
+    QLOG_TRACE_FN();
     return "update subsectores set IDSector = :IDSector, Nombre = :Nombre, Descripcion = :Descripcion, sent = 0 where ID = :ID;";
 }
 
 QString SubSectores::getLocalInsertStatement()
 {
-    QLOG_TRACE() << "QString SubSectores::getLocalInsertStatement()";
+    QLOG_TRACE_FN();
     return " insert into subsectores "
             " (IDSector, Nombre, Descripcion, sent) "
             " values "
@@ -141,7 +141,7 @@ QString SubSectores::getLocalInsertStatement()
 
 QString SubSectores::getCentralInsertStatement()
 {
-    QLOG_TRACE() << "QString SubSectores::getCentralInsertStatement()";
+    QLOG_TRACE_FN();
     return "insert into subsectores "
             " (ID, IDSector, Nombre, Descripcion, sent) "
             " values "
@@ -150,7 +150,7 @@ QString SubSectores::getCentralInsertStatement()
 
 RecordSet SubSectores::getRecords(RecordStatus status, bool fromMemory)
 {
-    QLOG_TRACE() << "RecordSet SubSectores::getRecords(RecordStatus status)";
+    QLOG_TRACE_FN();
     RecordSet res = boost::make_shared<QList<RecordPtr> >();
     foreach(SubSectorPtr s, m_SubSectores.values())
     {
@@ -179,7 +179,7 @@ RecordSet SubSectores::getRecords(RecordStatus status, bool fromMemory)
 
 RecordSet SubSectores::getUnsent()
 {
-    QLOG_TRACE() << "RecordSet SubSectores::getUnsent()";
+    QLOG_TRACE_FN();
     RecordSet res = boost::make_shared<QList<RecordPtr> >();
     foreach(SubSectorPtr s, m_SubSectores.values())
     {
@@ -191,7 +191,7 @@ RecordSet SubSectores::getUnsent()
 
 SubSectorPtr SubSectores::getSubSector(int idSubSector)
 {
-    QLOG_TRACE() << "SubSectorPtr SubSectores::getSubSector(int idSubSector)";
+    QLOG_TRACE_FN();
     if (m_SubSectores.find(idSubSector) == m_SubSectores.end())
         return SubSectorPtr();
     else
@@ -200,7 +200,7 @@ SubSectorPtr SubSectores::getSubSector(int idSubSector)
 
 SubSectorPtr SubSectores::getSubSector(int idSector, QString SubSectorName)
 {
-    QLOG_TRACE() << "SubSectorPtr SubSectores::getSubSector(int idSubSector)";
+    QLOG_TRACE_FN();
     SubSectoresLst ss = getAll(idSector);
     foreach (SubSectorPtr s, *ss)
     {
@@ -212,7 +212,7 @@ SubSectorPtr SubSectores::getSubSector(int idSector, QString SubSectorName)
 
 SubSectoresLst SubSectores::getAll(bool includeDeleted)
 {
-    QLOG_TRACE() << "SubSectoresLst SubSectores::getAll(bool includeDeleted)";
+    QLOG_TRACE_FN();
     SubSectoresLst res = boost::make_shared<QList<SubSectorPtr> >();
     foreach(SubSectorPtr s, m_SubSectores.values())
     {
@@ -230,7 +230,7 @@ SubSectoresLst SubSectores::getAll(bool includeDeleted)
 
 SubSectoresLst SubSectores::getAll(int IDSector, bool includeDeleted)
 {
-    QLOG_TRACE() << "SubSectoresLst SubSectores::getAll(int IDSector, bool includeDeleted)";
+    QLOG_TRACE_FN();
     SubSectoresLst res = boost::make_shared<QList<SubSectorPtr> >();
     foreach(SubSectorPtr subsector, m_SubSectores.values())
     {
@@ -248,47 +248,47 @@ SubSectoresLst SubSectores::getAll(int IDSector, bool includeDeleted)
 
 void SubSectores::defineHeaders(QStringList &)
 {
-    QLOG_TRACE() << "void SubSectores::defineHeaders(QStringList &)";
+    QLOG_TRACE_FN();
 }
 
 boost::shared_ptr<QList<QStringList> > SubSectores::getAll()
 {
-    QLOG_TRACE() << "boost::shared_ptr<QList<QStringList> > SubSectores::getAll()";
+    QLOG_TRACE_FN();
     return boost::make_shared<QList<QStringList> >();
 }
 
 void SubSectores::fillData(QTreeWidget &)
 {
-    QLOG_TRACE() << "void SubSectores::fillData(QTreeWidget &)";
+    QLOG_TRACE_FN();
 }
 
 bool SubSectores::addNew()
 {
-    QLOG_TRACE() << "bool SubSectores::addNew()";
+    QLOG_TRACE_FN();
     return false;
 }
 
 bool SubSectores::edit(QVariant)
 {
-    QLOG_TRACE() << "bool SubSectores::edit(QVariant)";
+    QLOG_TRACE_FN();
     return false;
 }
 
 bool SubSectores::deleteElement(QVariant)
 {
-    QLOG_TRACE() << "bool SubSectores::deleteElement(QVariant)";
+    QLOG_TRACE_FN();
     return false;
 }
 
 bool SubSectores::canBeDeleted(QVariant)
 {
-    QLOG_TRACE() << "bool SubSectores::canBeDeleted(QVariant)";
+    QLOG_TRACE_FN();
     return false;
 }
 
 void SubSectores::setStatusToUnmodified(bool removeDeleted, bool impactInMemmory, bool impactLocal)
 {
-    QLOG_TRACE() << "void SubSectores::setStatusToUnmodified(bool removeDeleted)";
+    QLOG_TRACE_FN();
     QList<int> toDelete;
     foreach(SubSectorPtr s, m_SubSectores.values())
     {

@@ -8,7 +8,7 @@ AvailabilityWidget::AvailabilityWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::AvailabilityWidget)
 {
-    QLOG_TRACE() << "AvailabilityWidget::AvailabilityWidget(QWidget *parent)";
+    QLOG_TRACE_FN();
     ui->setupUi(this);
     connect(ui->timeFrom, SIGNAL(timeChanged(int)), ui->widget, SLOT(setStartAssignment(int)));
     connect(ui->timeTo, SIGNAL(timeChanged(int)),ui->widget, SLOT(setEndAssignment(int)));
@@ -31,31 +31,31 @@ AvailabilityWidget::AvailabilityWidget(QWidget *parent) :
 
 AvailabilityWidget::~AvailabilityWidget()
 {
-    QLOG_TRACE() << "AvailabilityWidget::~AvailabilityWidget()";
+    QLOG_TRACE_FN();
     delete ui;
 }
 
 void AvailabilityWidget::setLabel(QString value)
 {
-    QLOG_TRACE() << "void AvailabilityWidget::setLabel(QString value)";
+    QLOG_TRACE_FN();
     ui->lblDay->setText(value);
 }
 
 void AvailabilityWidget::setFrom(int value)
 {
-    QLOG_TRACE() << "void AvailabilityWidget::setFrom(int value)";
+    QLOG_TRACE_FN();
     ui->timeFrom->setTime(value);
 }
 
 void AvailabilityWidget::setTo(int value)
 {
-    QLOG_TRACE() << "void AvailabilityWidget::setTo(int value)";
+    QLOG_TRACE_FN();
     ui->timeTo->setTime(value);
 }
 
 void AvailabilityWidget::setDay(int day)
 {
-    QLOG_TRACE() << "void AvailabilityWidget::setDay(int day)";
+    QLOG_TRACE_FN();
     QString lbl;
     switch(day)
     {
@@ -88,18 +88,18 @@ void AvailabilityWidget::setDay(int day)
 
 int AvailabilityWidget::Day()
 {
-    QLOG_TRACE() << "int AvailabilityWidget::Day()";
+    QLOG_TRACE_FN();
     return m_day;
 }
 
 int AvailabilityWidget::FromTime()
 {
-    QLOG_TRACE() << "int AvailabilityWidget::FromTime()";
+    QLOG_TRACE_FN();
     return ui->timeFrom->timeSeconds();
 }
 
 int AvailabilityWidget::ToTime()
 {
-    QLOG_TRACE() << "int AvailabilityWidget::ToTime()";
+    QLOG_TRACE_FN();
     return ui->timeTo->timeSeconds();
 }

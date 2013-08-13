@@ -6,33 +6,33 @@ PlanificacionesDiasSubSectores::PlanificacionesDiasSubSectores(QObject *parent) 
                 "Planifications of Sectors and subsectors for a day", true,
                 ACollection::MERGE_KEEP_LOCAL, parent)
 {
-    QLOG_TRACE() << "PlanificacionesDiasSubSectores::PlanificacionesDiasSubSectores(QObject *parent)";
+    QLOG_TRACE_FN();
 }
 
 QString PlanificacionesDiasSubSectores::getSelectFromMainDB()
 {
-    QLOG_TRACE() << "QString PlanificacionesDiasSubSectores::getSelectFromMainDB()";
+    QLOG_TRACE_FN();
     return QString("select IDRecord, Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, AllowOverWorking, LastUpdate from planificacionsubsector "
                    " where LastUpdate >= :LASTUPDATE ;");
 }
 
 QString PlanificacionesDiasSubSectores::getSqlString()
 {
-    QLOG_TRACE() << "QString PlanificacionesDiasSubSectores::getSqlString()";
+    QLOG_TRACE_FN();
     return QString("select IDRecord, Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, AllowOverWorking, sent, RecordStatus from planificacionsubsector ")
             + QString(" where RecordStatus <> ") + QString::number(DELETED) + QString(";");
 }
 
 QString PlanificacionesDiasSubSectores::getSQLExistsInMainDB()
 {
-    QLOG_TRACE() << "QString PlanificacionesDiasSubSectores::getSQLExistsInMainDB()";
+    QLOG_TRACE_FN();
     return QString("select IDRecord, Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin,AllowOverWorking from planificacionsubsector "
             " where IDRecord = :IDRecord;");
 }
 
 void PlanificacionesDiasSubSectores::addRecord(RecordPtr record, bool setNew)
 {
-    QLOG_TRACE() << "void PlanificacionesDiasSubSectores::addRecord(RecordPtr record, bool setNew)";
+    QLOG_TRACE_FN();
     PlanificacionSubSectorPtr p = boost::make_shared<PlanificacionSubSector>(this);
 
     p->IDRecord().setValue((*record)["IDRecord"].toInt());
@@ -56,7 +56,7 @@ void PlanificacionesDiasSubSectores::addRecord(RecordPtr record, bool setNew)
 
 void PlanificacionesDiasSubSectores::updateRecord(RecordPtr record, bool isFromSincro)
 {
-    QLOG_TRACE() << "void PlanificacionesDiasSubSectores::updateRecord(RecordPtr record)";
+    QLOG_TRACE_FN();
     PlanificacionSubSectorPtr p = m_Planificacion[(*record)["IDRecord"].toInt()];
 
     p->Dia().setValue(QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date());
@@ -76,19 +76,19 @@ void PlanificacionesDiasSubSectores::updateRecord(RecordPtr record, bool isFromS
 
 void PlanificacionesDiasSubSectores::deleteRecord(RecordPtr record, bool)
 {
-    QLOG_TRACE() << "void PlanificacionesDiasSubSectores::deleteRecord(RecordPtr record)";
+    QLOG_TRACE_FN();
     m_Planificacion.remove((*record)["IDRecord"].toInt());
 }
 
 bool PlanificacionesDiasSubSectores::exists(RecordPtr record)
 {
-    QLOG_TRACE() << "bool PlanificacionesDiasSubSectores::exists(RecordPtr record)";
+    QLOG_TRACE_FN();
     return (m_Planificacion[(*record)["IDRecord"].toInt()] != PlanificacionSubSectorPtr());
 }
 
 bool PlanificacionesDiasSubSectores::localRecordIsEqualsTo(RecordPtr record)
 {
-    QLOG_TRACE() << "bool PlanificacionesDiasSubSectores::localRecordIsEqualsTo(RecordPtr record)";
+    QLOG_TRACE_FN();
     PlanificacionSubSectorPtr p = m_Planificacion[(*record)["IDRecord"].toInt()];
     if (p != PlanificacionSubSectorPtr())
     {
@@ -100,7 +100,7 @@ bool PlanificacionesDiasSubSectores::localRecordIsEqualsTo(RecordPtr record)
 
 bool PlanificacionesDiasSubSectores::isRecordUnsent(RecordPtr record)
 {
-    QLOG_TRACE() << "bool PlanificacionesDiasSubSectores::isRecordUnsent(RecordPtr record)";
+    QLOG_TRACE_FN();
     if (!exists(record))
         return false;
     PlanificacionSubSectorPtr p = m_Planificacion[(*record)["IDRecord"].toInt()];
@@ -109,7 +109,7 @@ bool PlanificacionesDiasSubSectores::isRecordUnsent(RecordPtr record)
 
 RecordPtr PlanificacionesDiasSubSectores::getLocalRecord(RecordPtr record)
 {
-    QLOG_TRACE() << "RecordPtr PlanificacionesDiasSubSectores::getLocalRecord(RecordPtr record)";
+    QLOG_TRACE_FN();
     if (!exists(record))
         return RecordPtr();
     PlanificacionSubSectorPtr p = m_Planificacion[(*record)["IDRecord"].toInt()];
@@ -118,7 +118,7 @@ RecordPtr PlanificacionesDiasSubSectores::getLocalRecord(RecordPtr record)
 
 QString PlanificacionesDiasSubSectores::getLocalDeleteStatement()
 {
-    QLOG_TRACE() << "QString PlanificacionesDiasSubSectores::getLocalDeleteStatement()";
+    QLOG_TRACE_FN();
     return QString("update planificacionsubsector "
                    " set RecordStatus = %1, sent = 0 "
                    " where IDRecord = :IDRecord;").arg(DELETED);
@@ -126,7 +126,7 @@ QString PlanificacionesDiasSubSectores::getLocalDeleteStatement()
 
 QString PlanificacionesDiasSubSectores::getCentralDeleteStatement()
 {
-    QLOG_TRACE() << "QString PlanificacionesDiasSubSectores::getCentralDeleteStatement()";
+    QLOG_TRACE_FN();
     return QString("update planificacionsubsector "
                    " set RecordStatus = %1, sent = 0 "
                    " where IDRecord = :IDRecord;").arg(DELETED);
@@ -134,7 +134,7 @@ QString PlanificacionesDiasSubSectores::getCentralDeleteStatement()
 
 QString PlanificacionesDiasSubSectores::getLocalUpdateStatement()
 {
-    QLOG_TRACE() << "QString PlanificacionesDiasSubSectores::getLocalUpdateStatement()";
+    QLOG_TRACE_FN();
     return QString("update planificacionsubsector "
                    " set Dia = :Dia, IDSector = :IDSector, "
                    " IDSubsector = :IDSubSector, "
@@ -147,7 +147,7 @@ QString PlanificacionesDiasSubSectores::getLocalUpdateStatement()
 
 QString PlanificacionesDiasSubSectores::getCentralUpdateStatement()
 {
-    QLOG_TRACE() << "QString PlanificacionesDiasSubSectores::getCentralUpdateStatement()";
+    QLOG_TRACE_FN();
     return QString("update planificacionsubsector "
                    " set Dia = :Dia, IDSector = :IDSector, "
                    " IDSubsector = :IDSubSector, "
@@ -160,7 +160,7 @@ QString PlanificacionesDiasSubSectores::getCentralUpdateStatement()
 
 QString PlanificacionesDiasSubSectores::getLocalInsertStatement()
 {
-    QLOG_TRACE() << "QString PlanificacionesDiasSubSectores::getLocalInsertStatement()";
+    QLOG_TRACE_FN();
     return QString("insert into planificacionsubsector "
                    " (Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, AllowOverWorking, RecordStatus, 0) "
                    " values "
@@ -169,7 +169,7 @@ QString PlanificacionesDiasSubSectores::getLocalInsertStatement()
 
 QString PlanificacionesDiasSubSectores::getCentralInsertStatement()
 {
-    QLOG_TRACE() << "QString PlanificacionesDiasSubSectores::getCentralInsertStatement()";
+    QLOG_TRACE_FN();
     return QString("insert into planificacionsubsector "
                    " (IDRecord, Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, AllowOverWorking, RecordStatus, sent) "
                    " values "
@@ -179,7 +179,7 @@ QString PlanificacionesDiasSubSectores::getCentralInsertStatement()
 
 RecordSet PlanificacionesDiasSubSectores::getRecords(RecordStatus status, bool fromMemory)
 {
-    QLOG_TRACE() << "RecordSet PlanificacionesDiasSubSectores::getRecords(RecordStatus status)";
+    QLOG_TRACE_FN();
     RecordSet res = boost::make_shared<QList<RecordPtr> >();
     foreach(PlanificacionSubSectorPtr p, m_Planificacion)
     {
@@ -208,7 +208,7 @@ RecordSet PlanificacionesDiasSubSectores::getRecords(RecordStatus status, bool f
 
 RecordSet PlanificacionesDiasSubSectores::getUnsent()
 {
-    QLOG_TRACE() << "RecordSet PlanificacionesDiasSubSectores::getUnsent()";
+    QLOG_TRACE_FN();
     RecordSet res = boost::make_shared<QList<RecordPtr> >();
     foreach(PlanificacionSubSectorPtr p, m_Planificacion)
     {
@@ -220,47 +220,47 @@ RecordSet PlanificacionesDiasSubSectores::getUnsent()
 
 void PlanificacionesDiasSubSectores::defineHeaders(QStringList &)
 {
-    QLOG_TRACE() << "void PlanificacionesDiasSubSectores::defineHeaders(QStringList &)";
+    QLOG_TRACE_FN();
 }
 
 boost::shared_ptr<QList<QStringList> > PlanificacionesDiasSubSectores::getAll()
 {
-    QLOG_TRACE() << "boost::shared_ptr<QList<QStringList> > PlanificacionesDiasSubSectores::getAll()";
+    QLOG_TRACE_FN();
     return boost::make_shared<QList<QStringList> >();
 }
 
 void PlanificacionesDiasSubSectores::fillData(QTreeWidget &)
 {
-    QLOG_TRACE() << "boost::shared_ptr<QList<QStringList> > PlanificacionesDiasSubSectores::getAll()";
+    QLOG_TRACE_FN();
 }
 
 bool PlanificacionesDiasSubSectores::addNew()
 {
-    QLOG_TRACE() << "boost::shared_ptr<QList<QStringList> > PlanificacionesDiasSubSectores::getAll()";
+    QLOG_TRACE_FN();
     return false;
 }
 
 bool PlanificacionesDiasSubSectores::edit(QVariant )
 {
-    QLOG_TRACE() << "bool PlanificacionesDiasSubSectores::edit(QVariant )";
+    QLOG_TRACE_FN();
     return false;
 }
 
 bool PlanificacionesDiasSubSectores::deleteElement(QVariant)
 {
-    QLOG_TRACE() << "bool PlanificacionesDiasSubSectores::deleteElement(QVariant)";
+    QLOG_TRACE_FN();
     return false;
 }
 
 bool PlanificacionesDiasSubSectores::canBeDeleted(QVariant)
 {
-    QLOG_TRACE() << "bool PlanificacionesDiasSubSectores::canBeDeleted(QVariant)";
+    QLOG_TRACE_FN();
     return false;
 }
 
 PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getAll(QDate Dia, bool includeDeleted)
 {
-    QLOG_TRACE() << "PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getAll(QDate Dia, bool includeDeleted)";
+    QLOG_TRACE_FN();
     PlanificacionSubSectorLst res = boost::make_shared<QList<PlanificacionSubSectorPtr> >();
 
     foreach(PlanificacionSubSectorPtr p, m_Planificacion.values())
@@ -283,8 +283,7 @@ PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getAll(QDate Dia, bool
 PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getDiasAnterioresTrabajadosPorEmpleado(
         QDate Dia, int IDEmpleado)
 {
-    QLOG_TRACE() << "PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getDiasAnterioresTrabajadosPorEmpleado(" <<
-                    "QDate Dia, int IDEmpleado)";
+    QLOG_TRACE_FN();
     PlanificacionSubSectorLst res = boost::make_shared<QList<PlanificacionSubSectorPtr> >();
     QMap<QDate, PlanificacionSubSectorPtr> diasTrabajados;
 
@@ -310,7 +309,7 @@ PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getDiasAnterioresTraba
 
 void PlanificacionesDiasSubSectores::updateWithOtherData(PlanificacionSubSectorLst other)
 {
-    QLOG_TRACE() << "void PlanificacionesDiasSubSectores::updateWithOtherData(PlanificacionSubSectorLst other)";
+    QLOG_TRACE_FN();
     if (other->count() == 0)
         return;
 
@@ -342,7 +341,7 @@ void PlanificacionesDiasSubSectores::updateWithOtherData(PlanificacionSubSectorL
 
 void PlanificacionesDiasSubSectores::setStatusToUnmodified(bool removeDeleted, bool impactInMemmory, bool impactLocal)
 {
-    QLOG_TRACE() << "void PlanificacionesDiasSubSectores::setStatusToUnmodified(bool removeDeleted)";
+    QLOG_TRACE_FN();
     QList<int> toDelete;
     foreach(PlanificacionSubSectorPtr p, m_Planificacion)
     {
@@ -364,7 +363,7 @@ void PlanificacionesDiasSubSectores::setStatusToUnmodified(bool removeDeleted, b
 
 void PlanificacionesDiasSubSectores::refreshID(int oldID, int newID)
 {
-    QLOG_TRACE() << "void PlanificacionesDiasSubSectores::refreshID(int oldID, int newID)";
+    QLOG_TRACE_FN();
     PlanificacionSubSectorPtr p = m_Planificacion[oldID];
     if (p)
     {

@@ -5,7 +5,7 @@
 
 QString Days::Days2String(DAYS day)
 {
-    QLOG_TRACE() << "QString Days::Days2String(DAYS day)";
+    QLOG_TRACE_FN();
     switch (day)
     {
     case Sunday:
@@ -37,7 +37,7 @@ QString Days::Days2String(DAYS day)
 
 DAYS Days::String2Day(QString day)
 {
-    QLOG_TRACE() << "DAYS Days::String2Day(QString day)";
+    QLOG_TRACE_FN();
     if (day == QObject::tr("Sunday"))
         return Sunday;
     else if(day == QObject::tr("Monday"))
@@ -58,7 +58,7 @@ DAYS Days::String2Day(QString day)
 
 DAYS Days::DayOfWeek2DAYS(int dayOfWeek)
 {
-    QLOG_TRACE() << "DAYS Days::DayOfWeek2DAYS(int dayOfWeek)";
+    QLOG_TRACE_FN();
     switch(dayOfWeek)
     {
     case 1:

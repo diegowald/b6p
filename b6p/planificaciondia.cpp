@@ -14,7 +14,7 @@
 PlanificacionDia::PlanificacionDia(QDate date, QObject *parent) :
     QObject(parent)
 {
-    QLOG_TRACE() << "PlanificacionDia::PlanificacionDia(QDate date, QObject *parent)";
+    QLOG_TRACE_FN();
     m_Dia.setValue(date);
     m_Notas.setNull();
     m_IDSupervisor.setNull();
@@ -30,7 +30,7 @@ PlanificacionDia::PlanificacionDia(QDate date, QObject *parent) :
 
 PlanificacionDia::PlanificacionDia(QObject *parent) : QObject(parent)
 {
-    QLOG_TRACE() << "PlanificacionDia::PlanificacionDia(QObject *parent) : QObject(parent)";
+    QLOG_TRACE_FN();
     m_Dia.setNull();
     m_Notas.setNull();
     m_IDSupervisor.setNull();
@@ -44,7 +44,7 @@ PlanificacionDia::PlanificacionDia(QObject *parent) : QObject(parent)
 
 RecordPtr PlanificacionDia::asRecordPtr()
 {
-    QLOG_TRACE() << "RecordPtr PlanificacionDia::asRecordPtr()";
+    QLOG_TRACE_FN();
     RecordPtr res = boost::make_shared<Record>();
 
     (*res)["Dia"] = m_Dia.toVariant();
@@ -57,7 +57,7 @@ RecordPtr PlanificacionDia::asRecordPtr()
 
 bool PlanificacionDia::isEqualsTo(RecordPtr record)
 {
-    QLOG_TRACE() << "bool PlanificacionDia::isEqualsTo(RecordPtr record)";
+    QLOG_TRACE_FN();
     bool res = ((*record)["Dia"] == m_Dia.toVariant())
             && ((*record)["Notas"] == m_Notas.toVariant())
             && ((*record)["IDSupervisor"] == m_IDSupervisor.toVariant())
@@ -67,43 +67,43 @@ bool PlanificacionDia::isEqualsTo(RecordPtr record)
 
 NullableField<QDate> &PlanificacionDia::Dia()
 {
-    QLOG_TRACE() << "NullableField<QDate> &PlanificacionDia::Dia()";
+    QLOG_TRACE_FN();
     return m_Dia;
 }
 
 NullableField<QString> &PlanificacionDia::Notas()
 {
-    QLOG_TRACE() << "NullableField<QString> &PlanificacionDia::Notas()";
+    QLOG_TRACE_FN();
     return m_Notas;
 }
 
 NullableField<int> &PlanificacionDia::IDSupervisor()
 {
-    QLOG_TRACE() << "NullableField<int> &PlanificacionDia::IDSupervisor()";
+    QLOG_TRACE_FN();
     return m_IDSupervisor;
 }
 
 NullableField<EstadosPlanificacion> &PlanificacionDia::EstadoPlanificacion()
 {
-    QLOG_TRACE() << "NullableField<EstadosPlanificacion> &PlanificacionDia::EstadoPlanificacion()";
+    QLOG_TRACE_FN();
     return m_EstadosPlanificacion;
 }
 
 EmpleadoPtr PlanificacionDia::Supervisor()
 {
-    QLOG_TRACE() << "EmpleadoPtr PlanificacionDia::Supervisor()";
+    QLOG_TRACE_FN();
     return DataStore::instance()->getEmpleados()->getEmpleado(m_IDSupervisor.value(), false);
 }
 
 EstimacionDiaPtr PlanificacionDia::Estimacion()
 {
-    QLOG_TRACE() << "EstimacionDiaPtr PlanificacionDia::Estimacion()";
+    QLOG_TRACE_FN();
     return DataStore::instance()->getEstimacionesDias()->get(m_Dia.value(), false);
 }
 
 int PlanificacionDia::HorasPlanificadas()
 {
-    QLOG_TRACE() << "int PlanificacionDia::HorasPlanificadas()";
+    QLOG_TRACE_FN();
     PlanificacionSubSectorLst planificaciones =
             DataStore::instance()->getPlanificacionesSubSectores()->getAll(this->Dia().value(), false);
 
@@ -118,7 +118,7 @@ int PlanificacionDia::HorasPlanificadas()
 
 QString PlanificacionDia::Estado()
 {
-    QLOG_TRACE() << "QString PlanificacionDia::Estado()";
+    QLOG_TRACE_FN();
     QString inProgress = tr("In progress");
     QString finished = tr("Finished");
     QString approved = tr("Approved");
@@ -149,14 +149,14 @@ QString PlanificacionDia::Estado()
 
 void PlanificacionDia::approve()
 {
-    QLOG_TRACE() << "void PlanificacionDia::approve()";
+    QLOG_TRACE_FN();
     if (isReadyForApproval())
         m_EstadosPlanificacion.setValue(APPROVED);
 }
 
 bool PlanificacionDia::isEverythingAssigned()
 {
-    QLOG_TRACE() << "bool PlanificacionDia::isEverythingAssigned()";
+    QLOG_TRACE_FN();
     PlanificacionSubSectorLst pl =
             DataStore::instance()->getPlanificacionesSubSectores()->getAll(
                 Dia().value(), false);
@@ -176,7 +176,7 @@ bool PlanificacionDia::isEverythingAssigned()
 
 bool PlanificacionDia::isReadyForApproval()
 {
-    QLOG_TRACE() << "bool PlanificacionDia::isReadyForApproval()";
+    QLOG_TRACE_FN();
     EstadosPlanificacion estado =
             m_EstadosPlanificacion.isNull()
             ? INPROGRESS
@@ -188,19 +188,19 @@ bool PlanificacionDia::isReadyForApproval()
 
 void PlanificacionDia::updatePlanificaciones(PlanificacionSubSectorLst dataFrom)
 {
-    QLOG_TRACE() << "void PlanificacionDia::updatePlanificaciones(PlanificacionSubSectorLst dataFrom)";
+    QLOG_TRACE_FN();
     DataStore::instance()->getPlanificacionesSubSectores()->updateWithOtherData(dataFrom);
 }
 
 PlanificacionSubSectorLst PlanificacionDia::getPlanificaciones()
 {
-    QLOG_TRACE() << "PlanificacionSubSectorLst PlanificacionDia::getPlanificaciones()";
+    QLOG_TRACE_FN();
     return DataStore::instance()->getPlanificacionesSubSectores()->getAll(m_Dia.value(), false);
 }
 
 bool PlanificacionDia::print(QTextDocument &textDoc)
 {
-    QLOG_TRACE() << "bool PlanificacionDia::print(QTextDocument &textDoc)";
+    QLOG_TRACE_FN();
     QString html("<table width=\"100%\" border=1 cellspacing=0>\n");
     // Escribo el header
 

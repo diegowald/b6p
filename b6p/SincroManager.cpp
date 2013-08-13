@@ -8,7 +8,7 @@
 SincroManager::SincroManager(QObject *parent) :
     QObject(parent)
 {
-    QLOG_TRACE() << "SincroManager::SincroManager(QObject *parent)";
+    QLOG_TRACE_FN();
     m_SQL = boost::make_shared<SQLHandler>(
                 DataStore::instance()->getParametros()->getValue(Parametros::SERVER_NAME, "127.0.0.1"),
                 DataStore::instance()->getParametros()->getValue(Parametros::DATABASE_NAME, "b6p"),
@@ -36,7 +36,7 @@ SincroManager::SincroManager(QObject *parent) :
 
 void SincroManager::runSincro()
 {
-    QLOG_TRACE() << "void SincroManager::runSincro()";
+    QLOG_TRACE_FN();
     emit startingSynchro();
     if (conexionADBOK())
     {
@@ -69,7 +69,7 @@ void SincroManager::runSincro()
 
 bool SincroManager::conexionADBOK()
 {
-    QLOG_TRACE() << "bool SincroManager::conexionADBOK()";
+    QLOG_TRACE_FN();
 
     if (m_Synchronizationtables.count() == 0)
         return false;
@@ -80,7 +80,7 @@ bool SincroManager::conexionADBOK()
 
 void SincroManager::obtenerFechaUltimaSincronizacion()
 {
-    QLOG_TRACE() << "void SincroManager::obtenerFechaUltimaSincronizacion()";
+    QLOG_TRACE_FN();
 
     m_FechaUltimaSincronizacion =
             DataStore::instance()->getParametros()->getValue(
@@ -89,7 +89,7 @@ void SincroManager::obtenerFechaUltimaSincronizacion()
 
 void SincroManager::obtenerActualizacionesDeBaseCentral()
 {
-    QLOG_TRACE() << "void SincroManager::obtenerActualizacionesDeBaseCentral()";
+    QLOG_TRACE_FN();
     foreach(DatabaseSynchronizationPtr db, m_Synchronizationtables)
     {
         QLOG_INFO() << "Getting updates for " << db->name();
@@ -106,7 +106,7 @@ void SincroManager::obtenerActualizacionesDeBaseCentral()
 
 void SincroManager::enviarDatosADBCentral()
 {
-    QLOG_TRACE() << "void SincroManager::enviarDatosADBCentral()";
+    QLOG_TRACE_FN();
     foreach(DatabaseSynchronizationPtr db, m_Synchronizationtables)
     {
         QLOG_INFO() << "Sending data for " << db->name();
@@ -121,7 +121,7 @@ void SincroManager::enviarDatosADBCentral()
 
 void SincroManager::obtenerFechaDesdeServerCentral()
 {
-    QLOG_TRACE() << "void SincroManager::obtenerFechaDesdeServerCentral()";
+    QLOG_TRACE_FN();
     QString query("SELECT NOW() as Fecha;");
 
     RecordSet res = m_SQL->getAll(query);
@@ -130,7 +130,7 @@ void SincroManager::obtenerFechaDesdeServerCentral()
 
 void SincroManager::grabarFechaUltimaSincronizacion()
 {
-    QLOG_TRACE() << "void SincroManager::grabarFechaUltimaSincronizacion()";
+    QLOG_TRACE_FN();
 
     DataStore::instance()->getParametros()->setValue(Parametros::LAST_SYNCHRO, m_FechaSincro);
     DataStore::instance()->getParametros()->save();
@@ -138,7 +138,7 @@ void SincroManager::grabarFechaUltimaSincronizacion()
 
 void SincroManager::establishConnections()
 {
-    QLOG_TRACE() << "void SincroManager::establishConnections()";
+    QLOG_TRACE_FN();
     foreach(DatabaseSynchronizationPtr dbPtr, m_Synchronizationtables)
     {
         establishConnections(dbPtr);
@@ -147,7 +147,7 @@ void SincroManager::establishConnections()
 
 void SincroManager::establishConnections(DatabaseSynchronizationPtr db)
 {
-    QLOG_TRACE() << "void SincroManager::establishConnections(DatabaseSynchronizationPtr db)";
+    QLOG_TRACE_FN();
     connect(db.get(), SIGNAL(gettingDataFromCentralDB(QString &)), this, SIGNAL(gettingDataFromCentralDB(QString&)));
     connect(db.get(), SIGNAL(applyingChanges(QString &)), this, SIGNAL(applyingChanges(QString&)));
     connect(db.get(), SIGNAL(checkingChanges(QString &)), this, SIGNAL(checkingChanges(QString&)));
@@ -156,7 +156,7 @@ void SincroManager::establishConnections(DatabaseSynchronizationPtr db)
 
 QStringList SincroManager::getSincroTableNames()
 {
-    QLOG_TRACE() << "QStringList SincroManager::getSincroTableNames()";
+    QLOG_TRACE_FN();
     QStringList res;
     foreach(DatabaseSynchronizationPtr dbPtr, m_Synchronizationtables)
     {

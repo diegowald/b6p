@@ -5,7 +5,7 @@
 CalendarioPersona::CalendarioPersona(QObject *parent) :
     QObject(parent)
 {
-    QLOG_TRACE() << "CalendarioPersona::CalendarioPersona(QObject *parent)";
+    QLOG_TRACE_FN();
     m_Dia.setNull();
     m_IDEmpleado.setNull();
     m_HoraIngreso.setNull();
@@ -19,7 +19,7 @@ CalendarioPersona::CalendarioPersona(QObject *parent) :
 
 RecordPtr CalendarioPersona::asRecordPtr()
 {
-    QLOG_TRACE() << "RecordPtr CalendarioPersona::asRecordPtr()";
+    QLOG_TRACE_FN();
     RecordPtr res = boost::make_shared<Record>();
 
     (*res)["Dia"] = m_Dia.toVariant();
@@ -32,7 +32,7 @@ RecordPtr CalendarioPersona::asRecordPtr()
 
 bool CalendarioPersona::isEqualsTo(RecordPtr record)
 {
-    QLOG_TRACE() << "bool CalendarioPersona::isEqualsTo(RecordPtr record)";
+    QLOG_TRACE_FN();
     bool res = ((*record)["Dia"] == m_Dia.toVariant())
             && ((*record)["IDEmpleado"] == m_IDEmpleado.toVariant())
             && ((*record)["HoraIngreso"] == m_HoraIngreso.toVariant())
@@ -42,38 +42,38 @@ bool CalendarioPersona::isEqualsTo(RecordPtr record)
 
 NullableField<int> &CalendarioPersona::Dia()
 {
-    QLOG_TRACE() << "NullableField<int> &CalendarioPersona::Dia()";
+    QLOG_TRACE_FN();
     return m_Dia;
 }
 
 NullableField<int> &CalendarioPersona::IDEmpleado()
 {
-    QLOG_TRACE() << "NullableField<int> &CalendarioPersona::IDEmpleado()";
+    QLOG_TRACE_FN();
     return m_IDEmpleado;
 }
 
 NullableField<int> &CalendarioPersona::HoraIngreso()
 {
-    QLOG_TRACE() << "NullableField<int> &CalendarioPersona::HoraIngreso()";
+    QLOG_TRACE_FN();
     return m_HoraIngreso;
 }
 
 NullableField<int> &CalendarioPersona::HoraEgreso()
 {
-    QLOG_TRACE() << "NullableField<int> &CalendarioPersona::HoraEgreso()";
+    QLOG_TRACE_FN();
     return m_HoraEgreso;
 }
 
 bool CalendarioPersona::EqualsTo(CalendarioPersonaPtr other)
 {
-    QLOG_TRACE() << "bool CalendarioPersona::EqualsTo(CalendarioPersonaPtr other)";
+    QLOG_TRACE_FN();
     return ((m_Dia.value() == other->Dia().value())
             && m_IDEmpleado.value() == other->IDEmpleado().value());
 }
 
 void CalendarioPersona::updateWith(CalendarioPersonaPtr other)
 {
-    QLOG_TRACE() << "void CalendarioPersona::updateWith(CalendarioPersonaPtr other)";
+    QLOG_TRACE_FN();
     if (other->HoraIngreso().isNull())
         m_HoraIngreso.setNull();
     else
@@ -87,13 +87,13 @@ void CalendarioPersona::updateWith(CalendarioPersonaPtr other)
 
 void CalendarioPersona::updateIDEmpleado(int newId)
 {
-    QLOG_TRACE() << "void CalendarioPersona::updateIDEmpleado(int newId)";
+    QLOG_TRACE_FN();
     m_IDEmpleado.setValue(newId);
 }
 
 bool CalendarioPersona::canWork(int Dia, int HoraInicio, int HoraFin)
 {
-    QLOG_TRACE() << "bool CalendarioPersona::canWork(int Dia, int HoraInicio, int HoraFin)";
+    QLOG_TRACE_FN();
     if (m_Dia.value() != Dia)
         return false;
 

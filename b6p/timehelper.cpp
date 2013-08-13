@@ -4,7 +4,7 @@
 
 QTime TimeHelper::SecondsToQTime(int Seconds)
 {
-    QLOG_TRACE() << "QTime TimeHelper::SecondsToQTime(int Seconds)";
+    QLOG_TRACE_FN();
     int secs = Seconds;
     int hours = secs / 3600;
     secs -= (hours * 3600);
@@ -16,7 +16,7 @@ QTime TimeHelper::SecondsToQTime(int Seconds)
 
 QString TimeHelper::SecondsToString(int Seconds)
 {
-    QLOG_TRACE() << "QString TimeHelper::SecondsToString(int Seconds)";
+    QLOG_TRACE_FN();
 
     if (Seconds == 86400)
         return "24:00";

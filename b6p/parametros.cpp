@@ -22,98 +22,98 @@ Parametros::Parametros(QObject *parent) :
     ACollection(tr("Parameters"),
                 "Parameters", false, ACollection::MERGE_KEEP_LOCAL, parent)
 {
-    QLOG_TRACE() << "Parametros::Parametros(QObject *parent)";
+    QLOG_TRACE_FN();
     m_recordsWereCreated = false;
 }
 
 QString Parametros::getSelectFromMainDB()
 {
-    QLOG_TRACE() << "QString Parametros::getSelectFromMainDB()";
+    QLOG_TRACE_FN();
     return "";
 }
 
 QString Parametros::getSqlString()
 {
-    QLOG_TRACE() << "QString Parametros::getSqlString()";
+    QLOG_TRACE_FN();
     return "select Key, Value from parametros;";
 }
 
 void Parametros::addRecord(RecordPtr record, bool)
 {
-    QLOG_TRACE() << "void Parametros::addRecord(RecordPtr record, bool)";
+    QLOG_TRACE_FN();
     m_recordsWereCreated = true;
     m_Dictionary[(*record)["Key"].toString()] = (*record)["Value"].toString();
 }
 
 void Parametros::updateRecord(RecordPtr, bool)
 {
-    QLOG_TRACE() << "void Parametros::updateRecord(RecordPtr, bool)";
+    QLOG_TRACE_FN();
 }
 
 void Parametros::deleteRecord(RecordPtr, bool)
 {
-    QLOG_TRACE() << "void Parametros::deleteRecord(RecordPtr, bool)";
+    QLOG_TRACE_FN();
 }
 
 bool Parametros::exists(RecordPtr)
 {
-    QLOG_TRACE() << "bool Parametros::exists(RecordPtr)";
+    QLOG_TRACE_FN();
     return true;
 }
 
 bool Parametros::localRecordIsEqualsTo(RecordPtr)
 {
-    QLOG_INFO() << "virtual bool Parametros::localRecordIsEqualsTo(RecordPtr record)";
+    QLOG_TRACE_FN();
     return true;
 }
 
 
 QString Parametros::getLocalDeleteStatement()
 {
-    QLOG_TRACE() << "QString Parametros::getLocalDeleteStatement()";
+    QLOG_TRACE_FN();
     return "delete from parametros where Key = :Key;";
 }
 
 QString Parametros::getLocalUpdateStatement()
 {
-    QLOG_TRACE() << "QString Parametros::getLocalUpdateStatement()";
+    QLOG_TRACE_FN();
     return "update parametros set Value = :Value where Key = :Key;";
 }
 
 QString Parametros::getLocalInsertStatement()
 {
-    QLOG_TRACE() << "QString Parametros::getLocalInsertStatement()";
+    QLOG_TRACE_FN();
     return "insert into parametros (Key, Value) values (:Key, :Value);";
 }
 
 QString Parametros::getCentralDeleteStatement()
 {
-    QLOG_TRACE() << "QString Parametros::getCentralDeleteStatement()";
+    QLOG_TRACE_FN();
     return "delete from parametros where Key = :Key;";
 }
 
 QString Parametros::getCentralUpdateStatement()
 {
-    QLOG_TRACE() << "QString Parametros::getCentralUpdateStatement()";
+    QLOG_TRACE_FN();
     return "update parametros set Value = :Value where Key = :Key;";
 }
 
 QString Parametros::getCentralInsertStatement()
 {
-    QLOG_TRACE() << "QString Parametros::getCentralInsertStatement()";
+    QLOG_TRACE_FN();
     return "insert into parametros (Key, Value) values (:Key, :Value);";
 }
 
 
 QString Parametros::getSQLExistsInMainDB()
 {
-    QLOG_TRACE() << "QString Parametros::getSQLExistsInMainDB()";
+    QLOG_TRACE_FN();
     return "select Key, Value from Parametros where Key = :Key;";
 }
 
 RecordSet Parametros::getRecords(RecordStatus status, bool)
 {
-    QLOG_TRACE() << "RecordSet Parametros::getRecords(RecordStatus status)";
+    QLOG_TRACE_FN();
     RecordSet rs = boost::make_shared<QList<RecordPtr> >();
     if (status == DELETED)
         return rs;
@@ -137,47 +137,47 @@ RecordSet Parametros::getRecords(RecordStatus status, bool)
 
 RecordSet Parametros::getUnsent()
 {
-    QLOG_TRACE() << "RecordSet Parametros::getUnsent()";
+    QLOG_TRACE_FN();
     return boost::make_shared<QList<RecordPtr> >();
 }
 
 void Parametros::defineHeaders(QStringList &)
 {
-    QLOG_TRACE() << "void Parametros::defineHeaders(QStringList &)";
+    QLOG_TRACE_FN();
 }
 
 boost::shared_ptr<QList<QStringList> > Parametros::getAll()
 {
-    QLOG_TRACE() << "boost::shared_ptr<QList<QStringList> > Parametros::getAll()";
+    QLOG_TRACE_FN();
     return boost::make_shared<QList<QStringList> >();
 }
 
 void Parametros::fillData(QTreeWidget &)
 {
-    QLOG_TRACE() << "void Parametros::fillData(QTreeWidget &)";
+    QLOG_TRACE_FN();
 }
 
 bool Parametros::addNew()
 {
-    QLOG_TRACE() << "bool Parametros::addNew()";
+    QLOG_TRACE_FN();
     return false;
 }
 
 bool Parametros::edit(QVariant)
 {
-    QLOG_TRACE() << "bool Parametros::edit(QVariant)";
+    QLOG_TRACE_FN();
     return false;
 }
 
 bool Parametros::deleteElement(QVariant)
 {
-    QLOG_TRACE() << "bool Parametros::deleteElement(QVariant)";
+    QLOG_TRACE_FN();
     return false;
 }
 
 QString Parametros::getValue(QString key, QString defaultValue)
 {
-    QLOG_TRACE() << "QString Parametros::getValue(QString key, QString defaultValue)";
+    QLOG_TRACE_FN();
     if (m_Dictionary.find(key) == m_Dictionary.end())
         return defaultValue;
     else
@@ -186,13 +186,13 @@ QString Parametros::getValue(QString key, QString defaultValue)
 
 void Parametros::setValue(QString key, QString value)
 {
-    QLOG_TRACE() << "void Parametros::setValue(QString key, QString value)";
+    QLOG_TRACE_FN();
     m_Dictionary[key] = value;
 }
 
 int Parametros::getValue(QString key, int defaultValue)
 {
-    QLOG_TRACE() << "int Parametros::getValue(QString key, int defaultValue)";
+    QLOG_TRACE_FN();
     QString v = getValue(key, "");
     if (v == "")
         return defaultValue;
@@ -201,13 +201,13 @@ int Parametros::getValue(QString key, int defaultValue)
 
 void Parametros::setValue(QString key, int value)
 {
-    QLOG_TRACE() << "void Parametros::setValue(QString key, int value)";
+    QLOG_TRACE_FN();
     setValue(key, QString::number(value));
 }
 
 QsLogging::Level Parametros::getLoggingLevel()
 {
-    QLOG_TRACE() << "QsLogging::Level Parametros::getLoggingLever()";
+    QLOG_TRACE_FN();
     QString v = getValue(LOG_LEVEL, "0");
 
     if (v == "")
@@ -222,7 +222,7 @@ QsLogging::Level Parametros::getLoggingLevel()
 
 QString Parametros::getLocalMachine() const
 {
-    QLOG_TRACE() << "QString Parametros::getLocalMachine() const";
+    QLOG_TRACE_FN();
     QHostInfo hostInfo;
     hostInfo = QHostInfo::fromName(QHostInfo::localHostName());
     return hostInfo.hostName();

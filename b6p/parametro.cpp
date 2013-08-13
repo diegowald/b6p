@@ -4,5 +4,5 @@
 Parametro::Parametro(QObject *parent) :
     QObject(parent)
 {
-    QLOG_TRACE() << "Parametro::Parametro(QObject *parent)";
+    QLOG_TRACE_FN();
 }

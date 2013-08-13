@@ -15,13 +15,13 @@ ACollection::ACollection(QString Name, QString InvariableName, bool useLastInser
     usesLastInsertedId(useLastInsertId),
     m_MergeStrategy(MergeStrategy)
 {
-    QLOG_TRACE() << "ACollection::ACollection(QString Name, QString InvariableName, bool useLastInsertId, MERGE_STRATEGY MergeStrategy, QObject *parent)";
+    QLOG_TRACE_FN();
 }
 
 
 void ACollection::load()
 {
-    QLOG_TRACE() << "void ACollection::load()";
+    QLOG_TRACE_FN();
     emit loading(m_Name);
 
     QString sqlString = getSqlString();
@@ -37,7 +37,7 @@ void ACollection::load()
 
 void ACollection::save()
 {
-    QLOG_TRACE() << "void ACollection::save(bool includeIDs)";
+    QLOG_TRACE_FN();
     emit saving(m_Name);
 
     deleteRecordsLocally();
@@ -53,7 +53,7 @@ void ACollection::save()
 
 void ACollection::saveLocally()
 {
-    QLOG_TRACE() << "void ACollection::saveLocally()";
+    QLOG_TRACE_FN();
     emit saving(m_Name);
 
     deleteRecordsLocally();
@@ -70,44 +70,44 @@ void ACollection::saveLocally()
 
 void ACollection::deleteRecordsLocally()
 {
-    QLOG_TRACE() << "void ACollection::deleteRecordsLocally()";
+    QLOG_TRACE_FN();
     executeCommand(getLocalDeleteStatement(), DELETED, true);
 }
 
 void ACollection::updateRecordsLocally()
 {
-    QLOG_TRACE() << "void ACollection::updateRecordsLocally()";
+    QLOG_TRACE_FN();
     executeCommand(getLocalUpdateStatement(), MODIFIED, true);
 }
 
 void ACollection::addNewRecordsLocally()
 {
-    QLOG_TRACE() << "void ACollection::addNewRecordsLocally()";
+    QLOG_TRACE_FN();
     executeCommand(getLocalInsertStatement(), NEW, true);
 }
 
 void ACollection::deleteRecordsCentralDB()
 {
-    QLOG_TRACE() << "void ACollection::deleteRecordsCentralDB()";
+    QLOG_TRACE_FN();
     executeCommand(getCentralDeleteStatement(), DELETED, false);
 }
 
 void ACollection::updateRecordsCentralDB()
 {
-    QLOG_TRACE() << "void ACollection::updateRecordsCentralDB()";
+    QLOG_TRACE_FN();
     executeCommand(getCentralUpdateStatement(), MODIFIED, false);
 }
 
 void ACollection::addNewRecordsCentralDB()
 {
-    QLOG_TRACE() << "void ACollection::addNewRecordsCentralDB()";
+    QLOG_TRACE_FN();
     executeCommand(getCentralInsertStatement(), NEW, false);
 }
 
 
 void ACollection::executeCommand(QString cmd, RecordStatus status, bool impactLocalDatabase)
 {
-    QLOG_TRACE() << "void ACollection::executeCommand(QString cmd, RecordStatus status)";
+    QLOG_TRACE_FN();
     RecordSet set = getRecords(status, impactLocalDatabase);
     foreach(RecordPtr r, *set)
     {
@@ -119,7 +119,7 @@ void ACollection::executeCommand(QString cmd, RecordStatus status, bool impactLo
 
 bool ACollection::addNewRecord(QTreeWidgetItem *item)
 {
-    QLOG_TRACE() << "bool ACollection::addNewRecord(QTreeWidgetItem *item)";
+    QLOG_TRACE_FN();
     bool result = addNew(item);
     if (result)
         save();
@@ -128,7 +128,7 @@ bool ACollection::addNewRecord(QTreeWidgetItem *item)
 
 bool ACollection::addNewRecord()
 {
-    QLOG_TRACE() << "bool ACollection::addNewRecord()";
+    QLOG_TRACE_FN();
     bool result = addNew();
     if (result)
         save();
@@ -137,7 +137,7 @@ bool ACollection::addNewRecord()
 
 bool ACollection::editRecord(QTreeWidgetItem *item, QVariant ID)
 {
-    QLOG_TRACE() << "bool ACollection::editRecord(QTreeWidgetItem *item, QVariant ID)";
+    QLOG_TRACE_FN();
     bool result = edit(item, ID);
     if (result)
         save();
@@ -146,7 +146,7 @@ bool ACollection::editRecord(QTreeWidgetItem *item, QVariant ID)
 
 bool ACollection::editRecord(QVariant ID)
 {
-    QLOG_TRACE() << "bool ACollection::editRecord(QVariant ID)";
+    QLOG_TRACE_FN();
     bool result = edit(ID);
     if (result)
         save();
@@ -155,7 +155,7 @@ bool ACollection::editRecord(QVariant ID)
 
 bool ACollection::deleteRecord(QVariant ID)
 {
-    QLOG_TRACE() << "bool ACollection::deleteRecord(QVariant ID)";
+    QLOG_TRACE_FN();
     bool result = false;
     if (canBeDeleted(ID))
     {
@@ -186,19 +186,19 @@ bool ACollection::deleteRecord(QVariant ID)
 
 QString &ACollection::name()
 {
-    QLOG_TRACE() << "QString &ACollection::name()";
+    QLOG_TRACE_FN();
     return m_Name;
 }
 
 QString ACollection::invariableName() const
 {
-    QLOG_TRACE() << "QString ACollection::invariableName() const";
+    QLOG_TRACE_FN();
     return m_InvariableName;
 }
 
 void ACollection::setLocalStatusToUnmodified()
 {
-    QLOG_TRACE() << "void ACollection::setLocalStatusToUnmodified()";
+    QLOG_TRACE_FN();
     QString sql = "UPDATE %1 set RecordStatus = %2;";
     sql = sql.arg(getTableName()).arg(UNMODIFIED);
     sqlEngine.executeCommand(sql);
@@ -207,13 +207,13 @@ void ACollection::setLocalStatusToUnmodified()
 
 void ACollection::setInMemoryStatusToUnmodified()
 {
-    QLOG_TRACE() << "void ACollection::setInMemoryStatusToUnmodified()";
+    QLOG_TRACE_FN();
     setStatusToUnmodified(false, true, false);
 }
 
 void ACollection::exportTo(const QString &filename)
 {
-    QLOG_TRACE() << "void ACollection::exportTo(const QString &filename)";
+    QLOG_TRACE_FN();
     QString fileName = (filename.toLower().endsWith(".csv") ? filename: filename + ".csv");
     QFile file(fileName);
     if (file.open(QFile::WriteOnly))
@@ -245,7 +245,7 @@ void ACollection::exportTo(const QString &filename)
 
 QString ACollection::asHTML()
 {
-    QLOG_TRACE() << "QString ACollection::asHTML()";
+    QLOG_TRACE_FN();
     QString html("<table width=\"100%\" border=1 cellspacing=0>\n");
     // Escribo el header
     QStringList headers;
@@ -272,6 +272,6 @@ QString ACollection::asHTML()
 
 ACollection::MERGE_STRATEGY ACollection::mergeStrategy() const
 {
-    QLOG_TRACE() << "ACollection::MERGE_STRATEGY ACollection::mergeStrategy() const";
+    QLOG_TRACE_FN();
     return m_MergeStrategy;
 }

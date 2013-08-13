@@ -7,20 +7,20 @@
 DatabaseSynchronization::DatabaseSynchronization(boost::shared_ptr<ACollection> data, boost::shared_ptr<SQLHandler> sqlHandler, QObject *parent) :
     QObject(parent)
 {
-    QLOG_TRACE() << "DatabaseSynchronization::DatabaseSynchronization(boost::shared_ptr<ACollection> data, boost::shared_ptr<SQLHandler> sqlHandler, QObject *parent)";
+    QLOG_TRACE_FN();
     m_Data = data;
     m_SQLHandler = sqlHandler;
 }
 
 bool DatabaseSynchronization::checkConnection()
 {
-    QLOG_TRACE() << "void DatabaseSynchronization::getDataFromDB(QString dateFrom)";
+    QLOG_TRACE_FN();
     return m_SQLHandler->checkConnection();
 }
 
 void DatabaseSynchronization::getDataFromDB(const QString &dateFrom, const QString &senderMachine)
 {
-    QLOG_TRACE() << "void DatabaseSynchronization::getDataFromDB(QString dateFrom)";
+    QLOG_TRACE_FN();
     QString syncroName = name();
     emit gettingDataFromCentralDB(syncroName);
     QString SQL = m_Data->getSelectFromMainDB();
@@ -33,7 +33,7 @@ void DatabaseSynchronization::getDataFromDB(const QString &dateFrom, const QStri
 
 void DatabaseSynchronization::applyChanges()
 {
-    QLOG_TRACE() << "void DatabaseSynchronization::applyChanges()";
+    QLOG_TRACE_FN();
     QLOG_INFO() << "Applying changes on " << name();
     QString syncroName = name();
     emit applyingChanges(syncroName);
@@ -130,14 +130,14 @@ void DatabaseSynchronization::applyChanges()
 
 void DatabaseSynchronization::checkConsistency()
 {
-    QLOG_TRACE() << "void DatabaseSynchronization::checkConsistency()";
+    QLOG_TRACE_FN();
     QString syncroName = name();
     emit checkingChanges(syncroName);
 }
 
 void DatabaseSynchronization::sendData(const QString &senderMachine)
 {
-    QLOG_TRACE() << "void DatabaseSynchronization::sendData()";
+    QLOG_TRACE_FN();
     QString syncroName = name();
     emit sendingData(syncroName);
     // obtengo los datos modificados desde la base local
@@ -179,7 +179,7 @@ void DatabaseSynchronization::sendData(const QString &senderMachine)
 
 void DatabaseSynchronization::saveLocalChanges()
 {
-    QLOG_TRACE() << "void DatabaseSynchronization::saveLocalChanges()";
+    QLOG_TRACE_FN();
     //m_Data->setSentFlagIntoDatabase();
     //m_Data->setInMemoryStatusToUnmodified();
     m_Data->setLocalStatusToUnmodified();
@@ -187,14 +187,14 @@ void DatabaseSynchronization::saveLocalChanges()
 
 QString DatabaseSynchronization::name()
 {
-    QLOG_TRACE() << "QString DatabaseSynchronization::name()";
+    QLOG_TRACE_FN();
     return m_Data->name();
 }
 
 
 bool DatabaseSynchronization::existsInMainDB(RecordPtr rec)
 {
-    QLOG_TRACE() << "bool DatabaseSynchronization::existsInMainDB(RecordPtr rec)";
+    QLOG_TRACE_FN();
     QString sql = m_Data->getSQLExistsInMainDB();
     RecordSet res = m_SQLHandler->getAll(sql, rec);
     return res->count() != 0;
@@ -202,7 +202,7 @@ bool DatabaseSynchronization::existsInMainDB(RecordPtr rec)
 
 void DatabaseSynchronization::addRecord(RecordPtr rec)
 {
-    QLOG_TRACE() << "void DatabaseSynchronization::addRecord(RecordPtr rec)";
+    QLOG_TRACE_FN();
     QString sql = m_Data->getCentralInsertStatement();
     Q_ASSERT(sql != "");
     m_SQLHandler->executeQuery(sql, rec, false);
@@ -210,7 +210,7 @@ void DatabaseSynchronization::addRecord(RecordPtr rec)
 
 void DatabaseSynchronization::updateRecord(RecordPtr rec)
 {
-    QLOG_TRACE() << "void DatabaseSynchronization::updateRecord(RecordPtr rec)";
+    QLOG_TRACE_FN();
     QString sql = m_Data->getCentralUpdateStatement();
     Q_ASSERT(sql != "");
     m_SQLHandler->executeQuery(sql, rec, false);
@@ -218,7 +218,7 @@ void DatabaseSynchronization::updateRecord(RecordPtr rec)
 
 void DatabaseSynchronization::deleteRecord(RecordPtr rec)
 {
-    QLOG_TRACE() << "void DatabaseSynchronization::deleteRecord(RecordPtr rec)";
+    QLOG_TRACE_FN();
     QString sql = m_Data->getCentralDeleteStatement();
     Q_ASSERT(sql != "");
     m_SQLHandler->executeQuery(sql, rec, false);

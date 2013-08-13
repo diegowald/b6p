@@ -9,7 +9,7 @@ DlgSynchronization::DlgSynchronization(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DlgSynchronization)
 {
-    QLOG_TRACE() << "DlgSynchronization::DlgSynchronization(QWidget *parent)";
+    QLOG_TRACE_FN();
     ui->setupUi(this);
     sincro = boost::make_shared<SincroManager>(this);
     fillData();
@@ -36,13 +36,13 @@ DlgSynchronization::DlgSynchronization(QWidget *parent) :
 
 DlgSynchronization::~DlgSynchronization()
 {
-    QLOG_TRACE() << "DlgSynchronization::~DlgSynchronization()";
+    QLOG_TRACE_FN();
     delete ui;
 }
 
 void DlgSynchronization::fillData()
 {
-    QLOG_TRACE() << "void DlgSynchronization::fillData()";
+    QLOG_TRACE_FN();
     ui->lblLastSynchronization->setText(DataStore::instance()->getParametros()->getValue(Parametros::LAST_SYNCHRO, ""));
     ui->lblServerName->setText(DataStore::instance()->getParametros()->getValue(Parametros::SERVER_NAME, ""));
     ui->lblDatabase->setText(DataStore::instance()->getParametros()->getValue(Parametros::DATABASE_NAME, ""));
@@ -59,7 +59,7 @@ void DlgSynchronization::fillData()
 
 void DlgSynchronization::on_btnStartSynchro_pressed()
 {
-    QLOG_TRACE() << "void DlgSynchronization::on_btnStartSynchro_pressed()";
+    QLOG_TRACE_FN();
     ui->buttonBox->setEnabled(false);
 
     sincro->runSincro();
@@ -69,7 +69,7 @@ void DlgSynchronization::on_btnStartSynchro_pressed()
 
 void DlgSynchronization::on_startingSynchro()
 {
-    QLOG_TRACE() << "void DlgSynchronization::on_startingSynchro()";
+    QLOG_TRACE_FN();
     for (int i = 0; i < ui->treeSyncrhonizationStatus->topLevelItemCount(); ++i)
     {
         QTreeWidgetItem *item = ui->treeSyncrhonizationStatus->topLevelItem(i);
@@ -79,7 +79,7 @@ void DlgSynchronization::on_startingSynchro()
 
 void DlgSynchronization::on_getDataFromCentralDB(QString &tableName)
 {
-    QLOG_TRACE() << "void DlgSynchronization::on_getDataFromCentralDB(QString &tableName)";
+    QLOG_TRACE_FN();
     QList<QTreeWidgetItem*> items = ui->treeSyncrhonizationStatus->findItems(tableName, Qt::MatchExactly, 0);
     foreach(QTreeWidgetItem* item, items)
     {
@@ -89,7 +89,7 @@ void DlgSynchronization::on_getDataFromCentralDB(QString &tableName)
 
 void DlgSynchronization::on_applyingChanges(QString &tableName)
 {
-    QLOG_TRACE() << "void DlgSynchronization::on_applyingChanges(QString &tableName)";
+    QLOG_TRACE_FN();
     QList<QTreeWidgetItem*> items = ui->treeSyncrhonizationStatus->findItems(tableName, Qt::MatchExactly, 0);
     foreach(QTreeWidgetItem* item, items)
     {
@@ -99,7 +99,7 @@ void DlgSynchronization::on_applyingChanges(QString &tableName)
 
 void DlgSynchronization::on_checkingChanges(QString &tableName)
 {
-    QLOG_TRACE() << "void DlgSynchronization::on_checkingChanges(QString &tableName)";
+    QLOG_TRACE_FN();
     QList<QTreeWidgetItem*> items = ui->treeSyncrhonizationStatus->findItems(tableName, Qt::MatchExactly, 0);
     foreach(QTreeWidgetItem* item, items)
     {
@@ -109,7 +109,7 @@ void DlgSynchronization::on_checkingChanges(QString &tableName)
 
 void DlgSynchronization::on_sendingData(QString &tableName)
 {
-    QLOG_TRACE() << "void DlgSynchronization::on_sendingData(QString &tableName)";
+    QLOG_TRACE_FN();
     QList<QTreeWidgetItem*> items = ui->treeSyncrhonizationStatus->findItems(tableName, Qt::MatchExactly, 0);
     foreach(QTreeWidgetItem* item, items)
     {
@@ -119,7 +119,7 @@ void DlgSynchronization::on_sendingData(QString &tableName)
 
 void DlgSynchronization::on_SynchroEnded()
 {
-    QLOG_TRACE() << "void DlgSynchronization::on_SynchroEnded()";
+    QLOG_TRACE_FN();
     for (int i = 0; i < ui->treeSyncrhonizationStatus->topLevelItemCount(); ++i)
     {
         QTreeWidgetItem *item = ui->treeSyncrhonizationStatus->topLevelItem(i);

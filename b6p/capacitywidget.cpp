@@ -8,7 +8,7 @@ CapacityWidget::CapacityWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CapacityWidget)
 {
-    QLOG_TRACE() << "CapacityWidget::CapacityWidget(QWidget *parent)";
+    QLOG_TRACE_FN();
     ui->setupUi(this);
     llenarSectores();
     ui->lblValue->clear();
@@ -19,13 +19,13 @@ CapacityWidget::CapacityWidget(QWidget *parent) :
 
 CapacityWidget::~CapacityWidget()
 {
-    QLOG_TRACE() << "CapacityWidget::~CapacityWidget()";
+    QLOG_TRACE_FN();
     delete ui;
 }
 
 void CapacityWidget::on_slideCapacity_valueChanged(int value)
 {
-    QLOG_TRACE() << "void CapacityWidget::on_slideCapacity_valueChanged(int value)";
+    QLOG_TRACE_FN();
     QString txtValue;
     switch (value)
     {
@@ -57,43 +57,43 @@ void CapacityWidget::on_slideCapacity_valueChanged(int value)
 
 void CapacityWidget::setIDSector(int IDSector)
 {
-    QLOG_TRACE() << "void CapacityWidget::setIDSector(int IDSector)";
+    QLOG_TRACE_FN();
     ui->cboSectores->setCurrentIndex(ui->cboSectores->findData(IDSector, Qt::UserRole));
 }
 
 void CapacityWidget::setIDSubSector(int IDSubSector)
 {
-    QLOG_TRACE() << "void CapacityWidget::setIDSubSector(int IDSubSector)";
+    QLOG_TRACE_FN();
     ui->cboSubSectores->setCurrentIndex(ui->cboSubSectores->findData(IDSubSector, Qt::UserRole));
 }
 
 void CapacityWidget::setCapacity(int capacity)
 {
-    QLOG_TRACE() << "void CapacityWidget::setCapacity(int capacity)";
+    QLOG_TRACE_FN();
     ui->slideCapacity->setValue(capacity);
 }
 
 int CapacityWidget::IDSector()
 {
-    QLOG_TRACE() << "int CapacityWidget::IDSector()";
+    QLOG_TRACE_FN();
     return ui->cboSectores->itemData(ui->cboSectores->currentIndex(), Qt::UserRole).toInt();
 }
 
 int CapacityWidget::IDSubSector()
 {
-    QLOG_TRACE() << "int CapacityWidget::IDSubSector()";
+    QLOG_TRACE_FN();
     return ui->cboSubSectores->itemData(ui->cboSubSectores->currentIndex(), Qt::UserRole).toInt();
 }
 
 int CapacityWidget::Capacity()
 {
-    QLOG_TRACE() << "int CapacityWidget::Capacity()";
+    QLOG_TRACE_FN();
     return ui->slideCapacity->value();
 }
 
 void CapacityWidget::llenarSectores()
 {
-    QLOG_TRACE() << "void CapacityWidget::llenarSectores()";
+    QLOG_TRACE_FN();
     ui->cboSectores->clear();
     SectorLst sectores = DataStore::instance()->getSectores()->getAll(false, false);
     foreach(SectorPtr s, *sectores)
@@ -104,7 +104,7 @@ void CapacityWidget::llenarSectores()
 
 void CapacityWidget::llenarSubSectores(int IDSector)
 {
-    QLOG_TRACE() << "void CapacityWidget::llenarSubSectores(int IDSector)";
+    QLOG_TRACE_FN();
     ui->cboSubSectores->clear();
     SubSectoresLst ss = DataStore::instance()->getSubSectores()->getAll(IDSector, false);
     foreach(SubSectorPtr ssp, *ss)
@@ -115,18 +115,18 @@ void CapacityWidget::llenarSubSectores(int IDSector)
 
 void CapacityWidget::on_cboSectores_currentIndexChanged(int index)
 {
-    QLOG_TRACE() << "void CapacityWidget::on_cboSectores_currentIndexChanged(int index)";
+    QLOG_TRACE_FN();
     llenarSubSectores(ui->cboSectores->itemData(index, Qt::UserRole).toInt());
 }
 
 void CapacityWidget::setAlreadyCreated()
 {
-    QLOG_TRACE() << "void CapacityWidget::setAlreadyCreated()";
+    QLOG_TRACE_FN();
     m_AlreadyCreated = true;
 }
 
 bool CapacityWidget::alreadyCreated()
 {
-    QLOG_TRACE() << "bool CapacityWidget::alreadyCreated()";
+    QLOG_TRACE_FN();
     return m_AlreadyCreated;
 }

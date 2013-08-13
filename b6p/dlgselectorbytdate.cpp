@@ -7,19 +7,19 @@ DlgSelectorBytDate::DlgSelectorBytDate(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DlgSelectorBytDate)
 {
-    QLOG_TRACE() << "DlgSelectorBytDate::DlgSelectorBytDate(QWidget *parent)";
+    QLOG_TRACE_FN();
     ui->setupUi(this);
 }
 
 DlgSelectorBytDate::~DlgSelectorBytDate()
 {
-    QLOG_TRACE() << "DlgSelectorBytDate::~DlgSelectorBytDate()";
+    QLOG_TRACE_FN();
     delete ui;
 }
 
 void DlgSelectorBytDate::setData(QList<QDate> &values)
 {
-    QLOG_TRACE() << "void DlgSelectorBytDate::setData(QList<QDate> &values)";
+    QLOG_TRACE_FN();
     ui->cboValues->clear();
     foreach(QDate value, values)
     {
@@ -30,18 +30,18 @@ void DlgSelectorBytDate::setData(QList<QDate> &values)
 
 QDate DlgSelectorBytDate::selectedDay()
 {
-    QLOG_TRACE() << "QDate DlgSelectorBytDate::selectedDay()";
+    QLOG_TRACE_FN();
     return ui->cboValues->itemData(ui->cboValues->currentIndex(), Qt::UserRole).toDate();
 }
 
 void DlgSelectorBytDate::setTitle(QString txt)
 {
-    QLOG_TRACE() << "void DlgSelectorBytDate::setTitle(QString txt)";
+    QLOG_TRACE_FN();
     setWindowTitle(txt);
 }
 
 void DlgSelectorBytDate::setLabel(QString txt)
 {
-    QLOG_TRACE() << "void DlgSelectorBytDate::setLabel(QString txt)";
+    QLOG_TRACE_FN();
     ui->Label->setText(txt);
 }

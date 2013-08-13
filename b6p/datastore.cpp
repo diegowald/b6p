@@ -6,7 +6,7 @@ DataStore* DataStore::m_Instance = NULL;
 
 DataStore* DataStore::instance()
 {
-    QLOG_TRACE() << "DataStore* DataStore::instance()";
+    QLOG_TRACE_FN();
     if (m_Instance == NULL)
         m_Instance = new DataStore();
     return m_Instance;
@@ -14,7 +14,7 @@ DataStore* DataStore::instance()
 
 void DataStore::initialize(QObject *parent)
 {
-    QLOG_TRACE() << "void DataStore::initialize(QObject *parent)";
+    QLOG_TRACE_FN();
     setParent(parent);
 }
 
@@ -26,17 +26,17 @@ DataStore::DataStore(QObject *parent) :
     sectoresCreated(false), subSectoresCreated(false),
     calendariosCreated(false), capacidadesCreated(false)
 {
-    QLOG_TRACE() << "DataStore::DataStore(QObject *parent)";
+    QLOG_TRACE_FN();
 }
 
 DataStore::~DataStore()
 {
-    QLOG_TRACE() << "DataStore::~DataStore()";
+    QLOG_TRACE_FN();
 }
 
 void DataStore::establishConnections(ACollection* newMember)
 {
-    QLOG_TRACE() << "void DataStore::establishConnections(ACollection* newMember)";
+    QLOG_TRACE_FN();
     connect(newMember, SIGNAL(loaded(QString)), this, SIGNAL(loaded(QString)));
     connect(newMember, SIGNAL(loading(QString)), this, SIGNAL(loading(QString)));
     connect(newMember, SIGNAL(saved(QString)), this, SIGNAL(saved(QString)));
@@ -46,7 +46,7 @@ void DataStore::establishConnections(ACollection* newMember)
 
 AccesosPtr DataStore::getAccesos()
 {
-    QLOG_TRACE() << "AccesosPtr DataStore::getAccesos()";
+    QLOG_TRACE_FN();
     if (!accesosCreated)
     {
         accessosPtr = boost::make_shared<Accesos>(this);
@@ -59,7 +59,7 @@ AccesosPtr DataStore::getAccesos()
 
 ParametrosPtr DataStore::getParametros()
 {
-    QLOG_TRACE() << "ParametrosPtr DataStore::getParametros()";
+    QLOG_TRACE_FN();
     if (!parametrosCreated)
     {
         parametrosPtr = boost::make_shared<Parametros>(this);
@@ -72,7 +72,7 @@ ParametrosPtr DataStore::getParametros()
 
 EmpleadosPtr DataStore::getEmpleados()
 {
-    QLOG_TRACE() << "EmpleadosPtr DataStore::getEmpleados()";
+    QLOG_TRACE_FN();
     if (!empleadosCreated)
     {
         empleadosPtr = boost::make_shared<Empleados>(this);
@@ -84,7 +84,7 @@ EmpleadosPtr DataStore::getEmpleados()
 
 EstimacionesDiasPtr DataStore::getEstimacionesDias()
 {
-    QLOG_TRACE() << "EstimacionesDiasPtr DataStore::getEstimacionesDias()";
+    QLOG_TRACE_FN();
     if (!estimacionesDiasCreated)
     {
         estimacionesDiasPtr = boost::make_shared<EstimacionesDias>(this);
@@ -96,7 +96,7 @@ EstimacionesDiasPtr DataStore::getEstimacionesDias()
 
 PlanificacionesDiasPtr DataStore::getPlanificacionesDias()
 {
-    QLOG_TRACE() << "PlanificacionesDiasPtr DataStore::getPlanificacionesDias()";
+    QLOG_TRACE_FN();
     if (!planificacionesDiasCreated)
     {
         planificacionesDiasPtr = boost::make_shared<PlanificacionesDias>(this);
@@ -108,7 +108,7 @@ PlanificacionesDiasPtr DataStore::getPlanificacionesDias()
 
 PlanificacionesSubSectoresPtr DataStore::getPlanificacionesSubSectores()
 {
-    QLOG_TRACE() << "PlanificacionesSubSectoresPtr DataStore::getPlanificacionesSubSectores()";
+    QLOG_TRACE_FN();
     if (!planificacionesSubSectoresCreated)
     {
         planificacionesSubSectoresPtr = boost::make_shared<PlanificacionesDiasSubSectores>(this);
@@ -121,7 +121,7 @@ PlanificacionesSubSectoresPtr DataStore::getPlanificacionesSubSectores()
 
 SectoresPtr DataStore::getSectores()
 {
-    QLOG_TRACE() << "SectoresPtr DataStore::getSectores()";
+    QLOG_TRACE_FN();
     if (!sectoresCreated)
     {
         sectoresPtr = boost::make_shared<Sectores>(this);
@@ -133,7 +133,7 @@ SectoresPtr DataStore::getSectores()
 
 SubSectoresPtr DataStore::getSubSectores()
 {
-    QLOG_TRACE() << "SubSectoresPtr DataStore::getSubSectores()";
+    QLOG_TRACE_FN();
     if (!subSectoresCreated)
     {
         subSectoresPtr = boost::make_shared<SubSectores>(this);
@@ -146,7 +146,7 @@ SubSectoresPtr DataStore::getSubSectores()
 
 CalendarioPersonasPtr DataStore::getCalendarios()
 {
-    QLOG_TRACE() << "CalendarioPersonasPtr DataStore::getCalendarios()";
+    QLOG_TRACE_FN();
     if (!calendariosCreated)
     {
         calendariosPtr = boost::make_shared<CalendarioPersonas>(this);
@@ -158,7 +158,7 @@ CalendarioPersonasPtr DataStore::getCalendarios()
 
 CapacidadesPersonaSectorPtr DataStore::getCapacidades()
 {
-    QLOG_TRACE() << "CapacidadesPersonaSectorPtr DataStore::getCapacidades()";
+    QLOG_TRACE_FN();
     if (!capacidadesCreated)
     {
         capacidadesPtr = boost::make_shared<CapacidadesPersonaSector>(this);

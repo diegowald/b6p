@@ -114,6 +114,10 @@ private:
 #define QLOG_TRACE() \
     if (QsLogging::Logger::instance().loggingLevel() > QsLogging::TraceLevel) {} \
     else  QsLogging::Logger::Helper(QsLogging::TraceLevel).stream() << __FILE__ << '@' << __LINE__
+
+#define QLOG_TRACE_FN() \
+    QLOG_TRACE() << __FUNCTION__
+
 #define QLOG_DEBUG() \
     if (QsLogging::Logger::instance().loggingLevel() > QsLogging::DebugLevel) {} \
     else QsLogging::Logger::Helper(QsLogging::DebugLevel).stream() << __FILE__ << '@' << __LINE__

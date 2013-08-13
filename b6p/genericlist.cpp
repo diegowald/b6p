@@ -8,7 +8,7 @@ GenericList::GenericList(int LoggedUser, boost::shared_ptr<ACollection> Model, b
     QMainWindow(parent),
     ui(new Ui::GenericList)
 {
-    QLOG_TRACE() << "GenericList::GenericList(int LoggedUser, boost::shared_ptr<ACollection> Model, bool inPlaceEdit, QWidget *parent)";
+    QLOG_TRACE_FN();
     ui->setupUi(this);
     this->setFixedSize(800, 600);
     m_LoggedUser = LoggedUser;
@@ -35,13 +35,13 @@ GenericList::GenericList(int LoggedUser, boost::shared_ptr<ACollection> Model, b
 
 GenericList::~GenericList()
 {
-    QLOG_TRACE() << "GenericList::~GenericList()";
+    QLOG_TRACE_FN();
     delete ui;
 }
 
 void GenericList::setHeader(QStringList &headers)
 {
-    QLOG_TRACE() << "void GenericList::setHeader(QStringList &headers)";
+    QLOG_TRACE_FN();
     Q_ASSERT(headers.size() > 0);
     ui->treeList->clear();
     ui->treeList->setHeaderLabels(headers);
@@ -50,7 +50,7 @@ void GenericList::setHeader(QStringList &headers)
 
 void GenericList::on_actionNew_triggered()
 {
-    QLOG_TRACE() << "void GenericList::on_actionNew_triggered()";
+    QLOG_TRACE_FN();
     bool result = false;
     QTreeWidgetItem *item = new QTreeWidgetItem();
     if (m_InPlaceEdit)
@@ -70,7 +70,7 @@ void GenericList::on_actionNew_triggered()
 
 void GenericList::on_actionEdit_triggered()
 {
-    QLOG_TRACE() << "void GenericList::on_actionEdit_triggered()";
+    QLOG_TRACE_FN();
     bool result = false;
 
     if (ui->treeList->currentItem())
@@ -89,7 +89,7 @@ void GenericList::on_actionEdit_triggered()
 
 void GenericList::on_actionDelete_triggered()
 {
-    QLOG_TRACE() << "void GenericList::on_actionDelete_triggered()";
+    QLOG_TRACE_FN();
     if (ui->treeList->currentItem())
         if (model->deleteRecord(ui->treeList->currentItem()->data(0, Qt::UserRole)))
         {
@@ -100,38 +100,38 @@ void GenericList::on_actionDelete_triggered()
 
 void GenericList::AllowAdd(bool status)
 {
-    QLOG_TRACE() << "void GenericList::AllowAdd(bool status)";
+    QLOG_TRACE_FN();
     ui->actionNew->setVisible(status);
 }
 
 void GenericList::AllowEdit(bool status)
 {
-    QLOG_TRACE() << "void GenericList::AllowEdit(bool status)";
+    QLOG_TRACE_FN();
     ui->actionEdit->setVisible(status);
 }
 
 void GenericList::AllowDelete(bool status)
 {
-    QLOG_TRACE() << "void GenericList::AllowDelete(bool status)";
+    QLOG_TRACE_FN();
     ui->actionDelete->setVisible(status);
 }
 
 void GenericList::on_treeList_doubleClicked(const QModelIndex &)
 {
-    QLOG_TRACE() << "void GenericList::on_treeList_doubleClicked(const QModelIndex &)";
+    QLOG_TRACE_FN();
     on_actionEdit_triggered();
 }
 
 void GenericList::on_treeList_itemClicked(QTreeWidgetItem *item, int column)
 {
-    QLOG_TRACE() << "void GenericList::on_treeList_itemClicked(QTreeWidgetItem *item, int column)";
+    QLOG_TRACE_FN();
     if (m_InPlaceEdit && model->isColumnEditable(item->data(0, Qt::UserRole), column))
         ui->treeList->editItem(item, column);
 }
 
 void GenericList::on_treeList_itemChanged(QTreeWidgetItem *item, int)
 {
-    QLOG_TRACE() << "void GenericList::on_treeList_itemChanged(QTreeWidgetItem *item, int)";
+    QLOG_TRACE_FN();
     if (m_InPlaceEdit)
     {
         if (model->editRecord(item, ui->treeList->currentItem()->data(0, Qt::UserRole)))
@@ -144,13 +144,13 @@ void GenericList::on_treeList_itemChanged(QTreeWidgetItem *item, int)
 
 void GenericList::customActionTriggered()
 {
-    QLOG_TRACE() << "void GenericList::customActionTriggered()";
+    QLOG_TRACE_FN();
     model->fillData(*ui->treeList);
 }
 
 void GenericList::on_dataUpdated()
 {
-    QLOG_TRACE() << "void GenericList::on_dataUpdated()";
+    QLOG_TRACE_FN();
     ui->treeList->clear();
     model->fillData(*ui->treeList);
     for (int i = 0; i < ui->treeList->columnCount(); i++)
@@ -159,7 +159,7 @@ void GenericList::on_dataUpdated()
 
 void GenericList::on_actionExport_triggered()
 {
-    QLOG_TRACE() << "void GenericList::on_actionExport_triggered()";
+    QLOG_TRACE_FN();
     QFileDialog dlg(this);
 
     QString suggestedName = model->suggestedFileName();
@@ -175,7 +175,7 @@ void GenericList::on_actionExport_triggered()
 
 void GenericList::enableButtonsBasedOnAccess()
 {
-    QLOG_TRACE() << "void GenericList::enableButtonsBasedOnAccess()";
+    QLOG_TRACE_FN();
     if (m_LoggedUser > 0)
     {
         QString feature = model->invariableName();
@@ -196,7 +196,7 @@ void GenericList::enableButtonsBasedOnAccess()
 
 QString GenericList::getHTMLReport()
 {
-    QLOG_TRACE() << "QString GenericList::getHTMLReport()";
+    QLOG_TRACE_FN();
     QString res(getHeader());
     res += getBody();
     return res;
@@ -204,7 +204,7 @@ QString GenericList::getHTMLReport()
 
 bool GenericList::printSelectedRecord(QTextDocument &textDoc)
 {    
-    QLOG_TRACE() << "bool GenericList::printSelectedRecord(QTextDocument &textDoc)";
+    QLOG_TRACE_FN();
     if (ui->treeList->currentItem())
         return model->printSelectedRecord(ui->treeList->currentItem()->data(0, Qt::UserRole), textDoc);
     else
@@ -212,7 +212,7 @@ bool GenericList::printSelectedRecord(QTextDocument &textDoc)
 }
 
 QString GenericList::getHeader() {
-    QLOG_TRACE() << "QString GenericList::getHeader()";
+    QLOG_TRACE_FN();
     // Aca se arma una tabla que contiene al header
     QString html("<table width=\"100%\" border=1 cellspacing=0>\n"
                  "<tr>"
@@ -225,6 +225,6 @@ QString GenericList::getHeader() {
 }
 
 QString GenericList::getBody() {
-    QLOG_TRACE() << "QString GenericList::getBody()";
+    QLOG_TRACE_FN();
     return model->asHTML();
 }
