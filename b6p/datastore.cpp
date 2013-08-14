@@ -20,7 +20,8 @@ void DataStore::initialize(QObject *parent)
 
 
 DataStore::DataStore(QObject *parent) :
-    QObject(parent), parametrosCreated(false),
+    QObject(parent), accesosCreated(false),
+    parametrosCreated(false),
     empleadosCreated(false), estimacionesDiasCreated(false),
     planificacionesDiasCreated(false), planificacionesSubSectoresCreated(false),
     sectoresCreated(false), subSectoresCreated(false),
