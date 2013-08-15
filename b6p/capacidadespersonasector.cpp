@@ -49,7 +49,7 @@ QString CapacidadesPersonaSector::getSelectFromMainDB()
 QString CapacidadesPersonaSector::getSqlString()
 {
     QLOG_TRACE_FN();
-    return QString("select IDSector, IDSubSector, IDEmpleado, Capacidad, sent from capacidadespersonassector ")
+    return QString("select IDSector, IDSubSector, IDEmpleado, Capacidad, sent, RecordStatus from capacidadespersonassector ")
             + QString(" where RecordStatus <> ") + QString::number(DELETED) + QString(";");
 }
 

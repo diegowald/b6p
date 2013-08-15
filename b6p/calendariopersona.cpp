@@ -26,7 +26,7 @@ RecordPtr CalendarioPersona::asRecordPtr()
     (*res)["IDEmpleado"] = m_IDEmpleado.toVariant();
     (*res)["HoraIngreso"] = m_HoraIngreso.toVariant();
     (*res)["HoraEgreso"] = m_HoraEgreso.toVariant();
-
+    (*res)["RecordStatus"] = getLocalRecordStatus();
     return res;
 }
 

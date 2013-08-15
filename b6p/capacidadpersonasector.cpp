@@ -27,6 +27,7 @@ RecordPtr CapacidadPersonaSector::asRecordPtr()
     (*res)["IDSubSector"] = m_ID_SubSector.toVariant();
     (*res)["IDEmpleado"] = m_IDEmpleado.toVariant();
     (*res)["Capacidad"] = m_Capacidad.toVariant();
+    (*res)["RecordStatus"] = getLocalRecordStatus();
 
     return res;
 }

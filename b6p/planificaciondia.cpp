@@ -51,7 +51,7 @@ RecordPtr PlanificacionDia::asRecordPtr()
     (*res)["Notas"] = m_Notas.toVariant();
     (*res)["IDSupervisor"] = m_IDSupervisor.toVariant();
     (*res)["EstadoPlanificacion"] = m_EstadosPlanificacion.toVariant();
-
+    (*res)["RecordStatus"] = getLocalRecordStatus();
     return res;
 }
 

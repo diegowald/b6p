@@ -85,7 +85,7 @@ struct IRecord
 
     bool isUnSent()
     {
-        return ((localStatus != UNMODIFIED) || (localStatus != UNINITIALIZED));
+        return ((localStatus != UNMODIFIED) && (localStatus != UNINITIALIZED));
     }
 
     RecordStatus getInMemoryRecordStatus() const

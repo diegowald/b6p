@@ -27,7 +27,7 @@ RecordPtr EstimacionDia::asRecordPtr()
 
     (*res)["Dia"] = m_Dia.toVariant();
     (*res)["HorasEstimadas"] = m_EstimacionHoras.toVariant();
-
+    (*res)["RecordStatus"] = getLocalRecordStatus();
     return res;
 }
 

@@ -37,6 +37,7 @@ RecordPtr PlanificacionSubSector::asRecordPtr()
     (*res)["HoraInicio"] = m_HoraInicio.toVariant();
     (*res)["HoraFin"] = m_HoraFin.toVariant();
     (*res)["AllowOverWorking"] = m_AllowOverworking.value() ? 1 : 0;
+    (*res)["RecordStatus"] = getLocalRecordStatus();
 
     (*res)[RECORD_ID] = m_IDRecord.toVariant();
 

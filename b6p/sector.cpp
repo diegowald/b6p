@@ -27,6 +27,7 @@ RecordPtr Sector::asRecordPtr()
     (*res)["Nombre"] = m_Nombre.toVariant();
     (*res)["Descripcion"] = m_Descripcion.toVariant();
     (*res)["showInPlanification"] = m_ShowInPlanification.toVariant();
+    (*res)["RecordStatus"] = getLocalRecordStatus();
 
     (*res)[RECORD_ID] = m_IDSector.toVariant();
 

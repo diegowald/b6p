@@ -28,6 +28,7 @@ RecordPtr SubSector::asRecordPtr()
     (*res)["IDSubSector"] = m_IDSubSector.toVariant();
     (*res)["Nombre"] = m_Nombre.toVariant();
     (*res)["Descripcion"] = m_Descripcion.toVariant();
+    (*res)["RecordStatus"] = getLocalRecordStatus();
 
     (*res)[RECORD_ID] = m_IDSubSector.toVariant();
     return res;
