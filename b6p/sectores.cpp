@@ -18,7 +18,7 @@ QString Sectores::getSelectFromMainDB()
 QString Sectores::getSqlString()
 {
     QLOG_TRACE_FN();
-    return QString("select ID, Nombre, Descripcion, ShowInPlanification, sent from sectores ")
+    return QString("select ID, Nombre, Descripcion, ShowInPlanification, sent, RecordStatus from sectores ")
             + QString(" where RecordStatus <> ") + QString::number(DELETED) + QString(";");
 }
 
@@ -41,6 +41,7 @@ void Sectores::addRecord(RecordPtr record, bool setNew)
         s->ShowInPlanification().setValue(false);
     else
         s->ShowInPlanification().setValue(true);
+    s->setLocalRecordStatus((RecordStatus)(*record)["RecordStatus"].toInt());
 
     if (setNew)
         s->setNew();

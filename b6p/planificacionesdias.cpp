@@ -245,7 +245,8 @@ void PlanificacionesDias::fillData(QTreeWidget &tree)
         else
             item->setText(1, p->Supervisor()->Apellido().value());
         item->setText(2, p->Notas().value());
-        item->setText(3, QString::number(p->Estimacion()->EstimacionHoras().value()));
+        if (p->Estimacion() != EstimacionDiaPtr())
+            item->setText(3, QString::number(p->Estimacion()->EstimacionHoras().value()));
         item->setText(4, QString::number(p->HorasPlanificadas()));
         item->setText(5, p->Estado());
         item->setText(6, (p->isEverythingAssigned() ? tr("Yes") : tr("No")));
