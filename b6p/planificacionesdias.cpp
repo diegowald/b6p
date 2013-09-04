@@ -299,7 +299,7 @@ bool PlanificacionesDias::edit(QVariant ID)
         p->setParent(this);
         return true;
     }
-    return false;
+      return false;
 }
 
 bool PlanificacionesDias::deleteElement(QVariant ID)
