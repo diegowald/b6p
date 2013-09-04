@@ -160,9 +160,9 @@ QString PlanificacionesDiasSubSectores::getLocalInsertStatement()
 {
     QLOG_TRACE_FN();
     return QString("insert into planificacionsubsector "
-                   " (Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, AllowOverWorking, RecordStatus, 0) "
+                   " (Dia, IDSector, IDSubsector, IDEmpleado, HoraInicio, HoraFin, AllowOverWorking, RecordStatus) "
                    " values "
-                   " (:Dia, :IDSector, :IDSubSector, :IDEmpleado, :HoraInicio, :HoraFin, :AllowOverWorking, %1, 0);").arg(NEW);
+                   " (:Dia, :IDSector, :IDSubSector, :IDEmpleado, :HoraInicio, :HoraFin, :AllowOverWorking, %1);").arg(NEW);
 }
 
 QString PlanificacionesDiasSubSectores::getCentralInsertStatement()
