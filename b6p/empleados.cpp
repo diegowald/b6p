@@ -4,6 +4,7 @@
 #include "datastore.h"
 #include <QMultiMap>
 #include <QsLog.h>
+#include <QSet>
 
 Empleados::Empleados(QObject *parent) :
     ACollection(tr("Employees"), "Employees", true, ACollection::MERGE_MANUAL, parent)
@@ -345,6 +346,34 @@ EmployeeCalculatedCapacityLst Empleados::getAll(int IDSector, int IDSubSector, Q
             --it;
         }
         res->push_back(it.value());
+    }
+
+    return res;
+}
+
+EmpleadosLst Empleados::getAllAvailableByDay(QDate &Fecha, QList<int> &empleadosNoDisponibles, bool incluirLicencias)
+{
+
+    QLOG_TRACE_FN();
+    EmpleadosLst res = boost::make_shared<QList<EmpleadoPtr> >();
+    QSet<int> availables;
+    foreach (EmpleadoPtr empleado, m_Empleados.values())
+    {
+        if (empleado->isAvailable(Fecha, incluirLicencias))
+            availables.insert(empleado->IDEmpleado().value());
+    }
+
+    QSet<int> notAvailable;
+    foreach (int idEmpleado, empleadosNoDisponibles)
+    {
+        notAvailable.insert(idEmpleado);
+    }
+
+    QSet<int> resultado = availables.subtract(notAvailable);
+
+    foreach (int idEmpleado, resultado.values())
+    {
+        res->push_back(getEmpleado(idEmpleado, true));
     }
 
     return res;

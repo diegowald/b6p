@@ -13,6 +13,7 @@
 #include "subsectores.h"
 #include "calendariopersonas.h"
 #include "capacidadespersonasector.h"
+#include "licenciasempleados.h"
 
 class DataStore : public QObject
 {
@@ -32,7 +33,7 @@ public:
     SubSectoresPtr getSubSectores();
     CalendarioPersonasPtr getCalendarios();
     CapacidadesPersonaSectorPtr getCapacidades();
-
+    LicenciasEmpleadosPtr getLicencias();
 protected:
     explicit DataStore(QObject *parent = 0);
     
@@ -58,6 +59,7 @@ private:
     SubSectoresPtr subSectoresPtr;
     CalendarioPersonasPtr calendariosPtr;
     CapacidadesPersonaSectorPtr capacidadesPtr;
+    LicenciasEmpleadosPtr licenciasEmpleadosPtr;
 
     bool accesosCreated;
     bool parametrosCreated;
@@ -69,6 +71,7 @@ private:
     bool subSectoresCreated;
     bool calendariosCreated;
     bool capacidadesCreated;
+    bool licenciasEmpleadosCreated;
 
     static DataStore* m_Instance;
 };

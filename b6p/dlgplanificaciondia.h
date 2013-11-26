@@ -29,6 +29,7 @@ private:
     QStringList getRecord(TimeAssignmentItemEdit *time);
     boost::shared_ptr<QList<QStringList> > getAll();
     void setReadOnly();
+    QList<int> getCurrentlyWorkingEmployees();
 
 private slots:
     void on_btnAdd_pressed();
@@ -41,6 +42,8 @@ private slots:
     void on_AllowOverWorkingForEmployee(int IDEmpleado);
 
     void on_btnExport_pressed();
+
+    void on_toolButton_clicked();
 
 private:
     Ui::DlgPlanificacionDia *ui;

@@ -25,7 +25,8 @@ DataStore::DataStore(QObject *parent) :
     empleadosCreated(false), estimacionesDiasCreated(false),
     planificacionesDiasCreated(false), planificacionesSubSectoresCreated(false),
     sectoresCreated(false), subSectoresCreated(false),
-    calendariosCreated(false), capacidadesCreated(false)
+    calendariosCreated(false), capacidadesCreated(false),
+    licenciasEmpleadosCreated(false)
 {
     QLOG_TRACE_FN();
 }
@@ -167,4 +168,16 @@ CapacidadesPersonaSectorPtr DataStore::getCapacidades()
         capacidadesCreated = true;
     }
     return capacidadesPtr;
+}
+
+LicenciasEmpleadosPtr DataStore::getLicencias()
+{
+    QLOG_TRACE_FN();
+    if (!licenciasEmpleadosCreated)
+    {
+        licenciasEmpleadosPtr = boost::make_shared<LicenciasEmpleados>(this);
+        establishConnections(licenciasEmpleadosPtr.get());
+        licenciasEmpleadosCreated = true;
+    }
+    return licenciasEmpleadosPtr;
 }

@@ -32,6 +32,7 @@ public:
     virtual void fillData(QTreeWidget &tree);
     virtual bool addNew();
     virtual bool addNew(QTreeWidgetItem *) { return false;}
+    virtual bool addNewWithAdditionalData(QVariant) { return false; }
     virtual bool edit(QVariant ID);
     virtual bool edit(QTreeWidgetItem *, QVariant) { return false;}
     virtual bool deleteElement(QVariant ID);
@@ -62,6 +63,7 @@ public:
     EmpleadosLst getAll(bool includeDeleted);
     EmpleadosLst getPowerUsers();
     EmployeeCalculatedCapacityLst getAll(int IDSector, int IDSubSector, QDate Fecha, int HoraInicio, int HoraFin, bool includeDeleted);
+    EmpleadosLst getAllAvailableByDay(QDate &Fecha, QList<int> &empleadosNoDisponibles, bool incluirLicencias);
 signals:
     
 public slots:

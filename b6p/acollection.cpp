@@ -130,6 +130,15 @@ bool ACollection::addNewRecord()
     return result;
 }
 
+bool ACollection::addNewRecordWithAuxiliarydata(QVariant data)
+{
+    QLOG_TRACE_FN();
+    bool result = addNewWithAdditionalData(data);
+    if (result)
+        save();
+    return result;
+}
+
 bool ACollection::editRecord(QTreeWidgetItem *item, QVariant ID)
 {
     QLOG_TRACE_FN();

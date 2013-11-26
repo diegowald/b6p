@@ -95,7 +95,11 @@ SOURCES += main.cpp\
     SincroManager.cpp \
     timehelper.cpp \
     dlgapproveplanifications.cpp \
-    dlgmerge.cpp
+    dlgmerge.cpp \
+    licenciaempleado.cpp \
+    licenciasempleados.cpp \
+    dlgempleadoslicenciasplanificacion.cpp \
+    dlglicencia.cpp
 
 HEADERS  += mainwindow.h \
     timeassignment.h \
@@ -143,7 +147,11 @@ HEADERS  += mainwindow.h \
     SincroManager.h \
     timehelper.h \
     dlgapproveplanifications.h \
-    dlgmerge.h
+    dlgmerge.h \
+    licenciaempleado.h \
+    licenciasempleados.h \
+    dlgempleadoslicenciasplanificacion.h \
+    dlglicencia.h
 
 FORMS    += mainwindow.ui \
     genericlist.ui \
@@ -160,7 +168,9 @@ FORMS    += mainwindow.ui \
     dlglogin.ui \
     dlgsynchronization.ui \
     dlgapproveplanifications.ui \
-    dlgmerge.ui
+    dlgmerge.ui \
+    dlgempleadoslicenciasplanificacion.ui \
+    dlglicencia.ui
 
 RESOURCES += \
     resources.qrc

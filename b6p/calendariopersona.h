@@ -28,6 +28,9 @@ public:
 
     void updateIDEmpleado(int newId);
     bool canWork(int Dia, int HoraInicio, int HoraFin);
+    bool canWork(int Dia);
+
+    int cantWorkingHours();
 
 signals:
     

@@ -36,6 +36,12 @@ private slots:
 
     void on_btnDelete_pressed();
 
+    void on_btnAdd_2_clicked();
+
+    void on_btnEdit_2_clicked();
+
+    void on_btnDelete_2_clicked();
+
 private:
     Ui::DlgEmployee *ui;
     EmpleadoPtr m_Empleado;

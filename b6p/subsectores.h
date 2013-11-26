@@ -41,6 +41,7 @@ public:
     virtual void fillData(QTreeWidget &tree);
     virtual bool addNew();
     virtual bool addNew(QTreeWidgetItem *) { return false;}
+    virtual bool addNewWithAdditionalData(QVariant) { return false; }
     virtual bool edit(QVariant ID);
     virtual bool edit(QTreeWidgetItem *, QVariant) { return false;}
     virtual bool deleteElement(QVariant ID);

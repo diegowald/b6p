@@ -105,3 +105,14 @@ bool CalendarioPersona::canWork(int Dia, int HoraInicio, int HoraFin)
 
     return true;
 }
+
+bool CalendarioPersona::canWork(int Dia)
+{
+    QLOG_TRACE_FN();
+    return ((m_Dia.value() == Dia) && (cantWorkingHours() > 0));
+}
+
+int CalendarioPersona::cantWorkingHours()
+{
+    return m_HoraEgreso.value() - m_HoraIngreso.value();
+}

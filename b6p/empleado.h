@@ -10,6 +10,7 @@
 #include "capacidadpersonasector.h"
 #include "calendariopersona.h"
 #include "days.h"
+#include "licenciasempleados.h"
 
 #include <QTextDocument>
 
@@ -66,6 +67,8 @@ public:
     void updateCapacities(CapacidadPersonaSectorLst newCapacities);
     CalendarioPersonaLst Disponibilidades();
     void updateDisponibilidades(CalendarioPersonaLst newDisponibilidades);
+    LicenciasEmpleadosLst LicenciasProgramadas();
+    LicenciaEmpleadoPtr LicenciaProgramada(QDate& fecha);
 
     virtual RecordPtr asRecordPtr();
     bool isEqualsTo(RecordPtr record, const QStringList &fieldsToMerge);
@@ -74,6 +77,7 @@ public:
     bool isPowerUser();
     EmployeeCalculatedCapacityPtr canWork(QDate &Fecha, int IDSector, int IDSubSector, int HoraInicio, int HoraFin);
     bool canBeDeleted();
+    bool isAvailable(QDate &Fecha, bool incluirLicencias);
 
     bool print(QTextDocument &textDoc);
 

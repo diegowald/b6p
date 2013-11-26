@@ -199,6 +199,19 @@ CalendarioPersonaLst Empleado::Disponibilidades()
         return DataStore::instance()->getCalendarios()->getAll(IDEmpleado().value(), false);
 }
 
+LicenciasEmpleadosLst Empleado::LicenciasProgramadas()
+{
+    QLOG_TRACE_FN();
+    return DataStore::instance()->getLicencias()->getAllLicenciasEmpleado(idEmpleado.value());
+}
+
+LicenciaEmpleadoPtr Empleado::LicenciaProgramada(QDate &fecha)
+{
+    QLOG_TRACE_FN();
+    return DataStore::instance()->getLicencias()->getLicenciaEmpleado(idEmpleado.value(), fecha);
+}
+
+
 void Empleado::updateID(int newId)
 {
     QLOG_TRACE_FN();
@@ -247,6 +260,30 @@ EmployeeCalculatedCapacityPtr Empleado::canWork(QDate &Fecha, int IDSector, int 
         res->setCapacity(cap->Capacidad().value()); // A esto habria que afectarlo
 
     return res;
+}
+
+bool Empleado::isAvailable(QDate &Fecha, bool incluirLicencias)
+{
+    QLOG_TRACE_FN();
+
+    // Verifico si puede trabajar el dia en la franja horaria.
+    DAYS Dia = Days::DayOfWeek2DAYS(Fecha.dayOfWeek());
+    bool canWork =  DataStore::instance()->getCalendarios()->canWork(idEmpleado.value(), Dia);
+
+    if (!canWork)
+        return false;
+
+    if (!incluirLicencias)
+    {
+        if (DataStore::instance()->getLicencias()->isOnLicence(idEmpleado.value(), Fecha))
+        {
+            // El empleado esta de licencia
+            return false;
+        }
+    }
+
+    // El empleado puede trabajar ese dia
+    return true;
 }
 
 bool Empleado::canBeDeleted()

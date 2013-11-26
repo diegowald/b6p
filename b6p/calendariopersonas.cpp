@@ -287,6 +287,18 @@ CalendarioPersonaPtr CalendarioPersonas::get(int IDEmpleado, int Dia, int HoraIn
     return CalendarioPersonaPtr();
 }
 
+bool CalendarioPersonas::canWork(int IDEmpleado, int Dia)
+{
+    QLOG_TRACE_FN();
+    CalendarioPersonaLst all = getAll(IDEmpleado, false);
+    foreach (CalendarioPersonaPtr c, *all)
+    {
+        if (c->canWork(Dia))
+            return true;
+    }
+    return false;
+}
+
 void CalendarioPersonas::updateCalendarFromData(CalendarioPersonaLst dataList)
 {
     QLOG_TRACE_FN();

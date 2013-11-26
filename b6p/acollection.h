@@ -54,6 +54,7 @@ public:
     virtual bool isColumnEditable(QVariant, int) { return false; }
     virtual boost::shared_ptr<QList<QAction*> > getActions() { return boost::make_shared<QList<QAction*> >(); }
     bool addNewRecord();
+    bool addNewRecordWithAuxiliarydata(QVariant data);
     bool addNewRecord(QTreeWidgetItem *item);
     bool editRecord(QVariant ID);
     bool editRecord(QTreeWidgetItem *item, QVariant ID);
@@ -87,6 +88,7 @@ public:
 
 protected:
     virtual bool addNew() = 0;
+    virtual bool addNewWithAdditionalData(QVariant data) = 0;
     virtual bool addNew(QTreeWidgetItem *item) = 0;
     virtual bool edit(QVariant ID) = 0;
     virtual bool edit(QTreeWidgetItem *item, QVariant ID) = 0;

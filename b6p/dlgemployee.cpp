@@ -93,6 +93,21 @@ void DlgEmployee::setData(EmpleadoPtr empleado)
         w->setFrom(cal->HoraIngreso().value());
         w->setTo(cal->HoraEgreso().value());
     }
+
+    // Francos
+    ui->treeLicencias->clear();
+    LicenciasEmpleadosLst licencias = empleado->LicenciasProgramadas();
+    foreach (LicenciaEmpleadoPtr licencia, *licencias)
+    {
+        QTreeWidgetItem *item = new QTreeWidgetItem();
+        ui->treeLicencias->addTopLevelItem(item);
+
+        item->setData(0, Qt::UserRole, empleado->IDEmpleado().value());
+        item->setText(0, licencia->FechaDesde().value().toString(Qt::TextDate));
+        item->setText(1, licencia->FechaHasta().value().toString(Qt::TextDate));
+        item->setText(2, licencia->TipoLicencia().value());
+        item->setText(3, licencia->Descripcion().value());
+    }
 }
 
 void DlgEmployee::setupAssignment(AvailabilityWidget *w, int day)
@@ -219,4 +234,25 @@ void DlgEmployee::on_btnDelete_pressed()
         }
         delete item;
     }
+}
+
+void DlgEmployee::on_btnAdd_2_clicked()
+{
+    DataStore::instance()->getLicencias()->addNewRecordWithAuxiliarydata(m_Empleado->IDEmpleado().value());
+}
+
+void DlgEmployee::on_btnEdit_2_clicked()
+{
+    QList<QTreeWidgetItem*> selectedItems = ui->treeLicencias->selectedItems();
+    if (selectedItems.count() > 0)
+    {
+        QTreeWidgetItem * selectedItem = selectedItems.at(0);
+        int IDLicencia = selectedItem->data(1, Qt::UserRole).toInt();
+        DataStore::instance()->getLicencias()->editRecord(IDLicencia);
+    }
+}
+
+void DlgEmployee::on_btnDelete_2_clicked()
+{
+
 }

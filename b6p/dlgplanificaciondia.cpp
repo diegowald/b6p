@@ -7,7 +7,7 @@
 #include "timehelper.h"
 #include <QTextStream>
 #include <QsLog.h>
-
+#include <dlgempleadoslicenciasplanificacion.h>
 
 DlgPlanificacionDia::DlgPlanificacionDia(QWidget *parent) :
     QDialog(parent),
@@ -331,4 +331,31 @@ QStringList DlgPlanificacionDia::getRecord(TimeAssignmentItemEdit *time)
     }
     res << (time->AllowOverWorking() ? tr("OverWork") : "");
     return res;
+}
+
+void DlgPlanificacionDia::on_toolButton_clicked()
+{
+    // Aca se abre una ventana con el listado de empleados que pueden trabajar ese dia, que aun no han trabajado,
+    // y si tienen o no licencia
+    QLOG_TRACE_FN();
+    DlgEmpleadosLicenciasPlanificacion dlg(this);
+    dlg.setData(m_Dia, getCurrentlyWorkingEmployees());
+    if (dlg.exec() == QDialog::Accepted)
+    {
+//        RecordPtr modifiedRec = dlg.mergedRecord();
+//        m_Data->updateRecord(modifiedRec, false);
+    }
+}
+
+
+QList<int> DlgPlanificacionDia::getCurrentlyWorkingEmployees()
+{
+    QMap<int, int> partialRes;
+    for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
+    {
+        QTreeWidgetItem *item = ui->treeWidget->topLevelItem(i);
+        TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 0));
+        partialRes[time->IDEmpleado()] = time->IDEmpleado();
+    }
+    return partialRes.keys();
 }
