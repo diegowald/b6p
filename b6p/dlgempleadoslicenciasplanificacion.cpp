@@ -71,7 +71,6 @@ void DlgEmpleadosLicenciasPlanificacion::on_btnAdd_2_clicked()
 void DlgEmpleadosLicenciasPlanificacion::on_btnEdit_2_clicked()
 {
     QLOG_TRACE_FN();
-    QLOG_TRACE_FN();
     QList<QTreeWidgetItem*> selectedItems = ui->treeWidget->selectedItems();
     if (selectedItems.count() > 0)
     {
@@ -84,4 +83,11 @@ void DlgEmpleadosLicenciasPlanificacion::on_btnEdit_2_clicked()
 void DlgEmpleadosLicenciasPlanificacion::on_btnDelete_2_clicked()
 {
     QLOG_TRACE_FN();
+    QList<QTreeWidgetItem*> selectedItems = ui->treeWidget->selectedItems();
+    if (selectedItems.count() > 0)
+    {
+        QTreeWidgetItem * selectedItem = selectedItems.at(0);
+        QVariant IDLicencia = selectedItem->data(1, Qt::UserRole);
+        ((ACollection*)DataStore::instance()->getLicencias().get())->deleteRecord(IDLicencia);
+    }
 }

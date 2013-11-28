@@ -23,7 +23,8 @@ public:
     QDate FechaHasta();
     QString TipoLicencia();
     QString Descripcion();
-
+private:
+    void llenarComboConTiposLicencia();
 private:
     Ui::DlgLicencia *ui;
     int idEmpleado;

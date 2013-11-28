@@ -3,6 +3,7 @@
 #include "capacitywidget.h"
 #include "datastore.h"
 #include <QsLog.h>
+#include "licenciasempleados.h"
 
 DlgEmployee::DlgEmployee(QWidget *parent) :
     QDialog(parent),
@@ -238,11 +239,13 @@ void DlgEmployee::on_btnDelete_pressed()
 
 void DlgEmployee::on_btnAdd_2_clicked()
 {
+    QLOG_TRACE_FN();
     DataStore::instance()->getLicencias()->addNewRecordWithAuxiliarydata(m_Empleado->IDEmpleado().value());
 }
 
 void DlgEmployee::on_btnEdit_2_clicked()
 {
+    QLOG_TRACE_FN();
     QList<QTreeWidgetItem*> selectedItems = ui->treeLicencias->selectedItems();
     if (selectedItems.count() > 0)
     {
@@ -254,5 +257,12 @@ void DlgEmployee::on_btnEdit_2_clicked()
 
 void DlgEmployee::on_btnDelete_2_clicked()
 {
-
+    QLOG_TRACE_FN();
+    QList<QTreeWidgetItem*> selectedItems = ui->treeLicencias->selectedItems();
+    if (selectedItems.count() > 0)
+    {
+        QTreeWidgetItem * selectedItem = selectedItems.at(0);
+        QVariant IDLicencia = selectedItem->data(1, Qt::UserRole);
+        ((ACollection*)DataStore::instance()->getLicencias().get())->deleteRecord(IDLicencia);
+    }
 }

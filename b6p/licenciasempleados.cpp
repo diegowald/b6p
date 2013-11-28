@@ -19,13 +19,13 @@ QString LicenciasEmpleados::getSqlString()
 {
     QLOG_TRACE_FN();
 
-    return QString("select ID, IDEmpleado, FechaDesde, FechaHasta, tipoLicencia, descripcion, isBaja, sent, RecordStatus from licenciasEmpleados");
+    return QString("select ID, IDEmpleado, FechaDesde, FechaHasta, tipoLicencia, descripcion, sent, RecordStatus from licenciasEmpleados");
 }
 
 QString LicenciasEmpleados::getSelectFromMainDB()
 {
     QLOG_TRACE_FN();
-    return QString("select ID, IDEmpleado, FechaDesde, FechaHasta, tipoLicencia, descripcion, isBaja, sent, RecordStatus from licenciasEmpleados "
+    return QString("select ID, IDEmpleado, FechaDesde, FechaHasta, tipoLicencia, descripcion, sent, RecordStatus from licenciasEmpleados "
                    " where LastUpdate >= :LASTUPDATE AND SenderMachine <> :SenderMachine;");
 }
 
@@ -236,7 +236,7 @@ QString LicenciasEmpleados::getLocalInsertStatement()
 QString LicenciasEmpleados::getCentralDeleteStatement()
 {
     QLOG_TRACE_FN();
-    return QString("update licenciasempleados set isBaja = 1, RecordStatus = %1, sent = 0, SenderMachine = :SenderMachine where ID = :RECORD_ID;").arg(DELETED);
+    return QString("update licenciasempleados set RecordStatus = %1, sent = 0, SenderMachine = :SenderMachine where ID = :RECORD_ID;").arg(DELETED);
 }
 
 QString LicenciasEmpleados::getCentralUpdateStatement()
@@ -340,7 +340,9 @@ RecordSet LicenciasEmpleados::getUnsent()
 void LicenciasEmpleados::refreshID(int oldID, int newRecordId)
 {
     QLOG_TRACE_FN();
-    LicenciaEmpleadoPtr licencia = m_Licencias[oldID];
+    QLOG_TRACE() << oldID;
+    QLOG_TRACE() << m_Licencias.count();
+    LicenciaEmpleadoPtr licencia = m_Licencias[-1];
     licencia->updateID(newRecordId);
     m_Licencias.remove(oldID);
     m_Licencias[newRecordId] = licencia;
@@ -451,7 +453,7 @@ bool LicenciasEmpleados::editWithIDEmpleado(int ID, int idEmpleado)
         licencia->FechaHasta().setValue(dlg.FechaHasta());
         licencia->TipoLicencia().setValue(dlg.TipoLicencia());
         licencia->Descripcion().setValue(dlg.Descripcion());
-
+        QLOG_TRACE() << licencia->ID().value();
         m_Licencias[licencia->ID().value()] = licencia;
         return true;
     }
@@ -541,4 +543,17 @@ bool LicenciasEmpleados::isOnLicence(int idEmpleado, QDate &date)
         }
     }
     return false;
+}
+
+QStringList LicenciasEmpleados::getDistinctLicenceType()
+{
+    QLOG_TRACE_FN();
+    QSet<QString> set;
+    foreach (LicenciaEmpleadoPtr licencia, m_Licencias.values())
+    {
+        QLOG_TRACE() << licencia->TipoLicencia().value();
+        if ((!licencia->TipoLicencia().isNull()) && (licencia->TipoLicencia().value() != ""))
+            set.insert(licencia->TipoLicencia().value());
+    }
+    return set.toList();
 }

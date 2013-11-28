@@ -10,12 +10,27 @@ DlgLicencia::DlgLicencia(QWidget *parent) :
 {
     QLOG_TRACE_FN();
     ui->setupUi(this);
+    llenarComboConTiposLicencia();
+    ui->dateFrom->setDate(QDate::currentDate());
+    ui->dateTo->setDate(QDate::currentDate());
 }
 
 DlgLicencia::~DlgLicencia()
 {
     QLOG_TRACE_FN();
     delete ui;
+}
+
+void DlgLicencia::llenarComboConTiposLicencia()
+{
+    QLOG_TRACE_FN();
+    QStringList tipos = DataStore::instance()->getLicencias()->getDistinctLicenceType();
+    ui->cboType->clear();
+    ui->cboType->clearEditText();
+    foreach (QString tipo, tipos)
+    {
+        ui->cboType->addItem(tipo, tipo);
+    }
 }
 
 void DlgLicencia::setData(LicenciaEmpleadoPtr licencia)
@@ -53,11 +68,13 @@ QDate DlgLicencia::FechaHasta()
 QString DlgLicencia::TipoLicencia()
 {
     QLOG_TRACE_FN();
+    QLOG_TRACE() << ui->cboType->currentText();
     return ui->cboType->currentText();
 }
 
 QString DlgLicencia::Descripcion()
 {
     QLOG_TRACE_FN();
+    QLOG_TRACE() << ui->txtNotes->text();
     return ui->txtNotes->text();
 }

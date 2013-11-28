@@ -8,7 +8,10 @@ LicenciaEmpleado::LicenciaEmpleado(bool isNew, QObject *parent)
 {
     QLOG_TRACE_FN();
     if (isNew)
+    {
         id.setValue(-1);
+        setNew();
+    }
     else
         id.setNull();
 }
@@ -18,12 +21,13 @@ RecordPtr LicenciaEmpleado::asRecordPtr()
     QLOG_TRACE_FN();
     RecordPtr res = boost::make_shared<Record>();
 
+    QLOG_TRACE() << id.toVariant();
     (*res)["ID"] = id.toVariant();
     (*res)["IDEmpleado"] = idEmpleado.toVariant();
     (*res)["FechaDesde"] = fechaDesde.toVariant();
     (*res)["FechaHasta"] = fechaHasta.toVariant();
-    (*res)["TipoLicencia"] = tipoLicencia.toVariant();
-    (*res)["Descripcion"] = descripcion.toVariant();
+    (*res)["tipoLicencia"] = tipoLicencia.toVariant();
+    (*res)["descripcion"] = descripcion.toVariant();
 
     (*res)["RecordStatus"] = getLocalRecordStatus(); // Capaz que es inmemoryRecordStatus
 
