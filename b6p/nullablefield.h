@@ -28,6 +28,12 @@ public:
         setValue(value);
     }
 
+    virtual ~NullableField()
+    {
+        if (!isNull())
+            delete m_Value;
+    }
+
     void setParent(IRecord *newParent)
     {
         parent = newParent;

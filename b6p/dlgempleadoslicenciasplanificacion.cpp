@@ -32,11 +32,12 @@ void DlgEmpleadosLicenciasPlanificacion::addEmpleadoToTree(EmpleadoPtr empleado)
 {
     QLOG_TRACE_FN();
     QTreeWidgetItem *item = new QTreeWidgetItem();
-    item->setCheckState(0, Qt::Unchecked);
+    //item->setCheckState(0, Qt::Unchecked);
     QString aux("%1, %2");
     aux = aux.arg(empleado->Apellido().value(), empleado->Nombre().value());
     item->setText(0, aux);
     item->setData(0, Qt::UserRole, empleado->IDEmpleado().value());
+
 
     LicenciaEmpleadoPtr licencia = empleado->LicenciaProgramada(m_CurrentDay);
     if (licencia != LicenciaEmpleadoPtr())

@@ -7,7 +7,10 @@
 
 TimeAssignmentItemEdit::TimeAssignmentItemEdit(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::TimeAssignmentItemEdit)
+    ui(new Ui::TimeAssignmentItemEdit),
+    loadingData(true),
+    allowOverWorking(false),
+    previousSelectedEmployee(-1)
 {
     QLOG_TRACE_FN();
     ui->setupUi(this);
@@ -36,8 +39,6 @@ TimeAssignmentItemEdit::TimeAssignmentItemEdit(QWidget *parent) :
 
     loadingData = true;
     llenarSectores();
-    loadingData = true;
-    previousSelectedEmployee = -1;
 }
 
 TimeAssignmentItemEdit::~TimeAssignmentItemEdit()
