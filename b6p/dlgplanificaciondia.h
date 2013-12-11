@@ -50,6 +50,7 @@ private:
     QDate m_Dia;
     int newID;
     QList<int> SubsectorsToDelete;
+    int m_HorasEstimadas;
 };
 
 #endif // DLGPLANIFICACIONDIA_H

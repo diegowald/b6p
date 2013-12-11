@@ -28,10 +28,12 @@ private slots:
 
 private:
     void addEmpleadoToTree(EmpleadoPtr empleado);
+    void fillTree();
 
 private:
     Ui::DlgEmpleadosLicenciasPlanificacion *ui;
     QDate m_CurrentDay;
+    QList<int> m_EmployeesToExclude;
 };
 
 #endif // DLGEMPLEADOSLICENCIASPLANIFICACION_H

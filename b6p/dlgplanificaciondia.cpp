@@ -31,6 +31,7 @@ void DlgPlanificacionDia::setData(PlanificacionDiaPtr data)
     QLOG_TRACE_FN();
     ui->lblDia->setText(tr("Date: %1").arg(data->Dia().value().toString(Qt::TextDate)));
     ui->lblHorasEstimadas->setText(tr("Estimation: %1 hs").arg(QString::number(data->Estimacion()->EstimacionHoras().value())));
+    m_HorasEstimadas = data->Estimacion()->EstimacionHoras().value();
     ui->lblStatus->setText(tr("Status: %1").arg(data->Estado()));
     displayPlannedHours(data->HorasPlanificadas());
     m_Dia = data->Dia().value();
@@ -115,6 +116,12 @@ void DlgPlanificacionDia::slot_AssignmentChanged(int, int)
         CantHoras += time->CantidadHoras();
     }
     displayPlannedHours(CantHoras);
+    if (CantHoras > m_HorasEstimadas)
+    {
+        QMessageBox::warning(NULL,
+                             tr("Overworking!"),
+                             tr("Planned hours are greater than estimation!"));
+    }
 }
 
 QDate DlgPlanificacionDia::Dia()
@@ -342,6 +349,12 @@ void DlgPlanificacionDia::on_toolButton_clicked()
     dlg.setData(m_Dia, getCurrentlyWorkingEmployees());
     if (dlg.exec() == QDialog::Accepted)
     {
+        for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
+        {
+            QTreeWidgetItem *item = ui->treeWidget->topLevelItem(i);
+            TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 0));
+            time->recalculateAvailableEmployees();
+        }
 //        RecordPtr modifiedRec = dlg.mergedRecord();
 //        m_Data->updateRecord(modifiedRec, false);
     }

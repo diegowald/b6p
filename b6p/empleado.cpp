@@ -232,6 +232,15 @@ EmployeeCalculatedCapacityPtr Empleado::canWork(QDate &Fecha, int IDSector, int 
 {
     QLOG_TRACE_FN();
     EmployeeCalculatedCapacityPtr res = boost::make_shared<EmployeeCalculatedCapacity>(this, Fecha);
+
+    // Verifico si no esta en licencia
+    LicenciaEmpleadoPtr licencia = DataStore::instance()->getLicencias()->getLicenciaEmpleado(idEmpleado.value(), Fecha);
+    if (licencia != LicenciaEmpleadoPtr())
+    {
+        res->setCapacity(0);
+        return res;
+    }
+
     // Verifico si puede trabajar en el sector y subsector
     CapacidadPersonaSectorPtr cap =
             DataStore::instance()->getCapacidades()->get(idEmpleado.value(), IDSector, IDSubSector, false);

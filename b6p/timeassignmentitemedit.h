@@ -46,6 +46,7 @@ public:
     void setDate(QDate value);
 
     void recalculateColorAssignments(int IDEmpleado);
+    void recalculateAvailableEmployees();
 
 signals:
     void AssignmentChanged(int fromSeconds, int toSeconds);

@@ -109,6 +109,14 @@ void TimeAssignmentItemEdit::on_timeFin_TimeChanged(int newTime)
     emit AssignmentChanged(ui->timeInicio->timeSeconds(), newTime);
 }
 
+void TimeAssignmentItemEdit::recalculateAvailableEmployees()
+{
+    QLOG_TRACE_FN();
+    int previouslySelectedEmployee = IDEmpleado();
+    llenarEmpleados();
+    setIDEmpleado(previouslySelectedEmployee);
+}
+
 void TimeAssignmentItemEdit::llenarEmpleados()
 {
     QLOG_TRACE_FN();

@@ -21,7 +21,14 @@ void DlgEmpleadosLicenciasPlanificacion::setData(QDate currentDay, QList<int> em
 {
     QLOG_TRACE_FN();
     m_CurrentDay = currentDay;
-    EmpleadosLst empleados = DataStore::instance()->getEmpleados()->getAllAvailableByDay(currentDay, employeesToExclude, true);
+    m_EmployeesToExclude = employeesToExclude;
+    fillTree();
+}
+
+void DlgEmpleadosLicenciasPlanificacion::fillTree()
+{
+    QLOG_TRACE_FN();
+    EmpleadosLst empleados = DataStore::instance()->getEmpleados()->getAllAvailableByDay(m_CurrentDay, m_EmployeesToExclude, true);
     foreach (EmpleadoPtr empleado, *empleados)
     {
         addEmpleadoToTree(empleado);
@@ -64,7 +71,11 @@ void DlgEmpleadosLicenciasPlanificacion::on_btnAdd_2_clicked()
         QTreeWidgetItem *selectedItem = selectedItems.at(0);
         if (selectedItem->data(1, Qt::UserRole) == 0)
         {
-            DataStore::instance()->getLicencias()->addNewRecordWithAuxiliarydata(selectedItem->data(0, Qt::UserRole));
+            if (DataStore::instance()->getLicencias()->addNewRecordWithAuxiliarydata(selectedItem->data(0, Qt::UserRole)))
+            {
+                ui->treeWidget->clear();
+                fillTree();
+            }
         }
     }
 }
