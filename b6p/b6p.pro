@@ -47,7 +47,7 @@ TRANSLATIONS = b6p.ts \
                b6p_esAR.ts
 
 win32 {
-INCLUDEPATH += c:/boost/boost_1_53_0
+INCLUDEPATH += c:/boost/boost_1_55_0
 RC_FILE = b6p.rc
 }
 SOURCES += main.cpp\
