@@ -18,8 +18,10 @@ public:
     
     NullableField<int>& Dia();
     NullableField<int>& IDEmpleado();
-    NullableField<int>& HoraIngreso();
-    NullableField<int>& HoraEgreso();
+    NullableField<int>& HoraIngreso1();
+    NullableField<int>& HoraEgreso1();
+    NullableField<int>& HoraIngreso2();
+    NullableField<int>& HoraEgreso2();
 
     virtual RecordPtr asRecordPtr();
     virtual bool isEqualsTo(RecordPtr record);
@@ -39,8 +41,10 @@ public slots:
 private:
     NullableField<int> m_Dia;
     NullableField<int> m_IDEmpleado;
-    NullableField<int> m_HoraIngreso;
-    NullableField<int> m_HoraEgreso;
+    NullableField<int> m_HoraIngreso1;
+    NullableField<int> m_HoraEgreso1;
+    NullableField<int> m_HoraIngreso2;
+    NullableField<int> m_HoraEgreso2;
 };
 
 #endif // CALENDARIOPERSONA_H

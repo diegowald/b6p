@@ -91,8 +91,10 @@ void DlgEmployee::setData(EmpleadoPtr empleado)
             break;
         }
         w->setDay(cal->Dia().value());
-        w->setFrom(cal->HoraIngreso().value());
-        w->setTo(cal->HoraEgreso().value());
+        w->setFrom1(cal->HoraIngreso1().value());
+        w->setTo1(cal->HoraEgreso1().value());
+        w->setFrom2(cal->HoraIngreso2().value());
+        w->setTo2(cal->HoraEgreso2().value());
     }
 
     // Francos
@@ -115,8 +117,10 @@ void DlgEmployee::setupAssignment(AvailabilityWidget *w, int day)
 {
     QLOG_TRACE_FN();
     w->setDay(day);
-    w->setFrom(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0));
-    w->setTo(DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 24 * 3600));
+    w->setFrom1(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0));
+    w->setTo1(DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 24 * 3600));
+    w->setFrom2(0);
+    w->setTo2(0);
 }
 
 void DlgEmployee::setupScreen()
@@ -186,8 +190,10 @@ CalendarioPersonaPtr DlgEmployee::getAssignment(AvailabilityWidget *w)
 
     p->IDEmpleado().setValue(m_Empleado->IDEmpleado().value());
 
-    p->HoraIngreso().setValue(w->FromTime());
-    p->HoraEgreso().setValue(w->ToTime());
+    p->HoraIngreso1().setValue(w->FromTime1());
+    p->HoraEgreso1().setValue(w->ToTime1());
+    p->HoraIngreso2().setValue(w->FromTime2());
+    p->HoraEgreso2().setValue(w->ToTime2());
     p->Dia().setValue(w->Day());
 
     return p;

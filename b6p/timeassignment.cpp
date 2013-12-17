@@ -138,7 +138,7 @@ void TimeAssignment::paintEvent(QPaintEvent *)
         }
     }
 
-    // Paint Time Assignment
+    // Paint Time Assignment 1
     QRectF assignment(timeline.left() + time2position(m_StartAssignment, timeline.width()),
                       (height() - m_AssignmentHeight) / 2,
                       delta2screen(m_EndAssignment - m_StartAssignment, timeline.width()),
@@ -147,6 +147,17 @@ void TimeAssignment::paintEvent(QPaintEvent *)
     painter.fillRect(assignment, m_AssignmentColor);
     painter.setPen(m_AssignmentColor);
     painter.drawRect(assignment);
+
+    // Paint Time Assignment 2
+    QRectF assignment2(timeline.left() + time2position(m_StartAssignment2, timeline.width()),
+                      (height() - m_AssignmentHeight) / 2,
+                      delta2screen(m_EndAssignment2 - m_StartAssignment2, timeline.width()),
+                      m_AssignmentHeight);
+
+    painter.fillRect(assignment2, m_AssignmentColor);
+    painter.setPen(m_AssignmentColor);
+    painter.drawRect(assignment2);
+
 }
 
 qreal TimeAssignment::time2position(int seconds, float w)
@@ -288,10 +299,23 @@ void TimeAssignment::setStartAssignment(int seconds)
 }
 
 
-int TimeAssignment::startAssignment() const
+int TimeAssignment::startAssignment1() const
 {
     QLOG_TRACE_FN();
     return m_StartAssignment;
+}
+
+void TimeAssignment::setStartAssignment2(int seconds)
+{
+    QLOG_TRACE_FN();
+    m_StartAssignment2 = seconds;
+    repaint();
+}
+
+int TimeAssignment::startAssignment2() const
+{
+    QLOG_TRACE_FN();
+    return m_StartAssignment2;
 }
 
 void TimeAssignment::setEndAssignment(int seconds)
@@ -301,10 +325,23 @@ void TimeAssignment::setEndAssignment(int seconds)
     repaint();
 }
 
-int TimeAssignment::endAssignment() const
+int TimeAssignment::endAssignment1() const
 {
     QLOG_TRACE_FN();
     return m_EndAssignment;
+}
+
+void TimeAssignment::setEndAssignment2(int seconds)
+{
+    QLOG_TRACE_FN();
+    m_EndAssignment2 = seconds;
+    repaint();
+}
+
+int TimeAssignment::endAssignment2() const
+{
+    QLOG_TRACE_FN();
+    return m_EndAssignment2;
 }
 
 void TimeAssignment::setHollowTimeLine(bool hollow)

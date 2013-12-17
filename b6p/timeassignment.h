@@ -40,8 +40,11 @@ public:
     void setFinalTimeline(int seconds);
     int finalTimeline() const;
 
-    int startAssignment() const;
-    int endAssignment() const;
+    int startAssignment1() const;
+    int endAssignment1() const;
+
+    int startAssignment2() const;
+    int endAssignment2() const;
 
     bool PaintVerticalGrid();
     void setPaintVerticalGrid(bool paint);
@@ -55,6 +58,8 @@ public:
 public slots:
     void setStartAssignment(int seconds);
     void setEndAssignment(int seconds);
+    void setStartAssignment2(int seconds);
+    void setEndAssignment2(int seconds);
 
 protected:
     void paintEvent(QPaintEvent *event);
@@ -74,6 +79,8 @@ private:
     int m_FinalTimeline;
     int m_StartAssignment;
     int m_EndAssignment;
+    int m_StartAssignment2;
+    int m_EndAssignment2;
     bool m_paintBackgroundReferences;
     bool m_showBackgroundText;
     bool m_paintVerticalGrid;

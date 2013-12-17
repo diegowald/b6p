@@ -381,6 +381,10 @@ bool Empleado::print(QTextDocument &textDoc)
     html += "<i>" + tr("Start Time") + "</i></font>\n</td>";
     html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
     html += "<i>" + tr("End Time") + "</i></font>\n</td>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<i>" + tr("Start Time 2") + "</i></font>\n</td>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<i>" + tr("End Time 2") + "</i></font>\n</td>";
     html += "<td bgcolor=\"lightgray\"><font size=\"+1\"><i></i></font>\n</td>";
     html += "</tr>";
 
@@ -388,8 +392,10 @@ bool Empleado::print(QTextDocument &textDoc)
     foreach (CalendarioPersonaPtr c, *calendarios) {
         html += "<tr>";
         html += "<td>" + Days::Days2String(Days::DayOfWeek2DAYS(c->Dia().value())) + "</td>";
-        html += "<td>" + TimeHelper::SecondsToString(c->HoraIngreso().value()) + "</td>";
-        html += "<td>" + TimeHelper::SecondsToString(c->HoraEgreso().value()) + "</td>";
+        html += "<td>" + TimeHelper::SecondsToString(c->HoraIngreso1().value()) + "</td>";
+        html += "<td>" + TimeHelper::SecondsToString(c->HoraEgreso1().value()) + "</td>";
+        html += "<td>" + TimeHelper::SecondsToString(c->HoraIngreso2().value()) + "</td>";
+        html += "<td>" + TimeHelper::SecondsToString(c->HoraEgreso2().value()) + "</td>";
         QString img = "img%1";
         img = img.arg(imgNumber);
         html += "<td><img src=\"" + img + "\"></td>";
@@ -402,8 +408,10 @@ bool Empleado::print(QTextDocument &textDoc)
         ts.resize(rect.size());
         ts.setInitialTimeline(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0));
         ts.setFinalTimeline(DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
-        ts.setStartAssignment(c->HoraIngreso().value());
-        ts.setEndAssignment(c->HoraEgreso().value());
+        ts.setStartAssignment(c->HoraIngreso1().value());
+        ts.setEndAssignment(c->HoraEgreso1().value());
+        ts.setStartAssignment2(c->HoraIngreso2().value());
+        ts.setEndAssignment2(c->HoraEgreso2().value());
 
         ts.setPaintBackgroundReferences(true);
         ts.setPaintVerticalGrid(true);

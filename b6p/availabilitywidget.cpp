@@ -12,9 +12,9 @@ AvailabilityWidget::AvailabilityWidget(QWidget *parent) :
     ui->setupUi(this);
     connect(ui->timeFrom, SIGNAL(timeChanged(int)), ui->widget, SLOT(setStartAssignment(int)));
     connect(ui->timeTo, SIGNAL(timeChanged(int)),ui->widget, SLOT(setEndAssignment(int)));
+    connect(ui->timeFrom2, SIGNAL(timeChanged(int)), ui->widget, SLOT(setStartAssignment2(int)));
+    connect(ui->timeTo2, SIGNAL(timeChanged(int)), ui->widget, SLOT(setEndAssignment2(int)));
 
-    ui->timeFrom->SetSecondsVisibility(false);
-    ui->timeTo->SetSecondsVisibility(false);
     ui->timeFrom->setbeyondThisDayVisibility(false);
 
     ui->timeFrom->setValidRange(
@@ -23,6 +23,14 @@ AvailabilityWidget::AvailabilityWidget(QWidget *parent) :
     ui->timeTo->setValidRange(
                 DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0),
                 DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
+
+    ui->timeFrom2->setValidRange(
+                DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0),
+                DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
+    ui->timeTo2->setValidRange(
+                DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0),
+                DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
+
 
     ui->widget->setInitialTimeline(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0));
 
@@ -41,16 +49,28 @@ void AvailabilityWidget::setLabel(QString value)
     ui->lblDay->setText(value);
 }
 
-void AvailabilityWidget::setFrom(int value)
+void AvailabilityWidget::setFrom1(int value)
 {
     QLOG_TRACE_FN();
     ui->timeFrom->setTime(value);
 }
 
-void AvailabilityWidget::setTo(int value)
+void AvailabilityWidget::setTo1(int value)
 {
     QLOG_TRACE_FN();
     ui->timeTo->setTime(value);
+}
+
+void AvailabilityWidget::setFrom2(int value)
+{
+    QLOG_TRACE_FN();
+    ui->timeFrom2->setTime(value);
+}
+
+void AvailabilityWidget::setTo2(int value)
+{
+    QLOG_TRACE_FN();
+    ui->timeTo2->setTime(value);
 }
 
 void AvailabilityWidget::setDay(int day)
@@ -92,14 +112,27 @@ int AvailabilityWidget::Day()
     return m_day;
 }
 
-int AvailabilityWidget::FromTime()
+int AvailabilityWidget::FromTime1()
 {
     QLOG_TRACE_FN();
     return ui->timeFrom->timeSeconds();
 }
 
-int AvailabilityWidget::ToTime()
+int AvailabilityWidget::ToTime1()
 {
     QLOG_TRACE_FN();
     return ui->timeTo->timeSeconds();
 }
+
+int AvailabilityWidget::FromTime2()
+{
+    QLOG_TRACE_FN();
+    return ui->timeFrom2->timeSeconds();
+}
+
+int AvailabilityWidget::ToTime2()
+{
+    QLOG_TRACE_FN();
+    return ui->timeTo2->timeSeconds();
+}
+

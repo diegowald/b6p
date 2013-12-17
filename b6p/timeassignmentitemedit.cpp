@@ -16,8 +16,6 @@ TimeAssignmentItemEdit::TimeAssignmentItemEdit(QWidget *parent) :
     ui->setupUi(this);
     allowOverWorking = false;
 
-    ui->timeInicio->SetSecondsVisibility(false);
-    ui->timeFin->SetSecondsVisibility(false);
     ui->timeInicio->setbeyondThisDayVisibility(false);
 
     ui->timeInicio->setValidRange(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0),

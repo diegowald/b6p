@@ -11,9 +11,7 @@ DlgParametros::DlgParametros(QWidget *parent) :
 {
     QLOG_TRACE_FN();
     ui->setupUi(this);
-    ui->timeOpen->SetSecondsVisibility(false);
     ui->timeOpen->setbeyondThisDayVisibility(false);
-    ui->timeClose->SetSecondsVisibility(false);
     ui->timeOpen->setValidRange(0, 0, 0, 24, 0, 0);
     ui->timeClose->setValidRange(0, 0, 0, 36, 0, 0);
     ui->timeOpen->setTime(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0));

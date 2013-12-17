@@ -24,9 +24,9 @@ TimeEditor::~TimeEditor()
 void TimeEditor::onValueChanged(QLineEdit *, int)
 {
     QLOG_TRACE_FN();
-    if (checkTime(ui->lineHours->text().toInt(), ui->lineMinutes->text().toInt(), ui->lineSeconds->text().toInt()))
+    if (checkTime(ui->lineTime->text()))
     {
-        currentTime = HHMMSS2Seconds(ui->lineHours->text().toInt(), ui->lineMinutes->text().toInt(), ui->lineSeconds->text().toInt(), true);
+        currentTime = HHMMSS2Seconds(ui->lineTime->text(), true);
         emit timeChanged(currentTime);
     }
     else
@@ -48,9 +48,9 @@ void TimeEditor::setTime(int seconds)
     {
         currentTime = seconds;
         previouslySelectedHour = getHours(secondsOnSameDay);
-        ui->lineHours->setText(QString::number(previouslySelectedHour));
-        ui->lineMinutes->setText(QString::number(getMinutes(secondsOnSameDay)));
-        ui->lineSeconds->setText(QString::number(getSeconds(secondsOnSameDay)));
+        QString aux = "%1:%2";
+        aux = aux.arg(QString::number(previouslySelectedHour), QString::number(getMinutes(secondsOnSameDay)));
+        ui->lineTime->setText(aux);
         emit timeChanged(currentTime);
     }
 }
@@ -71,8 +71,6 @@ void TimeEditor::setMinTime(int seconds)
 {
     QLOG_TRACE_FN();
     minValue = seconds;
-    QIntValidator* validator = new QIntValidator(getHours(seconds), getHours(maxValue), this);
-    ui->lineHours->setValidator(validator);
 }
 
 int TimeEditor::minTimeSeconds()
@@ -92,8 +90,6 @@ void TimeEditor::setMaxTime(int seconds)
     QLOG_TRACE_FN();
     maxValue = seconds;
     maxTimeBeyondThisDay = (maxValue > 86400);
-    QIntValidator *validator = new QIntValidator(getHours(minValue), getHours(maxValue), this);
-    ui->lineHours->setValidator(validator);
 }
 
 int TimeEditor::maxTimeSeconds()
@@ -116,19 +112,15 @@ void TimeEditor::setValidRange(int secondsFrom, int secondsTo)
     setMaxTime(secondsTo);
 }
 
-void TimeEditor::SetSecondsVisibility(bool visible)
+int TimeEditor::HHMMSS2Seconds(const QString &time, bool canBeBeyondThisDay)
 {
     QLOG_TRACE_FN();
-    ui->lineSeconds->setVisible(visible);
-    int w = ui->lineHours->width() + ui->lineMinutes->width() + (visible ? ui->lineSeconds->width() : 0);
-    int h = ui->lineHours->height();
-    resize(w, h);
-}
-
-bool TimeEditor::secondsVisibility()
-{
-    QLOG_TRACE_FN();
-    return ui->lineSeconds->isVisible();
+    QString aux = time;
+    aux = aux.replace(".", ":");
+    QStringList numbers = aux.split(":");
+    int hours = numbers.at(0).toInt();
+    int minutes = numbers.at(1).toInt();
+    return HHMMSS2Seconds(hours, minutes, 0, canBeBeyondThisDay);
 }
 
 int TimeEditor::HHMMSS2Seconds(int hh, int mm, int ss, bool canBeBeyondThisDay)
@@ -140,6 +132,22 @@ int TimeEditor::HHMMSS2Seconds(int hh, int mm, int ss, bool canBeBeyondThisDay)
     if (canBeBeyondThisDay && ui->chkBeyondThisDay->isChecked())
         seconds += 86400;
     return seconds;
+}
+
+bool TimeEditor::checkTime(const QString &time)
+{
+    QLOG_TRACE_FN();
+    QString aux = time;
+    aux = aux.replace(".", ":");
+    QStringList numbers = aux.split(":");
+    if (numbers.count() != 2)
+    {
+        return false;
+    }
+
+    int hours = numbers.at(0).toInt();
+    int minutes = numbers.at(1).toInt();
+    return checkTime(hours, minutes, 0);
 }
 
 bool TimeEditor::checkTime(int seconds)
@@ -185,37 +193,15 @@ void TimeEditor::setDefaultValues()
     maxValue = 24 * 3600;
     ui->chkBeyondThisDay->setChecked(false);
     maxTimeBeyondThisDay = false;
-    QValidator *v = new QIntValidator(0, 24, this);
-    ui->lineHours->setValidator(v);
-    v = new QIntValidator(0, 59, this);
-    ui->lineMinutes->setValidator(v);
-    v = new QIntValidator(0, 59, this);
-    ui->lineSeconds->setValidator(v);
-
+    QRegExp regExp("^([0-9]|0[0-9]|1[0-9]|2[0-3])[:.][0-5][0-9]$");
+    QRegExpValidator *v = new QRegExpValidator(regExp, this);
+    ui->lineTime->setValidator(v);
 }
 
 bool TimeEditor::isBeyondThisDay() const
 {
     QLOG_TRACE_FN();
     return ui->chkBeyondThisDay->isChecked();
-}
-
-void TimeEditor::on_lineHours_textChanged(const QString &arg1)
-{
-    QLOG_TRACE_FN();
-    onValueChanged(ui->lineHours, arg1.toInt());
-}
-
-void TimeEditor::on_lineMinutes_textChanged(const QString &arg1)
-{
-    QLOG_TRACE_FN();
-    onValueChanged(ui->lineMinutes, arg1.toInt());
-}
-
-void TimeEditor::on_lineSeconds_textChanged(const QString &arg1)
-{
-    QLOG_TRACE_FN();
-    onValueChanged(ui->lineSeconds, arg1.toInt());
 }
 
 void TimeEditor::setbeyondThisDayVisibility(bool value)
@@ -235,4 +221,10 @@ void TimeEditor::on_chkBeyondThisDay_clicked(bool)
 {
     QLOG_TRACE_FN();
     onValueChanged(NULL, 0);
+}
+
+void TimeEditor::on_lineTime_textChanged(const QString &arg1)
+{
+    QLOG_TRACE_FN();
+    onValueChanged(ui->lineTime, arg1.toInt());
 }

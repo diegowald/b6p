@@ -17,21 +17,21 @@ CalendarioPersonas::~CalendarioPersonas()
 QString CalendarioPersonas::getSelectFromMainDB()
 {
     QLOG_TRACE_FN();
-    return QString("select Dia, IDEmpleado, HoraIngreso, HoraEgreso, LastUpdate from calendariopersonas "
+    return QString("select Dia, IDEmpleado, HoraIngreso, HoraEgreso, HoraIngreso2, HoraEgreso2, LastUpdate from calendariopersonas "
                    " where LastUpdate >= :LASTUPDATE ;");
 }
 
 QString CalendarioPersonas::getSqlString()
 {
     QLOG_TRACE_FN();
-    return QString("select Dia, IDEmpleado, HoraIngreso, HoraEgreso, sent, RecordStatus from calendariopersonas "
+    return QString("select Dia, IDEmpleado, HoraIngreso, HoraEgreso, HoraIngreso2, HoraEgreso2, sent, RecordStatus from calendariopersonas "
             " where RecordStatus <> %1;").arg(DELETED);
 }
 
 QString CalendarioPersonas::getSQLExistsInMainDB()
 {
     QLOG_TRACE_FN();
-    return QString("select Dia, IDEmpleado, HoraIngreso, HoraEgreso from calendariopersonas "
+    return QString("select Dia, IDEmpleado, HoraIngreso, HoraEgreso, HoraIngreso2, HoraEgreso2, from calendariopersonas "
                    " where Dia = :Dia and IDEmpleado = :IDEmpleado; ");
 }
 
@@ -42,8 +42,10 @@ void CalendarioPersonas::addRecord(RecordPtr record, bool setNew)
 
     c->Dia().setValue((*record)["Dia"].toInt());
     c->IDEmpleado().setValue((*record)["IDEmpleado"].toInt());
-    c->HoraIngreso().setValue((*record)["HoraIngreso"].toInt());
-    c->HoraEgreso().setValue((*record)["HoraEgreso"].toInt());
+    c->HoraIngreso1().setValue((*record)["HoraIngreso"].toInt());
+    c->HoraEgreso1().setValue((*record)["HoraEgreso"].toInt());
+    c->HoraIngreso2().setValue((*record)["HoraIngreso2"].toInt());
+    c->HoraEgreso2().setValue((*record)["HoraEgreso2"].toInt());
     c->setLocalRecordStatus((RecordStatus)(*record)["RecordStatus"].toInt());
 
     if (setNew)
@@ -62,8 +64,10 @@ void CalendarioPersonas::updateRecord(RecordPtr record, bool isFromSincro)
         if ((c->Dia().value() == (*record)["Dia"]) && (c->IDEmpleado().value() == (*record)["IDEmpleado"]))
             break;
     }
-    c->HoraIngreso().setValue((*record)["HoraIngreso"].toInt());
-    c->HoraEgreso().setValue((*record)["HoraEgreso"].toInt());
+    c->HoraIngreso1().setValue((*record)["HoraIngreso"].toInt());
+    c->HoraEgreso1().setValue((*record)["HoraEgreso"].toInt());
+    c->HoraIngreso2().setValue((*record)["HoraIngreso2"].toInt());
+    c->HoraEgreso2().setValue((*record)["HoraEgreso2"].toInt());
     if (isFromSincro)
     {
         c->setInMemoryRecordStatus(UNMODIFIED);
@@ -138,6 +142,7 @@ QString CalendarioPersonas::getLocalUpdateStatement()
 {
     QLOG_TRACE_FN();
     return QString("update calendariopersonas set HoraIngreso = :HoraIngreso, HoraEgreso = :HoraEgreso, "
+                   " HoraIngreso2 = :HoraIngreso2, HoraEgreso2 = :HoraEgreso2, "
                    " RecordStatus = %1, sent = 0 "
                    " where Dia = :Dia and IDEmpleado = :IDEmpleado;").arg(MODIFIED);
 }
@@ -146,6 +151,7 @@ QString CalendarioPersonas::getCentralUpdateStatement()
 {
     QLOG_TRACE_FN();
     return QString("update calendariopersonas set HoraIngreso = :HoraIngreso, HoraEgreso = :HoraEgreso, "
+                   " HoraIngreso = :HoraIngreso, HoraEgreso = :HoraEgreso, "
                    " RecordStatus = %1, sent = 0 "
                    " where Dia = :Dia and IDEmpleado = :IDEmpleado;").arg(MODIFIED);
 }
@@ -154,18 +160,18 @@ QString CalendarioPersonas::getLocalInsertStatement()
 {
     QLOG_TRACE_FN();
     return QString("insert into calendariopersonas "
-            " (Dia, IDEmpleado, HoraIngreso, HoraEgreso, RecordStatus, sent) "
+            " (Dia, IDEmpleado, HoraIngreso, HoraEgreso, HoraIngreso, HoraEgreso, RecordStatus, sent) "
             " values "
-            " (:Dia, :IDEmpleado, :HoraIngreso, :HoraEgreso, %1, 0);").arg(NEW);
+            " (:Dia, :IDEmpleado, :HoraIngreso, :HoraEgreso, :HoraIngreso2, :HoraEgreso2, %1, 0);").arg(NEW);
 }
 
 QString CalendarioPersonas::getCentralInsertStatement()
 {
     QLOG_TRACE_FN();
     return QString("insert into calendariopersonas "
-            " (Dia, IDEmpleado, HoraIngreso, HoraEgreso, RecordStatus, sent) "
+            " (Dia, IDEmpleado, HoraIngreso, HoraEgreso, HoraIngreso2, HoraEgreso2, RecordStatus, sent) "
             " values "
-            " (:Dia, :IDEmpleado, :HoraIngreso, :HoraEgreso, %1, 0);").arg(NEW);
+            " (:Dia, :IDEmpleado, :HoraIngreso, :HoraEgreso, :HoraIngreso2, :HoraEgreso2, %1, 0);").arg(NEW);
 }
 
 RecordSet CalendarioPersonas::getRecords(RecordStatus status, bool fromMemory)

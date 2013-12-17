@@ -31,17 +31,16 @@ public:
     void setValidRange(int hh1, int mm1, int ss1, int hh2, int mm2, int ss2);
     void setValidRange(int secondsFrom, int secondsTo);
 
-    void SetSecondsVisibility(bool visible);
-    bool secondsVisibility();
-
     void setbeyondThisDayVisibility(bool value);
     bool beyondThisDayVisibility();
 
     bool isBeyondThisDay() const;
 
 private:
+    bool checkTime(const QString& time);
     bool checkTime(int hh, int mm, int ss);
     bool checkTime(int seconds);
+    int HHMMSS2Seconds(const QString &time, bool canBeBeyondThisDay);
     int HHMMSS2Seconds(int hh, int mm, int ss, bool canBeBeyondThisDay);
     int getHours(int seconds);
     int getMinutes(int seconds);
@@ -53,10 +52,9 @@ signals:
     void IncorrectTime(const QString& cause);
 
 private slots:
-    void on_lineHours_textChanged(const QString &arg1);
-    void on_lineMinutes_textChanged(const QString &arg1);
-    void on_lineSeconds_textChanged(const QString &arg1);
     void on_chkBeyondThisDay_clicked(bool checked);
+
+    void on_lineTime_textChanged(const QString &arg1);
 
 private:
     Ui::TimeEditor *ui;

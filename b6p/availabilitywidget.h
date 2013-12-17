@@ -16,13 +16,17 @@ public:
     explicit AvailabilityWidget(QWidget *parent = 0);
     ~AvailabilityWidget();
     void setLabel(QString value);
-    void setFrom(int value);
-    void setTo(int value);
+    void setFrom1(int value);
+    void setTo1(int value);
+    void setFrom2(int value);
+    void setTo2(int value);
 
     void setDay(int day);
     int Day();
-    int FromTime();
-    int ToTime();
+    int FromTime1();
+    int ToTime1();
+    int FromTime2();
+    int ToTime2();
 
 private:
     Ui::AvailabilityWidget *ui;

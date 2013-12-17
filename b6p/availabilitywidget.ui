@@ -6,29 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>471</width>
-    <height>35</height>
+    <width>601</width>
+    <height>33</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
-   <property name="spacing">
-    <number>2</number>
-   </property>
-   <property name="leftMargin">
-    <number>2</number>
-   </property>
-   <property name="topMargin">
-    <number>2</number>
-   </property>
-   <property name="rightMargin">
-    <number>2</number>
-   </property>
-   <property name="bottomMargin">
-    <number>2</number>
-   </property>
    <item>
     <widget class="QLabel" name="lblDay">
      <property name="text">
@@ -40,7 +25,15 @@
     <widget class="TimeEditor" name="timeFrom" native="true"/>
    </item>
    <item>
-    <widget class="TimeEditor" name="timeTo" native="true"/>
+    <widget class="TimeEditor" name="timeTo" native="true">
+     <zorder>timeFrom2</zorder>
+    </widget>
+   </item>
+   <item>
+    <widget class="TimeEditor" name="timeFrom2" native="true"/>
+   </item>
+   <item>
+    <widget class="TimeEditor" name="timeTo2" native="true"/>
    </item>
    <item>
     <widget class="TimeAssignment" name="widget" native="true"/>
