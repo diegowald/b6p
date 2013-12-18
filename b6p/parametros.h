@@ -61,6 +61,8 @@ public:
     QsLogging::Level getLoggingLevel();
     QString getLocalMachine() const;
 
+    QString getFrancoType();
+
     static const QString OPEN_STORE;
     static const QString CLOSE_STORE;
     static const QString MIN_WORKING_HOURS;
@@ -74,6 +76,7 @@ public:
     static const QString USER_NAME;
     static const QString PASSWORD;
     static const QString LOG_LEVEL;
+    static const QString FRANCO_TYPE;
 
 
 signals:

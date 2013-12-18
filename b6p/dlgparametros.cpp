@@ -29,6 +29,9 @@ DlgParametros::DlgParametros(QWidget *parent) :
     connect(ui->timeOpen, SIGNAL(IncorrectTime(QString)), this, SLOT(TimeInvalid(QString)));
     connect(ui->timeClose, SIGNAL(IncorrectTime(QString)), this, SLOT(TimeInvalid(QString)));
     ui->lblMessage->clear();
+
+    llenarFrancos();
+    llenarLoggingLevels();
 }
 
 DlgParametros::~DlgParametros()
@@ -59,6 +62,9 @@ void DlgParametros::accept()
     DataStore::instance()->getParametros()->setValue(Parametros::USER_NAME, ui->txtUser->text());
     DataStore::instance()->getParametros()->setValue(Parametros::PASSWORD, ui->txtPassword->text());
 
+    DataStore::instance()->getParametros()->setValue(Parametros::FRANCO_TYPE, ui->cboWeeklyRestType->currentText());
+    DataStore::instance()->getParametros()->setValue(Parametros::LOG_LEVEL, ui->cboLoggingLevel->currentData().toInt());
+
     QDialog::accept();
 }
 
@@ -78,4 +84,32 @@ void DlgParametros::TimeInvalid(const QString &cause)
 {
     QLOG_TRACE_FN();
     ui->lblMessage->setText(cause);
+}
+
+void DlgParametros::llenarFrancos()
+{
+    QLOG_TRACE_FN();
+    ui->cboWeeklyRestType->clear();
+
+    ui->cboWeeklyRestType->addItems(DataStore::instance()->getLicencias()->getDistinctLicenceType());
+
+    ui->cboWeeklyRestType->setCurrentText(DataStore::instance()->getParametros()->getFrancoType());
+}
+
+void DlgParametros::llenarLoggingLevels()
+{
+    QLOG_TRACE_FN();
+    ui->cboLoggingLevel->clear();
+
+    ui->cboLoggingLevel->addItem(tr("Trace"), QsLogging::TraceLevel);
+    ui->cboLoggingLevel->addItem(tr("Debug"), QsLogging::DebugLevel);
+    ui->cboLoggingLevel->addItem(tr("Information"), QsLogging::InfoLevel);
+    ui->cboLoggingLevel->addItem(tr("Warning"), QsLogging::WarnLevel);
+    ui->cboLoggingLevel->addItem(tr("Error"), QsLogging::ErrorLevel);
+    ui->cboLoggingLevel->addItem(tr("Fatal"), QsLogging::FatalLevel);
+    ui->cboLoggingLevel->addItem(tr("Off"), QsLogging::OffLevel);
+
+    ui->cboLoggingLevel->setCurrentIndex(
+                ui->cboLoggingLevel->findData(
+                    DataStore::instance()->getParametros()->getLoggingLevel()));
 }

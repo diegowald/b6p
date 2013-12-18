@@ -55,6 +55,8 @@ public:
     virtual LicenciaEmpleadoPtr getLicenciaEmpleado(int idEmpleado, QDate& date);
     virtual bool isOnLicence(int idEmpleado, QDate& date);
     virtual QStringList getDistinctLicenceType();
+    virtual LicenciaEmpleadoPtr getUltimoFranco(int idEmpleado, QDate& date);
+    virtual LicenciasEmpleadosLst getFrancos(QDate &date);
 protected:
     virtual bool addNew();
     virtual bool addNew(QTreeWidgetItem *item);

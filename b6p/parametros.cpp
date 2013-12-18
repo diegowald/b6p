@@ -17,6 +17,7 @@ const QString Parametros::USER_NAME("User Name");
 const QString Parametros::PASSWORD("Password");
 
 const QString Parametros::LOG_LEVEL("LOG_LEVEL");
+const QString Parametros::FRANCO_TYPE("RestType");
 
 Parametros::Parametros(QObject *parent) :
     ACollection(tr("Parameters"),
@@ -226,4 +227,11 @@ QString Parametros::getLocalMachine() const
     QHostInfo hostInfo;
     hostInfo = QHostInfo::fromName(QHostInfo::localHostName());
     return hostInfo.hostName();
+}
+
+QString Parametros::getFrancoType()
+{
+    QLOG_TRACE_FN();
+    QString type = getValue(FRANCO_TYPE, "Franco");
+    return type;
 }

@@ -19,6 +19,8 @@ public:
 
 private:
     int getCloseTime();
+    void llenarFrancos();
+    void llenarLoggingLevels();
 
 private slots:
     void on_pushButton_pressed();

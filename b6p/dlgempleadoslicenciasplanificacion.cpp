@@ -47,13 +47,23 @@ void DlgEmpleadosLicenciasPlanificacion::addEmpleadoToTree(EmpleadoPtr empleado)
 
 
     LicenciaEmpleadoPtr licencia = empleado->LicenciaProgramada(m_CurrentDay);
+    LicenciaEmpleadoPtr ultimoFranco = DataStore::instance()->getLicencias()->getUltimoFranco(empleado->IDEmpleado().value(), m_CurrentDay);
+
     if (licencia != LicenciaEmpleadoPtr())
     {
         item->setData(1, Qt::UserRole, licencia->ID().value());
-        item->setText(1, licencia->FechaDesde().value().toString(Qt::TextDate));
-        item->setText(2, licencia->FechaHasta().value().toString(Qt::TextDate));
-        item->setText(3, licencia->TipoLicencia().value());
-        item->setText(4, licencia->Descripcion().value());
+        if (ultimoFranco != LicenciaEmpleadoPtr())
+        {
+            item->setText(1, ultimoFranco->FechaHasta().value().toString(Qt::TextDate));
+        }
+        else
+        {
+            item->setText(1, "");
+        }
+        item->setText(2, licencia->FechaDesde().value().toString(Qt::TextDate));
+        item->setText(3, licencia->FechaHasta().value().toString(Qt::TextDate));
+        item->setText(4, licencia->TipoLicencia().value());
+        item->setText(5, licencia->Descripcion().value());
     }
     else
     {

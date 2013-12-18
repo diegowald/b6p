@@ -3,6 +3,7 @@
 
 #include <QDateTime>
 #include "dlglicencia.h"
+#include "datastore.h"
 
 LicenciasEmpleados::LicenciasEmpleados(QObject *parent) :
     ACollection(tr("RestDays"), "RestDays", true, ACollection::MERGE_KEEP_LOCAL, parent)
@@ -507,6 +508,21 @@ LicenciasEmpleadosLst LicenciasEmpleados::getAllLicencias()
     return licencias;
 }
 
+LicenciasEmpleadosLst LicenciasEmpleados::getFrancos(QDate &date)
+{
+    QLOG_TRACE_FN();
+    LicenciasEmpleadosLst licencias = boost::make_shared<QList<LicenciaEmpleadoPtr> >();
+    QString TipoFranco = DataStore::instance()->getParametros()->getFrancoType();
+    foreach(LicenciaEmpleadoPtr licencia, m_Licencias.values())
+    {
+        if ((licencia->FechaDesde().value() <= date) && (date <= licencia->FechaHasta().value()) && (licencia->TipoLicencia().value() == TipoFranco))
+        {
+            licencias->push_back(licencia);
+        }
+    }
+    return licencias;
+}
+
 LicenciasEmpleadosLst LicenciasEmpleados::getAllLicenciasEmpleado(int idEmpleado)
 {
     QLOG_TRACE_FN();
@@ -530,6 +546,36 @@ LicenciaEmpleadoPtr LicenciasEmpleados::getLicenciaEmpleado(int idEmpleado, QDat
         }
     }
     return LicenciaEmpleadoPtr();
+}
+
+LicenciaEmpleadoPtr LicenciasEmpleados::getUltimoFranco(int idEmpleado, QDate& date)
+{
+    QLOG_TRACE_FN();
+    LicenciasEmpleadosLst licencias = getAllLicenciasEmpleado(idEmpleado);
+    LicenciasEmpleadosLst licenciasPreviasAFecha = boost::make_shared<QList<LicenciaEmpleadoPtr> >();
+    QString ultimoFrancoType = DataStore::instance()->getParametros()->getFrancoType();
+    foreach (LicenciaEmpleadoPtr licencia, *licencias)
+    {
+        if ((licencia->FechaDesde().value() <= date) && (date <= licencia->FechaHasta().value())
+                && (licencia->TipoLicencia().value() == ultimoFrancoType))
+        {
+            licenciasPreviasAFecha->push_back(licencia);
+        }
+    }
+
+    LicenciaEmpleadoPtr ultimaLicencia = LicenciaEmpleadoPtr();
+    if (licenciasPreviasAFecha->count() > 0)
+    {
+        ultimaLicencia = licenciasPreviasAFecha->at(0);
+        foreach (LicenciaEmpleadoPtr licencia, *licenciasPreviasAFecha)
+        {
+            if (ultimaLicencia->FechaHasta().value() < licencia->FechaHasta().value())
+            {
+                ultimaLicencia = licencia;
+            }
+        }
+    }
+    return ultimaLicencia;
 }
 
 bool LicenciasEmpleados::isOnLicence(int idEmpleado, QDate &date)

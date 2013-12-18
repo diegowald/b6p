@@ -16,7 +16,7 @@ class GenericList : public QMainWindow
     Q_OBJECT
     
 public:
-    explicit GenericList(int LoggedUser, boost::shared_ptr<ACollection> Model, bool inPlaceEdit, QWidget *parent);
+    explicit GenericList(int LoggedUser, boost::shared_ptr<ACollection> Model, bool inPlaceEdit, bool allowSorting, QWidget *parent);
 
     void AllowAdd(bool status);
     void AllowEdit(bool status);
@@ -28,6 +28,7 @@ public:
     void enableButtonsBasedOnAccess();
     QString getHTMLReport();
     bool printSelectedRecord(QTextDocument &textDoc);
+    virtual void showEvent(QShowEvent *evt);
 
 protected:
     virtual QString getHeader();
@@ -56,6 +57,7 @@ private:
     boost::shared_ptr<ACollection> model;
     bool m_InPlaceEdit;
     int m_LoggedUser;
+    bool m_allowSorting;
 };
 
 #endif // GENERICLIST_H

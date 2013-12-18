@@ -4,13 +4,12 @@
 #include <QFileDialog>
 #include <QsLog.h>
 
-GenericList::GenericList(int LoggedUser, boost::shared_ptr<ACollection> Model, bool inPlaceEdit, QWidget *parent) :
+GenericList::GenericList(int LoggedUser, boost::shared_ptr<ACollection> Model, bool inPlaceEdit, bool allowSorting, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::GenericList)
 {
     QLOG_TRACE_FN();
     ui->setupUi(this);
-    this->setFixedSize(800, 600);
     m_LoggedUser = LoggedUser;
     model = Model;
     QStringList headers;
@@ -23,7 +22,7 @@ GenericList::GenericList(int LoggedUser, boost::shared_ptr<ACollection> Model, b
         ui->toolBar->addAction(action);
         connect(action, SIGNAL(triggered()), this, SLOT(customActionTriggered()));
     }
-
+    m_allowSorting = allowSorting;
     model->defineHeaders(headers);
     setHeader(headers);
     on_dataUpdated();
@@ -31,6 +30,7 @@ GenericList::GenericList(int LoggedUser, boost::shared_ptr<ACollection> Model, b
     m_InPlaceEdit = inPlaceEdit;
     connect(model.get(), SIGNAL(dataUpdated()), this, SLOT(on_dataUpdated()));
     enableButtonsBasedOnAccess();
+
 }
 
 GenericList::~GenericList()
@@ -151,10 +151,16 @@ void GenericList::customActionTriggered()
 void GenericList::on_dataUpdated()
 {
     QLOG_TRACE_FN();
+    ui->treeList->setSortingEnabled(false);
     ui->treeList->clear();
     model->fillData(*ui->treeList);
     for (int i = 0; i < ui->treeList->columnCount(); i++)
         ui->treeList->resizeColumnToContents(i);
+    if (m_allowSorting)
+    {
+        ui->treeList->setSortingEnabled(true);
+        ui->treeList->sortByColumn(0, Qt::AscendingOrder);
+    }
 }
 
 void GenericList::on_actionExport_triggered()
@@ -227,4 +233,11 @@ QString GenericList::getHeader() {
 QString GenericList::getBody() {
     QLOG_TRACE_FN();
     return model->asHTML();
+}
+
+void GenericList::showEvent(QShowEvent *evt)
+{
+    QMainWindow::showEvent(evt);
+    for (int i = 0; i < ui->treeList->columnCount(); i++)
+        ui->treeList->resizeColumnToContents(i);
 }

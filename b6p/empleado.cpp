@@ -424,6 +424,7 @@ bool Empleado::print(QTextDocument &textDoc)
         imgNumber++;
         html += "</tr>";
     }
+
     html += "\n</table>\n<br>\n";
 
     textDoc.setHtml(html);

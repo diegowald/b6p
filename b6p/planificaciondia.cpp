@@ -284,6 +284,30 @@ bool PlanificacionDia::print(QTextDocument &textDoc)
         imgNumber++;
         html += "</tr>";
     }
+    html += "\n</table>";
+
+
+    // Licencias
+    QDate date = m_Dia.value();
+    LicenciasEmpleadosLst licencias = DataStore::instance()->getLicencias()->getFrancos(date);
+    html += "<table width=\"100%\" border=1 cellspacing=0>\n";
+    html += "<tr>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<b><i>" + tr("Rest") + "</i></b></font>\n</td>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<b><i>" + tr("Employees") + "</i></b></font>\n</td>";
+    html += "</tr>";
+
+    QStringList empleadosEnFranco;
+    foreach (LicenciaEmpleadoPtr licencia, *licencias)
+    {
+        EmpleadoPtr empleado = DataStore::instance()->getEmpleados()->getEmpleado(licencia->IDEmpleado().value(), true);
+        empleadosEnFranco.append(empleado->Apellido().value() + ", " + empleado->Nombre().value());
+    }
+
+    html += "<tr>";
+    html += "<td colspan=\"2\">" + empleadosEnFranco.join("; ") + "</td>";
+    html += "</tr>";
 
     html += "\n</table>\n<br>\n";
     textDoc.setHtml(html);

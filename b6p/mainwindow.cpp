@@ -54,7 +54,7 @@ void MainWindow::on_actionOpen_triggered()
 {
     QLOG_TRACE_FN();
     // Open Planification List
-    GenericList *wnd = new GenericList(m_LoggedUser, DataStore::instance()->getPlanificacionesDias(), false, this);
+    GenericList *wnd = new GenericList(m_LoggedUser, DataStore::instance()->getPlanificacionesDias(), false, true, this);
     ui->mdiArea->addSubWindow(wnd);
     wnd->show();
     wnd->activateWindow();
@@ -159,8 +159,8 @@ void MainWindow::on_actionView_triggered()
 {
     QLOG_TRACE_FN();
     // Open Employees list
-    GenericList *wnd = new GenericList(m_LoggedUser, DataStore::instance()->getEmpleados(), false, this);
-    ui->mdiArea->addSubWindow(wnd);
+    GenericList *wnd = new GenericList(m_LoggedUser, DataStore::instance()->getEmpleados(), false, true, this);
+    ui->mdiArea->addSubWindow(wnd)->setWindowState(Qt::WindowMaximized);
     wnd->show();
     wnd->activateWindow();
 }
@@ -169,7 +169,7 @@ void MainWindow::on_actionSetup_days_triggered()
 {
     QLOG_TRACE_FN();
     // Open days setup list.
-    GenericList *wnd = new GenericList(m_LoggedUser, DataStore::instance()->getEstimacionesDias(), true, this);
+    GenericList *wnd = new GenericList(m_LoggedUser, DataStore::instance()->getEstimacionesDias(), true, true, this);
     wnd->AllowAdd(false);
     ui->mdiArea->addSubWindow(wnd);
     wnd->show();

@@ -113,6 +113,11 @@
      </column>
      <column>
       <property name="text">
+       <string>Last Rest Date</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
        <string>From</string>
       </property>
      </column>
