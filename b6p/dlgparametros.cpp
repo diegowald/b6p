@@ -63,7 +63,7 @@ void DlgParametros::accept()
     DataStore::instance()->getParametros()->setValue(Parametros::PASSWORD, ui->txtPassword->text());
 
     DataStore::instance()->getParametros()->setValue(Parametros::FRANCO_TYPE, ui->cboWeeklyRestType->currentText());
-    DataStore::instance()->getParametros()->setValue(Parametros::LOG_LEVEL, ui->cboLoggingLevel->currentData().toInt());
+    DataStore::instance()->getParametros()->setValue(Parametros::LOG_LEVEL, ui->cboLoggingLevel->itemData(ui->cboLoggingLevel->currentIndex()).toInt());
 
     QDialog::accept();
 }
