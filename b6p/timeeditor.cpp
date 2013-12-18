@@ -49,7 +49,7 @@ void TimeEditor::setTime(int seconds)
         currentTime = seconds;
         previouslySelectedHour = getHours(secondsOnSameDay);
         QString aux = "%1:%2";
-        aux = aux.arg(QString::number(previouslySelectedHour), QString::number(getMinutes(secondsOnSameDay)));
+        aux = aux.arg(QString::number(previouslySelectedHour), 2, '0').arg(QString::number(getMinutes(secondsOnSameDay)), 2, '0');
         ui->lineTime->setText(aux);
         emit timeChanged(currentTime);
     }
