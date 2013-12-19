@@ -453,7 +453,8 @@ bool Empleados::edit(QVariant ID)
         CalendarioPersonaLst disponibilidades = dlg.Disponibilidades();
         e->updateDisponibilidades(disponibilidades);
 
-        m_Empleados[e->IDEmpleado().value()] = e;
+        if (ID == -1)
+            m_Empleados[e->IDEmpleado().value()] = e;
         return true;
     }
     return false;
