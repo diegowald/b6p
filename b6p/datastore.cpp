@@ -26,7 +26,11 @@ DataStore::DataStore(QObject *parent) :
     planificacionesDiasCreated(false), planificacionesSubSectoresCreated(false),
     sectoresCreated(false), subSectoresCreated(false),
     calendariosCreated(false), capacidadesCreated(false),
-    licenciasEmpleadosCreated(false)
+    licenciasEmpleadosCreated(false),
+    reporteHorasSectorSubSectorCreated(false),
+    reporteHorasDiaADiaCreated(false),
+    reporteHorasPorEmpleadoCreated(false),
+    reporteFrancosPlanificadosCreated(false)
 {
     QLOG_TRACE_FN();
 }
@@ -181,3 +185,52 @@ LicenciasEmpleadosPtr DataStore::getLicencias()
     }
     return licenciasEmpleadosPtr;
 }
+
+ReporteHorasSectorSubSectorPtr DataStore::getReporteHorasSectorSubSector()
+{
+    QLOG_TRACE_FN();
+    if (!reporteHorasSectorSubSectorCreated)
+    {
+        reporteHorasSectorSubSectorPtr = boost::make_shared<ReporteHorasSectorSubSector>(this);
+        establishConnections(reporteHorasSectorSubSectorPtr.get());
+        reporteHorasSectorSubSectorCreated = true;
+    }
+    return reporteHorasSectorSubSectorPtr;
+}
+
+ReporteHorasDiaADiaPtr DataStore::getReporteHorasDiaADia()
+{
+    QLOG_TRACE_FN();
+    if (!reporteHorasDiaADiaCreated)
+    {
+        reporteHorasDiaADiaPtr = boost::make_shared<ReporteHorasDiaADia>(this);
+        establishConnections(reporteHorasDiaADiaPtr.get());
+        reporteHorasDiaADiaCreated = true;
+    }
+    return reporteHorasDiaADiaPtr;
+}
+
+ReporteHorasPorEmpleadoPtr DataStore::getReporteHorasPorEmpleado()
+{
+    QLOG_TRACE_FN();
+    if (!reporteHorasPorEmpleadoCreated)
+    {
+        reporteHorasPorEmpleadoPtr = boost::make_shared<ReporteHorasPorEmpleado>(this);
+        establishConnections(reporteHorasPorEmpleadoPtr.get());
+        reporteHorasPorEmpleadoCreated = true;
+    }
+    return reporteHorasPorEmpleadoPtr;
+}
+
+ReporteFrancosPlanificadosPtr DataStore::getReporteFrancosPlanificados()
+{
+    QLOG_TRACE_FN();
+    if (!reporteFrancosPlanificadosCreated)
+    {
+        reporteFrancosPlanificadosPtr = boost::make_shared<ReporteFrancosPlanificados>(this);
+        establishConnections(reporteFrancosPlanificadosPtr.get());
+        reporteFrancosPlanificadosCreated = true;
+    }
+    return reporteFrancosPlanificadosPtr;
+}
+

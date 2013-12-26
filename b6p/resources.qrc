@@ -38,7 +38,7 @@
         <file>images/glyphicons_020_home.png</file>
         <file>images/glyphicons_021_snowflake.png</file>
         <file>images/glyphicons_022_fire.png</file>
-        <file>images/glyphicons_023_magnet.png</file>
+        <file alias="magnet">images/glyphicons_023_magnet.png</file>
         <file>images/glyphicons_024_parents.png</file>
         <file>images/glyphicons_025_binoculars.png</file>
         <file>images/glyphicons_026_road.png</file>

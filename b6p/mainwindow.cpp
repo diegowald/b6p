@@ -257,3 +257,47 @@ void MainWindow::on_actionSynchronize_triggered()
 }
 
 
+
+void MainWindow::on_actionHours_by_Sector_and_Subsector_triggered()
+{
+    QLOG_TRACE_FN();
+    // Open Employees list
+    GenericList *wnd = new GenericList(m_LoggedUser, DataStore::instance()->getReporteHorasSectorSubSector(), false, true, this);
+    ui->mdiArea->addSubWindow(wnd)->setWindowState(Qt::WindowMaximized);
+    wnd->show();
+    wnd->activateWindow();
+    wnd->setABMButtonsVisible(false);
+}
+
+void MainWindow::on_actionPlanned_hours_day_by_day_triggered()
+{
+    QLOG_TRACE_FN();
+    // Open Employees list
+    GenericList *wnd = new GenericList(m_LoggedUser, DataStore::instance()->getReporteHorasDiaADia(), false, true, this);
+    ui->mdiArea->addSubWindow(wnd)->setWindowState(Qt::WindowMaximized);
+    wnd->show();
+    wnd->activateWindow();
+    wnd->setABMButtonsVisible(false);
+}
+
+void MainWindow::on_actionHours_planned_by_employee_triggered()
+{
+    QLOG_TRACE_FN();
+    // Open Employees list
+    GenericList *wnd = new GenericList(m_LoggedUser, DataStore::instance()->getReporteHorasPorEmpleado(), false, true, this);
+    ui->mdiArea->addSubWindow(wnd)->setWindowState(Qt::WindowMaximized);
+    wnd->show();
+    wnd->activateWindow();
+    wnd->setABMButtonsVisible(false);
+}
+
+void MainWindow::on_actionPlanned_rests_triggered()
+{
+    QLOG_TRACE_FN();
+    // Open Employees list
+    GenericList *wnd = new GenericList(m_LoggedUser, DataStore::instance()->getReporteFrancosPlanificados(), false, true, this);
+    ui->mdiArea->addSubWindow(wnd)->setWindowState(Qt::WindowMaximized);
+    wnd->show();
+    wnd->activateWindow();
+    wnd->setABMButtonsVisible(false);
+}

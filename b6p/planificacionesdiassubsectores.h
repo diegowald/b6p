@@ -51,8 +51,9 @@ public:
 
     void updateWithOtherData(PlanificacionSubSectorLst other);
 
-    PlanificacionSubSectorLst getAll(QDate Dia, bool includeDeleted);
+    PlanificacionSubSectorLst getAll(const QDate& Dia, bool includeDeleted);
     PlanificacionSubSectorLst getDiasAnterioresTrabajadosPorEmpleado(QDate Dia, int IDEmpleado);
+    PlanificacionSubSectorLst getAll(const QDate& dateFrom, const QDate& dateTo);
 signals:
     
 public slots:

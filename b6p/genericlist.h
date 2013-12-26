@@ -30,6 +30,8 @@ public:
     bool printSelectedRecord(QTextDocument &textDoc);
     virtual void showEvent(QShowEvent *evt);
 
+    void setABMButtonsVisible(bool visible);
+
 protected:
     virtual QString getHeader();
     virtual QString getBody();

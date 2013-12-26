@@ -45,6 +45,14 @@ private slots:
 
     void on_actionPrint_Preview_Selected_Record_triggered();
 
+    void on_actionHours_by_Sector_and_Subsector_triggered();
+
+    void on_actionPlanned_hours_day_by_day_triggered();
+
+    void on_actionHours_planned_by_employee_triggered();
+
+    void on_actionPlanned_rests_triggered();
+
 private:
     Ui::MainWindow *ui;
     int m_LoggedUser;

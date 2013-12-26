@@ -237,7 +237,16 @@ QString GenericList::getBody() {
 
 void GenericList::showEvent(QShowEvent *evt)
 {
+    QLOG_TRACE_FN();
     QMainWindow::showEvent(evt);
     for (int i = 0; i < ui->treeList->columnCount(); i++)
         ui->treeList->resizeColumnToContents(i);
+}
+
+void GenericList::setABMButtonsVisible(bool visible)
+{
+    QLOG_TRACE_FN();
+    ui->actionDelete->setVisible(visible);
+    ui->actionEdit->setVisible(visible);
+    ui->actionNew->setVisible(visible);
 }

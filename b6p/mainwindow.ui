@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>845</width>
     <height>600</height>
    </rect>
   </property>
@@ -58,8 +58,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
-     <height>37</height>
+     <width>845</width>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuPlanification">
@@ -102,11 +102,21 @@
     </property>
     <addaction name="actionSynchronize"/>
    </widget>
+   <widget class="QMenu" name="menuReporting">
+    <property name="title">
+     <string>Reporting</string>
+    </property>
+    <addaction name="actionHours_by_Sector_and_Subsector"/>
+    <addaction name="actionPlanned_hours_day_by_day"/>
+    <addaction name="actionHours_planned_by_employee"/>
+    <addaction name="actionPlanned_rests"/>
+   </widget>
    <addaction name="menuPlanification"/>
    <addaction name="menuEmployees"/>
    <addaction name="menuCustomization"/>
    <addaction name="menuSynchronization"/>
    <addaction name="menuAbout"/>
+   <addaction name="menuReporting"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -246,6 +256,45 @@
    </property>
    <property name="text">
     <string>Print Preview Selected Record</string>
+   </property>
+  </action>
+  <action name="actionHours_by_Sector_and_Subsector">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/img/images/glyphicons_319_sort.png</normaloff>:/img/images/glyphicons_319_sort.png</iconset>
+   </property>
+   <property name="text">
+    <string>Hours by Sector and Subsector</string>
+   </property>
+  </action>
+  <action name="actionPlanned_hours_day_by_day">
+   <property name="icon">
+    <iconset>
+     <normalon>:/img/images/glyphicons_119_table.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Planned hours day by day</string>
+   </property>
+  </action>
+  <action name="actionHours_planned_by_employee">
+   <property name="icon">
+    <iconset>
+     <normalon>:/img/images/glyphicons_034_old_man.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Hours planned by employee</string>
+   </property>
+  </action>
+  <action name="actionPlanned_rests">
+   <property name="icon">
+    <iconset>
+     <normalon>:/img/images/glyphicons_329_soccer_ball.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Planned rests</string>
    </property>
   </action>
  </widget>

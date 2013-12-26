@@ -25,12 +25,14 @@ void ACollection::load()
     emit loading(m_Name);
 
     QString sqlString = getSqlString();
-
-    RecordSet resp = sqlEngine.getAll(sqlString);
-
-    foreach (RecordPtr record, *resp)
+    if (sqlString.size() > 0)
     {
-        addRecord(record);
+        RecordSet resp = sqlEngine.getAll(sqlString);
+
+        foreach (RecordPtr record, *resp)
+        {
+            addRecord(record);
+        }
     }
     emit loaded(m_Name);
 }
@@ -103,12 +105,15 @@ void ACollection::addNewRecordsCentralDB()
 void ACollection::executeCommand(QString cmd, RecordStatus status, bool impactLocalDatabase)
 {
     QLOG_TRACE_FN();
-    RecordSet set = getRecords(status, impactLocalDatabase);
-    foreach(RecordPtr r, *set)
+    if (cmd.size() > 0)
     {
-        int newID = sqlEngine.executeQuery(cmd, r, usesLastInsertedId);
-        if ((status == NEW) && usesLastInsertedId)
-            refreshID((*r)[RECORD_ID].toInt(), newID);
+        RecordSet set = getRecords(status, impactLocalDatabase);
+        foreach(RecordPtr r, *set)
+        {
+            int newID = sqlEngine.executeQuery(cmd, r, usesLastInsertedId);
+            if ((status == NEW) && usesLastInsertedId)
+                refreshID((*r)[RECORD_ID].toInt(), newID);
+        }
     }
 }
 

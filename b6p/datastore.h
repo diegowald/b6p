@@ -14,6 +14,10 @@
 #include "calendariopersonas.h"
 #include "capacidadespersonasector.h"
 #include "licenciasempleados.h"
+#include "reportehorassectorsubsector.h"
+#include "reportehorasdiaadia.h"
+#include "reportehorasporempleado.h"
+#include "reportefrancosplanificados.h"
 
 class DataStore : public QObject
 {
@@ -34,6 +38,10 @@ public:
     CalendarioPersonasPtr getCalendarios();
     CapacidadesPersonaSectorPtr getCapacidades();
     LicenciasEmpleadosPtr getLicencias();
+    ReporteHorasSectorSubSectorPtr getReporteHorasSectorSubSector();
+    ReporteHorasDiaADiaPtr getReporteHorasDiaADia();
+    ReporteHorasPorEmpleadoPtr getReporteHorasPorEmpleado();
+    ReporteFrancosPlanificadosPtr getReporteFrancosPlanificados();
 protected:
     explicit DataStore(QObject *parent = 0);
     
@@ -60,6 +68,10 @@ private:
     CalendarioPersonasPtr calendariosPtr;
     CapacidadesPersonaSectorPtr capacidadesPtr;
     LicenciasEmpleadosPtr licenciasEmpleadosPtr;
+    ReporteHorasSectorSubSectorPtr reporteHorasSectorSubSectorPtr;
+    ReporteHorasDiaADiaPtr reporteHorasDiaADiaPtr;
+    ReporteHorasPorEmpleadoPtr reporteHorasPorEmpleadoPtr;
+    ReporteFrancosPlanificadosPtr reporteFrancosPlanificadosPtr;
 
     bool accesosCreated;
     bool parametrosCreated;
@@ -72,6 +84,10 @@ private:
     bool calendariosCreated;
     bool capacidadesCreated;
     bool licenciasEmpleadosCreated;
+    bool reporteHorasSectorSubSectorCreated;
+    bool reporteHorasDiaADiaCreated;
+    bool reporteHorasPorEmpleadoCreated;
+    bool reporteFrancosPlanificadosCreated;
 
     static DataStore* m_Instance;
 };

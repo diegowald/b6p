@@ -99,7 +99,16 @@ SOURCES += main.cpp\
     licenciaempleado.cpp \
     licenciasempleados.cpp \
     dlgempleadoslicenciasplanificacion.cpp \
-    dlglicencia.cpp
+    dlglicencia.cpp \
+    dlgquerybuilder.cpp \
+    dlgdaterangefilter.cpp \
+    basereport.cpp \
+    reportehorassectorsubsector.cpp \
+    reportehorasdiaadia.cpp \
+    reportehorasporempleado.cpp \
+    reportefrancosplanificados.cpp \
+    reportitem.cpp \
+    reportitemcollection.cpp
 
 HEADERS  += mainwindow.h \
     timeassignment.h \
@@ -151,7 +160,16 @@ HEADERS  += mainwindow.h \
     licenciaempleado.h \
     licenciasempleados.h \
     dlgempleadoslicenciasplanificacion.h \
-    dlglicencia.h
+    dlglicencia.h \
+    dlgquerybuilder.h \
+    dlgdaterangefilter.h \
+    basereport.h \
+    reportehorassectorsubsector.h \
+    reportehorasdiaadia.h \
+    reportehorasporempleado.h \
+    reportefrancosplanificados.h \
+    reportitem.h \
+    reportitemcollection.h
 
 FORMS    += mainwindow.ui \
     genericlist.ui \
@@ -170,7 +188,9 @@ FORMS    += mainwindow.ui \
     dlgapproveplanifications.ui \
     dlgmerge.ui \
     dlgempleadoslicenciasplanificacion.ui \
-    dlglicencia.ui
+    dlglicencia.ui \
+    dlgquerybuilder.ui \
+    dlgdaterangefilter.ui
 
 RESOURCES += \
     resources.qrc

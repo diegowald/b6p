@@ -256,7 +256,7 @@ bool PlanificacionesDiasSubSectores::canBeDeleted(QVariant)
     return false;
 }
 
-PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getAll(QDate Dia, bool includeDeleted)
+PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getAll(const QDate &Dia, bool includeDeleted)
 {
     QLOG_TRACE_FN();
     PlanificacionSubSectorLst res = boost::make_shared<QList<PlanificacionSubSectorPtr> >();
@@ -272,6 +272,29 @@ PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getAll(QDate Dia, bool
                 if (includeDeleted)
                     res->push_back(p);
             }
+        }
+    }
+
+    return res;
+}
+
+PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getAll(const QDate& dateFrom, const QDate& dateTo)
+{
+    QLOG_TRACE_FN();
+    PlanificacionSubSectorLst res = boost::make_shared<QList<PlanificacionSubSectorPtr> >();
+
+    foreach(PlanificacionSubSectorPtr p, m_Planificacion.values())
+    {
+        QDate date = p->Dia().value();
+        if ((dateFrom <= date) && (date <= dateTo))
+        {
+            if (!p->isDeleted(true))
+                res->push_back(p);
+            /*else
+            {
+                if (includeDeleted)
+                    res->push_back(p);
+            }*/
         }
     }
 
