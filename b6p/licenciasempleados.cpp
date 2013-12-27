@@ -508,6 +508,31 @@ LicenciasEmpleadosLst LicenciasEmpleados::getAllLicencias()
     return licencias;
 }
 
+LicenciasEmpleadosLst LicenciasEmpleados::getAllLicencias(const QDate &from, const QDate &to)
+{
+    QLOG_TRACE_FN();
+    LicenciasEmpleadosLst licencias = boost::make_shared<QList<LicenciaEmpleadoPtr> >();
+    foreach(LicenciaEmpleadoPtr licencia, m_Licencias.values())
+    {
+        bool valido = false;
+        if ((from <= licencia->FechaDesde().value()) && (licencia->FechaDesde().value() <= to))
+            valido = true;
+
+        if (!valido && ((from <= licencia->FechaHasta().value()) && (licencia->FechaHasta().value() <= to)))
+            valido = true;
+
+        if (!valido && ((licencia->FechaDesde().value() <= from) && (from <= licencia->FechaHasta().value())))
+            valido = true;
+
+        if (!valido && ((licencia->FechaDesde().value() <= to) && (to <= licencia->FechaHasta().value())))
+            valido = true;
+
+        if (valido)
+            licencias->push_back(licencia);
+    }
+    return licencias;
+}
+
 LicenciasEmpleadosLst LicenciasEmpleados::getFrancos(QDate &date)
 {
     QLOG_TRACE_FN();

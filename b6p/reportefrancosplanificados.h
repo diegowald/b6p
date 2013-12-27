@@ -4,6 +4,7 @@
 #include <boost/shared_ptr.hpp>
 #include "basereport.h"
 #include <QObject>
+#include "licenciaempleado.h"
 
 class ReporteFrancosPlanificados : public BaseReport
 {
@@ -19,6 +20,10 @@ public:
 public slots:
     virtual void filter();
 
+private:
+    QDate dateFrom;
+    QDate dateTo;
+    LicenciasEmpleadosLst reportData;
 };
 
 typedef boost::shared_ptr<ReporteFrancosPlanificados> ReporteFrancosPlanificadosPtr;

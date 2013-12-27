@@ -5,6 +5,7 @@
 
 #include <boost/shared_ptr.hpp>
 #include "basereport.h"
+#include "reportitemcollection.h"
 
 class ReporteHorasSectorSubSector : public BaseReport
 {
@@ -21,6 +22,11 @@ public:
 
 public slots:
     virtual void filter();
+
+private:
+    QDate dateFrom;
+    QDate dateTo;
+    ReportItemCollectionPtr reportData;
 };
 
 typedef boost::shared_ptr<ReporteHorasSectorSubSector> ReporteHorasSectorSubSectorPtr;

@@ -50,3 +50,21 @@ EmpleadoPtr ReportItem::employee()
     else
         return DataStore::instance()->getEmpleados()->getEmpleado(references.at(0)->IDEmpleado().value(), true);
 }
+
+SectorPtr ReportItem::sector()
+{
+    QLOG_TRACE_FN();
+    if (references.count() == 0)
+        return SectorPtr();
+    else
+        return DataStore::instance()->getSectores()->getSector(references.at(0)->IDSector().value());
+}
+
+SubSectorPtr ReportItem::subSector()
+{
+    QLOG_TRACE_FN();
+    if (references.count() == 0)
+        return SubSectorPtr();
+    else
+        return DataStore::instance()->getSubSectores()->getSubSector(references.at(0)->IDSubSector().value());
+}

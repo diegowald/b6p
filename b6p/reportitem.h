@@ -17,6 +17,8 @@ public:
     NullableField<QDate> date();
     double hours();
     EmpleadoPtr employee();
+    SectorPtr sector();
+    SubSectorPtr subSector();
 signals:
 
 public slots:
