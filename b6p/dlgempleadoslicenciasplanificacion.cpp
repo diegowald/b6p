@@ -81,7 +81,10 @@ void DlgEmpleadosLicenciasPlanificacion::on_btnAdd_2_clicked()
         QTreeWidgetItem *selectedItem = selectedItems.at(0);
         if (selectedItem->data(1, Qt::UserRole) == 0)
         {
-            if (DataStore::instance()->getLicencias()->addNewRecordWithAuxiliarydata(selectedItem->data(0, Qt::UserRole)))
+            QList<QVariant> auxData;
+            auxData.push_back(m_CurrentDay);
+            auxData.push_back(selectedItem->data(0, Qt::UserRole));
+            if (DataStore::instance()->getLicencias()->addNewRecordWithAuxiliarydata(QVariant(auxData)))
             {
                 ui->treeWidget->clear();
                 fillTree();

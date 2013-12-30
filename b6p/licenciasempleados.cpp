@@ -407,7 +407,18 @@ bool LicenciasEmpleados::addNewWithAdditionalData(QVariant data)
 {
     QLOG_TRACE_FN();
     int id = -1;
-    return editWithIDEmpleado(id, data.toInt());
+    if (data.canConvert(QVariant::List))
+    {
+        QList<QVariant> aux = data.toList();
+        QDate date = aux.at(0).toDate();
+        int idEmpleado = aux.at(1).toInt();
+        return editWithIDEmpleado(id, idEmpleado, date, date.addDays(1));
+    }
+    else
+    {
+        QDate date = QDate::currentDate();
+        return editWithIDEmpleado(id, data.toInt(), date, date.addDays(1));
+    }
 }
 
 bool LicenciasEmpleados::edit(QVariant ID)
@@ -434,7 +445,7 @@ bool LicenciasEmpleados::edit(QVariant ID)
     return false;
 }
 
-bool LicenciasEmpleados::editWithIDEmpleado(int ID, int idEmpleado)
+bool LicenciasEmpleados::editWithIDEmpleado(int ID, int idEmpleado, const QDate& fechaDesde, const QDate& fechaHasta)
 {
     QLOG_TRACE_FN();
     LicenciaEmpleadoPtr licencia;
@@ -442,6 +453,8 @@ bool LicenciasEmpleados::editWithIDEmpleado(int ID, int idEmpleado)
     {
         licencia = boost::make_shared<LicenciaEmpleado>(true, this);
         licencia->IDEmpleado().setValue(idEmpleado);
+        licencia->FechaDesde().setValue(fechaDesde);
+        licencia->FechaHasta().setValue(fechaHasta);
     }
     else
         licencia = getLicencia(ID, false);

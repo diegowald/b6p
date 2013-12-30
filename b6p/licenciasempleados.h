@@ -63,7 +63,7 @@ protected:
     virtual bool addNew(QTreeWidgetItem *item);
     virtual bool addNewWithAdditionalData(QVariant);
     virtual bool edit(QVariant ID);
-    virtual bool editWithIDEmpleado(int ID, int idEmpleado);
+    virtual bool editWithIDEmpleado(int ID, int idEmpleado, const QDate& fechaDesde, const QDate& fechaHasta);
     virtual bool edit(QTreeWidgetItem *item, QVariant ID);
     virtual bool deleteElement(QVariant ID);
 
