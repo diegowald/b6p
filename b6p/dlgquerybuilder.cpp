@@ -63,7 +63,7 @@ void DlgQueryBuilder::fillSubSectores(int IDSector)
 void DlgQueryBuilder::on_cboSector_currentIndexChanged(int)
 {
     QLOG_TRACE_FN();
-    fillSubSectores(ui->cboSector->currentData().toInt());
+    fillSubSectores(ui->cboSector->itemData(ui->cboSector->currentIndex()).toInt());
 }
 
 
@@ -113,18 +113,18 @@ QDate DlgQueryBuilder::dateTo()
 int DlgQueryBuilder::idSector()
 {
     QLOG_TRACE_FN();
-    return ui->cboSector->currentData().toInt();
+    return ui->cboSector->itemData(ui->cboSector->currentIndex()).toInt();
 }
 
 int DlgQueryBuilder::idSubSector()
 {
     QLOG_TRACE_FN();
-    return ui->cboSubSector->currentData().toInt();
+    return ui->cboSubSector->itemData(ui->cboSubSector->currentIndex()).toInt();
 }
 
 
 int DlgQueryBuilder::idEmployee()
 {
     QLOG_TRACE_FN();
-    return ui->cboEmployee->currentData().toInt();
+    return ui->cboEmployee->itemData(ui->cboEmployee->currentIndex()).toInt();
 }

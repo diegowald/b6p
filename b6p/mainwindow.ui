@@ -59,7 +59,7 @@
      <x>0</x>
      <y>0</y>
      <width>845</width>
-     <height>30</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuPlanification">
@@ -114,9 +114,9 @@
    <addaction name="menuPlanification"/>
    <addaction name="menuEmployees"/>
    <addaction name="menuCustomization"/>
+   <addaction name="menuReporting"/>
    <addaction name="menuSynchronization"/>
    <addaction name="menuAbout"/>
-   <addaction name="menuReporting"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
