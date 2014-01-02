@@ -6,9 +6,11 @@ ReporteHorasDiaADia::ReporteHorasDiaADia(QObject *parent) :
     BaseReport(tr("Daily Hours Report"), "Daily Hours Report", false, ACollection::MERGE_KEEP_LOCAL, parent)
 {
     QLOG_TRACE_FN();
-    dateFrom = QDate::currentDate().addDays(-7);
-    dateTo = QDate::currentDate();
-    reportData = boost::make_shared<ReportItemCollection>(dateFrom, dateTo, -1, -1, -1, this);
+    QDate dateFrom = QDate::currentDate().addDays(-7);
+    QDate dateTo = QDate::currentDate();
+    reportData = boost::make_shared<ReportItemCollection>(dateFrom, dateTo, -1, -1, -1,
+                                                          true, true, true, false/*,
+                                                          this*/);
     refreshReport();
 }
 
@@ -42,12 +44,31 @@ void ReporteHorasDiaADia::filter()
 {
     QLOG_TRACE_FN();
     DlgQueryBuilder dlg;
-    dlg.setDateFrom(dateFrom);
-    dlg.setDateTo(dateTo);
+    dlg.setDateFrom(reportData->dateFrom());
+    dlg.setDateTo(reportData->dateTo());
+    dlg.setSummarizeDays(reportData->summarizeDays());
+    dlg.setSummarizeEmployee(reportData->summarizeEmployee());
+    dlg.setSummarizeSectors(reportData->summarizeSectors());
+    dlg.setSummarizeSubsectors(reportData->summarizeEmployee());
+    dlg.setIDSector(reportData->idSector());
+    dlg.setIDSubSector(reportData->idSubSector());
+    dlg.setIDEmployee(reportData->idEmpleado());
+    dlg.setEmployeeEnabled(false);
+    dlg.setSectorEnabled(false);
+    dlg.setSubSectorEnabled(false);
+    dlg.setDateEnabled(false);
+
     if (dlg.exec() == QDialog::Accepted)
     {
-        dateFrom = dlg.dateFrom();
-        dateTo = dlg.dateTo();
+        reportData->setDateFrom(dlg.dateFrom());
+        reportData->setDateTo(dlg.dateTo());
+        reportData->SetSummarizeDays(dlg.summarizeDays());
+        reportData->setSummarizeSectors(dlg.summarizeSectors());
+        reportData->setSummarizeSubSectors(dlg.summarizeSubsectors());
+        reportData->setSummarizeEmployee(dlg.summarizeEmployee());
+        reportData->setIDSector(dlg.idSector());
+        reportData->setIDSubSector(dlg.idSubSector());
+        reportData->setIDEmpleado(dlg.idEmployee());
         refreshReport();
     }
 }
@@ -56,10 +77,5 @@ void ReporteHorasDiaADia::refreshReport()
 {
     QLOG_TRACE_FN();
     reportData->clear();
-    reportData->setDateFrom(dateFrom);
-    reportData->setDateTo(dateTo);
-    reportData->setIDEmpleado(-1);
-    reportData->setIDSector(-1);
-    reportData->setIDSubSector(-1);
     reportData->refresh();
 }

@@ -170,24 +170,31 @@
       <property name="spacing">
        <number>2</number>
       </property>
-      <item row="0" column="0">
-       <widget class="QCheckBox" name="chkSectors">
-        <property name="text">
-         <string>Sectors</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
+      <item row="0" column="2">
        <widget class="QCheckBox" name="chkSubSectors">
         <property name="text">
          <string>Subsector</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
+      <item row="0" column="1">
+       <widget class="QCheckBox" name="chkSectors">
+        <property name="text">
+         <string>Sectors</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
        <widget class="QCheckBox" name="chkEmployees">
         <property name="text">
          <string>Employee</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="chkDays">
+        <property name="text">
+         <string>Days</string>
         </property>
        </widget>
       </item>

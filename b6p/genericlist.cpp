@@ -44,6 +44,7 @@ void GenericList::setHeader(QStringList &headers)
     QLOG_TRACE_FN();
     Q_ASSERT(headers.size() > 0);
     ui->treeList->clear();
+    ui->treeList->setColumnCount(headers.count());
     ui->treeList->setHeaderLabels(headers);
 }
 
@@ -145,6 +146,9 @@ void GenericList::on_treeList_itemChanged(QTreeWidgetItem *item, int)
 void GenericList::customActionTriggered()
 {
     QLOG_TRACE_FN();
+    QStringList headers;
+    model->defineHeaders(headers);
+    setHeader(headers);
     model->fillData(*ui->treeList);
 }
 

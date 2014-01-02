@@ -128,3 +128,78 @@ int DlgQueryBuilder::idEmployee()
     QLOG_TRACE_FN();
     return ui->cboEmployee->itemData(ui->cboEmployee->currentIndex()).toInt();
 }
+
+void DlgQueryBuilder::setSummarizeDays(bool value)
+{
+    QLOG_TRACE_FN();
+    ui->chkDays->setChecked(value);
+}
+
+void DlgQueryBuilder::setSummarizeSectors(bool value)
+{
+    QLOG_TRACE_FN();
+    ui->chkSectors->setChecked(value);
+}
+
+void DlgQueryBuilder::setSummarizeSubsectors(bool value)
+{
+    QLOG_TRACE_FN();
+    ui->chkSubSectors->setChecked(value);
+}
+
+void DlgQueryBuilder::setSummarizeEmployee(bool value)
+{
+    QLOG_TRACE_FN();
+    ui->chkEmployees->setChecked(value);
+}
+
+bool DlgQueryBuilder::summarizeDays() const
+{
+    QLOG_TRACE_FN();
+    return ui->chkDays->checkState() == Qt::Checked;
+}
+
+bool DlgQueryBuilder::summarizeSectors() const
+{
+    QLOG_TRACE_FN();
+    return ui->chkSectors->checkState() == Qt::Checked;
+}
+
+bool DlgQueryBuilder::summarizeSubsectors() const
+{
+    QLOG_TRACE_FN();
+    return ui->chkSubSectors->checkState() == Qt::Checked;
+}
+
+bool DlgQueryBuilder::summarizeEmployee() const
+{
+    QLOG_TRACE_FN();
+    return ui->chkEmployees->checkState() == Qt::Checked;
+}
+
+void DlgQueryBuilder::setEmployeeEnabled(bool enabled)
+{
+    QLOG_TRACE_FN();
+    ui->cboEmployee->setEnabled(enabled);
+    ui->chkEmployees->setEnabled(enabled);
+}
+
+void DlgQueryBuilder::setSectorEnabled(bool enabled)
+{
+    QLOG_TRACE_FN();
+    ui->cboSector->setEnabled(enabled);
+    ui->chkSectors->setEnabled(enabled);
+}
+
+void DlgQueryBuilder::setSubSectorEnabled(bool enabled)
+{
+    QLOG_TRACE_FN();
+    ui->cboSubSector->setEnabled(enabled);
+    ui->chkSubSectors->setEnabled(enabled);
+}
+
+void DlgQueryBuilder::setDateEnabled(bool enabled)
+{
+    QLOG_TRACE_FN();
+    ui->chkDays->setEnabled(enabled);
+}

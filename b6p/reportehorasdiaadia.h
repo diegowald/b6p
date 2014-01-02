@@ -22,8 +22,6 @@ public slots:
     virtual void filter();
 
 private:
-    QDate dateFrom;
-    QDate dateTo;
     ReportItemCollectionPtr reportData;
 };
 

@@ -21,11 +21,26 @@ public:
     void setIDSubSector(int id);
     void setIDEmployee(int id);
 
+    void setSummarizeDays(bool value);
+    void setSummarizeSectors(bool value);
+    void setSummarizeSubsectors(bool value);
+    void setSummarizeEmployee(bool value);
+
+    bool summarizeDays() const;
+    bool summarizeSectors() const;
+    bool summarizeSubsectors() const;
+    bool summarizeEmployee() const;
+
     QDate dateFrom();
     QDate dateTo();
     int idSector();
     int idSubSector();
     int idEmployee();
+
+    void setEmployeeEnabled(bool enabled);
+    void setSectorEnabled(bool enabled);
+    void setSubSectorEnabled(bool enabled);
+    void setDateEnabled(bool enabled);
 
 private slots:
     void on_cboSector_currentIndexChanged(int index);

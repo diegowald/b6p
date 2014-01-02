@@ -10,7 +10,11 @@ class ReportItemCollection : public QObject
 {
     Q_OBJECT
 public:
-    explicit ReportItemCollection(const QDate& dateFrom, const QDate& dateTo, int IDSectorFilter, int IDSubSectorFilter, int IDEmpleadoFilter,  QObject *parent = 0);
+    explicit ReportItemCollection(const QDate& dateFrom, const QDate& dateTo,
+                                  int IDSectorFilter, int IDSubSectorFilter, int IDEmpleadoFilter,
+                                  bool summarizeDays, bool summarizeSectors, bool summarizeSubSectors, bool summarizeEmployee,
+                                  QObject *parent = 0);
+
     virtual ~ReportItemCollection();
     void addPlanificacionSubSector(PlanificacionSubSectorPtr planificacion);
     void addPlanificacionSubSector(PlanificacionSubSectorLst ListPlanificacion);
@@ -21,6 +25,24 @@ public:
     void setIDEmpleado(int idEmpleado);
     void setIDSector(int idSector);
     void setIDSubSector(int idSubSector);
+
+    void SetSummarizeDays(bool value);
+    void setSummarizeSectors(bool value);
+    void setSummarizeSubSectors(bool value);
+    void setSummarizeEmployee(bool value);
+
+    QDate dateFrom() const;
+    QDate dateTo() const;
+    int idEmpleado() const;
+    int idSector() const;
+    int idSubSector() const;
+
+    bool summarizeDays() const;
+    bool summarizeSectors() const;
+    bool summarizeSubSectors() const;
+    bool summarizeEmployee() const;
+
+
     void refresh();
 
     QList<ReportItemPtr> items();
@@ -28,6 +50,10 @@ public:
 private:
     QString createIndex(PlanificacionSubSectorPtr planificacion);
     bool isValid(PlanificacionSubSectorPtr planificacion);
+    bool doSummarizeDays;
+    bool doSummarizeSectors;
+    bool doSummarizeSubsectors;
+    bool doSummarizeEmployee;
 
 signals:
 
