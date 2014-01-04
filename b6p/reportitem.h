@@ -53,7 +53,7 @@ public:
 
     void addReference(PlanificacionSubSectorPtr reference);
 
-    NullableField<QDate> date();
+    QDate date();
     double hours();
     EmpleadoPtr employee();
     SectorPtr sector();

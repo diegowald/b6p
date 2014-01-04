@@ -58,6 +58,7 @@ class PlanificacionSubSector : public QObject, public IRecord
     Q_OBJECT
 public:
     explicit PlanificacionSubSector(QObject *parent = 0);
+    virtual ~PlanificacionSubSector();
 
     NullableField<int> &IDRecord();
     NullableField<QDate> &Dia();

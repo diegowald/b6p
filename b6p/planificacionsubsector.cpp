@@ -63,6 +63,11 @@ PlanificacionSubSector::PlanificacionSubSector(QObject *parent) :
     m_AllowOverworking.setParent(this);
 }
 
+PlanificacionSubSector::~PlanificacionSubSector()
+{
+
+}
+
 RecordPtr PlanificacionSubSector::asRecordPtr()
 {
     QLOG_TRACE_FN();

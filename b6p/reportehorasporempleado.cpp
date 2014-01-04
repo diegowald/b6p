@@ -73,7 +73,10 @@ void ReporteHorasPorEmpleado::fillData(QTreeWidget &tree)
     foreach (ReportItemPtr rpt, reportData->items())
     {
         QTreeWidgetItem *item = new QTreeWidgetItem();
-        item->setText(0, rpt->date().value().toString(Qt::TextDate));
+        if (rpt->date() == QDate(0, 0, 0))
+            item->setText(0, "");
+        else
+            item->setText(0, rpt->date().toString(Qt::TextDate));
         if (rpt->employee() == EmpleadoPtr())
             item->setText(1, "");
         else

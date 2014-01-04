@@ -59,15 +59,14 @@ void ReportItem::addReference(PlanificacionSubSectorPtr reference)
     references.push_back(reference);
 }
 
-NullableField<QDate> ReportItem::date()
+QDate ReportItem::date()
 {
     QLOG_TRACE_FN();
-    NullableField<QDate> field;
-    if (references.count() == 0)
-        field.setNull();
-    else
-        field.setValue(references.at(0)->Dia());
-    return field;
+    QDate date;
+    date.setDate(0, 0, 0);
+    if (references.count() != 0)
+        date = references.at(0)->Dia().value();
+    return date;
 }
 
 double ReportItem::hours()

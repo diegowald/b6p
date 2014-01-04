@@ -4,38 +4,38 @@
 <context>
     <name>ACollection</name>
     <message>
-        <location filename="acollection.cpp" line="167"/>
-        <location filename="acollection.cpp" line="181"/>
+        <location filename="acollection.cpp" line="211"/>
+        <location filename="acollection.cpp" line="225"/>
         <source>Delete element</source>
         <translation>Delete element</translation>
     </message>
     <message>
-        <location filename="acollection.cpp" line="168"/>
+        <location filename="acollection.cpp" line="212"/>
         <source>Do you want to remove it?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="acollection.cpp" line="182"/>
+        <location filename="acollection.cpp" line="226"/>
         <source>Unable to delete element.</source>
         <translation>Unable to delete element.</translation>
     </message>
     <message>
-        <location filename="acollection.cpp" line="239"/>
+        <location filename="acollection.cpp" line="283"/>
         <source>Export to CSV</source>
         <translation>Export to CSV</translation>
     </message>
     <message>
-        <location filename="acollection.cpp" line="240"/>
+        <location filename="acollection.cpp" line="284"/>
         <source>Successfuly exported!</source>
         <translation>Successfuly exported!</translation>
     </message>
     <message>
-        <location filename="acollection.cpp" line="245"/>
+        <location filename="acollection.cpp" line="289"/>
         <source>Export to CSV Error</source>
         <translation>Export to CSV Error</translation>
     </message>
     <message>
-        <location filename="acollection.cpp" line="246"/>
+        <location filename="acollection.cpp" line="290"/>
         <source>Couldn&apos;t open file.</source>
         <translation>Couldn&apos;t open file.</translation>
     </message>
@@ -43,7 +43,7 @@
 <context>
     <name>Accesos</name>
     <message>
-        <location filename="accesos.cpp" line="7"/>
+        <location filename="accesos.cpp" line="46"/>
         <source>Access</source>
         <translation>Access</translation>
     </message>
@@ -61,45 +61,53 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="availabilitywidget.cpp" line="83"/>
+        <location filename="availabilitywidget.cpp" line="122"/>
         <source>Sunday</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="availabilitywidget.cpp" line="86"/>
+        <location filename="availabilitywidget.cpp" line="125"/>
         <source>Monday</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="availabilitywidget.cpp" line="89"/>
+        <location filename="availabilitywidget.cpp" line="128"/>
         <source>Tuesday</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="availabilitywidget.cpp" line="92"/>
+        <location filename="availabilitywidget.cpp" line="131"/>
         <source>Wednesday</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="availabilitywidget.cpp" line="95"/>
+        <location filename="availabilitywidget.cpp" line="134"/>
         <source>Thursday</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="availabilitywidget.cpp" line="98"/>
+        <location filename="availabilitywidget.cpp" line="137"/>
         <source>Friday</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="availabilitywidget.cpp" line="102"/>
+        <location filename="availabilitywidget.cpp" line="141"/>
         <source>Saturday</source>
         <translation></translation>
     </message>
 </context>
 <context>
+    <name>BaseReport</name>
+    <message>
+        <location filename="basereport.cpp" line="205"/>
+        <source>Filter...</source>
+        <translation>Filter...</translation>
+    </message>
+</context>
+<context>
     <name>CalendarioPersonas</name>
     <message>
-        <location filename="calendariopersonas.cpp" line="6"/>
+        <location filename="calendariopersonas.cpp" line="45"/>
         <source>Employee availability</source>
         <translation></translation>
     </message>
@@ -107,7 +115,7 @@
 <context>
     <name>CapacidadesPersonaSector</name>
     <message>
-        <location filename="capacidadespersonasector.cpp" line="6"/>
+        <location filename="capacidadespersonasector.cpp" line="45"/>
         <source>Employee capacity by Sector</source>
         <translation></translation>
     </message>
@@ -125,27 +133,27 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="capacitywidget.cpp" line="33"/>
+        <location filename="capacitywidget.cpp" line="72"/>
         <source>Not available</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="capacitywidget.cpp" line="38"/>
+        <location filename="capacitywidget.cpp" line="77"/>
         <source>Regular (%1)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="capacitywidget.cpp" line="43"/>
+        <location filename="capacitywidget.cpp" line="82"/>
         <source>Good (%1)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="capacitywidget.cpp" line="48"/>
+        <location filename="capacitywidget.cpp" line="87"/>
         <source>Very Good (%1)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="capacitywidget.cpp" line="51"/>
+        <location filename="capacitywidget.cpp" line="90"/>
         <source>Excellent (10)</source>
         <translation>Excellent (10)</translation>
     </message>
@@ -176,14 +184,32 @@
         <translation>Approve Planifications</translation>
     </message>
     <message>
-        <location filename="dlgapproveplanifications.cpp" line="39"/>
+        <location filename="dlgapproveplanifications.cpp" line="78"/>
         <source>Yes</source>
         <translation>Yes</translation>
     </message>
     <message>
-        <location filename="dlgapproveplanifications.cpp" line="39"/>
+        <location filename="dlgapproveplanifications.cpp" line="78"/>
         <source>No</source>
         <translation>No</translation>
+    </message>
+</context>
+<context>
+    <name>DlgDateRangeFilter</name>
+    <message>
+        <location filename="dlgdaterangefilter.ui" line="14"/>
+        <source>Date Range Filter</source>
+        <translation>Date Range Filter</translation>
+    </message>
+    <message>
+        <location filename="dlgdaterangefilter.ui" line="47"/>
+        <source>From</source>
+        <translation>From</translation>
+    </message>
+    <message>
+        <location filename="dlgdaterangefilter.ui" line="57"/>
+        <source>To</source>
+        <translation>To</translation>
     </message>
 </context>
 <context>
@@ -537,47 +563,47 @@
         <translation type="obsolete">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;This window is useless&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="dlgparametros.cpp" line="78"/>
+        <location filename="dlgparametros.cpp" line="120"/>
         <source>Connection OK</source>
         <translation>Connection OK</translation>
     </message>
     <message>
-        <location filename="dlgparametros.cpp" line="80"/>
+        <location filename="dlgparametros.cpp" line="122"/>
         <source>Please check connection parameters</source>
         <translation>Please check connection parameters</translation>
     </message>
     <message>
-        <location filename="dlgparametros.cpp" line="104"/>
+        <location filename="dlgparametros.cpp" line="146"/>
         <source>Trace</source>
         <translation>Trace</translation>
     </message>
     <message>
-        <location filename="dlgparametros.cpp" line="105"/>
+        <location filename="dlgparametros.cpp" line="147"/>
         <source>Debug</source>
         <translation>Debug</translation>
     </message>
     <message>
-        <location filename="dlgparametros.cpp" line="106"/>
+        <location filename="dlgparametros.cpp" line="148"/>
         <source>Information</source>
         <translation>Information</translation>
     </message>
     <message>
-        <location filename="dlgparametros.cpp" line="107"/>
+        <location filename="dlgparametros.cpp" line="149"/>
         <source>Warning</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="dlgparametros.cpp" line="108"/>
+        <location filename="dlgparametros.cpp" line="150"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="dlgparametros.cpp" line="109"/>
+        <location filename="dlgparametros.cpp" line="151"/>
         <source>Fatal</source>
         <translation>Fatal</translation>
     </message>
     <message>
-        <location filename="dlgparametros.cpp" line="110"/>
+        <location filename="dlgparametros.cpp" line="152"/>
         <source>Off</source>
         <translation>Off</translation>
     </message>
@@ -623,95 +649,157 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="dlgplanificaciondia.cpp" line="32"/>
+        <location filename="dlgplanificaciondia.cpp" line="71"/>
         <source>Date: %1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dlgplanificaciondia.cpp" line="33"/>
+        <location filename="dlgplanificaciondia.cpp" line="72"/>
         <source>Estimation: %1 hs</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dlgplanificaciondia.cpp" line="35"/>
+        <location filename="dlgplanificaciondia.cpp" line="74"/>
         <source>Status: %1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dlgplanificaciondia.cpp" line="105"/>
+        <location filename="dlgplanificaciondia.cpp" line="144"/>
         <source>Planned: %1 hs</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dlgplanificaciondia.cpp" line="122"/>
+        <location filename="dlgplanificaciondia.cpp" line="161"/>
         <source>Overworking!</source>
         <translation>Overworking!</translation>
     </message>
     <message>
-        <location filename="dlgplanificaciondia.cpp" line="123"/>
+        <location filename="dlgplanificaciondia.cpp" line="162"/>
         <source>Planned hours are greater than estimation!</source>
         <translation>Planned hours are greater than estimation!</translation>
     </message>
     <message>
-        <location filename="dlgplanificaciondia.cpp" line="259"/>
+        <location filename="dlgplanificaciondia.cpp" line="298"/>
         <source>Export to...</source>
         <translation>Export to...</translation>
     </message>
     <message>
-        <location filename="dlgplanificaciondia.cpp" line="261"/>
+        <location filename="dlgplanificaciondia.cpp" line="300"/>
         <source>CSV Files (*.csv)</source>
         <translation>CSV Files(*.csv)</translation>
     </message>
     <message>
-        <location filename="dlgplanificaciondia.cpp" line="282"/>
+        <location filename="dlgplanificaciondia.cpp" line="321"/>
         <source>Export to CSV</source>
         <translation>Export to CSV</translation>
     </message>
     <message>
-        <location filename="dlgplanificaciondia.cpp" line="283"/>
+        <location filename="dlgplanificaciondia.cpp" line="322"/>
         <source>Successfuly exported!</source>
         <translation>Successfuly exported!</translation>
     </message>
     <message>
-        <location filename="dlgplanificaciondia.cpp" line="288"/>
+        <location filename="dlgplanificaciondia.cpp" line="327"/>
         <source>Export to CSV Error</source>
         <translation>Export to CSV Error</translation>
     </message>
     <message>
-        <location filename="dlgplanificaciondia.cpp" line="289"/>
+        <location filename="dlgplanificaciondia.cpp" line="328"/>
         <source>Couldn&apos;t open file.</source>
         <translation>Couldn&apos;t open file.</translation>
     </message>
     <message>
-        <location filename="dlgplanificaciondia.cpp" line="298"/>
+        <location filename="dlgplanificaciondia.cpp" line="337"/>
         <source>Sector</source>
         <translation>Sector</translation>
     </message>
     <message>
-        <location filename="dlgplanificaciondia.cpp" line="298"/>
+        <location filename="dlgplanificaciondia.cpp" line="337"/>
         <source>SubSector</source>
         <translation>SubSector</translation>
     </message>
     <message>
-        <location filename="dlgplanificaciondia.cpp" line="299"/>
+        <location filename="dlgplanificaciondia.cpp" line="338"/>
         <source>From</source>
         <translation>From</translation>
     </message>
     <message>
-        <location filename="dlgplanificaciondia.cpp" line="299"/>
+        <location filename="dlgplanificaciondia.cpp" line="338"/>
         <source>To</source>
         <translation>To</translation>
     </message>
     <message>
-        <location filename="dlgplanificaciondia.cpp" line="300"/>
+        <location filename="dlgplanificaciondia.cpp" line="339"/>
         <source>Employee</source>
         <translation>Employee</translation>
     </message>
     <message>
-        <location filename="dlgplanificaciondia.cpp" line="300"/>
         <location filename="dlgplanificaciondia.cpp" line="339"/>
+        <location filename="dlgplanificaciondia.cpp" line="378"/>
         <source>OverWork</source>
         <translation>Overwork</translation>
+    </message>
+</context>
+<context>
+    <name>DlgQueryBuilder</name>
+    <message>
+        <location filename="dlgquerybuilder.ui" line="14"/>
+        <source>Filter</source>
+        <translation>Filter</translation>
+    </message>
+    <message>
+        <location filename="dlgquerybuilder.ui" line="39"/>
+        <source>Filters:</source>
+        <translation>Filters:</translation>
+    </message>
+    <message>
+        <location filename="dlgquerybuilder.ui" line="73"/>
+        <source>From</source>
+        <translation>From</translation>
+    </message>
+    <message>
+        <location filename="dlgquerybuilder.ui" line="86"/>
+        <source>Sector</source>
+        <translation>Sector</translation>
+    </message>
+    <message>
+        <location filename="dlgquerybuilder.ui" line="99"/>
+        <location filename="dlgquerybuilder.ui" line="190"/>
+        <source>Employee</source>
+        <translation>Employee</translation>
+    </message>
+    <message>
+        <location filename="dlgquerybuilder.ui" line="122"/>
+        <source>To</source>
+        <translation>To</translation>
+    </message>
+    <message>
+        <location filename="dlgquerybuilder.ui" line="135"/>
+        <location filename="dlgquerybuilder.ui" line="176"/>
+        <source>Subsector</source>
+        <translation>Subsector</translation>
+    </message>
+    <message>
+        <location filename="dlgquerybuilder.ui" line="155"/>
+        <source>Summarize hours on:</source>
+        <translation>Summarize hours on:</translation>
+    </message>
+    <message>
+        <location filename="dlgquerybuilder.ui" line="183"/>
+        <source>Sectors</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="dlgquerybuilder.ui" line="197"/>
+        <source>Days</source>
+        <translation>Days</translation>
+    </message>
+    <message>
+        <location filename="dlgquerybuilder.cpp" line="66"/>
+        <location filename="dlgquerybuilder.cpp" line="80"/>
+        <location filename="dlgquerybuilder.cpp" line="93"/>
+        <source>all</source>
+        <translation>all</translation>
     </message>
 </context>
 <context>
@@ -773,27 +861,27 @@
         <translation>Synchronize</translation>
     </message>
     <message>
-        <location filename="dlgsynchronization.cpp" line="76"/>
+        <location filename="dlgsynchronization.cpp" line="115"/>
         <source>Starting...</source>
         <translation>Starting...</translation>
     </message>
     <message>
-        <location filename="dlgsynchronization.cpp" line="86"/>
+        <location filename="dlgsynchronization.cpp" line="125"/>
         <source>Getting data</source>
         <translation>Getting data</translation>
     </message>
     <message>
-        <location filename="dlgsynchronization.cpp" line="96"/>
+        <location filename="dlgsynchronization.cpp" line="135"/>
         <source>Applying changes</source>
         <translation>Applying changes</translation>
     </message>
     <message>
-        <location filename="dlgsynchronization.cpp" line="106"/>
+        <location filename="dlgsynchronization.cpp" line="145"/>
         <source>Checking...</source>
         <translation>Checking...</translation>
     </message>
     <message>
-        <location filename="dlgsynchronization.cpp" line="116"/>
+        <location filename="dlgsynchronization.cpp" line="155"/>
         <source>Sending data</source>
         <translation>Sending data</translation>
     </message>
@@ -801,82 +889,82 @@
 <context>
     <name>Empleado</name>
     <message>
-        <location filename="empleado.cpp" line="329"/>
+        <location filename="empleado.cpp" line="368"/>
         <source>Employee</source>
         <translation>Employee</translation>
     </message>
     <message>
-        <location filename="empleado.cpp" line="332"/>
+        <location filename="empleado.cpp" line="371"/>
         <source>LastName</source>
         <translation>Lastname</translation>
     </message>
     <message>
-        <location filename="empleado.cpp" line="333"/>
+        <location filename="empleado.cpp" line="372"/>
         <source>Names</source>
         <translation>Names</translation>
     </message>
     <message>
-        <location filename="empleado.cpp" line="334"/>
+        <location filename="empleado.cpp" line="373"/>
         <source>ID</source>
         <translation>ID</translation>
     </message>
     <message>
-        <location filename="empleado.cpp" line="335"/>
+        <location filename="empleado.cpp" line="374"/>
         <source>Start Date</source>
         <translation>Start Date</translation>
     </message>
     <message>
-        <location filename="empleado.cpp" line="343"/>
+        <location filename="empleado.cpp" line="382"/>
         <source>Expertise</source>
         <translation>Expertise</translation>
     </message>
     <message>
-        <location filename="empleado.cpp" line="346"/>
+        <location filename="empleado.cpp" line="385"/>
         <source>Sector</source>
         <translation>Sector</translation>
     </message>
     <message>
-        <location filename="empleado.cpp" line="348"/>
+        <location filename="empleado.cpp" line="387"/>
         <source>SubSector</source>
         <translation>SubSector</translation>
     </message>
     <message>
-        <location filename="empleado.cpp" line="350"/>
+        <location filename="empleado.cpp" line="389"/>
         <source>Proficiency</source>
         <translation>Proficiency</translation>
     </message>
     <message>
-        <location filename="empleado.cpp" line="369"/>
+        <location filename="empleado.cpp" line="408"/>
         <source>Diagram</source>
         <translation>Diagram</translation>
     </message>
     <message>
-        <location filename="empleado.cpp" line="376"/>
+        <location filename="empleado.cpp" line="415"/>
         <source>Availability</source>
         <translation>Availabiilty</translation>
     </message>
     <message>
-        <location filename="empleado.cpp" line="379"/>
+        <location filename="empleado.cpp" line="418"/>
         <source>Day</source>
         <translation>Day</translation>
     </message>
     <message>
-        <location filename="empleado.cpp" line="381"/>
+        <location filename="empleado.cpp" line="420"/>
         <source>Start Time</source>
         <translation>Start Time</translation>
     </message>
     <message>
-        <location filename="empleado.cpp" line="383"/>
+        <location filename="empleado.cpp" line="422"/>
         <source>End Time</source>
         <translation>End Time</translation>
     </message>
     <message>
-        <location filename="empleado.cpp" line="385"/>
+        <location filename="empleado.cpp" line="424"/>
         <source>Start Time 2</source>
         <translation>Start Time</translation>
     </message>
     <message>
-        <location filename="empleado.cpp" line="387"/>
+        <location filename="empleado.cpp" line="426"/>
         <source>End Time 2</source>
         <translation>End Time</translation>
     </message>
@@ -884,27 +972,27 @@
 <context>
     <name>Empleados</name>
     <message>
-        <location filename="empleados.cpp" line="10"/>
+        <location filename="empleados.cpp" line="49"/>
         <source>Employees</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="empleados.cpp" line="385"/>
+        <location filename="empleados.cpp" line="424"/>
         <source>Lastname</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="empleados.cpp" line="386"/>
+        <location filename="empleados.cpp" line="425"/>
         <source>Firstname</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="empleados.cpp" line="387"/>
+        <location filename="empleados.cpp" line="426"/>
         <source>ID</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="empleados.cpp" line="388"/>
+        <location filename="empleados.cpp" line="427"/>
         <source>Start</source>
         <translation></translation>
     </message>
@@ -912,48 +1000,48 @@
 <context>
     <name>EstimacionesDias</name>
     <message>
-        <location filename="estimacionesdias.cpp" line="9"/>
+        <location filename="estimacionesdias.cpp" line="48"/>
         <source>Day Estimations</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="estimacionesdias.cpp" line="196"/>
+        <location filename="estimacionesdias.cpp" line="235"/>
         <source>Add Range</source>
         <translation>Add Range</translation>
     </message>
     <message>
-        <location filename="estimacionesdias.cpp" line="204"/>
+        <location filename="estimacionesdias.cpp" line="243"/>
         <source>Approve</source>
         <translation>Approve</translation>
     </message>
     <message>
-        <location filename="estimacionesdias.cpp" line="217"/>
+        <location filename="estimacionesdias.cpp" line="256"/>
         <source>Date</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="estimacionesdias.cpp" line="217"/>
+        <location filename="estimacionesdias.cpp" line="256"/>
         <source>Hours estimation</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="estimacionesdias.cpp" line="217"/>
-        <location filename="estimacionesdias.cpp" line="232"/>
+        <location filename="estimacionesdias.cpp" line="256"/>
+        <location filename="estimacionesdias.cpp" line="271"/>
         <source>Planned</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="estimacionesdias.cpp" line="232"/>
+        <location filename="estimacionesdias.cpp" line="271"/>
         <source>Not Planned</source>
         <translation>Not planned</translation>
     </message>
     <message>
-        <location filename="estimacionesdias.cpp" line="256"/>
+        <location filename="estimacionesdias.cpp" line="295"/>
         <source>Yes</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="estimacionesdias.cpp" line="256"/>
+        <location filename="estimacionesdias.cpp" line="295"/>
         <source>No</source>
         <translation></translation>
     </message>
@@ -996,22 +1084,22 @@
         <translation>Export to CSV File</translation>
     </message>
     <message>
-        <location filename="genericlist.cpp" line="174"/>
+        <location filename="genericlist.cpp" line="217"/>
         <source>Export to...</source>
         <translation>Export to...</translation>
     </message>
     <message>
-        <location filename="genericlist.cpp" line="176"/>
+        <location filename="genericlist.cpp" line="219"/>
         <source>CSV Files (*.csv)</source>
         <translation>CSV Files (*.csv)</translation>
     </message>
     <message>
-        <location filename="genericlist.cpp" line="225"/>
+        <location filename="genericlist.cpp" line="268"/>
         <source>Report</source>
         <translation>Report</translation>
     </message>
     <message>
-        <location filename="genericlist.cpp" line="227"/>
+        <location filename="genericlist.cpp" line="270"/>
         <source>Date</source>
         <translatorcomment>Date</translatorcomment>
         <translation></translation>
@@ -1020,42 +1108,42 @@
 <context>
     <name>LicenciasEmpleados</name>
     <message>
-        <location filename="licenciasempleados.cpp" line="9"/>
+        <location filename="licenciasempleados.cpp" line="48"/>
         <source>RestDays</source>
         <translation>RestDays</translation>
     </message>
     <message>
-        <location filename="licenciasempleados.cpp" line="129"/>
+        <location filename="licenciasempleados.cpp" line="168"/>
         <source>Lastname</source>
         <translation>Lastname</translation>
     </message>
     <message>
-        <location filename="licenciasempleados.cpp" line="130"/>
+        <location filename="licenciasempleados.cpp" line="169"/>
         <source>Firstname</source>
         <translation>Firstname</translation>
     </message>
     <message>
-        <location filename="licenciasempleados.cpp" line="131"/>
+        <location filename="licenciasempleados.cpp" line="170"/>
         <source>ID</source>
         <translation>ID</translation>
     </message>
     <message>
-        <location filename="licenciasempleados.cpp" line="132"/>
+        <location filename="licenciasempleados.cpp" line="171"/>
         <source>From</source>
         <translation>From</translation>
     </message>
     <message>
-        <location filename="licenciasempleados.cpp" line="133"/>
+        <location filename="licenciasempleados.cpp" line="172"/>
         <source>To</source>
         <translation>To</translation>
     </message>
     <message>
-        <location filename="licenciasempleados.cpp" line="134"/>
+        <location filename="licenciasempleados.cpp" line="173"/>
         <source>Type</source>
         <translation>Type</translation>
     </message>
     <message>
-        <location filename="licenciasempleados.cpp" line="135"/>
+        <location filename="licenciasempleados.cpp" line="174"/>
         <source>Notes</source>
         <translation>Notes</translation>
     </message>
@@ -1093,122 +1181,147 @@
         <translation>Synchronization</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="126"/>
+        <location filename="mainwindow.ui" line="107"/>
+        <source>Reporting</source>
+        <translation>Reports</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="136"/>
         <source>Open</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="129"/>
+        <location filename="mainwindow.ui" line="139"/>
         <source>Open Planification</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="141"/>
+        <location filename="mainwindow.ui" line="151"/>
         <source>Print</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="144"/>
+        <location filename="mainwindow.ui" line="154"/>
         <source>Prints Planification</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="152"/>
+        <location filename="mainwindow.ui" line="162"/>
         <source>Exit</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="155"/>
+        <location filename="mainwindow.ui" line="165"/>
         <source>Exits application</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="158"/>
+        <location filename="mainwindow.ui" line="168"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="170"/>
+        <location filename="mainwindow.ui" line="180"/>
         <source>View</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="173"/>
+        <location filename="mainwindow.ui" line="183"/>
         <source>View Employees</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="182"/>
+        <location filename="mainwindow.ui" line="192"/>
         <source>Parameters</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="185"/>
+        <location filename="mainwindow.ui" line="195"/>
         <source>Edit configuration parameters</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="194"/>
+        <location filename="mainwindow.ui" line="204"/>
         <source>About...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="206"/>
+        <location filename="mainwindow.ui" line="216"/>
         <source>Setup days...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="215"/>
+        <location filename="mainwindow.ui" line="225"/>
         <source>Synchronize...</source>
         <translation>Synchronize...</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="224"/>
+        <location filename="mainwindow.ui" line="234"/>
         <source>Print Preview</source>
         <translation>Print Preview</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="236"/>
+        <location filename="mainwindow.ui" line="246"/>
         <source>Print Selected</source>
         <translation>Print Selected</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="239"/>
+        <location filename="mainwindow.ui" line="249"/>
         <source>Prints selected record.</source>
         <translation>Prints selected record.</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="248"/>
+        <location filename="mainwindow.ui" line="258"/>
         <source>Print Preview Selected Record</source>
         <translation>Print preview Selected record</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="195"/>
+        <location filename="mainwindow.ui" line="267"/>
+        <source>Hours by Sector and Subsector</source>
+        <translation>Hours by Sector and Subsector</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="277"/>
+        <source>Planned hours day by day</source>
+        <translation>Planned hours day by day</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="287"/>
+        <source>Hours planned by employee</source>
+        <translation>Planned hours by employee</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="297"/>
+        <source>Planned rests</source>
+        <translation>Planned rests</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="234"/>
         <source>About B6P</source>
         <translation>About B6P</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="195"/>
+        <location filename="mainwindow.cpp" line="234"/>
         <source>B6Planner</source>
         <translation>B6Planner</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="201"/>
+        <location filename="mainwindow.cpp" line="240"/>
         <source>%1 Loaded.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="207"/>
+        <location filename="mainwindow.cpp" line="246"/>
         <source>Loading %1...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="213"/>
+        <location filename="mainwindow.cpp" line="252"/>
         <source>%1 Saved.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="219"/>
+        <location filename="mainwindow.cpp" line="258"/>
         <source>Saving %1...</source>
         <translation></translation>
     </message>
@@ -1216,7 +1329,7 @@
 <context>
     <name>Parametros</name>
     <message>
-        <location filename="parametros.cpp" line="23"/>
+        <location filename="parametros.cpp" line="62"/>
         <source>Parameters</source>
         <translation></translation>
     </message>
@@ -1224,87 +1337,87 @@
 <context>
     <name>PlanificacionDia</name>
     <message>
-        <location filename="planificaciondia.cpp" line="122"/>
+        <location filename="planificaciondia.cpp" line="161"/>
         <source>In progress</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="planificaciondia.cpp" line="123"/>
+        <location filename="planificaciondia.cpp" line="162"/>
         <source>Finished</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="planificaciondia.cpp" line="124"/>
+        <location filename="planificaciondia.cpp" line="163"/>
         <source>Approved</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="planificaciondia.cpp" line="209"/>
+        <location filename="planificaciondia.cpp" line="248"/>
         <source>Planification</source>
         <translation>Planification</translation>
     </message>
     <message>
-        <location filename="planificaciondia.cpp" line="213"/>
+        <location filename="planificaciondia.cpp" line="252"/>
         <source>Date</source>
         <translation>Date</translation>
     </message>
     <message>
-        <location filename="planificaciondia.cpp" line="214"/>
+        <location filename="planificaciondia.cpp" line="253"/>
         <source>Estimation</source>
         <translation>Estimation</translation>
     </message>
     <message>
-        <location filename="planificaciondia.cpp" line="215"/>
+        <location filename="planificaciondia.cpp" line="254"/>
         <source>Planned</source>
         <translation>Planned</translation>
     </message>
     <message>
-        <location filename="planificaciondia.cpp" line="216"/>
+        <location filename="planificaciondia.cpp" line="255"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
     <message>
-        <location filename="planificaciondia.cpp" line="220"/>
+        <location filename="planificaciondia.cpp" line="259"/>
         <source>Notes</source>
         <translation>Notes</translation>
     </message>
     <message>
-        <location filename="planificaciondia.cpp" line="229"/>
+        <location filename="planificaciondia.cpp" line="268"/>
         <source>Sector</source>
         <translation>Sector</translation>
     </message>
     <message>
-        <location filename="planificaciondia.cpp" line="231"/>
+        <location filename="planificaciondia.cpp" line="270"/>
         <source>SubSector</source>
         <translation>SubSector</translation>
     </message>
     <message>
-        <location filename="planificaciondia.cpp" line="233"/>
+        <location filename="planificaciondia.cpp" line="272"/>
         <source>Start</source>
         <translation>Start</translation>
     </message>
     <message>
-        <location filename="planificaciondia.cpp" line="235"/>
+        <location filename="planificaciondia.cpp" line="274"/>
         <source>End</source>
         <translation>End</translation>
     </message>
     <message>
-        <location filename="planificaciondia.cpp" line="237"/>
+        <location filename="planificaciondia.cpp" line="276"/>
         <source>Employee</source>
         <translation>Employee</translation>
     </message>
     <message>
-        <location filename="planificaciondia.cpp" line="239"/>
+        <location filename="planificaciondia.cpp" line="278"/>
         <source>Diagram</source>
         <translation>Diagram</translation>
     </message>
     <message>
-        <location filename="planificaciondia.cpp" line="296"/>
+        <location filename="planificaciondia.cpp" line="335"/>
         <source>Rest</source>
         <translation>Rest</translation>
     </message>
     <message>
-        <location filename="planificaciondia.cpp" line="298"/>
+        <location filename="planificaciondia.cpp" line="337"/>
         <source>Employees</source>
         <translation>Employees</translation>
     </message>
@@ -1312,63 +1425,63 @@
 <context>
     <name>PlanificacionesDias</name>
     <message>
-        <location filename="planificacionesdias.cpp" line="9"/>
+        <location filename="planificacionesdias.cpp" line="48"/>
         <source>Days Planifications</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="planificacionesdias.cpp" line="208"/>
-        <location filename="planificacionesdias.cpp" line="269"/>
+        <location filename="planificacionesdias.cpp" line="247"/>
+        <location filename="planificacionesdias.cpp" line="308"/>
         <source>Date</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="planificacionesdias.cpp" line="208"/>
+        <location filename="planificacionesdias.cpp" line="247"/>
         <source>Supervisor</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="planificacionesdias.cpp" line="209"/>
+        <location filename="planificacionesdias.cpp" line="248"/>
         <source>Notes</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="planificacionesdias.cpp" line="209"/>
+        <location filename="planificacionesdias.cpp" line="248"/>
         <source>Estimated hours</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="planificacionesdias.cpp" line="210"/>
+        <location filename="planificacionesdias.cpp" line="249"/>
         <source>Planned hours</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="planificacionesdias.cpp" line="210"/>
+        <location filename="planificacionesdias.cpp" line="249"/>
         <source>Status</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="planificacionesdias.cpp" line="211"/>
+        <location filename="planificacionesdias.cpp" line="250"/>
         <source>Complete</source>
         <translation>Complete</translation>
     </message>
     <message>
-        <location filename="planificacionesdias.cpp" line="252"/>
+        <location filename="planificacionesdias.cpp" line="291"/>
         <source>Yes</source>
         <translation>Yes</translation>
     </message>
     <message>
-        <location filename="planificacionesdias.cpp" line="252"/>
+        <location filename="planificacionesdias.cpp" line="291"/>
         <source>No</source>
         <translation>No</translation>
     </message>
     <message>
-        <location filename="planificacionesdias.cpp" line="270"/>
+        <location filename="planificacionesdias.cpp" line="309"/>
         <source>Select a date to plan</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="planificacionesdias.cpp" line="413"/>
+        <location filename="planificacionesdias.cpp" line="452"/>
         <source>Approve</source>
         <translation>Approve</translation>
     </message>
@@ -1376,7 +1489,7 @@
 <context>
     <name>PlanificacionesDiasSubSectores</name>
     <message>
-        <location filename="planificacionesdiassubsectores.cpp" line="5"/>
+        <location filename="planificacionesdiassubsectores.cpp" line="44"/>
         <source>Planifications of Sectors and subsectors for a day</source>
         <translation></translation>
     </message>
@@ -1384,94 +1497,94 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="days.cpp" line="12"/>
-        <location filename="days.cpp" line="41"/>
+        <location filename="days.cpp" line="51"/>
+        <location filename="days.cpp" line="80"/>
         <source>Sunday</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="days.cpp" line="15"/>
-        <location filename="days.cpp" line="43"/>
+        <location filename="days.cpp" line="54"/>
+        <location filename="days.cpp" line="82"/>
         <source>Monday</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="days.cpp" line="18"/>
-        <location filename="days.cpp" line="45"/>
+        <location filename="days.cpp" line="57"/>
+        <location filename="days.cpp" line="84"/>
         <source>Tuesday</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="days.cpp" line="21"/>
-        <location filename="days.cpp" line="47"/>
+        <location filename="days.cpp" line="60"/>
+        <location filename="days.cpp" line="86"/>
         <source>Wednesday</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="days.cpp" line="24"/>
-        <location filename="days.cpp" line="49"/>
+        <location filename="days.cpp" line="63"/>
+        <location filename="days.cpp" line="88"/>
         <source>Thursday</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="days.cpp" line="27"/>
-        <location filename="days.cpp" line="51"/>
+        <location filename="days.cpp" line="66"/>
+        <location filename="days.cpp" line="90"/>
         <source>Friday</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="days.cpp" line="30"/>
-        <location filename="days.cpp" line="53"/>
+        <location filename="days.cpp" line="69"/>
+        <location filename="days.cpp" line="92"/>
         <source>Saturday</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="sqlhandler.cpp" line="93"/>
-        <location filename="sqlhandler.cpp" line="137"/>
+        <location filename="sqlhandler.cpp" line="132"/>
+        <location filename="sqlhandler.cpp" line="176"/>
         <source>DB Error</source>
         <translation>Database error</translation>
     </message>
     <message>
-        <location filename="sqlhandler.cpp" line="93"/>
-        <location filename="sqlhandler.cpp" line="137"/>
+        <location filename="sqlhandler.cpp" line="132"/>
+        <location filename="sqlhandler.cpp" line="176"/>
         <source>Can&apos;t open Database</source>
         <translation>Can&apos;t open database</translation>
     </message>
     <message>
-        <location filename="sqlhandler.cpp" line="90"/>
-        <location filename="sqlhandler.cpp" line="95"/>
+        <location filename="sqlhandler.cpp" line="129"/>
         <location filename="sqlhandler.cpp" line="134"/>
-        <location filename="sqlhandler.cpp" line="139"/>
+        <location filename="sqlhandler.cpp" line="173"/>
+        <location filename="sqlhandler.cpp" line="178"/>
         <source>Reason: </source>
         <translation>Reason:</translation>
     </message>
     <message>
-        <location filename="sqlhandler.cpp" line="89"/>
+        <location filename="sqlhandler.cpp" line="128"/>
         <source>Can&apos;t open Database.</source>
         <translation>Can&apos;t open Database.</translation>
     </message>
     <message>
-        <location filename="sqlhandler.cpp" line="117"/>
-        <location filename="sqlhandler.cpp" line="256"/>
+        <location filename="sqlhandler.cpp" line="156"/>
+        <location filename="sqlhandler.cpp" line="295"/>
         <source>SQL Error: </source>
         <translation>SQL Error:</translation>
     </message>
     <message>
-        <location filename="sqlhandler.cpp" line="119"/>
-        <location filename="sqlhandler.cpp" line="163"/>
-        <location filename="sqlhandler.cpp" line="164"/>
-        <location filename="sqlhandler.cpp" line="223"/>
-        <location filename="sqlhandler.cpp" line="257"/>
+        <location filename="sqlhandler.cpp" line="158"/>
+        <location filename="sqlhandler.cpp" line="202"/>
+        <location filename="sqlhandler.cpp" line="203"/>
+        <location filename="sqlhandler.cpp" line="262"/>
+        <location filename="sqlhandler.cpp" line="296"/>
         <source>SQL Error</source>
         <translation>SQL Error</translation>
     </message>
     <message>
-        <location filename="sqlhandler.cpp" line="133"/>
+        <location filename="sqlhandler.cpp" line="172"/>
         <source>Can&apos;t open Database. </source>
         <translation>Can&apos;t open Database.</translation>
     </message>
     <message>
-        <location filename="sqlhandler.cpp" line="222"/>
+        <location filename="sqlhandler.cpp" line="261"/>
         <source>SQL Error:</source>
         <translation>SQL Error:</translation>
     </message>
@@ -1481,9 +1594,111 @@
     </message>
 </context>
 <context>
+    <name>ReporteFrancosPlanificados</name>
+    <message>
+        <location filename="reportefrancosplanificados.cpp" line="46"/>
+        <source>Planned Rest Report</source>
+        <translation>Planned Rest Report</translation>
+    </message>
+    <message>
+        <location filename="reportefrancosplanificados.cpp" line="62"/>
+        <source>Employee</source>
+        <translation>Employee</translation>
+    </message>
+    <message>
+        <location filename="reportefrancosplanificados.cpp" line="63"/>
+        <source>From</source>
+        <translation>From</translation>
+    </message>
+    <message>
+        <location filename="reportefrancosplanificados.cpp" line="64"/>
+        <source>To</source>
+        <translation>To</translation>
+    </message>
+    <message>
+        <location filename="reportefrancosplanificados.cpp" line="65"/>
+        <source>Type</source>
+        <translation>Type</translation>
+    </message>
+    <message>
+        <location filename="reportefrancosplanificados.cpp" line="66"/>
+        <source>Notes</source>
+        <translation>Notes</translation>
+    </message>
+</context>
+<context>
+    <name>ReporteHorasDiaADia</name>
+    <message>
+        <location filename="reportehorasdiaadia.cpp" line="45"/>
+        <source>Daily Hours Report</source>
+        <translation>Daily Hours Report</translation>
+    </message>
+    <message>
+        <location filename="reportehorasdiaadia.cpp" line="64"/>
+        <source>Date</source>
+        <translation>Date</translation>
+    </message>
+    <message>
+        <location filename="reportehorasdiaadia.cpp" line="65"/>
+        <source>Total Hours</source>
+        <translation>Total Hours</translation>
+    </message>
+</context>
+<context>
+    <name>ReporteHorasPorEmpleado</name>
+    <message>
+        <location filename="reportehorasporempleado.cpp" line="46"/>
+        <source>Employee Hours Report</source>
+        <translation>Employee Hours Report</translation>
+    </message>
+    <message>
+        <location filename="reportehorasporempleado.cpp" line="64"/>
+        <source>Date</source>
+        <translation>Date</translation>
+    </message>
+    <message>
+        <location filename="reportehorasporempleado.cpp" line="65"/>
+        <source>Employee</source>
+        <translation>Employee</translation>
+    </message>
+    <message>
+        <location filename="reportehorasporempleado.cpp" line="66"/>
+        <source>Total Hours</source>
+        <translation>Total Hours</translation>
+    </message>
+</context>
+<context>
+    <name>ReporteHorasSectorSubSector</name>
+    <message>
+        <location filename="reportehorassectorsubsector.cpp" line="45"/>
+        <source>Hours By Sector and Subsector Report</source>
+        <translation>Hours By Sector and SubSector</translation>
+    </message>
+    <message>
+        <location filename="reportehorassectorsubsector.cpp" line="65"/>
+        <source>Date</source>
+        <translation>Date</translation>
+    </message>
+    <message>
+        <location filename="reportehorassectorsubsector.cpp" line="67"/>
+        <source>Sector</source>
+        <translation>Sector</translation>
+    </message>
+    <message>
+        <location filename="reportehorassectorsubsector.cpp" line="69"/>
+        <source>Sub Sector</source>
+        <translation>Subsector</translation>
+    </message>
+    <message>
+        <location filename="reportehorassectorsubsector.cpp" line="70"/>
+        <source>Total Hours</source>
+        <translation>Total Hours</translation>
+    </message>
+</context>
+<context>
     <name>Sectores</name>
     <message>
-        <location filename="sectores.cpp" line="5"/>
+        <location filename="sectores.cpp" line="44"/>
         <source>Sectors</source>
         <translation></translation>
     </message>
@@ -1491,12 +1706,12 @@
 <context>
     <name>SincroManager</name>
     <message>
-        <location filename="SincroManager.cpp" line="46"/>
+        <location filename="SincroManager.cpp" line="85"/>
         <source>Unable to connect to database</source>
         <translation>Unable to connect to database</translation>
     </message>
     <message>
-        <location filename="SincroManager.cpp" line="46"/>
+        <location filename="SincroManager.cpp" line="85"/>
         <source>Please check connection parameters</source>
         <translation>Please check connection parameters</translation>
     </message>
@@ -1504,7 +1719,7 @@
 <context>
     <name>SubSectores</name>
     <message>
-        <location filename="subsectores.cpp" line="6"/>
+        <location filename="subsectores.cpp" line="45"/>
         <source>SubSectors</source>
         <translation></translation>
     </message>
@@ -1517,22 +1732,22 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="timeassignmentitemedit.cpp" line="313"/>
+        <location filename="timeassignmentitemedit.cpp" line="352"/>
         <source>Allow the employee to have less than minimum of hours assigned?</source>
         <translation>Allow the employee to have less than minimum of hours assigned?</translation>
     </message>
     <message>
-        <location filename="timeassignmentitemedit.cpp" line="315"/>
+        <location filename="timeassignmentitemedit.cpp" line="354"/>
         <source>Allow the employee to do extra hours?</source>
         <translation>Allow the employee to do extra hours?</translation>
     </message>
     <message>
-        <location filename="timeassignmentitemedit.cpp" line="317"/>
+        <location filename="timeassignmentitemedit.cpp" line="356"/>
         <source>Allow overwork?</source>
         <translation>Allow overwork?</translation>
     </message>
     <message>
-        <location filename="timeassignmentitemedit.cpp" line="319"/>
+        <location filename="timeassignmentitemedit.cpp" line="358"/>
         <source>Warning: Detected problem with hours or days</source>
         <translation>Warning: Detected problem with hours or days</translation>
     </message>
@@ -1545,7 +1760,7 @@
         <translation>Form</translation>
     </message>
     <message>
-        <location filename="timeeditor.cpp" line="33"/>
+        <location filename="timeeditor.cpp" line="72"/>
         <source>Time is incorrect</source>
         <translation>Time is incorrect</translation>
     </message>

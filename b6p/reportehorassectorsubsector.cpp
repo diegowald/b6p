@@ -81,7 +81,10 @@ void ReporteHorasSectorSubSector::fillData(QTreeWidget &tree)
         int column = 0;
         if (reportData->summarizeDays())
         {
-            item->setText(column, rpt->date().value().toString(Qt::TextDate));
+            if (rpt->date() == QDate(0, 0, 0))
+                item->setText(column, "");
+            else
+                item->setText(column, rpt->date().toString(Qt::TextDate));
             column++;
         }
         if (reportData->summarizeSectors())

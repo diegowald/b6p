@@ -104,6 +104,9 @@ void DlgParametros::accept()
     DataStore::instance()->getParametros()->setValue(Parametros::FRANCO_TYPE, ui->cboWeeklyRestType->currentText());
     DataStore::instance()->getParametros()->setValue(Parametros::LOG_LEVEL, ui->cboLoggingLevel->itemData(ui->cboLoggingLevel->currentIndex()).toInt());
 
+    QsLogging::Logger & logger = QsLogging::Logger::instance();
+    logger.setLoggingLevel((QsLogging::Level)ui->cboLoggingLevel->itemData(ui->cboLoggingLevel->currentIndex()).toInt());
+
     QDialog::accept();
 }
 

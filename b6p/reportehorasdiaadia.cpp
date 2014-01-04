@@ -48,7 +48,7 @@ ReporteHorasDiaADia::ReporteHorasDiaADia(QObject *parent) :
     QDate dateFrom = QDate::currentDate().addDays(-7);
     QDate dateTo = QDate::currentDate();
     reportData = boost::make_shared<ReportItemCollection>(dateFrom, dateTo, -1, -1, -1,
-                                                          true, true, true, false/*,
+                                                          true, false, false, false/*,
                                                           this*/);
     refreshReport();
 }
@@ -73,7 +73,10 @@ void ReporteHorasDiaADia::fillData(QTreeWidget &tree)
     foreach (ReportItemPtr rpt, reportData->items())
     {
         QTreeWidgetItem *item = new QTreeWidgetItem();
-        item->setText(0, rpt->date().value().toString(Qt::TextDate));
+        if (rpt->date() == QDate(0, 0, 0))
+            item->setText(0, "");
+        else
+            item->setText(0, rpt->date().toString(Qt::TextDate));
         item->setText(1, QString::number(rpt->hours()));
         tree.addTopLevelItem(item);
     }
