@@ -134,9 +134,12 @@ boost::shared_ptr<QList<QStringList> > ReporteHorasPorEmpleado::getAll()
     foreach (ReportItemPtr item, reportData->items())
     {
         QStringList r;
-        r << item->date().toString(Qt::TextDate)
-          << QString("%1, %2").arg(item->employee()->Apellido().value(), item->employee()->Nombre().value())
-          << QString::number(item->hours());
+        r << item->date().toString(Qt::TextDate);
+        if (item->employee() == EmpleadoPtr())
+            r << "";
+        else
+            r << QString("%1, %2").arg(item->employee()->Apellido().value(), item->employee()->Nombre().value());
+        r << QString::number(item->hours());
         res->push_back(r);
     }
 
