@@ -66,7 +66,6 @@ public:
     virtual bool printSelectedRecord(QVariant IDElement, QTextDocument &textDoc);
 
 
-    virtual boost::shared_ptr<QList<QStringList> > getAll();
     virtual bool addNew();
     virtual bool addNew(QTreeWidgetItem *);
     virtual bool addNewWithAdditionalData(QVariant);

@@ -142,7 +142,8 @@ void MainWindow::on_actionPrint_Preview_triggered()
     QLOG_TRACE_FN();
     if (ui->mdiArea->activeSubWindow()) {
         selectedWindowToPrint = qobject_cast<GenericList *>(ui->mdiArea->activeSubWindow()->widget());
-        QPrinter printer(QPrinter::HighResolution);
+        //QPrinter printer(QPrinter::HighResolution);
+        QPrinter printer;
         QPrintPreviewDialog dlg(&printer, this);
         connect (&dlg, SIGNAL(paintRequested(QPrinter*)), this, SLOT(print(QPrinter*)));
         dlg.setWindowState(dlg.windowState() | Qt::WindowMaximized);

@@ -71,11 +71,6 @@ bool BaseReport::printSelectedRecord(QVariant IDElement, QTextDocument &textDoc)
 }
 
 
-boost::shared_ptr<QList<QStringList> > BaseReport::getAll()
-{
-    QLOG_TRACE_FN();
-}
-
 bool BaseReport::addNew()
 {
     QLOG_TRACE_FN();

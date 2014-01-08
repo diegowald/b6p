@@ -56,6 +56,8 @@ public:
     virtual void fillData(QTreeWidget &tree);
 
     virtual void refreshReport();
+    virtual boost::shared_ptr<QList<QStringList> > getAll();
+
 public slots:
     virtual void filter();
 

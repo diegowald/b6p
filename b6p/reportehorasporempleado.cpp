@@ -125,3 +125,20 @@ void ReporteHorasPorEmpleado::refreshReport()
     reportData->clear();
     reportData->refresh();
 }
+
+boost::shared_ptr<QList<QStringList> > ReporteHorasPorEmpleado::getAll()
+{
+    QLOG_TRACE_FN();
+    boost::shared_ptr<QList<QStringList> > res = boost::make_shared<QList<QStringList> >();
+
+    foreach (ReportItemPtr item, reportData->items())
+    {
+        QStringList r;
+        r << item->date().toString(Qt::TextDate)
+          << QString("%1, %2").arg(item->employee()->Apellido().value(), item->employee()->Nombre().value())
+          << QString::number(item->hours());
+        res->push_back(r);
+    }
+
+    return res;
+}

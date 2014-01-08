@@ -121,3 +121,20 @@ void ReporteHorasDiaADia::refreshReport()
     reportData->clear();
     reportData->refresh();
 }
+
+boost::shared_ptr<QList<QStringList> > ReporteHorasDiaADia::getAll()
+{
+    QLOG_TRACE_FN();
+    boost::shared_ptr<QList<QStringList> > res = boost::make_shared<QList<QStringList> >();
+
+    foreach (ReportItemPtr item, reportData->items())
+    {
+        QStringList r;
+        r << item->date().toString(Qt::TextDate)
+             << QString::number(item->hours());
+        res->push_back(r);
+    }
+
+
+    return res;
+}

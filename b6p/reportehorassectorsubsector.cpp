@@ -144,3 +144,28 @@ void ReporteHorasSectorSubSector::refreshReport()
     reportData->clear();
     reportData->refresh();
 }
+
+boost::shared_ptr<QList<QStringList> > ReporteHorasSectorSubSector::getAll()
+{
+    QLOG_TRACE_FN();
+    boost::shared_ptr<QList<QStringList> > res = boost::make_shared<QList<QStringList> >();
+
+    foreach (ReportItemPtr item, reportData->items())
+    {
+        QStringList r;
+        if (reportData->summarizeDays())
+            r << item->date().toString(Qt::TextDate);
+        if (reportData->summarizeSectors())
+            r << item->sector()->Nombre().value();
+        if (reportData->summarizeSubSectors())
+        {
+            if (item->subSector() == SubSectorPtr())
+                r << "";
+            else
+                r << item->subSector()->Nombre().value();
+        }
+        r << QString::number(item->hours());
+        res->push_back(r);
+    }
+    return res;
+}

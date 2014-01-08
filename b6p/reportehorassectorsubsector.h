@@ -58,6 +58,8 @@ public:
 
 
     virtual void refreshReport();
+    virtual boost::shared_ptr<QList<QStringList> > getAll();
+
 
 public slots:
     virtual void filter();

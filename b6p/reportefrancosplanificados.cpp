@@ -104,3 +104,22 @@ void ReporteFrancosPlanificados::refreshReport()
     reportData = DataStore::instance()->getLicencias()->getAllLicencias(dateFrom, dateTo);
 }
 
+boost::shared_ptr<QList<QStringList> > ReporteFrancosPlanificados::getAll()
+{
+    QLOG_TRACE_FN();
+    boost::shared_ptr<QList<QStringList> > res = boost::make_shared<QList<QStringList> >();
+
+    foreach (LicenciaEmpleadoPtr item, *reportData)
+    {
+        QStringList r;
+        EmpleadoPtr empleado  = DataStore::instance()->getEmpleados()->getEmpleado(item->IDEmpleado().value(), true);
+        r << QString("%1, %2").arg(empleado->Apellido().value(), empleado->Nombre().value())
+          << item->FechaDesde().value().toString(Qt::TextDate)
+          << item->FechaHasta().value().toString(Qt::TextDate)
+          << item->TipoLicencia().value()
+          << item->Descripcion().value();
+        res->push_back(r);
+    }
+
+    return res;
+}
