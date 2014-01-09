@@ -64,7 +64,7 @@ QStringList BaseReport::getFieldsToShowInMerge()
     return QStringList();
 }
 
-bool BaseReport::printSelectedRecord(QVariant IDElement, QTextDocument &textDoc)
+bool BaseReport::printSelectedRecord(QVariant, QTextDocument &)
 {
     QLOG_TRACE_FN();
     return false;
@@ -74,6 +74,7 @@ bool BaseReport::printSelectedRecord(QVariant IDElement, QTextDocument &textDoc)
 bool BaseReport::addNew()
 {
     QLOG_TRACE_FN();
+    return false;
 }
 
 bool BaseReport::addNew(QTreeWidgetItem *)
@@ -88,7 +89,7 @@ bool BaseReport::addNewWithAdditionalData(QVariant)
     return false;
 }
 
-bool BaseReport::edit(QVariant ID)
+bool BaseReport::edit(QVariant)
 {
     QLOG_TRACE_FN();
     return false;
@@ -121,9 +122,10 @@ void BaseReport::setStatusToUnmodified(bool, bool, bool)
     QLOG_TRACE_FN();
 }
 
-bool BaseReport::canBeDeleted(QVariant ID)
+bool BaseReport::canBeDeleted(QVariant)
 {
     QLOG_TRACE_FN();
+    return false;
 }
 
 QString BaseReport::getTableName()

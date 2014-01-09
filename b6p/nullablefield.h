@@ -88,7 +88,7 @@ public:
         return isNull() ? QVariant() : value();
     }
 
-    void setValue(NullableField<T> value)
+    void setValue(NullableField<T>& value)
     {
         if (value.isNull())
             setNull();

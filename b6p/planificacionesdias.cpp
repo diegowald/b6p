@@ -324,21 +324,28 @@ bool PlanificacionesDias::edit(QVariant ID)
     if (!p.get())
         p = boost::make_shared<PlanificacionDia>(ID.toDate(), this);
 
-    DlgPlanificacionDia dlg;
-    dlg.setData(p);
-    dlg.setWindowState(dlg.windowState() | Qt::WindowMaximized);
-    if (dlg.exec() == QDialog::Accepted)
+    try
     {
-        p->Dia().setValue(dlg.Dia());
-        p->Notas().setValue(dlg.Notas());
-        p->IDSupervisor().setValue(dlg.IDSupervisor());
+        DlgPlanificacionDia dlg;
+        dlg.setData(p);
+        dlg.setWindowState(dlg.windowState() | Qt::WindowMaximized);
+        if (dlg.exec() == QDialog::Accepted)
+        {
+            p->Dia().setValue(dlg.Dia());
+            p->Notas().setValue(dlg.Notas());
+            p->IDSupervisor().setValue(dlg.IDSupervisor());
 
-        p->updatePlanificaciones(dlg.Planificaciones());
-        m_Planificaciones[p->Dia().value()] = p;
-        p->setParent(this);
-        return true;
+            p->updatePlanificaciones(dlg.Planificaciones());
+            m_Planificaciones[p->Dia().value()] = p;
+            p->setParent(this);
+        }
     }
-      return false;
+    catch (...)
+    {
+        return false;
+    }
+
+    return true;
 }
 
 bool PlanificacionesDias::deleteElement(QVariant ID)

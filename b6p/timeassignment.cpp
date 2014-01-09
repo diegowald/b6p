@@ -59,6 +59,8 @@ TimeAssignment::TimeAssignment(QWidget *parent) :
     m_FinalTimeline = 86400;
     m_StartAssignment = 0 * 3600;
     m_EndAssignment = 24 * 3600;
+    m_StartAssignment2 = 0;
+    m_EndAssignment2 = 24;
 
     m_paintBackgroundReferences = true;
     m_paintVerticalGrid = false;

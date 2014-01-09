@@ -212,10 +212,19 @@ CapacidadPersonaSectorLst DlgEmployee::Capacities()
         QTreeWidgetItem *treeitem = ui->treeCapacities->topLevelItem(i);
         CapacityWidget * w = qobject_cast<CapacityWidget *>(ui->treeCapacities->itemWidget(treeitem, 0));
         CapacidadPersonaSectorPtr p = boost::make_shared<CapacidadPersonaSector>();
-        p->IDEmpleado().setValue(m_Empleado->IDEmpleado());
+        p->IDEmpleado().setValue(m_Empleado->IDEmpleado().value());
         p->IDSector().setValue(w->IDSector());
         p->ID_SubSector().setValue(w->IDSubSector());
         p->Capacidad().setValue(w->Capacity());
+
+        QLOG_TRACE() << m_Empleado->IDEmpleado().value();
+        QLOG_TRACE() << p->IDEmpleado().value();
+        QLOG_TRACE() << p->IDSector().value();
+        if (p->ID_SubSector().isNull())
+            QLOG_TRACE() << "null";
+        else
+            QLOG_TRACE() << p->ID_SubSector().value();
+        QLOG_TRACE() << p->Capacidad().value();
         res->push_back(p);
     }
 
