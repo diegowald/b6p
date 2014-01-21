@@ -286,16 +286,17 @@ void EstimacionesDias::fillData(QTreeWidget &tree)
 {
     QLOG_TRACE_FN();
     tree.clear();
-    foreach(EstimacionDiaPtr e, m_Estimaciones.values())
+    EstimacionDiaLst lst = getAll(false);
+    foreach(EstimacionDiaPtr e, *lst)
     {
         QTreeWidgetItem *item = new QTreeWidgetItem();
-        item->setText(0, e->Dia().value().toString(Qt::TextDate));
-        item->setData(0, Qt::UserRole, e->Dia().value());
-        item->setText(1, QString::number(e->EstimacionHoras().value()));
-        item->setText(2, e->isPlanned() ? tr("Yes") : tr("No"));
-        item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled);
-        tree.insertTopLevelItem(0, item);
-    }
+            item->setText(0, e->Dia().value().toString(Qt::TextDate));
+            item->setData(0, Qt::UserRole, e->Dia().value());
+            item->setText(1, QString::number(e->EstimacionHoras().value()));
+            item->setText(2, e->isPlanned() ? tr("Yes") : tr("No"));
+            item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled);
+            tree.insertTopLevelItem(0, item);
+}
 }
 
 bool EstimacionesDias::addNew(QTreeWidgetItem *item)
@@ -348,7 +349,6 @@ bool EstimacionesDias::deleteElement(QVariant ID)
     if (m_Estimaciones.find(ID.toDate()) != m_Estimaciones.end())
     {
         m_Estimaciones[ID.toDate()]->setDeleted();
-        m_Estimaciones.remove(ID.toDate());
         result = true;
     }
     return result;
@@ -375,7 +375,7 @@ EstimacionDiaLst EstimacionesDias::getAll(bool includeDeleted)
 
     foreach (EstimacionDiaPtr e, m_Estimaciones.values())
     {
-        if (!e->isDeleted(true))
+        if (!e->isDeleted(false))
             res->push_back(e);
         else
             if (includeDeleted)
