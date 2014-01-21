@@ -355,6 +355,7 @@ bool PlanificacionesDias::deleteElement(QVariant ID)
     if (m_Planificaciones.find(ID.toDate()) != m_Planificaciones.end())
     {
         m_Planificaciones[ID.toDate()]->setDeleted();
+        m_Planificaciones.remove(ID.toDate());
         result = true;
     }
     return result;

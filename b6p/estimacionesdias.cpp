@@ -348,6 +348,7 @@ bool EstimacionesDias::deleteElement(QVariant ID)
     if (m_Estimaciones.find(ID.toDate()) != m_Estimaciones.end())
     {
         m_Estimaciones[ID.toDate()]->setDeleted();
+        m_Estimaciones.remove(ID.toDate());
         result = true;
     }
     return result;
