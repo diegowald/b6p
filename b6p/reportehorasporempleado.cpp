@@ -76,7 +76,7 @@ void ReporteHorasPorEmpleado::fillData(QTreeWidget &tree)
         if (rpt->date() == QDate(0, 0, 0))
             item->setText(0, "");
         else
-            item->setText(0, rpt->date().toString(Qt::TextDate));
+            item->setText(0, rpt->date().toString(Qt::ISODate));
         if (rpt->employee() == EmpleadoPtr())
             item->setText(1, "");
         else
@@ -134,7 +134,7 @@ boost::shared_ptr<QList<QStringList> > ReporteHorasPorEmpleado::getAll()
     foreach (ReportItemPtr item, reportData->items())
     {
         QStringList r;
-        r << item->date().toString(Qt::TextDate);
+        r << item->date().toString(Qt::ISODate);
         if (item->employee() == EmpleadoPtr())
             r << "";
         else

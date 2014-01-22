@@ -105,7 +105,7 @@ QString ReportItemCollection::createIndex(PlanificacionSubSectorPtr planificacio
     QLOG_TRACE_FN();
     QString index;
     if (doSummarizeDays)
-        index = planificacion->Dia().value().toString(Qt::TextDate);
+        index = planificacion->Dia().value().toString(Qt::ISODate);
     if (doSummarizeSectors)
     {
         if (idSectorFilter != -1)

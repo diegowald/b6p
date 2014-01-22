@@ -93,14 +93,14 @@ void DlgEmpleadosLicenciasPlanificacion::addEmpleadoToTree(EmpleadoPtr empleado)
         item->setData(1, Qt::UserRole, licencia->ID().value());
         if (ultimoFranco != LicenciaEmpleadoPtr())
         {
-            item->setText(1, ultimoFranco->FechaHasta().value().toString(Qt::TextDate));
+            item->setText(1, ultimoFranco->FechaHasta().value().toString(Qt::ISODate));
         }
         else
         {
             item->setText(1, "");
         }
-        item->setText(2, licencia->FechaDesde().value().toString(Qt::TextDate));
-        item->setText(3, licencia->FechaHasta().value().toString(Qt::TextDate));
+        item->setText(2, licencia->FechaDesde().value().toString(Qt::ISODate));
+        item->setText(3, licencia->FechaHasta().value().toString(Qt::ISODate));
         item->setText(4, licencia->TipoLicencia().value());
         item->setText(5, licencia->Descripcion().value());
     }

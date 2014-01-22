@@ -459,7 +459,7 @@ void Empleados::fillData(QTreeWidget &tree)
         item->setData(0, Qt::UserRole, emp->IDEmpleado().value());
         item->setText(1, emp->Nombre().value());
         item->setText(2, emp->Legajo().value());
-        item->setText(3, emp->FechaIngreso().value().toString(Qt::TextDate));
+        item->setText(3, emp->FechaIngreso().value().toString(Qt::ISODate));
         tree.insertTopLevelItem(0, item);
     }
 }

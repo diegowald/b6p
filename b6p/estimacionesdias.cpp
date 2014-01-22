@@ -290,7 +290,7 @@ void EstimacionesDias::fillData(QTreeWidget &tree)
     foreach(EstimacionDiaPtr e, *lst)
     {
         QTreeWidgetItem *item = new QTreeWidgetItem();
-            item->setText(0, e->Dia().value().toString(Qt::TextDate));
+            item->setText(0, e->Dia().value().toString(Qt::ISODate));
             item->setData(0, Qt::UserRole, e->Dia().value());
             item->setText(1, QString::number(e->EstimacionHoras().value()));
             item->setText(2, e->isPlanned() ? tr("Yes") : tr("No"));

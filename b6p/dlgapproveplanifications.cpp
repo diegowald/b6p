@@ -65,7 +65,7 @@ void DlgApprovePlanifications::setData(PlanificacionDiaLst data)
     {
         QTreeWidgetItem *item = new QTreeWidgetItem();
         item->setCheckState(0, Qt::Unchecked);
-        item->setText(0, p->Dia().value().toString(Qt::TextDate));
+        item->setText(0, p->Dia().value().toString(Qt::ISODate));
         item->setData(0, Qt::UserRole, p->Dia().value());
         if (p->IDSupervisor().isNull() || p->IDSupervisor().value() == -1)
             item->setText(1, "");

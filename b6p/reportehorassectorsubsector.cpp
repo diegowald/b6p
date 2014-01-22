@@ -84,7 +84,7 @@ void ReporteHorasSectorSubSector::fillData(QTreeWidget &tree)
             if (rpt->date() == QDate(0, 0, 0))
                 item->setText(column, "");
             else
-                item->setText(column, rpt->date().toString(Qt::TextDate));
+                item->setText(column, rpt->date().toString(Qt::ISODate));
             column++;
         }
         if (reportData->summarizeSectors())
@@ -154,7 +154,7 @@ boost::shared_ptr<QList<QStringList> > ReporteHorasSectorSubSector::getAll()
     {
         QStringList r;
         if (reportData->summarizeDays())
-            r << item->date().toString(Qt::TextDate);
+            r << item->date().toString(Qt::ISODate);
         if (reportData->summarizeSectors())
             r << item->sector()->Nombre().value();
         if (reportData->summarizeSubSectors())

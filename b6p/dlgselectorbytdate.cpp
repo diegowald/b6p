@@ -62,7 +62,7 @@ void DlgSelectorBytDate::setData(QList<QDate> &values)
     ui->cboValues->clear();
     foreach(QDate value, values)
     {
-        ui->cboValues->addItem(value.toString(Qt::TextDate), value);
+        ui->cboValues->addItem(value.toString(Qt::ISODate), value);
     }
     ui->cboValues->setCurrentIndex(0);
 }

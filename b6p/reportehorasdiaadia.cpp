@@ -76,7 +76,7 @@ void ReporteHorasDiaADia::fillData(QTreeWidget &tree)
         if (rpt->date() == QDate(0, 0, 0))
             item->setText(0, "");
         else
-            item->setText(0, rpt->date().toString(Qt::TextDate));
+            item->setText(0, rpt->date().toString(Qt::ISODate));
         item->setText(1, QString::number(rpt->hours()));
         tree.addTopLevelItem(item);
     }
@@ -130,7 +130,7 @@ boost::shared_ptr<QList<QStringList> > ReporteHorasDiaADia::getAll()
     foreach (ReportItemPtr item, reportData->items())
     {
         QStringList r;
-        r << item->date().toString(Qt::TextDate)
+        r << item->date().toString(Qt::ISODate)
              << QString::number(item->hours());
         res->push_back(r);
     }

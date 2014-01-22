@@ -68,7 +68,7 @@ DlgPlanificacionDia::~DlgPlanificacionDia()
 void DlgPlanificacionDia::setData(PlanificacionDiaPtr data)
 {
     QLOG_TRACE_FN();
-    ui->lblDia->setText(tr("Date: %1").arg(data->Dia().value().toString(Qt::TextDate)));
+    ui->lblDia->setText(tr("Date: %1").arg(data->Dia().value().toString(Qt::ISODate)));
     ui->lblHorasEstimadas->setText(tr("Estimation: %1 hs").arg(QString::number(data->Estimacion()->EstimacionHoras().value())));
     m_HorasEstimadas = data->Estimacion()->EstimacionHoras().value();
     ui->lblStatus->setText(tr("Status: %1").arg(data->Estado()));

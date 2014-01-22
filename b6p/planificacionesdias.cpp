@@ -277,7 +277,7 @@ void PlanificacionesDias::fillData(QTreeWidget &tree)
     foreach(PlanificacionDiaPtr p, m_Planificaciones.values())
     {
         QTreeWidgetItem *item = new QTreeWidgetItem();
-        item->setText(0, p->Dia().value().toString(Qt::TextDate));
+        item->setText(0, p->Dia().value().toString(Qt::ISODate));
         item->setData(0, Qt::UserRole, p->Dia().value());
         if (p->IDSupervisor().isNull() || p->IDSupervisor().value() == -1)
             item->setText(1, "");

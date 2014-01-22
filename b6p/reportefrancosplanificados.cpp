@@ -76,8 +76,8 @@ void ReporteFrancosPlanificados::fillData(QTreeWidget &tree)
         QTreeWidgetItem *item = new QTreeWidgetItem();
         EmpleadoPtr empleado  = DataStore::instance()->getEmpleados()->getEmpleado(licencia->IDEmpleado().value(), true);
         item->setText(0, empleado->Apellido().value() + ", " + empleado->Nombre().value());
-        item->setText(1, licencia->FechaDesde().value().toString(Qt::TextDate));
-        item->setText(2, licencia->FechaHasta().value().toString(Qt::TextDate));
+        item->setText(1, licencia->FechaDesde().value().toString(Qt::ISODate));
+        item->setText(2, licencia->FechaHasta().value().toString(Qt::ISODate));
         item->setText(3, licencia->TipoLicencia().value());
         item->setText(4, licencia->Descripcion().value());
         tree.addTopLevelItem(item);
@@ -114,8 +114,8 @@ boost::shared_ptr<QList<QStringList> > ReporteFrancosPlanificados::getAll()
         QStringList r;
         EmpleadoPtr empleado  = DataStore::instance()->getEmpleados()->getEmpleado(item->IDEmpleado().value(), true);
         r << QString("%1, %2").arg(empleado->Apellido().value(), empleado->Nombre().value())
-          << item->FechaDesde().value().toString(Qt::TextDate)
-          << item->FechaHasta().value().toString(Qt::TextDate)
+          << item->FechaDesde().value().toString(Qt::ISODate)
+          << item->FechaHasta().value().toString(Qt::ISODate)
           << item->TipoLicencia().value()
           << item->Descripcion().value();
         res->push_back(r);

@@ -145,8 +145,8 @@ void DlgEmployee::setData(EmpleadoPtr empleado)
         ui->treeLicencias->addTopLevelItem(item);
 
         item->setData(0, Qt::UserRole, empleado->IDEmpleado().value());
-        item->setText(0, licencia->FechaDesde().value().toString(Qt::TextDate));
-        item->setText(1, licencia->FechaHasta().value().toString(Qt::TextDate));
+        item->setText(0, licencia->FechaDesde().value().toString(Qt::ISODate));
+        item->setText(1, licencia->FechaHasta().value().toString(Qt::ISODate));
         item->setText(2, licencia->TipoLicencia().value());
         item->setText(3, licencia->Descripcion().value());
     }
