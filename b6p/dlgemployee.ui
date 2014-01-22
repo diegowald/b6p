@@ -36,7 +36,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -327,7 +327,17 @@
            </column>
            <column>
             <property name="text">
+             <string>Day</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
              <string>To</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Day</string>
             </property>
            </column>
            <column>

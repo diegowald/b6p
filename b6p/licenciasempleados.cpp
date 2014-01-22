@@ -209,11 +209,13 @@ void LicenciasEmpleados::fillData(QTreeWidget &tree)
         item->setData(0, Qt::UserRole, licencia->ID().value());
 
         item->setText(1, licencia->FechaDesde().value().toString(Qt::ISODate));
-        item->setText(2, licencia->FechaHasta().value().toString(Qt::ISODate));
+        item->setText(2, licencia->FechaDesde().value().toString("dddd"));
+        item->setText(3, licencia->FechaHasta().value().toString(Qt::ISODate));
+        item->setText(4, licencia->FechaHasta().value().toString("dddd"));
 
-        item->setText(3, licencia->TipoLicencia().value());
-        item->setText(4, licencia->Descripcion().value());
-        tree.insertTopLevelItem(0, item);
+        item->setText(5, licencia->TipoLicencia().value());
+        item->setText(6, licencia->Descripcion().value());
+        tree.addTopLevelItem(item);
     }
 }
 

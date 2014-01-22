@@ -146,9 +146,11 @@ void DlgEmployee::setData(EmpleadoPtr empleado)
 
         item->setData(0, Qt::UserRole, empleado->IDEmpleado().value());
         item->setText(0, licencia->FechaDesde().value().toString(Qt::ISODate));
-        item->setText(1, licencia->FechaHasta().value().toString(Qt::ISODate));
-        item->setText(2, licencia->TipoLicencia().value());
-        item->setText(3, licencia->Descripcion().value());
+        item->setText(1, licencia->FechaDesde().value().toString("dddd"));
+        item->setText(2, licencia->FechaHasta().value().toString(Qt::ISODate));
+        item->setText(3, licencia->FechaHasta().value().toString("dddd"));
+        item->setText(4, licencia->TipoLicencia().value());
+        item->setText(5, licencia->Descripcion().value());
     }
 }
 

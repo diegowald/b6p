@@ -290,13 +290,14 @@ void EstimacionesDias::fillData(QTreeWidget &tree)
     foreach(EstimacionDiaPtr e, *lst)
     {
         QTreeWidgetItem *item = new QTreeWidgetItem();
-            item->setText(0, e->Dia().value().toString(Qt::ISODate));
-            item->setData(0, Qt::UserRole, e->Dia().value());
-            item->setText(1, QString::number(e->EstimacionHoras().value()));
-            item->setText(2, e->isPlanned() ? tr("Yes") : tr("No"));
-            item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled);
-            tree.insertTopLevelItem(0, item);
-}
+        item->setText(0, e->Dia().value().toString(Qt::ISODate));
+        item->setData(0, Qt::UserRole, e->Dia().value());
+        item->setText(1, e->Dia().value().toString("dddd"));
+        item->setText(2, QString::number(e->EstimacionHoras().value()));
+        item->setText(3, e->isPlanned() ? tr("Yes") : tr("No"));
+        item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled);
+        tree.addTopLevelItem(item);
+    }
 }
 
 bool EstimacionesDias::addNew(QTreeWidgetItem *item)
