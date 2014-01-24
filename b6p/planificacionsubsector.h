@@ -81,6 +81,8 @@ public:
     virtual RecordPtr asRecordPtr();
     virtual bool isEqualsTo(RecordPtr record);
 
+    bool isPlanificacionDeleted();
+
     double CantidadHoras();
 
 signals:

@@ -169,7 +169,9 @@ void LicenciasEmpleados::defineHeaders(QStringList &list)
          << tr("Firstname")
          << tr("ID")
          << tr("From")
+         << tr("From Day")
          << tr("To")
+         << tr("To Day")
          << tr("Type")
          << tr("Notes");
 }

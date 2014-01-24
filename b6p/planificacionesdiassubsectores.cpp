@@ -327,7 +327,7 @@ PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getAll(const QDate& da
         QDate date = p->Dia().value();
         if ((dateFrom <= date) && (date <= dateTo))
         {
-            if (!p->isDeleted(true))
+            if (!p->isPlanificacionDeleted() && !p->isDeleted(false))
                 res->push_back(p);
             /*else
             {

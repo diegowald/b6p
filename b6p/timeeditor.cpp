@@ -66,12 +66,19 @@ void TimeEditor::onValueChanged(QLineEdit *, int)
     if (checkTime(ui->lineTime->text()))
     {
         currentTime = HHMMSS2Seconds(ui->lineTime->text(), true);
+        QPalette *palette = new QPalette();
+        palette->setColor(QPalette::Text,Qt::black);
+        ui->lineTime->setPalette(*palette);
         emit timeChanged(currentTime);
     }
     else
+    {
+        QPalette *palette = new QPalette();
+        palette->setColor(QPalette::Text,Qt::red);
+        ui->lineTime->setPalette(*palette);
         emit IncorrectTime(tr("Time is incorrect"));
+    }
 }
-
 void TimeEditor::setTime(int hh, int mm, int ss)
 {
     QLOG_TRACE_FN();

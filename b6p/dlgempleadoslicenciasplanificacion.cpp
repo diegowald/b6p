@@ -102,11 +102,9 @@ void DlgEmpleadosLicenciasPlanificacion::addEmpleadoToTree(EmpleadoPtr empleado)
             item->setText(2, "");
         }
         item->setText(3, licencia->FechaDesde().value().toString(Qt::ISODate));
-        item->setText(4, licencia->FechaDesde().value().toString("dddd"));
-        item->setText(5, licencia->FechaHasta().value().toString(Qt::ISODate));
-        item->setText(6, licencia->FechaHasta().value().toString("dddd"));
-        item->setText(7, licencia->TipoLicencia().value());
-        item->setText(8, licencia->Descripcion().value());
+        item->setText(4, licencia->FechaHasta().value().toString(Qt::ISODate));
+        item->setText(5, licencia->TipoLicencia().value());
+        item->setText(6, licencia->Descripcion().value());
     }
     else
     {

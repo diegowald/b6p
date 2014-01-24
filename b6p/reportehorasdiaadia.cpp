@@ -62,6 +62,7 @@ void ReporteHorasDiaADia::defineHeaders(QStringList &list)
 {
     QLOG_TRACE_FN();
     list << tr("Date")
+         << tr("Day")
          << tr("Total Hours");
 }
 
@@ -74,10 +75,16 @@ void ReporteHorasDiaADia::fillData(QTreeWidget &tree)
     {
         QTreeWidgetItem *item = new QTreeWidgetItem();
         if (rpt->date() == QDate(0, 0, 0))
+        {
             item->setText(0, "");
+            item->setText(1, "");
+        }
         else
+        {
             item->setText(0, rpt->date().toString(Qt::ISODate));
-        item->setText(1, QString::number(rpt->hours()));
+            item->setText(1, rpt->date().toString("dddd"));
+        }
+        item->setText(2, QString::number(rpt->hours()));
         tree.addTopLevelItem(item);
     }
 }
@@ -131,7 +138,8 @@ boost::shared_ptr<QList<QStringList> > ReporteHorasDiaADia::getAll()
     {
         QStringList r;
         r << item->date().toString(Qt::ISODate)
-             << QString::number(item->hours());
+          << item->date().toString("dddd")
+          << QString::number(item->hours());
         res->push_back(r);
     }
 

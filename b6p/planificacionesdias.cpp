@@ -244,9 +244,13 @@ RecordSet PlanificacionesDias::getUnsent()
 void PlanificacionesDias::defineHeaders(QStringList &list)
 {
     QLOG_TRACE_FN();
-    list << tr("Date") << tr("Supervisor")
-         << tr("Notes") << tr("Estimated hours")
-         << tr("Planned hours") << tr("Status")
+    list << tr("Date")
+         << tr("Day")
+         << tr("Supervisor")
+         << tr("Notes")
+         << tr("Estimated hours")
+         << tr("Planned hours")
+         << tr("Status")
          << tr("Complete");
 }
 
@@ -274,21 +278,23 @@ void PlanificacionesDias::fillData(QTreeWidget &tree)
 {
     QLOG_TRACE_FN();
     tree.clear();
-    foreach(PlanificacionDiaPtr p, m_Planificaciones.values())
+    PlanificacionDiaLst planificaciones = this->getAll(false);
+    foreach(PlanificacionDiaPtr p, *planificaciones)
     {
         QTreeWidgetItem *item = new QTreeWidgetItem();
         item->setText(0, p->Dia().value().toString(Qt::ISODate));
         item->setData(0, Qt::UserRole, p->Dia().value());
+        item->setText(1, p->Dia().value().toString("dddd"));
         if (p->IDSupervisor().isNull() || p->IDSupervisor().value() == -1)
-            item->setText(1, "");
+            item->setText(2, "");
         else
-            item->setText(1, p->Supervisor()->Apellido().value());
-        item->setText(2, p->Notas().value());
+            item->setText(2, p->Supervisor()->Apellido().value());
+        item->setText(3, p->Notas().value());
         if (p->Estimacion() != EstimacionDiaPtr())
-            item->setText(3, QString::number(p->Estimacion()->EstimacionHoras().value()));
-        item->setText(4, QString::number(p->HorasPlanificadas()));
-        item->setText(5, p->Estado());
-        item->setText(6, (p->isEverythingAssigned() ? tr("Yes") : tr("No")));
+            item->setText(4, QString::number(p->Estimacion()->EstimacionHoras().value()));
+        item->setText(5, QString::number(p->HorasPlanificadas()));
+        item->setText(6, p->Estado());
+        item->setText(7, (p->isEverythingAssigned() ? tr("Yes") : tr("No")));
         tree.insertTopLevelItem(0, item);
     }
 }
@@ -381,7 +387,7 @@ PlanificacionDiaLst PlanificacionesDias::getAll(bool includeDeleted)
     PlanificacionDiaLst res = boost::make_shared<QList<PlanificacionDiaPtr> >();
     foreach (PlanificacionDiaPtr p, m_Planificaciones.values())
     {
-        if (!p->isDeleted(true))
+        if (!p->isPlanificacionDeleted() && !p->isDeleted(false))
             res->push_back(p);
         else
             if (includeDeleted)

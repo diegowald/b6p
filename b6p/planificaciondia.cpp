@@ -150,7 +150,10 @@ int PlanificacionDia::HorasPlanificadas()
 
     foreach(PlanificacionSubSectorPtr p, *planificaciones)
     {
-        total += p->CantidadHoras();
+        if (!p->isDeleted(false))
+        {
+            total += p->CantidadHoras();
+        }
     }
     return total;
 }
@@ -351,4 +354,14 @@ bool PlanificacionDia::print(QTextDocument &textDoc)
     html += "\n</table>\n<br>\n";
     textDoc.setHtml(html);
     return true;
+}
+
+bool PlanificacionDia::isPlanificacionDeleted()
+{
+    QLOG_TRACE_FN();
+    EstimacionDiaPtr estimacion = Estimacion();
+    if (estimacion == EstimacionDiaPtr())
+        return true;
+
+    return estimacion->isDeleted(false);
 }

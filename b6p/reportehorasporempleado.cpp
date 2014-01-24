@@ -61,8 +61,7 @@ ReporteHorasPorEmpleado::~ReporteHorasPorEmpleado()
 void ReporteHorasPorEmpleado::defineHeaders(QStringList &list)
 {
     QLOG_TRACE_FN();
-    list << tr("Date")
-         << tr("Employee")
+    list << tr("Employee")
          << tr("Total Hours");
 }
 
@@ -73,15 +72,11 @@ void ReporteHorasPorEmpleado::fillData(QTreeWidget &tree)
     foreach (ReportItemPtr rpt, reportData->items())
     {
         QTreeWidgetItem *item = new QTreeWidgetItem();
-        if (rpt->date() == QDate(0, 0, 0))
+        if (rpt->employee() == EmpleadoPtr())
             item->setText(0, "");
         else
-            item->setText(0, rpt->date().toString(Qt::ISODate));
-        if (rpt->employee() == EmpleadoPtr())
-            item->setText(1, "");
-        else
-            item->setText(1, QString("%1, %2").arg(rpt->employee()->Apellido().value()).arg(rpt->employee()->Nombre().value()));
-        item->setText(2, QString::number(rpt->hours()));
+            item->setText(0, QString("%1, %2").arg(rpt->employee()->Apellido().value()).arg(rpt->employee()->Nombre().value()));
+        item->setText(1, QString::number(rpt->hours()));
         tree.addTopLevelItem(item);
     }
 }
@@ -134,7 +129,6 @@ boost::shared_ptr<QList<QStringList> > ReporteHorasPorEmpleado::getAll()
     foreach (ReportItemPtr item, reportData->items())
     {
         QStringList r;
-        r << item->date().toString(Qt::ISODate);
         if (item->employee() == EmpleadoPtr())
             r << "";
         else

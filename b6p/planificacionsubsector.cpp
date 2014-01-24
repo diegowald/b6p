@@ -226,3 +226,13 @@ void PlanificacionSubSector::updateID(int newID)
     m_IDRecord.setValue(newID);
     setUnmodified();
 }
+
+bool PlanificacionSubSector::isPlanificacionDeleted()
+{
+    QLOG_TRACE_FN();
+    PlanificacionDiaPtr planificacion = DataStore::instance()->getPlanificacionesDias()->getByDay(m_Dia.value(), false);
+    if (planificacion == PlanificacionDiaPtr())
+        return true; // Assume not existant as deleted.
+
+    return planificacion->isDeleted(false);
+}

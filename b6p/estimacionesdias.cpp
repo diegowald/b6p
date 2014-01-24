@@ -253,7 +253,7 @@ boost::shared_ptr<QList<QAction*> > EstimacionesDias::getActions()
 void EstimacionesDias::defineHeaders(QStringList &list)
 {
     QLOG_TRACE_FN();
-    list << tr("Date") << tr("Hours estimation") << tr("Planned");
+    list << tr("Date") << tr("Day") << tr("Hours estimation") << tr("Planned");
 }
 
 boost::shared_ptr<QList<QStringList> > EstimacionesDias::getAll()

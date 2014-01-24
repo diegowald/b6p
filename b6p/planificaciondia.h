@@ -86,6 +86,8 @@ public:
     void updatePlanificaciones(PlanificacionSubSectorLst dataFrom);
     PlanificacionSubSectorLst getPlanificaciones();
 
+    bool isPlanificacionDeleted();
+
 signals:
     
 public slots:

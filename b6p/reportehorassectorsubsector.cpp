@@ -62,7 +62,7 @@ void ReporteHorasSectorSubSector::defineHeaders(QStringList &list)
 {
     QLOG_TRACE_FN();
     if (reportData->summarizeDays())
-        list << tr("Date");
+        list << tr("Date") << tr("Day");
     if (reportData->summarizeSectors())
         list << tr("Sector");
     if (reportData->summarizeSubSectors())
@@ -82,10 +82,19 @@ void ReporteHorasSectorSubSector::fillData(QTreeWidget &tree)
         if (reportData->summarizeDays())
         {
             if (rpt->date() == QDate(0, 0, 0))
+            {
                 item->setText(column, "");
+                column++;
+                item->setText(column, "");
+                column++;
+            }
             else
+            {
                 item->setText(column, rpt->date().toString(Qt::ISODate));
-            column++;
+                column++;
+                item->setText(column, rpt->date().toString("dddd"));
+                column++;
+            }
         }
         if (reportData->summarizeSectors())
         {
@@ -154,7 +163,8 @@ boost::shared_ptr<QList<QStringList> > ReporteHorasSectorSubSector::getAll()
     {
         QStringList r;
         if (reportData->summarizeDays())
-            r << item->date().toString(Qt::ISODate);
+            r << item->date().toString(Qt::ISODate)
+              << item->date().toString("dddd");
         if (reportData->summarizeSectors())
             r << item->sector()->Nombre().value();
         if (reportData->summarizeSubSectors())
