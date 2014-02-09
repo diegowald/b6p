@@ -70,7 +70,7 @@ QString CalendarioPersonas::getSqlString()
 QString CalendarioPersonas::getSQLExistsInMainDB()
 {
     QLOG_TRACE_FN();
-    return QString("select Dia, IDEmpleado, HoraIngreso, HoraEgreso, HoraIngreso2, HoraEgreso2, from calendariopersonas "
+    return QString("select Dia, IDEmpleado, HoraIngreso, HoraEgreso, HoraIngreso2, HoraEgreso2 from calendariopersonas "
                    " where Dia = :Dia and IDEmpleado = :IDEmpleado; ");
 }
 

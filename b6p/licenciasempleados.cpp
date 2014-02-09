@@ -223,19 +223,19 @@ void LicenciasEmpleados::fillData(QTreeWidget &tree)
 
 QString LicenciasEmpleados::getTableName()
 {
-    return "licenciasempleados";
+    return "licenciasEmpleados";
 }
 
 QString LicenciasEmpleados::getLocalDeleteStatement()
 {
     QLOG_TRACE_FN();
-    return QString("update licenciasempleados set RecordStatus = %1, sent = 0 where ID = :RECORD_ID;").arg(DELETED);
+    return QString("update licenciasEmpleados set RecordStatus = %1, sent = 0 where ID = :RECORD_ID;").arg(DELETED);
 }
 
 QString LicenciasEmpleados::getLocalUpdateStatement()
 {
     QLOG_TRACE_FN();
-    return QString("update licenciasempleados set RecordStatus = %1, sent = 0, "
+    return QString("update licenciasEmpleados set RecordStatus = %1, sent = 0, "
                    " IDEmpleado = :IDEmpleado, FechaDesde = :FechaDesde, FechaHasta = :FechaHasta, "
                    " tipoLicencia = :tipoLicencia, descripcion = :descripcion WHERE ID = :RECORD_ID").arg(MODIFIED);
 }
@@ -280,13 +280,13 @@ QString LicenciasEmpleados::getLocalInsertStatement()
 QString LicenciasEmpleados::getCentralDeleteStatement()
 {
     QLOG_TRACE_FN();
-    return QString("update licenciasempleados set RecordStatus = %1, sent = 0, SenderMachine = :SenderMachine where ID = :RECORD_ID;").arg(DELETED);
+    return QString("update licenciasEmpleados set RecordStatus = %1, sent = 0, SenderMachine = :SenderMachine where ID = :RECORD_ID;").arg(DELETED);
 }
 
 QString LicenciasEmpleados::getCentralUpdateStatement()
 {
     QLOG_TRACE_FN();
-    return QString("update licenciasempleados set RecordStatus = %1, sent = 0, "
+    return QString("update licenciasEmpleados set RecordStatus = %1, sent = 0, "
                    " IDEmpleado = :IDEmpleado, FechaDesde = :FechaDesde, FechaHasta = :FechaHasta, "
                    " tipoLicencia = :tipoLicencia, descripcion = :descripcion, "
                    " SenderMachine = :SenderMachine WHERE ID = :RECORD_ID").arg(MODIFIED);
@@ -338,7 +338,7 @@ QString LicenciasEmpleados::getCentralInsertStatement()
 QString LicenciasEmpleados::getSQLExistsInMainDB()
 {
     QLOG_TRACE_FN();
-    return QString("select ID from licenciasempleados "
+    return QString("select ID from licenciasEmpleados "
                    " where ID = :RECORD_ID ;");
 }
 

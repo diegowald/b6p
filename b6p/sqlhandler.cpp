@@ -200,7 +200,7 @@ RecordSet SQLHandler::getAll(QString &query, RecordPtr record)
     if (q.lastError().type() != QSqlError::NoError)
     {
         QLOG_ERROR() << QObject::tr("SQL Error") <<  q.lastError().text();
-        QMessageBox::information(NULL, QObject::tr("SQL Error"), q.lastError().text());
+        QMessageBox::information(NULL, QObject::tr("SQL Error"), query + "\n" + q.lastError().text());
     }
     db.close();
 
@@ -259,7 +259,8 @@ int SQLHandler::executeQuery(QString &cmd, RecordPtr record, bool returnLastInse
     if (q.lastError().type() != QSqlError::NoError)
     {
         QLOG_ERROR() << QObject::tr("SQL Error:") << q.lastError().text();
-        QMessageBox::information(NULL, QObject::tr("SQL Error"), q.lastError().text());
+        QString msg = cmd + " "  + q.lastError().text();
+        QMessageBox::information(NULL, QObject::tr("SQL Error"), msg);
     }
 
     qlonglong lastID = (returnLastInsertedID ? q.lastInsertId().toLongLong() : -1);
