@@ -76,14 +76,17 @@ void DlgLicencia::setData(LicenciaEmpleadoPtr licencia)
 {
     QLOG_TRACE_FN();
     EmpleadoPtr empleado = DataStore::instance()->getEmpleados()->getEmpleado(licencia->IDEmpleado().value(), false);
-    idEmpleado = empleado->IDEmpleado().value();
-    ui->lblEmployee->setText(QString("%1, %2").arg(empleado->Apellido().value(), empleado->Nombre().value()));
-    if (!licencia->FechaDesde().isNull())
-        ui->dateFrom->setDate(licencia->FechaDesde().value());
-    if (!licencia->FechaHasta().isNull())
-        ui->dateTo->setDate(licencia->FechaHasta().value());
-    ui->cboType->setCurrentText(licencia->TipoLicencia().isNull() ? "" : licencia->TipoLicencia().value());
-    ui->txtNotes->setText(licencia->Descripcion().isNull() ? "" : licencia->Descripcion().value());
+    if (empleado.get())
+    {
+        idEmpleado = empleado->IDEmpleado().value();
+        ui->lblEmployee->setText(QString("%1, %2").arg(empleado->Apellido().value(), empleado->Nombre().value()));
+        if (!licencia->FechaDesde().isNull())
+            ui->dateFrom->setDate(licencia->FechaDesde().value());
+        if (!licencia->FechaHasta().isNull())
+            ui->dateTo->setDate(licencia->FechaHasta().value());
+        ui->cboType->setCurrentText(licencia->TipoLicencia().isNull() ? "" : licencia->TipoLicencia().value());
+        ui->txtNotes->setText(licencia->Descripcion().isNull() ? "" : licencia->Descripcion().value());
+    }
 }
 
 int DlgLicencia::IDEmpleado()

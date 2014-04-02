@@ -279,7 +279,7 @@ bool EstimacionesDias::isColumnEditable(QVariant ID, int column)
 {
     QLOG_TRACE_FN();
     EstimacionDiaPtr ptr = m_Estimaciones[ID.toDate()];
-    return ((column == 1) && (!ptr->isPlanned()));
+    return ((column == 2) && (!ptr->isPlanned()));
 }
 
 void EstimacionesDias::fillData(QTreeWidget &tree)
@@ -318,7 +318,7 @@ bool EstimacionesDias::edit(QTreeWidgetItem *item, QVariant ID)
 {
     QLOG_TRACE_FN();
     EstimacionDiaPtr e = m_Estimaciones[ID.toDate()];
-    e->EstimacionHoras().setValue(item->text(1).toInt());
+    e->EstimacionHoras().setValue(item->text(2).toInt());
     return true;
 }
 
