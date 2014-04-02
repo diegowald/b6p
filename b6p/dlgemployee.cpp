@@ -287,7 +287,10 @@ void DlgEmployee::on_btnDelete_pressed()
                         m_Empleado->IDEmpleado().value(),
                         w->IDSector(),
                         w->IDSubSector(), false);
-            c->setDeleted();
+            if (c.get())
+            {
+                c->setDeleted();
+            }
         }
         delete item;
     }
