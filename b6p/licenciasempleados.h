@@ -91,6 +91,7 @@ public:
     virtual LicenciaEmpleadoPtr getLicencia(int idLicencia, bool includeDeleted);
     virtual LicenciasEmpleadosLst getAllLicencias();
     virtual LicenciasEmpleadosLst getAllLicencias(const QDate& from, const QDate& to);
+    virtual LicenciasEmpleadosLst getAllLicencias(const QDate& date);
     virtual LicenciasEmpleadosLst getAllLicenciasEmpleado(int idEmpleado);
     virtual LicenciaEmpleadoPtr getLicenciaEmpleado(int idEmpleado, QDate& date);
     virtual bool isOnLicence(int idEmpleado, QDate& date);

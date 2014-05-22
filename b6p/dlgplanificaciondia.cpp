@@ -46,6 +46,8 @@
 #include "timehelper.h"
 #include <QTextStream>
 #include <QsLog.h>
+#include <QTableWidget>
+#include <QTableWidgetItem>
 #include <dlgempleadoslicenciasplanificacion.h>
 
 DlgPlanificacionDia::DlgPlanificacionDia(QWidget *parent) :
@@ -121,8 +123,33 @@ void DlgPlanificacionDia::setData(PlanificacionDiaPtr data)
         ui->treeWidget->setItemWidget(item, 0, time);
         connect(time, SIGNAL(AssignmentChanged(int,int)), this, SLOT(slot_AssignmentChanged(int,int)));
     }
+
+    for (int i = 0; i < 7; i++)
+    {
+        QDate date = data->Dia().value().addDays(-i);
+        ui->tblLicencias->horizontalHeaderItem(6-i)->setText(date.toString());
+        llenarLicencias(date, 6 - i);
+    }
+
     if (data->EstadoPlanificacion().value() == APPROVED)
         setReadOnly();
+}
+
+void DlgPlanificacionDia::llenarLicencias(const QDate& date, int column)
+{
+    QLOG_TRACE_FN();
+    LicenciasEmpleadosLst licencias = DataStore::instance()->getLicencias()->getAllLicencias(date);
+    int rowCount = ui->tblLicencias->rowCount();
+    rowCount = (rowCount < licencias->size()) ? licencias->size() : rowCount;
+    ui->tblLicencias->setRowCount(rowCount);
+    int row = 0;
+    foreach (LicenciaEmpleadoPtr licencia, *licencias)
+    {
+        EmpleadoPtr empleado = DataStore::instance()->getEmpleados()->getEmpleado(licencia->IDEmpleado().value(), true);
+        QTableWidgetItem *item = new QTableWidgetItem(empleado->Apellido().value() + ", " + empleado->Nombre().value() + "(" + licencia->TipoLicencia().value() + ")");
+        ui->tblLicencias->setItem(row, column, item);
+        row++;
+    }
 }
 
 void DlgPlanificacionDia::on_btnAdd_pressed()
