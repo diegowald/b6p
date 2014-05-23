@@ -592,9 +592,7 @@ LicenciasEmpleadosLst LicenciasEmpleados::getAllLicencias(const QDate &from, con
 LicenciasEmpleadosLst LicenciasEmpleados::getAllLicencias(const QDate& date)
 {
     QLOG_TRACE_FN();
-    QDate from = date;
-    QDate to = date.addDays(1);
-    return getAllLicencias(from, to);
+    return getAllLicencias(date, date);
 }
 
 LicenciasEmpleadosLst LicenciasEmpleados::getFrancos(QDate &date)

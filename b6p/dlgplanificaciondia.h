@@ -69,6 +69,7 @@ private:
     boost::shared_ptr<QList<QStringList> > getAll();
     void setReadOnly();
     QList<int> getCurrentlyWorkingEmployees();
+    void refreshLicencias();
     void llenarLicencias(const QDate& date, int column);
 
 

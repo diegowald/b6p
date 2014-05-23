@@ -108,7 +108,8 @@ SOURCES += main.cpp\
     reportehorasporempleado.cpp \
     reportefrancosplanificados.cpp \
     reportitem.cpp \
-    reportitemcollection.cpp
+    reportitemcollection.cpp \
+    b6pcalendarwidget.cpp
 
 HEADERS  += mainwindow.h \
     timeassignment.h \
@@ -169,7 +170,8 @@ HEADERS  += mainwindow.h \
     reportehorasporempleado.h \
     reportefrancosplanificados.h \
     reportitem.h \
-    reportitemcollection.h
+    reportitemcollection.h \
+    b6pcalendarwidget.h
 
 FORMS    += mainwindow.ui \
     genericlist.ui \

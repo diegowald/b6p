@@ -124,15 +124,20 @@ void DlgPlanificacionDia::setData(PlanificacionDiaPtr data)
         connect(time, SIGNAL(AssignmentChanged(int,int)), this, SLOT(slot_AssignmentChanged(int,int)));
     }
 
-    for (int i = 0; i < 7; i++)
-    {
-        QDate date = data->Dia().value().addDays(-i);
-        ui->tblLicencias->horizontalHeaderItem(6-i)->setText(date.toString());
-        llenarLicencias(date, 6 - i);
-    }
+    refreshLicencias();
 
     if (data->EstadoPlanificacion().value() == APPROVED)
         setReadOnly();
+}
+
+void DlgPlanificacionDia::refreshLicencias()
+{
+    for (int i = 0; i < 7; i++)
+    {
+        QDate date = m_Dia.addDays(-i);
+        ui->tblLicencias->horizontalHeaderItem(6-i)->setText(date.toString());
+        llenarLicencias(date, 6 - i);
+    }
 }
 
 void DlgPlanificacionDia::llenarLicencias(const QDate& date, int column)
@@ -146,9 +151,12 @@ void DlgPlanificacionDia::llenarLicencias(const QDate& date, int column)
     foreach (LicenciaEmpleadoPtr licencia, *licencias)
     {
         EmpleadoPtr empleado = DataStore::instance()->getEmpleados()->getEmpleado(licencia->IDEmpleado().value(), true);
-        QTableWidgetItem *item = new QTableWidgetItem(empleado->Apellido().value() + ", " + empleado->Nombre().value() + "(" + licencia->TipoLicencia().value() + ")");
-        ui->tblLicencias->setItem(row, column, item);
-        row++;
+        if (empleado!= EmpleadoPtr())
+        {
+            QTableWidgetItem *item = new QTableWidgetItem(empleado->Apellido().value() + ", " + empleado->Nombre().value() + " (" + licencia->TipoLicencia().value() + ")");
+            ui->tblLicencias->setItem(row, column, item);
+            row++;
+        }
     }
 }
 
@@ -429,6 +437,7 @@ void DlgPlanificacionDia::on_toolButton_clicked()
             TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 0));
             time->recalculateAvailableEmployees();
         }
+        this->refreshLicencias();
 //        RecordPtr modifiedRec = dlg.mergedRecord();
 //        m_Data->updateRecord(modifiedRec, false);
     }
