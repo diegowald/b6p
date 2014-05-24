@@ -45,6 +45,7 @@
 #include "dlgsynchronization.h"
 #include <QMessageBox>
 
+
 // Printing
 #include <QtPrintSupport/QPrintDialog>
 #include <QtPrintSupport/QPrintPreviewDialog>
@@ -93,6 +94,7 @@ void MainWindow::on_actionOpen_triggered()
 {
     QLOG_TRACE_FN();
     // Open Planification List
+
     GenericList *wnd = new GenericList(m_LoggedUser, DataStore::instance()->getPlanificacionesDias(), false, true, this);
     ui->mdiArea->addSubWindow(wnd);
     wnd->show();
