@@ -112,7 +112,7 @@ SOURCES += main.cpp\
     b6pcalendarwidget.cpp \
     CalendarWindow.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += \
     timeassignment.h \
     timeassignmentplugin.h \
     acollection.h \
@@ -136,6 +136,8 @@ HEADERS  += mainwindow.h \
     nullablefield.h \
     days.h \
     genericlist.h \
+    CalendarWindow.h \
+    mainwindow.h \
     dlgemployee.h \
     timeassignmentitemedit.h \
     availabilitywidget.h \
@@ -172,8 +174,7 @@ HEADERS  += mainwindow.h \
     reportefrancosplanificados.h \
     reportitem.h \
     reportitemcollection.h \
-    b6pcalendarwidget.h \
-    CalendarWindow.h
+    b6pcalendarwidget.h
 
 FORMS    += mainwindow.ui \
     genericlist.ui \

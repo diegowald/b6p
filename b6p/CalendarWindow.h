@@ -37,11 +37,11 @@
 ** $QT_END_LICENSE$
 **
 ****************************************************************************/
-#ifndef GENERICLIST_H
-#define GENERICLIST_H
+#ifndef CALENDARWINDOW_H
+#define CALENDARWINDOW_H
 
 #include <QMainWindow>
-#include "acollection.h"
+#include "planificacionesdias.h"
 
 // For printing
 #include <QTextDocument>
@@ -55,7 +55,7 @@ class CalendarWindow : public QMainWindow
     Q_OBJECT
     
 public:
-    explicit CalendarWindow(int LoggedUser, boost::shared_ptr<ACollection> Model, bool inPlaceEdit, bool allowSorting, QWidget *parent);
+    explicit CalendarWindow(int LoggedUser, boost::shared_ptr<PlanificacionesDias> Model, bool inPlaceEdit, bool allowSorting, QWidget *parent);
 
     void AllowAdd(bool status);
     void AllowEdit(bool status);
@@ -63,7 +63,6 @@ public:
 
 
     ~CalendarWindow();
-    void setHeader(QStringList &headers);
     void enableButtonsBasedOnAccess();
     QString getHTMLReport();
     bool printSelectedRecord(QTextDocument &textDoc);
@@ -95,10 +94,10 @@ private slots:
 
 private:
     Ui::CalendarWindow *ui;
-    boost::shared_ptr<ACollection> model;
+    boost::shared_ptr<PlanificacionesDias> model;
     bool m_InPlaceEdit;
     int m_LoggedUser;
     bool m_allowSorting;
 };
 
-#endif // GENERICLIST_H
+#endif // CALENDARWINDOW_H

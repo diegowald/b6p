@@ -40,6 +40,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "genericlist.h"
+#include "CalendarWindow.h"
 #include "datastore.h"
 #include "dlgparametros.h"
 #include "dlgsynchronization.h"
@@ -94,8 +95,7 @@ void MainWindow::on_actionOpen_triggered()
 {
     QLOG_TRACE_FN();
     // Open Planification List
-
-    GenericList *wnd = new GenericList(m_LoggedUser, DataStore::instance()->getPlanificacionesDias(), false, true, this);
+    CalendarWindow *wnd = new CalendarWindow(m_LoggedUser, DataStore::instance()->getPlanificacionesDias(), false, true, this);
     ui->mdiArea->addSubWindow(wnd);
     wnd->show();
     wnd->activateWindow();
