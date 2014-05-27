@@ -40,9 +40,9 @@
 #include "sectores.h"
 #include <QsLog.h>
 
-Sectores::Sectores(QObject *parent) :
+Sectores::Sectores(const QString &dbName, QObject *parent) :
     ACollection(tr("Sectors"),
-                "Sectors", false, ACollection::MERGE_KEEP_LOCAL, parent)
+                "Sectors", false, ACollection::MERGE_KEEP_LOCAL, dbName, parent)
 {
     QLOG_TRACE_FN();
 }

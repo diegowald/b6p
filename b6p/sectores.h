@@ -48,7 +48,7 @@ class Sectores : public ACollection
 {
     Q_OBJECT
 public:
-    explicit Sectores(QObject *parent = 0);
+    explicit Sectores(const QString &dbName, QObject *parent = 0);
     virtual QString getSqlString();
     virtual QString getSQLExistsInMainDB();
     virtual void addRecord(RecordPtr record, bool setNew = true);

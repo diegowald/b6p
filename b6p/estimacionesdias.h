@@ -48,7 +48,7 @@ class EstimacionesDias : public ACollection
 {
     Q_OBJECT
 public:
-    EstimacionesDias(QObject *parent = 0);
+    EstimacionesDias(const QString &dbName, QObject *parent = 0);
     virtual QString getSqlString();
     virtual void addRecord(RecordPtr record, bool setNew = true);
     virtual void updateRecord(RecordPtr record, bool isFromSincro);

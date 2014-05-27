@@ -1,8 +1,8 @@
 #include "basereport.h"
 #include "QsLog.h"
 
-BaseReport::BaseReport(QString Name, QString InvariableName, bool useLastInsertId, MERGE_STRATEGY MergeStrategy, QObject *parent) :
-    ACollection(Name, InvariableName, useLastInsertId, MergeStrategy, parent)
+BaseReport::BaseReport(QString Name, QString InvariableName, bool useLastInsertId, MERGE_STRATEGY MergeStrategy, const QString& dbName, QObject *parent) :
+    ACollection(Name, InvariableName, useLastInsertId, MergeStrategy, dbName, parent)
 {
     QLOG_TRACE_FN();
 }

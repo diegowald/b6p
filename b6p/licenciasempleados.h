@@ -47,7 +47,7 @@ class LicenciasEmpleados : public ACollection
 {
     Q_OBJECT
 public:
-    explicit LicenciasEmpleados(QObject *parent = 0);
+    explicit LicenciasEmpleados(const QString &dbName, QObject *parent = 0);
     virtual ~LicenciasEmpleados();
 
     virtual QString getSqlString();

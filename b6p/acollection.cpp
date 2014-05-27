@@ -46,13 +46,14 @@
 #include <QsLog.h>
 
 
-ACollection::ACollection(QString Name, QString InvariableName, bool useLastInsertId, MERGE_STRATEGY MergeStrategy, QObject *parent) :
+ACollection::ACollection(const QString& Name, const QString &InvariableName, bool useLastInsertId, MERGE_STRATEGY MergeStrategy, const QString &dbName, QObject *parent) :
     QObject(parent),
     m_Name(Name),
     m_InvariableName(InvariableName),
-    sqlEngine("./planning.b6p"),
+    sqlEngine(dbName),
     usesLastInsertedId(useLastInsertId),
-    m_MergeStrategy(MergeStrategy)
+    m_MergeStrategy(MergeStrategy),
+    m_dbName(dbName)
 {
     QLOG_TRACE_FN();
 }

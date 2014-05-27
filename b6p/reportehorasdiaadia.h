@@ -49,7 +49,7 @@ class ReporteHorasDiaADia : public BaseReport
 {
     Q_OBJECT
 public:
-    ReporteHorasDiaADia(QObject *parent = 0);
+    ReporteHorasDiaADia(const QString& dbName, QObject *parent = 0);
     virtual ~ReporteHorasDiaADia();
 
     virtual void defineHeaders(QStringList &list);

@@ -51,7 +51,7 @@ class Empleados : public ACollection
 {
     Q_OBJECT
 public:
-    explicit Empleados(QObject *parent = 0);
+    explicit Empleados(const QString &dbName, QObject *parent = 0);
     virtual ~Empleados();
     virtual QString getSqlString();
 

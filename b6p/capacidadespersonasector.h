@@ -48,7 +48,7 @@ class CapacidadesPersonaSector : public ACollection
 {
     Q_OBJECT
 public:
-    explicit CapacidadesPersonaSector(QObject *parent = 0);
+    explicit CapacidadesPersonaSector(const QString &dbName, QObject *parent = 0);
 
     QString getSqlString();
     virtual QString getSQLExistsInMainDB();

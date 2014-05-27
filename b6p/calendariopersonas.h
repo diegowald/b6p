@@ -48,7 +48,7 @@ class CalendarioPersonas : public ACollection
 {
     Q_OBJECT
 public:
-    explicit CalendarioPersonas(QObject *parent = 0);
+    explicit CalendarioPersonas(const QString &dbName, QObject *parent = 0);
     virtual ~CalendarioPersonas();
     virtual QString getSqlString();
     virtual QString getSQLExistsInMainDB();

@@ -44,8 +44,8 @@
 #include "dlglicencia.h"
 #include "datastore.h"
 
-LicenciasEmpleados::LicenciasEmpleados(QObject *parent) :
-    ACollection(tr("RestDays"), "RestDays", true, ACollection::MERGE_KEEP_LOCAL, parent)
+LicenciasEmpleados::LicenciasEmpleados(const QString& dbName, QObject *parent) :
+    ACollection(tr("RestDays"), "RestDays", true, ACollection::MERGE_KEEP_LOCAL, dbName, parent)
 {
     QLOG_TRACE_FN();
 }

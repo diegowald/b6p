@@ -37,8 +37,6 @@ void B6PCalendarWidget::paintCell(QPainter *painter, const QRect &rect, const QD
 
         painter->save();
         painter->setPen(QColor(64, 64, 64, 192));
-        //        painter->fillRect(rect, QBrush(QColor(255, 128, 64, 255)));
-        //        painter->drawEllipse(rect);   // here we draw n ellipse and the day--
 
         QFont font = painter->font();
         font.setPixelSize(12);
@@ -59,7 +57,7 @@ void B6PCalendarWidget::paintCell(QPainter *painter, const QRect &rect, const QD
         text.setText(planificado);
         painter->drawStaticText(rect.right() - rect.width() / 2,
                                 rect.bottom() - 13, text);
-        //           painter->drawText(rect, Qt::TextSingleLine, Qt::AlignCenter,QString::number(date.day()));
+
         painter->restore();
     }
 }

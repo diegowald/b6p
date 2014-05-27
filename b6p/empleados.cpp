@@ -45,8 +45,8 @@
 #include <QsLog.h>
 #include <QSet>
 
-Empleados::Empleados(QObject *parent) :
-    ACollection(tr("Employees"), "Employees", true, ACollection::MERGE_MANUAL, parent)
+Empleados::Empleados(const QString &dbName, QObject *parent) :
+    ACollection(tr("Employees"), "Employees", true, ACollection::MERGE_MANUAL, dbName, parent)
 {
     QLOG_TRACE_FN();
 }

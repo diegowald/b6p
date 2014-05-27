@@ -50,7 +50,7 @@ class BaseReport : public ACollection
 {
     Q_OBJECT
 public:
-    BaseReport(QString Name, QString InvariableName, bool useLastInsertId, MERGE_STRATEGY MergeStrategy, QObject *parent = 0);
+    BaseReport(QString Name, QString InvariableName, bool useLastInsertId, MERGE_STRATEGY MergeStrategy, const QString &dbName, QObject *parent = 0);
     virtual ~BaseReport();
 
     virtual QString getSqlString();

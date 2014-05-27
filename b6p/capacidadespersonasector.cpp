@@ -41,9 +41,9 @@
 #include <QsLog.h>
 
 
-CapacidadesPersonaSector::CapacidadesPersonaSector(QObject *parent) :
+CapacidadesPersonaSector::CapacidadesPersonaSector(const QString &dbName, QObject *parent) :
     ACollection(tr("Employee capacity by Sector"),
-                "Employee capacity by Sector", false, ACollection::MERGE_KEEP_LOCAL, parent)
+                "Employee capacity by Sector", false, ACollection::MERGE_KEEP_LOCAL, dbName, parent)
 {
     QLOG_TRACE_FN();
 }

@@ -44,9 +44,9 @@
 #include <QsLog.h>
 
 
-PlanificacionesDias::PlanificacionesDias(QObject *parent) :
+PlanificacionesDias::PlanificacionesDias(const QString &dbName, QObject *parent) :
     ACollection(tr("Days Planifications"),
-                "Days Planifications", false, ACollection::MERGE_KEEP_MAIN, parent)
+                "Days Planifications", false, ACollection::MERGE_KEEP_MAIN, dbName, parent)
 {
     QLOG_TRACE_FN();
 }

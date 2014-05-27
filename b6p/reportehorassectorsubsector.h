@@ -50,7 +50,7 @@ class ReporteHorasSectorSubSector : public BaseReport
 {
     Q_OBJECT
 public:
-    ReporteHorasSectorSubSector(QObject *parent = 0);
+    ReporteHorasSectorSubSector(const QString& dbName, QObject *parent = 0);
     virtual ~ReporteHorasSectorSubSector();
 
     virtual void defineHeaders(QStringList &list);

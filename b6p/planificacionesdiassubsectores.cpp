@@ -40,10 +40,10 @@
 #include "planificacionesdiassubsectores.h"
 #include <QsLog.h>
 
-PlanificacionesDiasSubSectores::PlanificacionesDiasSubSectores(QObject *parent) :
+PlanificacionesDiasSubSectores::PlanificacionesDiasSubSectores(const QString &dbName, QObject *parent) :
     ACollection(tr("Planifications of Sectors and subsectors for a day"),
                 "Planifications of Sectors and subsectors for a day", true,
-                ACollection::MERGE_KEEP_LOCAL, parent)
+                ACollection::MERGE_KEEP_LOCAL, dbName, parent)
 {
     QLOG_TRACE_FN();
 }

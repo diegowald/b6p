@@ -41,9 +41,9 @@
 #include <boost/make_shared.hpp>
 #include <QsLog.h>
 
-CalendarioPersonas::CalendarioPersonas(QObject *parent) :
+CalendarioPersonas::CalendarioPersonas(const QString &dbName, QObject *parent) :
     ACollection(tr("Employee availability"),
-                "Employee availability", false, ACollection::MERGE_KEEP_LOCAL, parent)
+                "Employee availability", false, ACollection::MERGE_KEEP_LOCAL, dbName, parent)
 {
     QLOG_TRACE_FN();
 }

@@ -60,7 +60,7 @@ const QString Parametros::FRANCO_TYPE("RestType");
 
 Parametros::Parametros(QObject *parent) :
     ACollection(tr("Parameters"),
-                "Parameters", false, ACollection::MERGE_KEEP_LOCAL, parent)
+                "Parameters", false, ACollection::MERGE_KEEP_LOCAL, "./planning.b6p", parent)
 {
     QLOG_TRACE_FN();
     m_recordsWereCreated = false;

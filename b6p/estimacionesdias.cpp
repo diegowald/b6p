@@ -44,9 +44,9 @@
 #include "datastore.h"
 #include <QsLog.h>
 
-EstimacionesDias::EstimacionesDias(QObject *parent)
+EstimacionesDias::EstimacionesDias(const QString &dbName, QObject *parent)
     : ACollection(tr("Day Estimations"),
-                  "Day Estimations",false, ACollection::MERGE_KEEP_LOCAL, parent)
+                  "Day Estimations",false, ACollection::MERGE_KEEP_LOCAL, dbName, parent)
 {
     QLOG_TRACE_FN();
 }

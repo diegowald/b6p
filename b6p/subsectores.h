@@ -48,7 +48,7 @@ class SubSectores : public ACollection
 {
     Q_OBJECT
 public:
-    explicit SubSectores(QObject *parent = 0);
+    explicit SubSectores(QString dbName, QObject *parent = 0);
     virtual QString getSqlString();
     virtual QString getSQLExistsInMainDB();
     virtual void addRecord(RecordPtr record, bool setNew = true);

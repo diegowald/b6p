@@ -60,7 +60,7 @@ private:
     };
 
 public:
-    explicit Accesos(QObject *parent = 0);
+    explicit Accesos(const QString &dbName, QObject *parent = 0);
 
     bool canRead(int IDUser, QString &feature);
     bool canCreate(int IDUser, QString &feature);

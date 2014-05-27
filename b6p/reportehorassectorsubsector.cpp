@@ -41,8 +41,8 @@
 #include "QsLog.h"
 #include "dlgquerybuilder.h"
 
-ReporteHorasSectorSubSector::ReporteHorasSectorSubSector(QObject *parent) :
-    BaseReport(tr("Hours By Sector and Subsector Report"), "Hours By Sector and Subsector Report", false, ACollection::MERGE_KEEP_LOCAL, parent)
+ReporteHorasSectorSubSector::ReporteHorasSectorSubSector(const QString &dbName, QObject *parent) :
+    BaseReport(tr("Hours By Sector and Subsector Report"), "Hours By Sector and Subsector Report", false, ACollection::MERGE_KEEP_LOCAL, dbName, parent)
 {
     QLOG_TRACE_FN();
     QDate dateFrom = QDate::currentDate().addDays(-7);

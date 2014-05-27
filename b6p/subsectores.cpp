@@ -41,9 +41,9 @@
 #include <QsLog.h>
 
 
-SubSectores::SubSectores(QObject *parent) :
+SubSectores::SubSectores(QString dbName, QObject *parent) :
     ACollection(tr("SubSectors"),
-                "SubSectors", false, ACollection::MERGE_KEEP_LOCAL, parent)
+                "SubSectors", false, ACollection::MERGE_KEEP_LOCAL, dbName, parent)
 {
     QLOG_TRACE_FN();
 }

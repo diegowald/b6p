@@ -47,7 +47,7 @@ class PlanificacionesDias : public ACollection
 {
     Q_OBJECT
 public:
-    explicit PlanificacionesDias(QObject *parent = 0);
+    explicit PlanificacionesDias(const QString &dbName, QObject *parent = 0);
     virtual QString getSqlString();
     virtual QString getSQLExistsInMainDB();
     virtual void addRecord(RecordPtr record, bool setNew = true);

@@ -42,8 +42,8 @@
 #include "dlgdaterangefilter.h"
 #include "datastore.h"
 
-ReporteFrancosPlanificados::ReporteFrancosPlanificados(QObject *parent) :
-    BaseReport(tr("Planned Rest Report"), "Planned Rest Report", false, ACollection::MERGE_KEEP_LOCAL, parent)
+ReporteFrancosPlanificados::ReporteFrancosPlanificados(const QString& dbName, QObject *parent) :
+    BaseReport(tr("Planned Rest Report"), "Planned Rest Report", false, ACollection::MERGE_KEEP_LOCAL, dbName, parent)
 {
     QLOG_TRACE_FN();
     dateFrom = QDate::currentDate().addDays(-7);

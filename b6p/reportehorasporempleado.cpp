@@ -42,8 +42,8 @@
 #include "dlgquerybuilder.h"
 
 
-ReporteHorasPorEmpleado::ReporteHorasPorEmpleado(QObject *parent) :
-    BaseReport(tr("Employee Hours Report"), "Employee Hours Report", false, ACollection::MERGE_KEEP_LOCAL, parent)
+ReporteHorasPorEmpleado::ReporteHorasPorEmpleado(const QString &dbName, QObject *parent) :
+    BaseReport(tr("Employee Hours Report"), "Employee Hours Report", false, ACollection::MERGE_KEEP_LOCAL, dbName, parent)
 {
     QLOG_TRACE_FN();
     QDate dateFrom = QDate::currentDate().addDays(-7);

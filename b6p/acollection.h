@@ -63,7 +63,7 @@ public:
         MERGE_MANUAL
     };
 
-    explicit ACollection(QString Name, QString InvariableName, bool useLastInsertId, MERGE_STRATEGY MergeStrategy, QObject *parent = 0);
+    explicit ACollection(const QString& Name, const QString &InvariableName, bool useLastInsertId, MERGE_STRATEGY MergeStrategy, const QString &dbName, QObject *parent = 0);
     
     virtual void exportTo(const QString &filename);
     virtual void load();
@@ -158,6 +158,7 @@ private:
     SQLHandler sqlEngine;
     bool usesLastInsertedId;
     MERGE_STRATEGY m_MergeStrategy;
+    QString m_dbName;
 };
 
 #endif // ACOLLECTION_H

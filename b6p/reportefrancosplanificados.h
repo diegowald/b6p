@@ -49,7 +49,7 @@ class ReporteFrancosPlanificados : public BaseReport
 {
     Q_OBJECT
 public:
-    ReporteFrancosPlanificados(QObject *parent = 0);
+    ReporteFrancosPlanificados(const QString &dbName, QObject *parent = 0);
     virtual ~ReporteFrancosPlanificados();
 
     virtual void defineHeaders(QStringList &list);

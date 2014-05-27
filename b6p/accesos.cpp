@@ -42,8 +42,8 @@
 #include <QsLog.h>
 
 
-Accesos::Accesos(QObject *parent)
-    : ACollection(tr("Access"), "Access", false, ACollection::MERGE_KEEP_MAIN, parent)
+Accesos::Accesos(const QString& dbName, QObject *parent)
+    : ACollection(tr("Access"), "Access", false, ACollection::MERGE_KEEP_MAIN, dbName, parent)
 {
     QLOG_TRACE_FN();
 }

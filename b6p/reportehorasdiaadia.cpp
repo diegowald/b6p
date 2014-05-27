@@ -41,8 +41,8 @@
 #include "QsLog.h"
 #include "dlgquerybuilder.h"
 
-ReporteHorasDiaADia::ReporteHorasDiaADia(QObject *parent) :
-    BaseReport(tr("Daily Hours Report"), "Daily Hours Report", false, ACollection::MERGE_KEEP_LOCAL, parent)
+ReporteHorasDiaADia::ReporteHorasDiaADia(const QString &dbName, QObject *parent) :
+    BaseReport(tr("Daily Hours Report"), "Daily Hours Report", false, ACollection::MERGE_KEEP_LOCAL, dbName, parent)
 {
     QLOG_TRACE_FN();
     QDate dateFrom = QDate::currentDate().addDays(-7);
