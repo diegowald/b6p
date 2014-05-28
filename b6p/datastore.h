@@ -81,6 +81,7 @@ public:
     ReporteHorasDiaADiaPtr getReporteHorasDiaADia();
     ReporteHorasPorEmpleadoPtr getReporteHorasPorEmpleado();
     ReporteFrancosPlanificadosPtr getReporteFrancosPlanificados();
+
 protected:
     explicit DataStore(QObject *parent = 0);
     
@@ -94,6 +95,7 @@ public slots:
     
 protected:
     void establishConnections(ACollection *newMember);
+    QString getDatabaseName(const QString computerName);
 private:
 
     AccesosPtr accessosPtr;

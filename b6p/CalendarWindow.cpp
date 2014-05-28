@@ -68,6 +68,7 @@ CalendarWindow::CalendarWindow(int LoggedUser, boost::shared_ptr<Planificaciones
     m_InPlaceEdit = inPlaceEdit;
     connect(model.get(), SIGNAL(dataUpdated()), this, SLOT(on_dataUpdated()));
     enableButtonsBasedOnAccess();
+    connect(ui->calendar, SIGNAL(activated(QDate)), this, SLOT(on_calendarDateSelected(QDate)));
 }
 
 CalendarWindow::~CalendarWindow()
@@ -79,53 +80,21 @@ CalendarWindow::~CalendarWindow()
 void CalendarWindow::on_actionNew_triggered()
 {
     QLOG_TRACE_FN();
-    bool result = false;
-    //QTreeWidgetItem *item = new QTreeWidgetItem();
-    /*if (m_InPlaceEdit)
-    {
-        ui->treeList->insertTopLevelItem(0, item);
-        result = model->addNewRecord(item);
-    }
-    else*/
-        result = model->addNewRecord();
-
-    if (result)
-    {
-        /*ui->treeList->clear();*/
-        /*model->fillData(*ui->treeList);*/
-    }
+    model->addNewRecord();
 }
 
 void CalendarWindow::on_actionEdit_triggered()
 {
     QLOG_TRACE_FN();
-    bool result = false;
-
-    //if (ui->treeList->currentItem())
-    //{
-        /*if (m_InPlaceEdit)
-            result = model->editRecord(ui->treeList->currentItem(), ui->treeList->currentItem()->data(0, Qt::UserRole));
-        else*/
-            result =  model->editRecord(ui->calendar->selectedDate());// ui->treeList->currentItem()->data(0, Qt::UserRole));
-        if (result)
-        {
-            //ui->treeList->clear();
-            //model->fillData(*ui->treeList);
-        }
-    //}
+    model->editRecord(ui->calendar->selectedDate());// ui->treeList->currentItem()->data(0, Qt::UserRole));
 }
 
 void CalendarWindow::on_actionDelete_triggered()
 {
     QLOG_TRACE_FN();
-    //if (ui->treeList->currentItem())
     QVariant v;
     v.setValue(ui->calendar->selectedDate());
-        if (model->deleteElement(v))
-        {
-            //ui->treeList->clear();
-            //model->fillData(*ui->treeList);
-        }
+    model->deleteElement(v);
 }
 
 void CalendarWindow::AllowAdd(bool status)
@@ -146,51 +115,20 @@ void CalendarWindow::AllowDelete(bool status)
     ui->actionDelete->setVisible(status);
 }
 
-void CalendarWindow::on_treeList_doubleClicked(const QModelIndex &)
+void CalendarWindow::on_calendarDateSelected(QDate)
 {
     QLOG_TRACE_FN();
     on_actionEdit_triggered();
 }
 
-void CalendarWindow::on_treeList_itemClicked(QTreeWidgetItem *item, int column)
-{
-/*    QLOG_TRACE_FN();
-    if (m_InPlaceEdit && model->isColumnEditable(item->data(0, Qt::UserRole), column))
-        ui->treeList->editItem(item, column);*/
-}
-
-void CalendarWindow::on_treeList_itemChanged(QTreeWidgetItem *item, int)
-{
-/*    QLOG_TRACE_FN();
-    if (m_InPlaceEdit)
-    {
-        if (model->editRecord(item, ui->treeList->currentItem()->data(0, Qt::UserRole)))
-        {
-            model->fillData(*ui->treeList);
-        }
-    }*/
-}
-
-
 void CalendarWindow::customActionTriggered()
 {
     QLOG_TRACE_FN();
-//    model->fillData(*ui->treeList);
 }
 
 void CalendarWindow::on_dataUpdated()
 {
     QLOG_TRACE_FN();
-//    ui->treeList->setSortingEnabled(false);
-//    ui->treeList->clear();
-//    model->fillData(*ui->treeList);
-/*    for (int i = 0; i < ui->treeList->columnCount(); i++)
-        ui->treeList->resizeColumnToContents(i);
-    if (m_allowSorting)
-    {
-        ui->treeList->setSortingEnabled(true);
-        ui->treeList->sortByColumn(0, Qt::AscendingOrder);
-    }*/
 }
 
 void CalendarWindow::on_actionExport_triggered()
@@ -241,10 +179,9 @@ QString CalendarWindow::getHTMLReport()
 bool CalendarWindow::printSelectedRecord(QTextDocument &textDoc)
 {    
     QLOG_TRACE_FN();
-//    if (ui->treeList->currentItem())
-//        return model->printSelectedRecord(ui->treeList->currentItem()->data(0, Qt::UserRole), textDoc);
-//    else
-        return false;
+    QVariant value;
+    value.setValue(ui->calendar->selectedDate());
+    return model->printSelectedRecord(value, textDoc);
 }
 
 QString CalendarWindow::getHeader() {
@@ -269,8 +206,6 @@ void CalendarWindow::showEvent(QShowEvent *evt)
 {
     QLOG_TRACE_FN();
     QMainWindow::showEvent(evt);
-//    for (int i = 0; i < ui->treeList->columnCount(); i++)
-//        ui->treeList->resizeColumnToContents(i);
 }
 
 void CalendarWindow::setABMButtonsVisible(bool visible)

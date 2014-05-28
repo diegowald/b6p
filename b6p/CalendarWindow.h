@@ -84,13 +84,10 @@ private slots:
 
     void on_actionDelete_triggered();
 
-    void on_treeList_doubleClicked(const QModelIndex &index);
-    void on_treeList_itemClicked(QTreeWidgetItem *item, int column);
-
-    void on_treeList_itemChanged(QTreeWidgetItem *item, int column);
     void customActionTriggered();
     void on_dataUpdated();
     void on_actionExport_triggered();
+    void on_calendarDateSelected(QDate);
 
 private:
     Ui::CalendarWindow *ui;
