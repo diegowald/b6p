@@ -44,6 +44,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QsLog.h>
+#include "datastore.h"
 
 
 ACollection::ACollection(const QString& Name, const QString &InvariableName, bool useLastInsertId, MERGE_STRATEGY MergeStrategy, const QString &dbName, QObject *parent) :
@@ -323,4 +324,12 @@ ACollection::MERGE_STRATEGY ACollection::mergeStrategy() const
 {
     QLOG_TRACE_FN();
     return m_MergeStrategy;
+}
+
+bool ACollection::isReadOnly()
+{
+    QLOG_TRACE_FN();
+    return m_dbName !=
+            DataStore::instance()->getParametros()->getDatabaseNamePath(
+                DataStore::instance()->getParametros()->getLocalMachine());
 }

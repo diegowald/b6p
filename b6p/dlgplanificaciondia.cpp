@@ -132,6 +132,7 @@ void DlgPlanificacionDia::setData(PlanificacionDiaPtr data)
 
 void DlgPlanificacionDia::refreshLicencias()
 {
+    ui->tblLicencias->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     for (int i = 0; i < 7; i++)
     {
         QDate date = m_Dia.addDays(-i);

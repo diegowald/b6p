@@ -42,7 +42,7 @@
 #include "datastore.h"
 #include "sqlhandler.h"
 #include <QsLog.h>
-
+#include <QFileDialog>
 
 DlgParametros::DlgParametros(QWidget *parent) :
     QDialog(parent),
@@ -68,6 +68,19 @@ DlgParametros::DlgParametros(QWidget *parent) :
     connect(ui->timeOpen, SIGNAL(IncorrectTime(QString)), this, SLOT(TimeInvalid(QString)));
     connect(ui->timeClose, SIGNAL(IncorrectTime(QString)), this, SLOT(TimeInvalid(QString)));
     ui->lblMessage->clear();
+
+    ui->txtSynchroFolder->setText(DataStore::instance()->getParametros()->getValue(Parametros::SYNCHRO_FOLDER, ""));
+
+    if (DataStore::instance()->getParametros()->getValue(Parametros::USE_FILE_SYNCHRO, 1) == 1)
+    {
+        ui->tabSynchroMariaDB->hide();
+        ui->tabWidget->removeTab(2);
+    }
+    else
+    {
+        ui->tabSyncrhroFileSystem->hide();
+        ui->tabWidget->removeTab(3);
+    }
 
     llenarFrancos();
     llenarLoggingLevels();
@@ -106,6 +119,8 @@ void DlgParametros::accept()
 
     QsLogging::Logger & logger = QsLogging::Logger::instance();
     logger.setLoggingLevel((QsLogging::Level)ui->cboLoggingLevel->itemData(ui->cboLoggingLevel->currentIndex()).toInt());
+
+    DataStore::instance()->getParametros()->setValue(Parametros::SYNCHRO_FOLDER, ui->txtSynchroFolder->text());
 
     QDialog::accept();
 }
@@ -154,4 +169,17 @@ void DlgParametros::llenarLoggingLevels()
     ui->cboLoggingLevel->setCurrentIndex(
                 ui->cboLoggingLevel->findData(
                     DataStore::instance()->getParametros()->getLoggingLevel()));
+}
+
+void DlgParametros::on_btnChooseFolder_clicked()
+{
+    QLOG_TRACE_FN();
+    QString dir = QFileDialog::getExistingDirectory(this,
+                                                    tr("Select Synchronization folder"),
+                                                    ui->txtSynchroFolder->text(),
+                                                    QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    if (dir.length() != 0)
+    {
+        ui->txtSynchroFolder->setText(dir);
+    }
 }

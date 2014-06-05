@@ -58,6 +58,9 @@ const QString Parametros::PASSWORD("Password");
 const QString Parametros::LOG_LEVEL("LOG_LEVEL");
 const QString Parametros::FRANCO_TYPE("RestType");
 
+const QString Parametros::SYNCHRO_FOLDER("SynchroFolder");
+const QString Parametros::USE_FILE_SYNCHRO("UseFileSystemSynchro");
+
 Parametros::Parametros(QObject *parent) :
     ACollection(tr("Parameters"),
                 "Parameters", false, ACollection::MERGE_KEEP_LOCAL, "./planning.b6p", parent)
@@ -266,6 +269,24 @@ QString Parametros::getLocalMachine() const
     QHostInfo hostInfo;
     hostInfo = QHostInfo::fromName(QHostInfo::localHostName());
     return hostInfo.hostName();
+}
+
+QString Parametros::getDatabaseName(const QString &machineName)
+{
+    QLOG_TRACE_FN();
+    return QString(machineName + "planning.b6p");
+}
+
+QString Parametros::getDatabaseNamePath(const QString& machineName)
+{
+    QLOG_TRACE_FN();
+    return QString("./" + getDatabaseName(machineName));
+}
+
+QString Parametros::getLocalDatabaseName()
+{
+    QLOG_TRACE_FN();
+    return getDatabaseName(getLocalMachine());
 }
 
 QString Parametros::getFrancoType()

@@ -110,7 +110,9 @@ SOURCES += main.cpp\
     reportitem.cpp \
     reportitemcollection.cpp \
     b6pcalendarwidget.cpp \
-    CalendarWindow.cpp
+    CalendarWindow.cpp \
+    dlgfilesynchronization.cpp \
+    filesynchronization.cpp
 
 HEADERS  += \
     timeassignment.h \
@@ -174,7 +176,9 @@ HEADERS  += \
     reportefrancosplanificados.h \
     reportitem.h \
     reportitemcollection.h \
-    b6pcalendarwidget.h
+    b6pcalendarwidget.h \
+    dlgfilesynchronization.h \
+    filesynchronization.h
 
 FORMS    += mainwindow.ui \
     genericlist.ui \
@@ -196,7 +200,8 @@ FORMS    += mainwindow.ui \
     dlglicencia.ui \
     dlgquerybuilder.ui \
     dlgdaterangefilter.ui \
-    CalendarWindow.ui
+    CalendarWindow.ui \
+    dlgfilesynchronization.ui
 
 RESOURCES += \
     resources.qrc

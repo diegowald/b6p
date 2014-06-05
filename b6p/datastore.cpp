@@ -89,18 +89,13 @@ void DataStore::establishConnections(ACollection* newMember)
     newMember->load();
 }
 
-QString DataStore::getDatabaseName(const QString computerName)
-{
-    return QString("./" + computerName + "planning.b6p");
-}
-
 AccesosPtr DataStore::getAccesos()
 {
     QLOG_TRACE_FN();
     if (!accesosCreated)
     {
         accessosPtr = boost::make_shared<Accesos>(
-                    getDatabaseName(getParametros()->getValue("Accesos", "")), this);
+                    getParametros()->getDatabaseNamePath(getParametros()->getValue("Accesos", "")), this);
         establishConnections(accessosPtr.get());
         accesosCreated = true;
     }
@@ -127,7 +122,7 @@ EmpleadosPtr DataStore::getEmpleados()
     if (!empleadosCreated)
     {
         empleadosPtr = boost::make_shared<Empleados>(
-                    getDatabaseName(getParametros()->getValue("Empleados", "")), this);
+                    getParametros()->getDatabaseNamePath(getParametros()->getValue("Empleados", "")), this);
         establishConnections(empleadosPtr.get());
         empleadosCreated = true;
     }
@@ -140,7 +135,7 @@ EstimacionesDiasPtr DataStore::getEstimacionesDias()
     if (!estimacionesDiasCreated)
     {
         estimacionesDiasPtr = boost::make_shared<EstimacionesDias>(
-                    getDatabaseName(getParametros()->getValue("EstimacionesDias", "")), this);
+                    getParametros()->getDatabaseNamePath(getParametros()->getValue("EstimacionesDias", "")), this);
         establishConnections(estimacionesDiasPtr.get());
         estimacionesDiasCreated = true;
     }
@@ -153,7 +148,7 @@ PlanificacionesDiasPtr DataStore::getPlanificacionesDias()
     if (!planificacionesDiasCreated)
     {
         planificacionesDiasPtr = boost::make_shared<PlanificacionesDias>(
-                    getDatabaseName(getParametros()->getValue("PlanificacionesDias", "")), this);
+                    getParametros()->getDatabaseNamePath(getParametros()->getValue("PlanificacionesDias", "")), this);
         establishConnections(planificacionesDiasPtr.get());
         planificacionesDiasCreated = true;
     }
@@ -166,7 +161,7 @@ PlanificacionesSubSectoresPtr DataStore::getPlanificacionesSubSectores()
     if (!planificacionesSubSectoresCreated)
     {
         planificacionesSubSectoresPtr = boost::make_shared<PlanificacionesDiasSubSectores>(
-                    getDatabaseName(getParametros()->getValue("PlanificacionesDiasSubSectores", "")), this);
+                    getParametros()->getDatabaseNamePath(getParametros()->getValue("PlanificacionesDiasSubSectores", "")), this);
         establishConnections(planificacionesSubSectoresPtr.get());
         planificacionesSubSectoresCreated = true;
     }
@@ -180,7 +175,7 @@ SectoresPtr DataStore::getSectores()
     if (!sectoresCreated)
     {
         sectoresPtr = boost::make_shared<Sectores>(
-                    getDatabaseName(getParametros()->getValue("Sectores", "")), this);
+                    getParametros()->getDatabaseNamePath(getParametros()->getValue("Sectores", "")), this);
         establishConnections(sectoresPtr.get());
         sectoresCreated = true;
     }
@@ -193,7 +188,7 @@ SubSectoresPtr DataStore::getSubSectores()
     if (!subSectoresCreated)
     {
         subSectoresPtr = boost::make_shared<SubSectores>(
-                    getDatabaseName(getParametros()->getValue("SubSectores", "")), this);
+                    getParametros()->getDatabaseNamePath(getParametros()->getValue("SubSectores", "")), this);
         establishConnections(subSectoresPtr.get());
         subSectoresCreated = true;
     }
@@ -207,7 +202,7 @@ CalendarioPersonasPtr DataStore::getCalendarios()
     if (!calendariosCreated)
     {
         calendariosPtr = boost::make_shared<CalendarioPersonas>(
-                    getDatabaseName(getParametros()->getValue("CalendarioPersonas", "")),
+                    getParametros()->getDatabaseNamePath(getParametros()->getValue("CalendarioPersonas", "")),
                     this);
         establishConnections(calendariosPtr.get());
         calendariosCreated = true;
@@ -221,7 +216,7 @@ CapacidadesPersonaSectorPtr DataStore::getCapacidades()
     if (!capacidadesCreated)
     {
         capacidadesPtr = boost::make_shared<CapacidadesPersonaSector>(
-                    getDatabaseName(getParametros()->getValue("CapacidadesPersonaSector", "")), this);
+                    getParametros()->getDatabaseNamePath(getParametros()->getValue("CapacidadesPersonaSector", "")), this);
         establishConnections(capacidadesPtr.get());
         capacidadesCreated = true;
     }
@@ -234,7 +229,7 @@ LicenciasEmpleadosPtr DataStore::getLicencias()
     if (!licenciasEmpleadosCreated)
     {
         licenciasEmpleadosPtr = boost::make_shared<LicenciasEmpleados>(
-                    getDatabaseName(getParametros()->getValue("LicenciasEmpleados", "")), this);
+                    getParametros()->getDatabaseNamePath(getParametros()->getValue("LicenciasEmpleados", "")), this);
         establishConnections(licenciasEmpleadosPtr.get());
         licenciasEmpleadosCreated = true;
     }
@@ -247,7 +242,7 @@ ReporteHorasSectorSubSectorPtr DataStore::getReporteHorasSectorSubSector()
     if (!reporteHorasSectorSubSectorCreated)
     {
         reporteHorasSectorSubSectorPtr = boost::make_shared<ReporteHorasSectorSubSector>(
-                    getDatabaseName(getParametros()->getValue("ReporteHorasSectorSubSector", "")), this);
+                    getParametros()->getDatabaseNamePath(getParametros()->getValue("ReporteHorasSectorSubSector", "")), this);
         establishConnections(reporteHorasSectorSubSectorPtr.get());
         reporteHorasSectorSubSectorCreated = true;
     }
@@ -260,7 +255,7 @@ ReporteHorasDiaADiaPtr DataStore::getReporteHorasDiaADia()
     if (!reporteHorasDiaADiaCreated)
     {
         reporteHorasDiaADiaPtr = boost::make_shared<ReporteHorasDiaADia>(
-                    getDatabaseName(getParametros()->getValue("ReporteHorasDiaADia", "")), this);
+                    getParametros()->getDatabaseNamePath(getParametros()->getValue("ReporteHorasDiaADia", "")), this);
         establishConnections(reporteHorasDiaADiaPtr.get());
         reporteHorasDiaADiaCreated = true;
     }
@@ -273,7 +268,7 @@ ReporteHorasPorEmpleadoPtr DataStore::getReporteHorasPorEmpleado()
     if (!reporteHorasPorEmpleadoCreated)
     {
         reporteHorasPorEmpleadoPtr = boost::make_shared<ReporteHorasPorEmpleado>(
-                    getDatabaseName(getParametros()->getValue("ReporteHorasPorEmpleado", "")), this);
+                    getParametros()->getDatabaseNamePath(getParametros()->getValue("ReporteHorasPorEmpleado", "")), this);
         establishConnections(reporteHorasPorEmpleadoPtr.get());
         reporteHorasPorEmpleadoCreated = true;
     }
@@ -286,7 +281,7 @@ ReporteFrancosPlanificadosPtr DataStore::getReporteFrancosPlanificados()
     if (!reporteFrancosPlanificadosCreated)
     {
         reporteFrancosPlanificadosPtr = boost::make_shared<ReporteFrancosPlanificados>(
-                    getDatabaseName(getParametros()->getValue("ReporteFrancosPlanificados", "")), this);
+                    getParametros()->getDatabaseNamePath(getParametros()->getValue("ReporteFrancosPlanificados", "")), this);
         establishConnections(reporteFrancosPlanificadosPtr.get());
         reporteFrancosPlanificadosCreated = true;
     }
@@ -294,3 +289,39 @@ ReporteFrancosPlanificadosPtr DataStore::getReporteFrancosPlanificados()
 }
 
 
+void DataStore::refreshData()
+{
+    QLOG_TRACE_FN();
+
+    accessosPtr.reset();
+    parametrosPtr.reset();
+    empleadosPtr.reset();
+    estimacionesDiasPtr.reset();
+    planificacionesDiasPtr.reset();
+    planificacionesSubSectoresPtr.reset();
+    sectoresPtr.reset();
+    subSectoresPtr.reset();
+    calendariosPtr.reset();
+    capacidadesPtr.reset();
+    licenciasEmpleadosPtr.reset();
+    reporteHorasSectorSubSectorPtr.reset();
+    reporteHorasDiaADiaPtr.reset();
+    reporteHorasPorEmpleadoPtr.reset();
+    reporteFrancosPlanificadosPtr.reset();
+
+    accesosCreated = false;
+    parametrosCreated = false;
+    empleadosCreated = false;
+    estimacionesDiasCreated = false;
+    planificacionesDiasCreated = false;
+    planificacionesSubSectoresCreated = false;
+    sectoresCreated = false;
+    subSectoresCreated = false;
+    calendariosCreated = false;
+    capacidadesCreated = false;
+    licenciasEmpleadosCreated = false;
+    reporteHorasSectorSubSectorCreated = false;
+    reporteHorasDiaADiaCreated = false;
+    reporteHorasPorEmpleadoCreated = false;
+    reporteFrancosPlanificadosCreated = false;
+}

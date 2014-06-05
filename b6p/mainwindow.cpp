@@ -44,6 +44,7 @@
 #include "datastore.h"
 #include "dlgparametros.h"
 #include "dlgsynchronization.h"
+#include "dlgfilesynchronization.h"
 #include <QMessageBox>
 
 
@@ -294,8 +295,16 @@ void MainWindow::EnableActions()
 void MainWindow::on_actionSynchronize_triggered()
 {
     QLOG_TRACE_FN();
-    DlgSynchronization dlg;
-    dlg.exec();
+    if (DataStore::instance()->getParametros()->getValue(Parametros::USE_FILE_SYNCHRO, 1) == 0)
+    {
+        DlgSynchronization dlg;
+        dlg.exec();
+    }
+    else
+    {
+        DlgFileSynchronization dlg;
+        dlg.exec();
+    }
 }
 
 

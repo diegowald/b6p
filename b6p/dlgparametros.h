@@ -65,6 +65,8 @@ private slots:
     void on_pushButton_pressed();
     void TimeInvalid(const QString &cause);
 
+    void on_btnChooseFolder_clicked();
+
 private:
     Ui::DlgParametros *ui;
 };

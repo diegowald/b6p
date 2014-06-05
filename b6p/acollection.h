@@ -125,6 +125,8 @@ public:
 
     virtual bool localRecordIsEqualsTo(RecordPtr record) = 0;
 
+    virtual bool isReadOnly();
+
 protected:
     virtual bool addNew() = 0;
     virtual bool addNewWithAdditionalData(QVariant data) = 0;

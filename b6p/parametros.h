@@ -100,6 +100,14 @@ public:
     QsLogging::Level getLoggingLevel();
     QString getLocalMachine() const;
 
+private:
+
+    QString getDatabaseName(const QString& machineName);
+public:
+    QString getLocalDatabaseName();
+    QString getDatabaseNamePath(const QString& machineName);
+
+
     QString getFrancoType();
 
     static const QString OPEN_STORE;
@@ -117,6 +125,8 @@ public:
     static const QString LOG_LEVEL;
     static const QString FRANCO_TYPE;
 
+    static const QString SYNCHRO_FOLDER;
+    static const QString USE_FILE_SYNCHRO;
 
 signals:
     

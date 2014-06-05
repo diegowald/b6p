@@ -165,6 +165,9 @@ void CalendarWindow::enableButtonsBasedOnAccess()
         ui->actionExport->setEnabled(true);
         ui->actionNew->setEnabled(true);
     }
+    ui->actionDelete->setEnabled(!model->isReadOnly());
+    ui->actionEdit->setEnabled(!model->isReadOnly());
+    ui->actionNew->setEnabled(!model->isReadOnly());
 }
 
 
