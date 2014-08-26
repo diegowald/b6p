@@ -101,7 +101,10 @@ void LicenciasEmpleados::addRecord(RecordPtr record, bool setNew)
         licencia->setInitialized();
     }
 
-    m_Licencias[licencia->ID().value()] = licencia;
+    if (DataStore::instance()->getEmpleados()->getEmpleado(licencia->IDEmpleado().value(), false) != EmpleadoPtr())
+    {
+        m_Licencias[licencia->ID().value()] = licencia;
+    }
 }
 
 bool LicenciasEmpleados::exists(RecordPtr record)
@@ -582,6 +585,15 @@ LicenciasEmpleadosLst LicenciasEmpleados::getAllLicencias(const QDate &from, con
 
         if (!valido && ((licencia->FechaDesde().value() <= to) && (to <= licencia->FechaHasta().value())))
             valido = true;
+
+        foreach (LicenciaEmpleadoPtr l, *licencias)
+        {
+            if ((l->IDEmpleado().value() == licencia->IDEmpleado().value()) &&
+                    (l->TipoLicencia().value() == licencia->TipoLicencia().value()))
+            {
+                valido = false; // Ya existe
+            }
+        }
 
         if (valido)
             licencias->push_back(licencia);

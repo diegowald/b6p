@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <Installer>
+     <Name>Big Six Planner</Name>
+     <Version>1.0.0</Version>
+     <Title>Big Six Planner Installer</Title>
+     <Publisher>Diego Wald</Publisher>
+     <StartMenuDir>Super App</StartMenuDir>
+     <TargetDir>@RootDir@InstallationDirectory</TargetDir>
+ </Installer>

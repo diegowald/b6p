@@ -329,6 +329,11 @@ ACollection::MERGE_STRATEGY ACollection::mergeStrategy() const
 bool ACollection::isReadOnly()
 {
     QLOG_TRACE_FN();
+    QLOG_TRACE() << m_dbName;
+    QLOG_TRACE() << DataStore::instance()->getParametros()->getLocalMachine();
+    QLOG_TRACE() <<DataStore::instance()->getParametros()->getDatabaseNamePath(
+        DataStore::instance()->getParametros()->getLocalMachine());
+
     return m_dbName !=
             DataStore::instance()->getParametros()->getDatabaseNamePath(
                 DataStore::instance()->getParametros()->getLocalMachine());

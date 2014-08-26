@@ -321,6 +321,9 @@ bool Empleado::isAvailable(QDate &Fecha, bool incluirLicencias)
     if (!canWork)
         return false;
 
+    if (!IsBaja().isNull() && IsBaja().value())
+        return false;
+
     if (!incluirLicencias)
     {
         if (DataStore::instance()->getLicencias()->isOnLicence(idEmpleado.value(), Fecha))

@@ -1,0 +1,17 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <Package>
+     <DisplayName>Big Six Planner</DisplayName>
+     <Description>Instalar aplicacion.</Description>
+     <Version>1.0.0</Version>
+     <ReleaseDate>2014-02-05</ReleaseDate>
+     <Name>com.mksingenieria.b6p</Name>
+     <Licenses>
+         <License name="LGPL Public License Agreement" file="license.txt" />
+     </Licenses>
+     <Translations>
+         <Translation>b6p_esAR.qm</Translation>
+         <Translation>b6p.qm</Translation>
+     </Translations>
+     <Default>script</Default>
+     <Script>installscript.qs</Script>
+ </Package>
