@@ -39,8 +39,6 @@
 ****************************************************************************/
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "genericlist.h"
-#include "CalendarWindow.h"
 #include "datastore.h"
 #include "dlgparametros.h"
 #include "dlgsynchronization.h"
@@ -105,9 +103,20 @@ void MainWindow::on_actionOpen_triggered()
 void MainWindow::print(QPrinter *printer)
 {
     QLOG_TRACE_FN();
-    if (selectedWindowToPrint) {
+    QString htmlReport = "";
+    if (selectedCalendarWindowToPrint)
+    {
+        htmlReport = selectedCalendarWindowToPrint->getHTMLReport();
+    }
+    if (selectedWindowToPrint)
+    {
+        htmlReport = selectedWindowToPrint->getHTMLReport();
+    }
+
+    if (htmlReport.length() > 0)
+    {
         QTextDocument textDoc;
-        textDoc.setHtml(selectedWindowToPrint->getHTMLReport());
+        textDoc.setHtml(htmlReport);
         textDoc.print(printer);
     }
 }
@@ -115,9 +124,17 @@ void MainWindow::print(QPrinter *printer)
 void MainWindow::printSelected(QPrinter *printer)
 {
     QLOG_TRACE_FN();
-    if (selectedWindowToPrint) {
+    if (selectedWindowToPrint || selectedCalendarWindowToPrint)
+    {
         QTextDocument textDoc;
-        selectedWindowToPrint->printSelectedRecord(textDoc);
+        if (selectedWindowToPrint)
+        {
+            selectedWindowToPrint->printSelectedRecord(textDoc);
+        }
+        else
+        {
+            selectedCalendarWindowToPrint->printSelectedRecord(textDoc);
+        }
         textDoc.print(printer);
     }
 }
@@ -127,6 +144,10 @@ void MainWindow::on_actionPrint_triggered()
     QLOG_TRACE_FN();
     if (ui->mdiArea->activeSubWindow()) {
         selectedWindowToPrint = qobject_cast<GenericList *>(ui->mdiArea->activeSubWindow()->widget());
+        if (!selectedWindowToPrint)
+        {
+            selectedCalendarWindowToPrint = qobject_cast<CalendarWindow*>(ui->mdiArea->activeSubWindow()->widget());
+        }
         // Prints ActiveWindow
         QPrinter printer(QPrinter::HighResolution);
         QPrintDialog dlg(&printer, this);
@@ -137,7 +158,10 @@ void MainWindow::on_actionPrint_triggered()
         }
     }
     else
+    {
         selectedWindowToPrint = NULL;
+        selectedCalendarWindowToPrint = NULL;
+    }
 }
 
 void MainWindow::on_actionPrint_Preview_triggered()
@@ -145,6 +169,10 @@ void MainWindow::on_actionPrint_Preview_triggered()
     QLOG_TRACE_FN();
     if (ui->mdiArea->activeSubWindow()) {
         selectedWindowToPrint = qobject_cast<GenericList *>(ui->mdiArea->activeSubWindow()->widget());
+        if (!selectedWindowToPrint)
+        {
+            selectedCalendarWindowToPrint = qobject_cast<CalendarWindow*>(ui->mdiArea->activeSubWindow()->widget());
+        }
         //QPrinter printer(QPrinter::HighResolution);
         QPrinter printer;
         QPrintPreviewDialog dlg(&printer, this);
@@ -153,7 +181,10 @@ void MainWindow::on_actionPrint_Preview_triggered()
         dlg.exec();
     }
     else
+    {
+        selectedCalendarWindowToPrint = NULL;
         selectedWindowToPrint = NULL;
+    }
 }
 
 void MainWindow::on_actionPrint_Selected_triggered()
@@ -179,6 +210,10 @@ void MainWindow::on_actionPrint_Preview_Selected_Record_triggered()
     QLOG_TRACE_FN();
     if (ui->mdiArea->activeSubWindow()) {
         selectedWindowToPrint = qobject_cast<GenericList *>(ui->mdiArea->activeSubWindow()->widget());
+        if (!selectedWindowToPrint)
+        {
+            selectedCalendarWindowToPrint = qobject_cast<CalendarWindow*>(ui->mdiArea->activeSubWindow()->widget());
+        }
         // Prints Selected record on active window
         QPrinter printer;
         printer.setOrientation(QPrinter::Landscape);
@@ -188,7 +223,10 @@ void MainWindow::on_actionPrint_Preview_Selected_Record_triggered()
         dlg.exec();
     }
     else
+    {
         selectedWindowToPrint = NULL;
+        selectedCalendarWindowToPrint = NULL;
+    }
 }
 
 void MainWindow::on_actionExit_triggered()

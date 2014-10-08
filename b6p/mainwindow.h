@@ -44,7 +44,7 @@
 //Printing
 #include <QtPrintSupport/QPrinter>
 #include "genericlist.h"
-
+#include "CalendarWindow.h"
 
 namespace Ui {
 class MainWindow;
@@ -96,6 +96,7 @@ private:
     Ui::MainWindow *ui;
     int m_LoggedUser;
     GenericList *selectedWindowToPrint;
+    CalendarWindow *selectedCalendarWindowToPrint;
 };
 
 #endif // MAINWINDOW_H
