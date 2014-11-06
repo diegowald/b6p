@@ -8,7 +8,7 @@ B6PCalendarWidget::B6PCalendarWidget(QWidget *parent) :
     this->setGridVisible(true);
 }
 
-void B6PCalendarWidget::setDataModel(boost::shared_ptr<PlanificacionesDias> Model)
+void B6PCalendarWidget::setDataModel(QSharedPointer<PlanificacionesDias> Model)
 {
     model =  Model;
 }

@@ -42,7 +42,7 @@
 
 #include <QObject>
 #include "databasesynchronization.h"
-#include <boost/shared_ptr.hpp>
+#include <QSharedPointer>
 #include "sqlhandler.h"
 
 
@@ -80,7 +80,7 @@ public slots:
 private:
     QString m_FechaUltimaSincronizacion;
     QList<DatabaseSynchronizationPtr> m_Synchronizationtables;
-    boost::shared_ptr<SQLHandler> m_SQL;
+    QSharedPointer<SQLHandler> m_SQL;
     QString m_FechaSincro;
 };
 

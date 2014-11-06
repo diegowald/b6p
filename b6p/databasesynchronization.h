@@ -41,18 +41,18 @@
 #define DATABASESYNCHRONIZATION_H
 
 #include <QObject>
-#include <boost/shared_ptr.hpp>
+#include <QSharedPointer>
 #include "acollection.h"
 
 class DatabaseSynchronization;
-typedef boost::shared_ptr<DatabaseSynchronization> DatabaseSynchronizationPtr;
+typedef QSharedPointer<DatabaseSynchronization> DatabaseSynchronizationPtr;
 
 
 class DatabaseSynchronization : public QObject
 {
     Q_OBJECT
 public:
-    explicit DatabaseSynchronization(boost::shared_ptr<ACollection> data, boost::shared_ptr<SQLHandler> sqlHandler, QObject *parent = 0);
+    explicit DatabaseSynchronization(QSharedPointer<ACollection> data, QSharedPointer<SQLHandler> sqlHandler, QObject *parent = 0);
 
     bool checkConnection();
     void getDataFromDB(const QString &dateFrom, const QString &senderMachine);
@@ -79,8 +79,8 @@ signals:
 public slots:
     
 private:
-    boost::shared_ptr<ACollection> m_Data;
-    boost::shared_ptr<SQLHandler> m_SQLHandler;
+    QSharedPointer<ACollection> m_Data;
+    QSharedPointer<SQLHandler> m_SQLHandler;
     RecordSet m_QueryResult;
 };
 

@@ -42,14 +42,12 @@
 #define ACCESO_H
 
 #include <QObject>
-#include <boost/shared_ptr.hpp>
 #include "nullablefield.h"
 
 
 class Acceso;
-typedef boost::shared_ptr<Acceso> AccesoPtr;
-typedef boost::shared_ptr<QList<AccesoPtr> > AccesoLst;
-
+typedef QSharedPointer<Acceso> AccesoPtr;
+typedef QSharedPointer<QList<AccesoPtr> > AccesoLst;
 
 class Acceso : public QObject, public IRecord
 {

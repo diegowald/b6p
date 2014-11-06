@@ -172,7 +172,7 @@ void TimeAssignmentItemEdit::llenarEmpleados()
     ui->cboEmpleado->setCurrentIndex(-1);
     foreach(EmployeeCalculatedCapacityPtr e, *emps)
     {
-        connect(e.get(), SIGNAL(calcularHorasPreviamenteTrabajadas(int, int &)), this, SLOT(on_calcularHorasPreviamenteTrabajadas(int,int&)));
+        connect(e.data(), SIGNAL(calcularHorasPreviamenteTrabajadas(int, int &)), this, SLOT(on_calcularHorasPreviamenteTrabajadas(int,int&)));
         QString nombre = "%1, %2";
         nombre = nombre.arg(e->EmpleadoAsignado()->Apellido().value()).arg(e->EmpleadoAsignado()->Nombre().value());
         ui->cboEmpleado->addItem(nombre, e->EmpleadoAsignado()->IDEmpleado().value());
@@ -338,7 +338,7 @@ void TimeAssignmentItemEdit::on_cboEmpleado_currentIndexChanged(int index)
     bool warningHorasOverwork = false;
     bool warningDias = false;
 
-    if (emp.get())
+    if (emp.data())
     {
         warningHorasUnderwork = emp->hasWarningsHorasMenorAMinimo();
         warningHorasOverwork = emp->hasWarningsHorasMayorAMaximo();
@@ -384,7 +384,7 @@ void TimeAssignmentItemEdit::recalculateColorAssignments(int IDEmpleado)
     bool warningHorasUnderWork = false;
     bool warningHorasOverWork = false;
     bool warningDias = false;
-    if (emp.get())
+    if (emp.data())
     {
         warningHorasUnderWork = emp->hasWarningsHorasMenorAMinimo();
         warningHorasOverWork = emp->hasWarningsHorasMayorAMaximo();
@@ -402,7 +402,7 @@ void TimeAssignmentItemEdit::recalculateColorAssignments(int IDEmpleado)
         color = Qt::yellow;
     else if (warningHorasOverWork)
         color = Qt::yellow;
-    else if (emp.get())
+    else if (emp.data())
     {
         color = Qt::darkGreen;
         allowOverWorking = false; // Si esta pintado de verde -> no es necesario el overworking

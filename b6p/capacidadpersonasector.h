@@ -41,15 +41,15 @@
 #define CAPACIDADPERSONASECTOR_H
 
 #include <QObject>
-#include <boost/shared_ptr.hpp>
+#include <QSharedPointer>
 #include "nullablefield.h"
 #include "sector.h"
 #include "subsector.h"
 
 class CapacidadPersonaSector;
 
-typedef boost::shared_ptr<CapacidadPersonaSector> CapacidadPersonaSectorPtr;
-typedef boost::shared_ptr<QList<CapacidadPersonaSectorPtr> > CapacidadPersonaSectorLst;
+typedef QSharedPointer<CapacidadPersonaSector> CapacidadPersonaSectorPtr;
+typedef QSharedPointer<QList<CapacidadPersonaSectorPtr> > CapacidadPersonaSectorLst;
 
 
 class CapacidadPersonaSector : public QObject, public IRecord

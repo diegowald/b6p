@@ -43,7 +43,7 @@
 #include <QFileDialog>
 #include <QsLog.h>
 
-CalendarWindow::CalendarWindow(int LoggedUser, boost::shared_ptr<PlanificacionesDias> Model, bool inPlaceEdit, bool allowSorting, QWidget *parent) :
+CalendarWindow::CalendarWindow(int LoggedUser, PlanificacionesDiasPtr Model, bool inPlaceEdit, bool allowSorting, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::CalendarWindow)
 {
@@ -54,7 +54,7 @@ CalendarWindow::CalendarWindow(int LoggedUser, boost::shared_ptr<Planificaciones
     model = Model;
     ui->calendar->setDataModel(model);
 
-    boost::shared_ptr<QList<QAction *> > customActions = model->getActions();
+    QSharedPointer<QList<QAction *>> customActions = model->getActions();
     addActions(*customActions);
     foreach(QAction *action, *customActions)
     {
@@ -66,7 +66,7 @@ CalendarWindow::CalendarWindow(int LoggedUser, boost::shared_ptr<Planificaciones
     on_dataUpdated();
     setWindowTitle(Model->name());
     m_InPlaceEdit = inPlaceEdit;
-    connect(model.get(), SIGNAL(dataUpdated()), this, SLOT(on_dataUpdated()));
+    connect(model.data(), SIGNAL(dataUpdated()), this, SLOT(on_dataUpdated()));
     enableButtonsBasedOnAccess();
     connect(ui->calendar, SIGNAL(activated(QDate)), this, SLOT(on_calendarDateSelected(QDate)));
 }

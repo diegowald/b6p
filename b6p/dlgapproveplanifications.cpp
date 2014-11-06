@@ -84,7 +84,7 @@ void DlgApprovePlanifications::setData(PlanificacionDiaLst data)
 PlanificacionDiaLst DlgApprovePlanifications::getPlanificacionToApprove()
 {
     QLOG_TRACE_FN();
-    PlanificacionDiaLst res = boost::make_shared<QList<PlanificacionDiaPtr> >();
+    PlanificacionDiaLst res = PlanificacionDiaLst::create();
 
     for (int i = 0; i < ui->treePlanifications->topLevelItemCount(); ++i)
     {

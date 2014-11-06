@@ -228,13 +228,13 @@ int DlgPlanificacionDia::IDSupervisor()
 PlanificacionSubSectorLst DlgPlanificacionDia::Planificaciones()
 {
     QLOG_TRACE_FN();
-    PlanificacionSubSectorLst res = boost::make_shared<QList<PlanificacionSubSectorPtr> >();
+    PlanificacionSubSectorLst res = PlanificacionSubSectorLst::create();
 
     for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = ui->treeWidget->topLevelItem(i);
         TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 0));
-        PlanificacionSubSectorPtr ptr = boost::make_shared<PlanificacionSubSector>();
+        PlanificacionSubSectorPtr ptr = PlanificacionSubSectorPtr::create();
 
         ptr->IDRecord().setValue(time->data().toInt());
         ptr->Dia().setValue(m_Dia);
@@ -256,7 +256,7 @@ PlanificacionSubSectorLst DlgPlanificacionDia::Planificaciones()
 
     foreach(int id, SubsectorsToDelete)
     {
-        PlanificacionSubSectorPtr ptr = boost::make_shared<PlanificacionSubSector>();
+        PlanificacionSubSectorPtr ptr = PlanificacionSubSectorPtr::create();
         ptr->IDRecord().setValue(id);
         ptr->Dia().setValue(m_Dia);
         ptr->setDeleted();
@@ -354,7 +354,7 @@ void DlgPlanificacionDia::on_btnExport_pressed()
             QString r = "\"" + headers.join("\",\"") + "\"";
             st << r << endl;
 
-            boost::shared_ptr<QList<QStringList> > records = getAll();
+            QSharedPointer<QList<QStringList> > records = getAll();
 
             foreach(QStringList record, *records)
             {
@@ -384,10 +384,10 @@ QStringList DlgPlanificacionDia::getHeaders()
     return res;
 }
 
-boost::shared_ptr<QList<QStringList> > DlgPlanificacionDia::getAll()
+QSharedPointer<QList<QStringList> > DlgPlanificacionDia::getAll()
 {
     QLOG_TRACE_FN();
-    boost::shared_ptr<QList<QStringList> > res = boost::make_shared<QList<QStringList> >();
+    QSharedPointer<QList<QStringList>> res = QSharedPointer<QList<QStringList>>::create();
 
     for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
     {

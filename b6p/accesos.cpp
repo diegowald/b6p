@@ -63,7 +63,7 @@ QString Accesos::getSqlString()
 void Accesos::addRecord(RecordPtr record, bool)
 {
     QLOG_TRACE_FN();
-    AccesoPtr a = boost::make_shared<Acceso>(this);
+    AccesoPtr a = AccesoPtr::create(this);
 
     a->IDSector().setValue((*record)["IDSector"].toInt());
     a->Feature().setValue((*record)["Feature"].toString());
@@ -105,14 +105,14 @@ bool Accesos::localRecordIsEqualsTo(RecordPtr)
 RecordSet Accesos::getRecords(RecordStatus, bool)
 {
     QLOG_TRACE_FN();
-    RecordSet res = boost::make_shared<QList<RecordPtr> >();
+    RecordSet res = RecordSet::create();
     return res;
 }
 
 RecordSet Accesos::getUnsent()
 {
     QLOG_TRACE_FN();
-    return boost::make_shared<QList<RecordPtr> >();
+    return RecordSet::create();
 }
 
 void Accesos::defineHeaders(QStringList &)
@@ -120,10 +120,10 @@ void Accesos::defineHeaders(QStringList &)
     QLOG_TRACE_FN();
 }
 
-boost::shared_ptr<QList<QStringList> > Accesos::getAll()
+QSharedPointer<QList<QStringList>> Accesos::getAll()
 {
     QLOG_TRACE_FN();
-    return boost::shared_ptr<QList<QStringList> >();
+    return QSharedPointer<QList<QStringList>>::create();
 }
 
 void Accesos::fillData(QTreeWidget &)

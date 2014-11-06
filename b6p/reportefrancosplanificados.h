@@ -40,7 +40,7 @@
 #ifndef REPORTEFRANCOSPLANIFICADOS_H
 #define REPORTEFRANCOSPLANIFICADOS_H
 
-#include <boost/shared_ptr.hpp>
+#include <QSharedPointer>
 #include "basereport.h"
 #include <QObject>
 #include "licenciaempleado.h"
@@ -56,7 +56,7 @@ public:
     virtual void fillData(QTreeWidget &tree);
 
     virtual void refreshReport();
-    virtual boost::shared_ptr<QList<QStringList> > getAll();
+    virtual QSharedPointer<QList<QStringList> > getAll();
 
 public slots:
     virtual void filter();
@@ -67,7 +67,7 @@ private:
     LicenciasEmpleadosLst reportData;
 };
 
-typedef boost::shared_ptr<ReporteFrancosPlanificados> ReporteFrancosPlanificadosPtr;
+typedef QSharedPointer<ReporteFrancosPlanificados> ReporteFrancosPlanificadosPtr;
 
 
 #endif // REPORTEFRANCOSPLANIFICADOS_H

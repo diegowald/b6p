@@ -78,10 +78,10 @@ public:
     virtual QString getSelectFromMainDB();
 
     virtual void defineHeaders(QStringList &list);
-    virtual boost::shared_ptr<QList<QStringList> > getAll();
+    virtual QSharedPointer<QList<QStringList> > getAll();
     virtual void fillData(QTreeWidget &tree);
     virtual bool isColumnEditable(QVariant ID, int column);
-    virtual boost::shared_ptr<QList<QAction *> > getActions();
+    virtual QSharedPointer<QList<QAction *> > getActions();
 
     virtual bool addNew();
     virtual bool addNew(QTreeWidgetItem *item);
@@ -106,5 +106,5 @@ private:
     QMap<QDate, EstimacionDiaPtr> m_Estimaciones;
 };
 
-typedef boost::shared_ptr<EstimacionesDias> EstimacionesDiasPtr;
+typedef QSharedPointer<EstimacionesDias> EstimacionesDiasPtr;
 #endif // ESTIMACIONESDIAS_H

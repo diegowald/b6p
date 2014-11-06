@@ -107,6 +107,6 @@ private:
     QDate dateToFilter;
 };
 
-typedef boost::shared_ptr<ReportItemCollection> ReportItemCollectionPtr;
+typedef QSharedPointer<ReportItemCollection> ReportItemCollectionPtr;
 
 #endif // REPORTITEMCOLLECTION_H

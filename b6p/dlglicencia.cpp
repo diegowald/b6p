@@ -76,7 +76,7 @@ void DlgLicencia::setData(LicenciaEmpleadoPtr licencia)
 {
     QLOG_TRACE_FN();
     EmpleadoPtr empleado = DataStore::instance()->getEmpleados()->getEmpleado(licencia->IDEmpleado().value(), false);
-    if (empleado.get())
+    if (empleado.data())
     {
         idEmpleado = empleado->IDEmpleado().value();
         ui->lblEmployee->setText(QString("%1, %2").arg(empleado->Apellido().value(), empleado->Nombre().value()));

@@ -121,7 +121,7 @@ bool SQLHandler::checkConnection()
 RecordSet SQLHandler::getAll(QString &query)
 {
     QLOG_TRACE_FN();
-    RecordSet response = boost::make_shared<QList<RecordPtr> >();
+    RecordSet response = RecordSet::create();
 
     if (!tryReconnect())
     {
@@ -143,7 +143,7 @@ RecordSet SQLHandler::getAll(QString &query)
     while (q.next())
     {
         QSqlRecord rec = q.record();
-        RecordPtr record = boost::make_shared<Record>();
+        RecordPtr record = RecordPtr::create();
         for (int i = 0; i < rec.count(); i++)
         {
             (*record)[rec.fieldName(i)] = rec.field(i).value();
@@ -165,7 +165,7 @@ RecordSet SQLHandler::getAll(QString &query, RecordPtr record)
 {
     QLOG_TRACE_FN();
     QLOG_DEBUG() << "Query: " << query;
-    RecordSet response = boost::make_shared<QList<RecordPtr> >();
+    RecordSet response = RecordSet::create();
 
     if (!tryReconnect())
     {
@@ -189,7 +189,7 @@ RecordSet SQLHandler::getAll(QString &query, RecordPtr record)
     while (q.next())
     {
         QSqlRecord rec = q.record();
-        RecordPtr record = boost::make_shared<Record>();
+        RecordPtr record = RecordPtr::create();
         for (int i = 0; i < rec.count(); i++)
         {
             (*record)[rec.fieldName(i)] = rec.field(i).value();

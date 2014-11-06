@@ -95,7 +95,7 @@ public:
 
     virtual QString getSelectFromMainDB();
 
-    virtual boost::shared_ptr<QList<QAction*> > getActions();
+    virtual QSharedPointer<QList<QAction*> > getActions();
 
     virtual void refreshReport() = 0;
 

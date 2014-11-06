@@ -75,7 +75,7 @@ public:
     virtual RecordSet getUnsent();
     virtual QString getSelectFromMainDB();
     virtual void defineHeaders(QStringList &list);
-    virtual boost::shared_ptr<QList<QStringList> > getAll();
+    virtual QSharedPointer<QList<QStringList> > getAll();
     virtual void fillData(QTreeWidget &tree);
     virtual bool addNew();
     virtual bool addNew(QTreeWidgetItem *) { return false;}
@@ -87,7 +87,7 @@ public:
     virtual void refreshID(int oldID, int newRecordId);
     virtual void saveDependants();
     virtual void setStatusToUnmodified(bool removeDeleted, bool impactInMemmory, bool impactLocal);
-    virtual boost::shared_ptr<QList<QAction*> > getActions();
+    virtual QSharedPointer<QList<QAction*> > getActions();
 
     PlanificacionDiaLst getAll(bool includeDeleted);
     PlanificacionDiaPtr getByDay(QDate day, bool includeDeleted);
@@ -100,5 +100,5 @@ private:
     QMap<QDate, PlanificacionDiaPtr> m_Planificaciones;
 };
 
-typedef boost::shared_ptr<PlanificacionesDias> PlanificacionesDiasPtr;
+typedef QSharedPointer<PlanificacionesDias> PlanificacionesDiasPtr;
 #endif // PLANIFICACIONESDIAS_H

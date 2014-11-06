@@ -82,7 +82,7 @@ private:
 
 };
 
-typedef boost::shared_ptr<LicenciaEmpleado> LicenciaEmpleadoPtr;
-typedef boost::shared_ptr<QList<LicenciaEmpleadoPtr> > LicenciasEmpleadosLst;
+typedef QSharedPointer<LicenciaEmpleado> LicenciaEmpleadoPtr;
+typedef QSharedPointer<QList<LicenciaEmpleadoPtr> > LicenciasEmpleadosLst;
 
 #endif // LICENCIAEMPLEADP_H

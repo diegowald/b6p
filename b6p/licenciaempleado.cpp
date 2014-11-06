@@ -58,7 +58,7 @@ LicenciaEmpleado::LicenciaEmpleado(bool isNew, QObject *parent)
 RecordPtr LicenciaEmpleado::asRecordPtr()
 {
     QLOG_TRACE_FN();
-    RecordPtr res = boost::make_shared<Record>();
+    RecordPtr res = RecordPtr::create();
 
     QLOG_TRACE() << id.toVariant();
     (*res)["ID"] = id.toVariant();

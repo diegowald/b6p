@@ -85,7 +85,7 @@ bool LicenciasEmpleados::printSelectedRecord(QVariant, QTextDocument &)
 void LicenciasEmpleados::addRecord(RecordPtr record, bool setNew)
 {
     QLOG_TRACE_FN();
-    LicenciaEmpleadoPtr licencia = boost::make_shared<LicenciaEmpleado>(false, this);
+    LicenciaEmpleadoPtr licencia = LicenciaEmpleadoPtr::create(false, this);
     licencia->ID().setValue((*record)["ID"].toInt());
     licencia->IDEmpleado().setValue((*record)["IDEmpleado"].toInt());
     licencia->FechaDesde().setValue(QDateTime::fromMSecsSinceEpoch((*record)["FechaDesde"].toLongLong()).date());
@@ -180,10 +180,10 @@ void LicenciasEmpleados::defineHeaders(QStringList &list)
 }
 
 
-boost::shared_ptr<QList<QStringList> > LicenciasEmpleados::getAll()
+QSharedPointer<QList<QStringList> > LicenciasEmpleados::getAll()
 {
     QLOG_TRACE_FN();
-    boost::shared_ptr<QList<QStringList> > res = boost::make_shared<QList<QStringList> >();
+    QSharedPointer<QList<QStringList> > res = QSharedPointer<QList<QStringList>>::create();
 
     LicenciasEmpleadosLst list = getAllLicencias();
 
@@ -348,7 +348,7 @@ QString LicenciasEmpleados::getSQLExistsInMainDB()
 RecordSet LicenciasEmpleados::getRecords(RecordStatus status, bool fromMemory)
 {
     QLOG_TRACE_FN();
-    RecordSet res = boost::make_shared<QList<RecordPtr> >();
+    RecordSet res = RecordSet::create();
     foreach(LicenciaEmpleadoPtr licencia, m_Licencias.values())
     {
         switch (status)
@@ -375,7 +375,7 @@ RecordSet LicenciasEmpleados::getRecords(RecordStatus status, bool fromMemory)
 RecordSet LicenciasEmpleados::getUnsent()
 {
     QLOG_TRACE_FN();
-    RecordSet res = boost::make_shared<QList<RecordPtr> >();
+    RecordSet res = RecordSet::create();
     foreach(LicenciaEmpleadoPtr licencia, m_Licencias.values())
     {
         if (licencia->isUnSent())
@@ -472,7 +472,7 @@ bool LicenciasEmpleados::edit(QVariant ID)
     QLOG_TRACE_FN();
     LicenciaEmpleadoPtr licencia;
     if (ID == -1)
-        licencia = boost::make_shared<LicenciaEmpleado>(true, this);
+        licencia = LicenciaEmpleadoPtr::create(true, this);
     else
         licencia = getLicencia(ID.toInt(), false);
     DlgLicencia dlg;
@@ -497,7 +497,7 @@ bool LicenciasEmpleados::editWithIDEmpleado(int ID, int idEmpleado, const QDate&
     LicenciaEmpleadoPtr licencia;
     if (ID == -1)
     {
-        licencia = boost::make_shared<LicenciaEmpleado>(true, this);
+        licencia = LicenciaEmpleadoPtr::create(true, this);
         licencia->IDEmpleado().setValue(idEmpleado);
         licencia->FechaDesde().setValue(fechaDesde);
         licencia->FechaHasta().setValue(fechaHasta);
@@ -559,7 +559,7 @@ LicenciaEmpleadoPtr LicenciasEmpleados::getLicencia(int idLicencia, bool /*inclu
 LicenciasEmpleadosLst LicenciasEmpleados::getAllLicencias()
 {
     QLOG_TRACE_FN();
-    LicenciasEmpleadosLst licencias = boost::make_shared<QList<LicenciaEmpleadoPtr> >();
+    LicenciasEmpleadosLst licencias = LicenciasEmpleadosLst::create();
     foreach(LicenciaEmpleadoPtr licencia, m_Licencias.values())
     {
         licencias->push_back(licencia);
@@ -570,7 +570,7 @@ LicenciasEmpleadosLst LicenciasEmpleados::getAllLicencias()
 LicenciasEmpleadosLst LicenciasEmpleados::getAllLicencias(const QDate &from, const QDate &to)
 {
     QLOG_TRACE_FN();
-    LicenciasEmpleadosLst licencias = boost::make_shared<QList<LicenciaEmpleadoPtr> >();
+    LicenciasEmpleadosLst licencias = LicenciasEmpleadosLst::create();
     foreach(LicenciaEmpleadoPtr licencia, m_Licencias.values())
     {
         bool valido = false;
@@ -610,7 +610,7 @@ LicenciasEmpleadosLst LicenciasEmpleados::getAllLicencias(const QDate& date)
 LicenciasEmpleadosLst LicenciasEmpleados::getFrancos(QDate &date)
 {
     QLOG_TRACE_FN();
-    LicenciasEmpleadosLst licencias = boost::make_shared<QList<LicenciaEmpleadoPtr> >();
+    LicenciasEmpleadosLst licencias = LicenciasEmpleadosLst::create();
     QString TipoFranco = DataStore::instance()->getParametros()->getFrancoType();
     foreach(LicenciaEmpleadoPtr licencia, m_Licencias.values())
     {
@@ -625,7 +625,7 @@ LicenciasEmpleadosLst LicenciasEmpleados::getFrancos(QDate &date)
 LicenciasEmpleadosLst LicenciasEmpleados::getAllLicenciasEmpleado(int idEmpleado)
 {
     QLOG_TRACE_FN();
-    LicenciasEmpleadosLst licencias = boost::make_shared<QList<LicenciaEmpleadoPtr> >();
+    LicenciasEmpleadosLst licencias = LicenciasEmpleadosLst::create();
     foreach (LicenciaEmpleadoPtr licencia, m_Licencias.values())
     {
         if (licencia->IDEmpleado().value() == idEmpleado)
@@ -651,7 +651,7 @@ LicenciaEmpleadoPtr LicenciasEmpleados::getUltimoFranco(int idEmpleado, QDate& d
 {
     QLOG_TRACE_FN();
     LicenciasEmpleadosLst licencias = getAllLicenciasEmpleado(idEmpleado);
-    LicenciasEmpleadosLst licenciasPreviasAFecha = boost::make_shared<QList<LicenciaEmpleadoPtr> >();
+    LicenciasEmpleadosLst licenciasPreviasAFecha = LicenciasEmpleadosLst::create();
     QString ultimoFrancoType = DataStore::instance()->getParametros()->getFrancoType();
     foreach (LicenciaEmpleadoPtr licencia, *licencias)
     {

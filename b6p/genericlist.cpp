@@ -43,7 +43,7 @@
 #include <QFileDialog>
 #include <QsLog.h>
 
-GenericList::GenericList(int LoggedUser, boost::shared_ptr<ACollection> Model, bool inPlaceEdit, bool allowSorting, QWidget *parent) :
+GenericList::GenericList(int LoggedUser, QSharedPointer<ACollection> Model, bool inPlaceEdit, bool allowSorting, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::GenericList)
 {
@@ -53,7 +53,7 @@ GenericList::GenericList(int LoggedUser, boost::shared_ptr<ACollection> Model, b
     model = Model;
     QStringList headers;
 
-    boost::shared_ptr<QList<QAction *> > customActions = model->getActions();
+    QSharedPointer<QList<QAction*>> customActions = model->getActions();
     addActions(*customActions);
     foreach(QAction *action, *customActions)
     {
@@ -67,7 +67,7 @@ GenericList::GenericList(int LoggedUser, boost::shared_ptr<ACollection> Model, b
     on_dataUpdated();
     setWindowTitle(Model->name());
     m_InPlaceEdit = inPlaceEdit;
-    connect(model.get(), SIGNAL(dataUpdated()), this, SLOT(on_dataUpdated()));
+    connect(model.data(), SIGNAL(dataUpdated()), this, SLOT(on_dataUpdated()));
     enableButtonsBasedOnAccess();
 
 }

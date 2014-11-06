@@ -50,25 +50,25 @@ DlgSynchronization::DlgSynchronization(QWidget *parent) :
 {
     QLOG_TRACE_FN();
     ui->setupUi(this);
-    sincro = boost::make_shared<SincroManager>(this);
+    sincro = QSharedPointer<SincroManager>::create(this);
     fillData();
 
-    connect(sincro.get(), SIGNAL(startingSynchro()),
+    connect(sincro.data(), SIGNAL(startingSynchro()),
             this, SLOT(on_startingSynchro()));
 
-    connect(sincro.get(), SIGNAL(getDataFromCentralDB(QString &Name)),
+    connect(sincro.data(), SIGNAL(getDataFromCentralDB(QString &Name)),
             this, SLOT(on_getDataFromCentralDB(QString&)));
 
-    connect(sincro.get(), SIGNAL(applyingChanges(QString &)),
+    connect(sincro.data(), SIGNAL(applyingChanges(QString &)),
             this, SLOT(on_applyingChanges(QString&)));
 
-    connect(sincro.get(), SIGNAL(checkingChanges(QString &)),
+    connect(sincro.data(), SIGNAL(checkingChanges(QString &)),
             this, SLOT(on_checkingChanges(QString&)));
 
-    connect(sincro.get(), SIGNAL(sendingData(QString &)),
+    connect(sincro.data(), SIGNAL(sendingData(QString &)),
             this, SLOT(on_sendingData(QString&)));
 
-    connect(sincro.get(), SIGNAL(SynchroEnded()),
+    connect(sincro.data(), SIGNAL(SynchroEnded()),
             this, SLOT(on_SynchroEnded()));
 
 }

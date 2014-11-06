@@ -94,7 +94,7 @@ void DlgMerge::setData(RecordPtr ServerRecord, RecordPtr localRecord, QStringLis
 RecordPtr DlgMerge::mergedRecord()
 {
     QLOG_TRACE_FN();
-    RecordPtr result = boost::make_shared<Record>();
+    RecordPtr result = RecordPtr();
 
     foreach (QString key, server->keys()) {
         (*result)[key] = (*server)[key];

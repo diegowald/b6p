@@ -51,7 +51,7 @@ CapacidadesPersonaSector::CapacidadesPersonaSector(const QString &dbName, QObjec
 CapacidadPersonaSectorLst CapacidadesPersonaSector::getAll(int IDEmpleado, bool includeDeleted)
 {
     QLOG_TRACE_FN();
-    CapacidadPersonaSectorLst res = boost::make_shared<QList<CapacidadPersonaSectorPtr> >();
+    CapacidadPersonaSectorLst res = CapacidadPersonaSectorLst::create();
     foreach(CapacidadPersonaSectorPtr cap, m_Capacidades)
     {
         if (cap->IDEmpleado().value() == IDEmpleado)
@@ -102,7 +102,7 @@ QString CapacidadesPersonaSector::getSQLExistsInMainDB()
 void CapacidadesPersonaSector::addRecord(RecordPtr record, bool setNew)
 {
     QLOG_TRACE_FN();
-    CapacidadPersonaSectorPtr c = boost::make_shared<CapacidadPersonaSector>(this);
+    CapacidadPersonaSectorPtr c = CapacidadPersonaSectorPtr::create(this);
 
     c->IDSector().setValue((*record)["IDSector"].toInt());
     c->ID_SubSector().setValue((*record)["IDSubSector"].toInt());
@@ -243,7 +243,7 @@ QString CapacidadesPersonaSector::getCentralInsertStatement()
 RecordSet CapacidadesPersonaSector::getRecords(RecordStatus status, bool fromMemory)
 {
     QLOG_TRACE_FN();
-    RecordSet res = boost::make_shared<QList<RecordPtr> >();
+    RecordSet res = RecordSet::create();
     foreach(CapacidadPersonaSectorPtr c, m_Capacidades)
     {
         switch (status)
@@ -272,7 +272,7 @@ RecordSet CapacidadesPersonaSector::getRecords(RecordStatus status, bool fromMem
 RecordSet CapacidadesPersonaSector::getUnsent()
 {
     QLOG_TRACE_FN();
-    RecordSet res = boost::make_shared<QList<RecordPtr> >();
+    RecordSet res = RecordSet::create();
     foreach(CapacidadPersonaSectorPtr c, m_Capacidades)
     {
         if (c->isUnSent())
@@ -286,10 +286,10 @@ void CapacidadesPersonaSector::defineHeaders(QStringList &)
     QLOG_TRACE_FN();
 }
 
-boost::shared_ptr<QList<QStringList> > CapacidadesPersonaSector::getAll()
+QSharedPointer<QList<QStringList>> CapacidadesPersonaSector::getAll()
 {
     QLOG_TRACE_FN();
-    return boost::make_shared<QList<QStringList> >();
+    return QSharedPointer<QList<QStringList>>::create();
 }
 
 void CapacidadesPersonaSector::fillData(QTreeWidget &)

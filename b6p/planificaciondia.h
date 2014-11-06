@@ -42,7 +42,7 @@
 
 #include <QObject>
 #include <QDate>
-#include <boost/shared_ptr.hpp>
+#include <QSharedPointer>
 #include "nullablefield.h"
 #include "empleado.h"
 #include "estimaciondia.h"
@@ -99,7 +99,7 @@ private:
     NullableField<EstadosPlanificacion> m_EstadosPlanificacion;
 };
 
-typedef boost::shared_ptr<PlanificacionDia> PlanificacionDiaPtr;
-typedef boost::shared_ptr<QList<PlanificacionDiaPtr> > PlanificacionDiaLst;
+typedef QSharedPointer<PlanificacionDia> PlanificacionDiaPtr;
+typedef QSharedPointer<QList<PlanificacionDiaPtr> > PlanificacionDiaLst;
 
 #endif // PLANIFICACIONDIA_H

@@ -74,7 +74,7 @@ QString PlanificacionesDias::getSQLExistsInMainDB()
 void PlanificacionesDias::addRecord(RecordPtr record, bool setNew)
 {
     QLOG_TRACE_FN();
-    PlanificacionDiaPtr p = boost::make_shared<PlanificacionDia>(this);
+    PlanificacionDiaPtr p = PlanificacionDiaPtr(new PlanificacionDia(this));
 
     p->Dia().setValue(QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date());
     p->Notas().setValue((*record)["Notas"].toString());
@@ -203,7 +203,7 @@ QString PlanificacionesDias::getCentralInsertStatement()
 RecordSet PlanificacionesDias::getRecords(RecordStatus status, bool fromMemory)
 {
     QLOG_TRACE_FN();
-    RecordSet res = boost::make_shared<QList<RecordPtr> >();
+    RecordSet res = RecordSet(new QList<RecordPtr>());
     foreach(PlanificacionDiaPtr p, m_Planificaciones.values())
     {
         switch (status)
@@ -232,7 +232,7 @@ RecordSet PlanificacionesDias::getRecords(RecordStatus status, bool fromMemory)
 RecordSet PlanificacionesDias::getUnsent()
 {
     QLOG_TRACE_FN();
-    RecordSet res = boost::make_shared<QList<RecordPtr> >();
+    RecordSet res = RecordSet(new QList<RecordPtr>());
     foreach(PlanificacionDiaPtr p, m_Planificaciones.values())
     {
         if (p->isUnSent())
@@ -254,10 +254,10 @@ void PlanificacionesDias::defineHeaders(QStringList &list)
          << tr("Complete");
 }
 
-boost::shared_ptr<QList<QStringList> > PlanificacionesDias::getAll()
+QSharedPointer<QList<QStringList>> PlanificacionesDias::getAll()
 {
     QLOG_TRACE_FN();
-    boost::shared_ptr<QList<QStringList> > res = boost::make_shared<QList<QStringList> >();
+    QSharedPointer<QList<QStringList>> res = QSharedPointer<QList<QStringList>>(new QList<QStringList>());
 
     PlanificacionDiaLst lst = getAll(false);
 
@@ -327,8 +327,8 @@ bool PlanificacionesDias::edit(QVariant ID)
     QLOG_TRACE_FN();
     PlanificacionDiaPtr p;
     p = getByDay(ID.toDate(), false);
-    if (!p.get())
-        p = boost::make_shared<PlanificacionDia>(ID.toDate(), this);
+    if (!p.data())
+        p = PlanificacionDiaPtr(new PlanificacionDia(ID.toDate(), this));
 
     try
     {
@@ -384,7 +384,7 @@ void PlanificacionesDias::refreshID(int, int)
 PlanificacionDiaLst PlanificacionesDias::getAll(bool includeDeleted)
 {
     QLOG_TRACE_FN();
-    PlanificacionDiaLst res = boost::make_shared<QList<PlanificacionDiaPtr> >();
+    PlanificacionDiaLst res = PlanificacionDiaLst(new QList<PlanificacionDiaPtr>());
     foreach (PlanificacionDiaPtr p, m_Planificaciones.values())
     {
         if (!p->isPlanificacionDeleted() && !p->isDeleted(false))
@@ -420,7 +420,7 @@ PlanificacionDiaPtr PlanificacionesDias::getByDay(QDate day, bool includeDeleted
 PlanificacionDiaLst PlanificacionesDias::getAllReadyForApproval()
 {
     QLOG_TRACE_FN();
-    PlanificacionDiaLst res = boost::make_shared<QList<PlanificacionDiaPtr> >();
+    PlanificacionDiaLst res = PlanificacionDiaLst(new QList<PlanificacionDiaPtr>());
     foreach (PlanificacionDiaPtr p, m_Planificaciones.values())
     {
         if (p->isReadyForApproval())
@@ -458,17 +458,17 @@ void PlanificacionesDias::setStatusToUnmodified(bool removeDeleted, bool impactI
     }
 }
 
-boost::shared_ptr<QList<QAction*> > PlanificacionesDias::getActions()
+QSharedPointer<QList<QAction*>> PlanificacionesDias::getActions()
 {
     QLOG_TRACE_FN();
-    boost::shared_ptr<QList<QAction*> >actions = boost::make_shared<QList<QAction*> >();
+    QSharedPointer<QList<QAction*>> actions = QSharedPointer<QList<QAction*>>(new QList<QAction*>());
 
     QAction *action = new QAction(tr("Approve"), NULL);
     QIcon icon2;
     icon2.addFile(QString::fromUtf8(":/img/approve"), QSize(), QIcon::Normal, QIcon::Off);
     action->setIcon(icon2);
     connect(action, SIGNAL(triggered()),
-            DataStore::instance()->getEstimacionesDias().get(),
+            DataStore::instance()->getEstimacionesDias().data(),
             SLOT(approveSelected()));
     actions->push_back(action);
 
@@ -480,7 +480,7 @@ bool PlanificacionesDias::printSelectedRecord(QVariant IDElement, QTextDocument 
     QLOG_TRACE_FN();
     PlanificacionDiaPtr p;
     p = getByDay(IDElement.toDate(), false);
-    if (p.get())
+    if (p.data())
     {
         return p->print(textDoc);
     }

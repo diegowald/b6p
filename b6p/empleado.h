@@ -41,7 +41,7 @@
 #define EMPLEADO_H
 
 #include <QObject>
-#include <boost/shared_ptr.hpp>
+#include <QSharedPointer>
 
 #include "nullablefield.h"
 #include <QDate>
@@ -50,13 +50,13 @@
 #include "calendariopersona.h"
 #include "days.h"
 #include "licenciasempleados.h"
-
+#include <QList>
 #include <QTextDocument>
 
 
 class Empleado;
-typedef boost::shared_ptr<Empleado> EmpleadoPtr;
-typedef boost::shared_ptr<QList<EmpleadoPtr> > EmpleadosLst;
+typedef QSharedPointer<Empleado> EmpleadoPtr;
+typedef QSharedPointer<QList<EmpleadoPtr> > EmpleadosLst;
 
 class EmployeeCalculatedCapacity : public QObject
 {
@@ -85,8 +85,8 @@ private:
     QDate dia;
 };
 
-typedef boost::shared_ptr<EmployeeCalculatedCapacity> EmployeeCalculatedCapacityPtr;
-typedef boost::shared_ptr<QList<EmployeeCalculatedCapacityPtr> > EmployeeCalculatedCapacityLst;
+typedef QSharedPointer<EmployeeCalculatedCapacity> EmployeeCalculatedCapacityPtr;
+typedef QSharedPointer<QList<EmployeeCalculatedCapacityPtr> > EmployeeCalculatedCapacityLst;
 
 class Empleado : public QObject, public IRecord
 {

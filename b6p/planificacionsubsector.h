@@ -42,15 +42,15 @@
 
 #include <QObject>
 #include <QDate>
-#include <boost/shared_ptr.hpp>
+#include <QSharedPointer>
 #include "nullablefield.h"
 #include "sector.h"
 #include "subsector.h"
 #include "empleado.h"
 
 class PlanificacionSubSector;
-typedef boost::shared_ptr<PlanificacionSubSector> PlanificacionSubSectorPtr;
-typedef boost::shared_ptr<QList<PlanificacionSubSectorPtr> > PlanificacionSubSectorLst;
+typedef QSharedPointer<PlanificacionSubSector> PlanificacionSubSectorPtr;
+typedef QSharedPointer<QList<PlanificacionSubSectorPtr> > PlanificacionSubSectorLst;
 
 
 class PlanificacionSubSector : public QObject, public IRecord

@@ -68,7 +68,7 @@ private:
     void fillData();
 private:
     Ui::DlgSynchronization *ui;
-    boost::shared_ptr<SincroManager> sincro;
+    QSharedPointer<SincroManager> sincro;
 };
 
 #endif // DLGSYNCHRONIZATION_H

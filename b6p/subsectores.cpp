@@ -72,7 +72,7 @@ QString SubSectores::getSQLExistsInMainDB()
 void SubSectores::addRecord(RecordPtr record, bool setNew)
 {
     QLOG_TRACE_FN();
-    SubSectorPtr s = boost::make_shared<SubSector>(this);
+    SubSectorPtr s = SubSectorPtr(new SubSector(this));
 
     s->IDSubsector().setValue((*record)["ID"].toInt());
     s->IDSector().setValue((*record)["IDSector"].toInt());
@@ -188,7 +188,7 @@ QString SubSectores::getCentralInsertStatement()
 RecordSet SubSectores::getRecords(RecordStatus status, bool fromMemory)
 {
     QLOG_TRACE_FN();
-    RecordSet res = boost::make_shared<QList<RecordPtr> >();
+    RecordSet res = RecordSet(new QList<RecordPtr>());
     foreach(SubSectorPtr s, m_SubSectores.values())
     {
         switch (status)
@@ -217,7 +217,7 @@ RecordSet SubSectores::getRecords(RecordStatus status, bool fromMemory)
 RecordSet SubSectores::getUnsent()
 {
     QLOG_TRACE_FN();
-    RecordSet res = boost::make_shared<QList<RecordPtr> >();
+    RecordSet res = RecordSet(new QList<RecordPtr>());
     foreach(SubSectorPtr s, m_SubSectores.values())
     {
         if (s->isUnSent())
@@ -250,7 +250,7 @@ SubSectorPtr SubSectores::getSubSector(int idSector, QString SubSectorName)
 SubSectoresLst SubSectores::getAll(bool includeDeleted)
 {
     QLOG_TRACE_FN();
-    SubSectoresLst res = boost::make_shared<QList<SubSectorPtr> >();
+    SubSectoresLst res = SubSectoresLst(new QList<SubSectorPtr>());
     foreach(SubSectorPtr s, m_SubSectores.values())
     {
         if (!s->isDeleted(true))
@@ -268,7 +268,7 @@ SubSectoresLst SubSectores::getAll(bool includeDeleted)
 SubSectoresLst SubSectores::getAll(int IDSector, bool includeDeleted)
 {
     QLOG_TRACE_FN();
-    SubSectoresLst res = boost::make_shared<QList<SubSectorPtr> >();
+    SubSectoresLst res = SubSectoresLst(new QList<SubSectorPtr>());
     foreach(SubSectorPtr subsector, m_SubSectores.values())
     {
         if (subsector->IDSector().value() == IDSector)
@@ -288,10 +288,10 @@ void SubSectores::defineHeaders(QStringList &)
     QLOG_TRACE_FN();
 }
 
-boost::shared_ptr<QList<QStringList> > SubSectores::getAll()
+QSharedPointer<QList<QStringList> > SubSectores::getAll()
 {
     QLOG_TRACE_FN();
-    return boost::make_shared<QList<QStringList> >();
+    return QSharedPointer<QList<QStringList>>(new QList<QStringList>());
 }
 
 void SubSectores::fillData(QTreeWidget &)

@@ -63,7 +63,7 @@ public:
     virtual QStringList getFieldsToShowInMerge();
 
     virtual void defineHeaders(QStringList &list);
-    virtual boost::shared_ptr<QList<QStringList> > getAll();
+    virtual QSharedPointer<QList<QStringList> > getAll();
     virtual void fillData(QTreeWidget &tree);
 
     virtual QString getTableName();
@@ -116,6 +116,6 @@ private:
 
 };
 
-typedef boost::shared_ptr<LicenciasEmpleados> LicenciasEmpleadosPtr;
+typedef QSharedPointer<LicenciasEmpleados> LicenciasEmpleadosPtr;
 
 #endif // LICENCIASEMPLEADOS_H

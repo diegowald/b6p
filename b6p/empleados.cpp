@@ -44,6 +44,7 @@
 #include <QMultiMap>
 #include <QsLog.h>
 #include <QSet>
+#include <QList>
 
 Empleados::Empleados(const QString &dbName, QObject *parent) :
     ACollection(tr("Employees"), "Employees", true, ACollection::MERGE_MANUAL, dbName, parent)
@@ -72,7 +73,7 @@ QString Empleados::getSqlString()
 void Empleados::addRecord(RecordPtr record, bool setNew)
 {
     QLOG_TRACE_FN();
-    EmpleadoPtr e = boost::make_shared<Empleado>(false, this);
+    EmpleadoPtr e = EmpleadoPtr(new Empleado(false, this));
     e->IDEmpleado().setValue((*record)["ID"].toInt());
     e->Apellido().setValue((*record)["Apellido"].toString());
     e->Nombre().setValue((*record)["Nombres"].toString());
@@ -80,8 +81,6 @@ void Empleados::addRecord(RecordPtr record, bool setNew)
     e->FechaIngreso().setValue(QDateTime::fromMSecsSinceEpoch((*record)["FechaIngreso"].toLongLong()).date());
     e->IsBaja().setValue((*record)["isBaja"].toBool());
     e->setLocalRecordStatus((RecordStatus)((*record)["RecordStatus"].toInt()));
-
-
 
     if (setNew)
         e->setNew();
@@ -282,7 +281,7 @@ QString Empleados::getSQLExistsInMainDB()
 RecordSet Empleados::getRecords(RecordStatus status, bool fromMemory)
 {
     QLOG_TRACE_FN();
-    RecordSet res = boost::make_shared<QList<RecordPtr> >();
+    RecordSet res = RecordSet();
     foreach(EmpleadoPtr e, m_Empleados.values())
     {
         switch (status)
@@ -309,7 +308,7 @@ RecordSet Empleados::getRecords(RecordStatus status, bool fromMemory)
 RecordSet Empleados::getUnsent()
 {
     QLOG_TRACE_FN();
-    RecordSet res = boost::make_shared<QList<RecordPtr> >();
+    RecordSet res = RecordSet();
     foreach(EmpleadoPtr e, m_Empleados.values())
     {
         if (e->isUnSent())
@@ -335,11 +334,11 @@ EmpleadoPtr Empleados::getEmpleado(int idEmpleado, bool includeDeleted)
 EmpleadosLst Empleados::getAll(bool includeDeleted)
 {
     QLOG_TRACE_FN();
-    EmpleadosLst res = boost::make_shared<QList<EmpleadoPtr> >();
+    EmpleadosLst res = EmpleadosLst();
     foreach(EmpleadoPtr e, m_Empleados.values())
     {
         if (!e->DadoDeBaja())
-            res->push_back(e);
+            res->append(e);
         else
             if (includeDeleted)
                 res->push_back(e);
@@ -351,7 +350,7 @@ EmpleadosLst Empleados::getAll(bool includeDeleted)
 EmpleadosLst Empleados::getPowerUsers()
 {
     QLOG_TRACE_FN();
-    EmpleadosLst res = boost::make_shared<QList<EmpleadoPtr> >();
+    EmpleadosLst res = EmpleadosLst::create();
     foreach (EmpleadoPtr e, m_Empleados.values())
     {
         if (!e->DadoDeBaja() && e->isPowerUser())
@@ -363,7 +362,7 @@ EmpleadosLst Empleados::getPowerUsers()
 EmployeeCalculatedCapacityLst Empleados::getAll(int IDSector, int IDSubSector, QDate Fecha, int HoraInicio, int HoraFin, bool includeDeleted)
 {
     QLOG_TRACE_FN();
-    EmployeeCalculatedCapacityLst res = boost::make_shared<QList<EmployeeCalculatedCapacityPtr> >();
+    EmployeeCalculatedCapacityLst res = EmployeeCalculatedCapacityLst();
     QMultiMap<int, EmployeeCalculatedCapacityPtr> candidates;
     foreach(EmpleadoPtr e, m_Empleados.values())
     {
@@ -394,7 +393,7 @@ EmpleadosLst Empleados::getAllAvailableByDay(QDate &Fecha, QList<int> &empleados
 {
 
     QLOG_TRACE_FN();
-    EmpleadosLst res = boost::make_shared<QList<EmpleadoPtr> >();
+    EmpleadosLst res = EmpleadosLst();
     QSet<int> availables;
     foreach (EmpleadoPtr empleado, m_Empleados.values())
     {
@@ -427,10 +426,10 @@ void Empleados::defineHeaders(QStringList &list)
             << tr("Start");
 }
 
-boost::shared_ptr<QList<QStringList> > Empleados::getAll()
+QSharedPointer<QList<QStringList> > Empleados::getAll()
 {
     QLOG_TRACE_FN();
-    boost::shared_ptr<QList<QStringList> > res = boost::make_shared<QList<QStringList> >();
+    QSharedPointer<QList<QStringList> > res = QSharedPointer<QList<QStringList> >();
 
     EmpleadosLst lst = getAll(false);
 
@@ -476,7 +475,7 @@ bool Empleados::edit(QVariant ID)
     QLOG_TRACE_FN();
     EmpleadoPtr e;
     if (ID == -1)
-        e = boost::make_shared<Empleado>(true, this);
+        e = EmpleadoPtr(new Empleado(true, this));
     else
         e = getEmpleado(ID.toInt(), false);
     DlgEmployee dlg;

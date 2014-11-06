@@ -10,7 +10,7 @@ class B6PCalendarWidget : public QCalendarWidget
     Q_OBJECT
 public:
     explicit B6PCalendarWidget(QWidget *parent = 0);
-    void setDataModel(boost::shared_ptr<PlanificacionesDias> Model);
+    void setDataModel(QSharedPointer<PlanificacionesDias> Model);
 
 protected:
     void paintCell(QPainter *painter, const QRect &rect, const QDate &date) const;
@@ -20,7 +20,7 @@ signals:
 public slots:
 
 private:
-    boost::shared_ptr<PlanificacionesDias> model;
+    QSharedPointer<PlanificacionesDias> model;
 };
 
 #endif // B6PCALENDARWIDGET_H

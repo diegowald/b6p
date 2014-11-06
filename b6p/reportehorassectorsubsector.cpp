@@ -47,7 +47,7 @@ ReporteHorasSectorSubSector::ReporteHorasSectorSubSector(const QString &dbName, 
     QLOG_TRACE_FN();
     QDate dateFrom = QDate::currentDate().addDays(-7);
     QDate dateTo = QDate::currentDate();
-    reportData = boost::make_shared<ReportItemCollection>(dateFrom, dateTo, 0, 0, 0,
+    reportData = ReportItemCollectionPtr::create(dateFrom, dateTo, 0, 0, 0,
                                                           true, true, true, false/*,
                                                           this*/);
     refreshReport();
@@ -154,10 +154,10 @@ void ReporteHorasSectorSubSector::refreshReport()
     reportData->refresh();
 }
 
-boost::shared_ptr<QList<QStringList> > ReporteHorasSectorSubSector::getAll()
+QSharedPointer<QList<QStringList> > ReporteHorasSectorSubSector::getAll()
 {
     QLOG_TRACE_FN();
-    boost::shared_ptr<QList<QStringList> > res = boost::make_shared<QList<QStringList> >();
+    QSharedPointer<QList<QStringList> > res = QSharedPointer<QList<QStringList>>::create();
 
     foreach (ReportItemPtr item, reportData->items())
     {

@@ -274,7 +274,7 @@ void ACollection::exportTo(const QString &filename)
         QString r = "\"" + headers.join("\",\"") + "\"";
         st << r << endl;
 
-        boost::shared_ptr<QList<QStringList> > records = getAll();
+        QSharedPointer<QList<QStringList> > records = getAll();
 
         foreach(QStringList record, *records)
         {
@@ -307,7 +307,7 @@ QString ACollection::asHTML()
     }
     html += "</tr>";
 
-    boost::shared_ptr<QList<QStringList> > records = getAll();
+    QSharedPointer<QList<QStringList> > records = getAll();
     foreach(QStringList record, *records) {
         html += "<tr>";
         foreach(QString field, record) {

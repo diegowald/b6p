@@ -41,8 +41,7 @@
 #define ACOLLECTION_H
 
 #include <QObject>
-#include <boost/shared_ptr.hpp>
-#include <boost/make_shared.hpp>
+#include <QSharedPointer>
 #include <QTreeWidget>
 #include "sqlhandler.h"
 #include "IRecord.h"
@@ -88,10 +87,10 @@ public:
     virtual ACollection::MERGE_STRATEGY mergeStrategy() const;
 
     virtual void defineHeaders(QStringList &list) = 0;
-    virtual boost::shared_ptr<QList<QStringList> > getAll() = 0;
+    virtual QSharedPointer<QList<QStringList> > getAll() = 0;
     virtual void fillData(QTreeWidget &tree) = 0;
     virtual bool isColumnEditable(QVariant, int) { return false; }
-    virtual boost::shared_ptr<QList<QAction*> > getActions() { return boost::make_shared<QList<QAction*> >(); }
+    virtual QSharedPointer<QList<QAction*> > getActions() { return QSharedPointer<QList<QAction*> >(new QList<QAction*>()); }
     bool addNewRecord();
     bool addNewRecordWithAuxiliarydata(QVariant data);
     bool addNewRecord(QTreeWidgetItem *item);
@@ -162,5 +161,7 @@ private:
     MERGE_STRATEGY m_MergeStrategy;
     QString m_dbName;
 };
+
+typedef QSharedPointer<ACollection> ACollectionPtr;
 
 #endif // ACOLLECTION_H

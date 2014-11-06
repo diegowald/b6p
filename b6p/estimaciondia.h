@@ -42,7 +42,7 @@
 
 #include <QObject>
 #include <QDate>
-#include <boost/shared_ptr.hpp>
+#include <QSharedPointer>
 #include "nullablefield.h"
 
 class EstimacionDia : public QObject, public IRecord
@@ -68,6 +68,6 @@ private:
     NullableField<int> m_EstimacionHoras;
 };
 
-typedef boost::shared_ptr<EstimacionDia> EstimacionDiaPtr;
-typedef boost::shared_ptr<QList<EstimacionDiaPtr> > EstimacionDiaLst;
+typedef QSharedPointer<EstimacionDia> EstimacionDiaPtr;
+typedef QSharedPointer<QList<EstimacionDiaPtr> > EstimacionDiaLst;
 #endif // ESTIMACIONDIA_H

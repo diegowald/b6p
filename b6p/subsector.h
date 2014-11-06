@@ -41,9 +41,10 @@
 #define SUBSECTOR_H
 
 #include <QObject>
-#include <boost/shared_ptr.hpp>
+#include <QSharedPointer>
 #include "nullablefield.h"
 #include "sector.h"
+
 class SubSector : public QObject, public IRecord
 {
     Q_OBJECT
@@ -70,7 +71,7 @@ private:
     NullableField<QString> m_Descripcion;
 };
 
-typedef boost::shared_ptr<SubSector> SubSectorPtr;
-typedef boost::shared_ptr<QList<SubSectorPtr> > SubSectoresLst;
+typedef QSharedPointer<SubSector> SubSectorPtr;
+typedef QSharedPointer<QList<SubSectorPtr> > SubSectoresLst;
 
 #endif // SUBSECTOR_H

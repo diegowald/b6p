@@ -43,7 +43,7 @@
 #include <QObject>
 #include "IRecord.h"
 
-#include <boost/shared_ptr.hpp>
+#include <QSharedPointer>
 #include "nullablefield.h"
 
 class Sector : public QObject, public IRecord
@@ -71,7 +71,7 @@ private:
     NullableField<bool> m_ShowInPlanification;
 };
 
-typedef boost::shared_ptr<Sector> SectorPtr;
-typedef boost::shared_ptr<QList<SectorPtr> > SectorLst;
+typedef QSharedPointer<Sector> SectorPtr;
+typedef QSharedPointer<QList<SectorPtr> > SectorLst;
 
 #endif // SECTOR_H

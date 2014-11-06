@@ -80,7 +80,7 @@ void ReportItemCollection::addPlanificacionSubSector(PlanificacionSubSectorPtr p
         ReportItemPtr item;
         if (reportItems.find(index) == reportItems.end())
         {
-            item = boost::make_shared<ReportItem>(this);
+            item = ReportItemPtr::create(this);
         }
         else
         {

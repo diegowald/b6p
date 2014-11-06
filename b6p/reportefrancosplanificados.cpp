@@ -104,10 +104,10 @@ void ReporteFrancosPlanificados::refreshReport()
     reportData = DataStore::instance()->getLicencias()->getAllLicencias(dateFrom, dateTo);
 }
 
-boost::shared_ptr<QList<QStringList> > ReporteFrancosPlanificados::getAll()
+QSharedPointer<QList<QStringList>> ReporteFrancosPlanificados::getAll()
 {
     QLOG_TRACE_FN();
-    boost::shared_ptr<QList<QStringList> > res = boost::make_shared<QList<QStringList> >();
+    QSharedPointer<QList<QStringList>> res = QSharedPointer<QList<QStringList>>::create();
 
     foreach (LicenciaEmpleadoPtr item, *reportData)
     {

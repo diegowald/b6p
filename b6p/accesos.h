@@ -42,7 +42,7 @@
 #define ACCESOS_H
 
 #include <QObject>
-#include <boost/shared_ptr.hpp>
+#include <QSharedPointer>
 #include "acollection.h"
 #include "acceso.h"
 
@@ -79,7 +79,7 @@ public:
     virtual bool printSelectedRecord(QVariant, QTextDocument &) { return false; }
 
     virtual void defineHeaders(QStringList &list);
-    virtual boost::shared_ptr<QList<QStringList> > getAll();
+    virtual QSharedPointer<QList<QStringList> > getAll();
     virtual void fillData(QTreeWidget &tree);
     virtual QString getTableName() { return "access"; }
 
@@ -120,5 +120,5 @@ private:
     QMap<std::pair<int, QString>, AccesoPtr> m_AccessList;
 };
 
-typedef boost::shared_ptr<Accesos> AccesosPtr;
+typedef QSharedPointer<Accesos> AccesosPtr;
 #endif // ACCESOS_H

@@ -76,7 +76,7 @@ public:
     virtual RecordSet getUnsent();
     virtual QString getSelectFromMainDB();
     virtual void defineHeaders(QStringList &list);
-    virtual boost::shared_ptr<QList<QStringList> > getAll();
+    virtual QSharedPointer<QList<QStringList> > getAll();
     virtual void fillData(QTreeWidget &tree);
     virtual bool addNew();
     virtual bool addNew(QTreeWidgetItem *) { return false; }
@@ -106,6 +106,6 @@ private:
     QList<CalendarioPersonaPtr> m_Calendarios;
 };
 
-typedef boost::shared_ptr<CalendarioPersonas> CalendarioPersonasPtr;
+typedef QSharedPointer<CalendarioPersonas> CalendarioPersonasPtr;
 
 #endif // CALENDARIOPERSONAS_H

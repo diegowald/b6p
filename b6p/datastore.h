@@ -41,7 +41,7 @@
 #define DATASTORE_H
 
 #include <QObject>
-#include <boost/shared_ptr.hpp>
+#include <QSharedPointer>
 #include "accesos.h"
 #include "empleados.h"
 #include "parametros.h"
@@ -96,7 +96,7 @@ signals:
 public slots:
     
 protected:
-    void establishConnections(ACollection *newMember);
+    void establishConnections(ACollectionPtr newMember);
 
 private:
 

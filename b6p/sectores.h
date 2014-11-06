@@ -75,7 +75,7 @@ public:
     virtual RecordSet getUnsent();
     virtual QString getSelectFromMainDB();
     virtual void defineHeaders(QStringList &list);
-    virtual boost::shared_ptr<QList<QStringList> > getAll();
+    virtual QSharedPointer<QList<QStringList> > getAll();
     virtual void fillData(QTreeWidget &tree);
     virtual bool addNew();
     virtual bool addNew(QTreeWidgetItem *) { return false;}
@@ -101,5 +101,5 @@ private:
     QMap<int, SectorPtr> m_Sectores;
 };
 
-typedef boost::shared_ptr<Sectores> SectoresPtr;
+typedef QSharedPointer<Sectores> SectoresPtr;
 #endif // SECTORES_H

@@ -39,14 +39,14 @@
 ****************************************************************************/
 #ifndef IRECORD_H
 #define IRECORD_H
-#include <boost/shared_ptr.hpp>
 #include <QMap>
+#include <QSharedPointer>
 
 #define RECORD_ID "RECORD_ID"
 
 typedef QMap<QString, QVariant> Record;
-typedef boost::shared_ptr<Record> RecordPtr;
-typedef boost::shared_ptr<QList<RecordPtr> > RecordSet;
+typedef QSharedPointer<Record> RecordPtr;
+typedef QSharedPointer<QList<RecordPtr> > RecordSet;
 
 enum RecordStatus
 {

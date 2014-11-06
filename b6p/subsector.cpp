@@ -61,7 +61,7 @@ SubSector::SubSector(QObject *parent) :
 RecordPtr SubSector::asRecordPtr()
 {
     QLOG_TRACE_FN();
-    RecordPtr res = boost::make_shared<Record>();
+    RecordPtr res = RecordPtr(new Record());
 
     (*res)["IDSector"] = m_IDSector.toVariant();
     (*res)["IDSubSector"] = m_IDSubSector.toVariant();

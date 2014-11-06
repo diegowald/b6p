@@ -41,7 +41,7 @@
 #define REPORTEHORASPOREMPLEADO_H
 
 #include <qobject.h>
-#include <boost/shared_ptr.hpp>
+#include <QSharedPointer>
 #include "basereport.h"
 #include "reportitemcollection.h"
 
@@ -57,7 +57,7 @@ public:
 
 
     virtual void refreshReport();
-    virtual boost::shared_ptr<QList<QStringList> > getAll();
+    virtual QSharedPointer<QList<QStringList> > getAll();
 
 
 public slots:
@@ -67,6 +67,6 @@ private:
     ReportItemCollectionPtr reportData;
 };
 
-typedef boost::shared_ptr<ReporteHorasPorEmpleado> ReporteHorasPorEmpleadoPtr;
+typedef QSharedPointer<ReporteHorasPorEmpleado> ReporteHorasPorEmpleadoPtr;
 
 #endif // REPORTEHORASPOREMPLEADO_H

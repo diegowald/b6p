@@ -48,21 +48,21 @@ SincroManager::SincroManager(QObject *parent) :
     QObject(parent)
 {
     QLOG_TRACE_FN();
-    m_SQL = boost::make_shared<SQLHandler>(
+    m_SQL = QSharedPointer<SQLHandler>::create(
                 DataStore::instance()->getParametros()->getValue(Parametros::SERVER_NAME, "127.0.0.1"),
                 DataStore::instance()->getParametros()->getValue(Parametros::DATABASE_NAME, "b6p"),
                 DataStore::instance()->getParametros()->getValue(Parametros::USER_NAME, "root"),
                 DataStore::instance()->getParametros()->getValue(Parametros::PASSWORD, ""));
 
-    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getSectores(), m_SQL, this));
-    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getSubSectores(), m_SQL, this));
-    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getEmpleados(), m_SQL, this));
-    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getCalendarios(), m_SQL, this));
-    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getCapacidades(), m_SQL, this));
-    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getEstimacionesDias(), m_SQL, this));
-    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getPlanificacionesDias(), m_SQL, this));
-    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getPlanificacionesSubSectores(), m_SQL, this));
-    m_Synchronizationtables.push_back(boost::make_shared<DatabaseSynchronization>(DataStore::instance()->getLicencias(), m_SQL, this));
+    m_Synchronizationtables.push_back(QSharedPointer<DatabaseSynchronization>::create(DataStore::instance()->getSectores(), m_SQL, this));
+    m_Synchronizationtables.push_back(QSharedPointer<DatabaseSynchronization>::create(DataStore::instance()->getSubSectores(), m_SQL, this));
+    m_Synchronizationtables.push_back(QSharedPointer<DatabaseSynchronization>::create(DataStore::instance()->getEmpleados(), m_SQL, this));
+    m_Synchronizationtables.push_back(QSharedPointer<DatabaseSynchronization>::create(DataStore::instance()->getCalendarios(), m_SQL, this));
+    m_Synchronizationtables.push_back(QSharedPointer<DatabaseSynchronization>::create(DataStore::instance()->getCapacidades(), m_SQL, this));
+    m_Synchronizationtables.push_back(QSharedPointer<DatabaseSynchronization>::create(DataStore::instance()->getEstimacionesDias(), m_SQL, this));
+    m_Synchronizationtables.push_back(QSharedPointer<DatabaseSynchronization>::create(DataStore::instance()->getPlanificacionesDias(), m_SQL, this));
+    m_Synchronizationtables.push_back(QSharedPointer<DatabaseSynchronization>::create(DataStore::instance()->getPlanificacionesSubSectores(), m_SQL, this));
+    m_Synchronizationtables.push_back(QSharedPointer<DatabaseSynchronization>::create(DataStore::instance()->getLicencias(), m_SQL, this));
 
 
     establishConnections();
@@ -182,10 +182,10 @@ void SincroManager::establishConnections()
 void SincroManager::establishConnections(DatabaseSynchronizationPtr db)
 {
     QLOG_TRACE_FN();
-    connect(db.get(), SIGNAL(gettingDataFromCentralDB(QString &)), this, SIGNAL(gettingDataFromCentralDB(QString&)));
-    connect(db.get(), SIGNAL(applyingChanges(QString &)), this, SIGNAL(applyingChanges(QString&)));
-    connect(db.get(), SIGNAL(checkingChanges(QString &)), this, SIGNAL(checkingChanges(QString&)));
-    connect(db.get(), SIGNAL(sendingData(QString &)), this, SIGNAL(sendingData(QString&)));
+    connect(db.data(), SIGNAL(gettingDataFromCentralDB(QString &)), this, SIGNAL(gettingDataFromCentralDB(QString&)));
+    connect(db.data(), SIGNAL(applyingChanges(QString &)), this, SIGNAL(applyingChanges(QString&)));
+    connect(db.data(), SIGNAL(checkingChanges(QString &)), this, SIGNAL(checkingChanges(QString&)));
+    connect(db.data(), SIGNAL(sendingData(QString &)), this, SIGNAL(sendingData(QString&)));
 }
 
 QStringList SincroManager::getSincroTableNames()

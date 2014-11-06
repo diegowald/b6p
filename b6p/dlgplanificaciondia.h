@@ -66,7 +66,7 @@ private:
     void displayPlannedHours(double hours);
     QStringList getHeaders();
     QStringList getRecord(TimeAssignmentItemEdit *time);
-    boost::shared_ptr<QList<QStringList> > getAll();
+    QSharedPointer<QList<QStringList> > getAll();
     void setReadOnly();
     QList<int> getCurrentlyWorkingEmployees();
     void refreshLicencias();

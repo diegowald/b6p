@@ -77,7 +77,7 @@ public:
     virtual RecordSet getUnsent();
     virtual QString getSelectFromMainDB();
     virtual void defineHeaders(QStringList &list);
-    virtual boost::shared_ptr<QList<QStringList> > getAll();
+    virtual QSharedPointer<QList<QStringList> > getAll();
     virtual void fillData(QTreeWidget &tree);
     virtual bool addNew();
     virtual bool addNew(QTreeWidgetItem *) { return false; }
@@ -102,6 +102,6 @@ private:
     QList<CapacidadPersonaSectorPtr> m_Capacidades;
 };
 
-typedef boost::shared_ptr<CapacidadesPersonaSector> CapacidadesPersonaSectorPtr;
+typedef QSharedPointer<CapacidadesPersonaSector> CapacidadesPersonaSectorPtr;
 
 #endif // CAPACIDADESPERSONASECTOR_H

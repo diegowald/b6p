@@ -144,7 +144,7 @@ Empleado::Empleado(bool isNew, QObject *parent) :
 RecordPtr Empleado::asRecordPtr()
 {
     QLOG_TRACE_FN();
-    RecordPtr res = boost::make_shared<Record>();
+    RecordPtr res = RecordPtr(new Record());
 
     (*res)["Legajo"] = legajo.toVariant();
     (*res)["Apellido"] = apellido.toVariant();
@@ -210,7 +210,7 @@ CapacidadPersonaSectorLst Empleado::Capacities()
 {
     QLOG_TRACE_FN();
     if (IDEmpleado().isNull())
-        return boost::make_shared<QList<CapacidadPersonaSectorPtr> >();
+        return QSharedPointer<QList<CapacidadPersonaSectorPtr> >(new QList<CapacidadPersonaSectorPtr>());
     else
         return DataStore::instance()->getCapacidades()->getAll(IDEmpleado().value(), false);
 }
@@ -233,7 +233,7 @@ CalendarioPersonaLst Empleado::Disponibilidades()
 {
     QLOG_TRACE_FN();
     if (IDEmpleado().isNull() || IDEmpleado().value() == -1)
-        return boost::make_shared<QList<CalendarioPersonaPtr> >();
+        return QSharedPointer<QList<CalendarioPersonaPtr> >();
     else
         return DataStore::instance()->getCalendarios()->getAll(IDEmpleado().value(), false);
 }
@@ -270,7 +270,7 @@ void Empleado::updateID(int newId)
 EmployeeCalculatedCapacityPtr Empleado::canWork(QDate &Fecha, int IDSector, int IDSubSector, int HoraInicio, int HoraFin)
 {
     QLOG_TRACE_FN();
-    EmployeeCalculatedCapacityPtr res = boost::make_shared<EmployeeCalculatedCapacity>(this, Fecha);
+    EmployeeCalculatedCapacityPtr res = EmployeeCalculatedCapacityPtr(new EmployeeCalculatedCapacity(this, Fecha));
 
     // Verifico si no esta en licencia
     LicenciaEmpleadoPtr licencia = DataStore::instance()->getLicencias()->getLicenciaEmpleado(idEmpleado.value(), Fecha);
@@ -283,7 +283,7 @@ EmployeeCalculatedCapacityPtr Empleado::canWork(QDate &Fecha, int IDSector, int 
     // Verifico si puede trabajar en el sector y subsector
     CapacidadPersonaSectorPtr cap =
             DataStore::instance()->getCapacidades()->get(idEmpleado.value(), IDSector, IDSubSector, false);
-    if (cap.get() == NULL)
+    if (cap.isNull())
     {
         res->setCapacity(0);
         return res;
@@ -298,13 +298,13 @@ EmployeeCalculatedCapacityPtr Empleado::canWork(QDate &Fecha, int IDSector, int 
     // Aca pueden darse varios casos. POr ahora solo vamos a contemplar que el empleado
     // efectivamente pueda trabajar en esa franja horaria.
 
-    if (cal.get() == NULL)
+    if (cal.isNull())
     {
         res->setCapacity(0);
         return res;
     }
 
-    if (cap.get() != NULL)
+    if (!cap.isNull())
         res->setCapacity(cap->Capacidad().value()); // A esto habria que afectarlo
 
     return res;
@@ -354,10 +354,10 @@ bool Empleado::isPowerUser()
     QLOG_TRACE_FN();
     // Devuelve true si el empleado esta en el grupo Gerencia o Supervisor
     CapacidadPersonaSectorPtr c = DataStore::instance()->getCapacidades()->get(idEmpleado.value(), 8, 0, false);
-    if (c.get())
+    if (!c.isNull())
         return true;
     c = DataStore::instance()->getCapacidades()->get(idEmpleado.value(), 9, 0, false);
-    return c.get();
+    return !c.isNull();
 }
 
 bool Empleado::print(QTextDocument &textDoc)

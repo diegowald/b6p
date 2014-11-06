@@ -41,7 +41,7 @@
 #define REPORTEHORASDIAADIA_H
 
 #include <QObject>
-#include <boost/shared_ptr.hpp>
+#include <QSharedPointer>
 #include "basereport.h"
 #include "reportitemcollection.h"
 
@@ -56,7 +56,7 @@ public:
     virtual void fillData(QTreeWidget &tree);
 
     virtual void refreshReport();
-    virtual boost::shared_ptr<QList<QStringList> > getAll();
+    virtual QSharedPointer<QList<QStringList> > getAll();
 
 public slots:
     virtual void filter();
@@ -65,5 +65,5 @@ private:
     ReportItemCollectionPtr reportData;
 };
 
-typedef boost::shared_ptr<ReporteHorasDiaADia> ReporteHorasDiaADiaPtr;
+typedef QSharedPointer<ReporteHorasDiaADia> ReporteHorasDiaADiaPtr;
 #endif // REPORTEHORASDIAADIA_H

@@ -194,10 +194,10 @@ QString BaseReport::getSelectFromMainDB()
     return "";
 }
 
-boost::shared_ptr<QList<QAction*> > BaseReport::getActions()
+QSharedPointer<QList<QAction*> > BaseReport::getActions()
 {
     QLOG_TRACE_FN();
-    boost::shared_ptr<QList<QAction*> >actions = boost::make_shared<QList<QAction*> >();
+    QSharedPointer<QList<QAction*> >actions = QSharedPointer<QList<QAction*>>::create();
 
     QAction* action = new QAction(tr("Filter..."), NULL);
 

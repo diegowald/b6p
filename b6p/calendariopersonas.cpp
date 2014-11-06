@@ -77,7 +77,7 @@ QString CalendarioPersonas::getSQLExistsInMainDB()
 void CalendarioPersonas::addRecord(RecordPtr record, bool setNew)
 {
     QLOG_TRACE_FN();
-    CalendarioPersonaPtr c = boost::make_shared<CalendarioPersona>(this);
+    CalendarioPersonaPtr c = CalendarioPersonaPtr::create(this);
 
     c->Dia().setValue((*record)["Dia"].toInt());
     c->IDEmpleado().setValue((*record)["IDEmpleado"].toInt());
@@ -216,7 +216,7 @@ QString CalendarioPersonas::getCentralInsertStatement()
 RecordSet CalendarioPersonas::getRecords(RecordStatus status, bool fromMemory)
 {
     QLOG_TRACE_FN();
-    RecordSet res = boost::make_shared<QList<RecordPtr> >();
+    RecordSet res = RecordSet::create();
     foreach(CalendarioPersonaPtr c, m_Calendarios)
     {
         switch (status)
@@ -245,7 +245,7 @@ RecordSet CalendarioPersonas::getRecords(RecordStatus status, bool fromMemory)
 RecordSet CalendarioPersonas::getUnsent()
 {
     QLOG_TRACE_FN();
-    RecordSet res = boost::make_shared<QList<RecordPtr> >();
+    RecordSet res = RecordSet::create();
     foreach(CalendarioPersonaPtr c, m_Calendarios)
     {
         if (c->isUnSent())
@@ -259,10 +259,10 @@ void CalendarioPersonas::defineHeaders(QStringList &)
     QLOG_TRACE_FN();
 }
 
-boost::shared_ptr<QList<QStringList> > CalendarioPersonas::getAll()
+QSharedPointer<QList<QStringList>> CalendarioPersonas::getAll()
 {
     QLOG_TRACE_FN();
-    return boost::make_shared<QList<QStringList> >();
+    return QSharedPointer<QList<QStringList>>::create();
 }
 
 void CalendarioPersonas::fillData(QTreeWidget &)
@@ -297,7 +297,7 @@ bool CalendarioPersonas::canBeDeleted(QVariant)
 CalendarioPersonaLst CalendarioPersonas::getAll(int IDEmpleado, bool includeDeleted)
 {
     QLOG_TRACE_FN();
-    CalendarioPersonaLst res = boost::make_shared<QList<CalendarioPersonaPtr> >();
+    CalendarioPersonaLst res = CalendarioPersonaLst::create();
     foreach (CalendarioPersonaPtr cal, m_Calendarios)
     {
         if (cal->IDEmpleado().value() == IDEmpleado)
@@ -367,7 +367,7 @@ void CalendarioPersonas::updateCalendarFromData(CalendarioPersonaPtr dataFrom)
     }
 
     // Si llega aca es porque no hay un elemento
-    CalendarioPersonaPtr c = boost::make_shared<CalendarioPersona>(this);
+    CalendarioPersonaPtr c = CalendarioPersonaPtr::create(this);
     c->Dia().setValue(dataFrom->Dia().value());
     c->IDEmpleado().setValue(dataFrom->IDEmpleado().value());
     c->updateWith(dataFrom);

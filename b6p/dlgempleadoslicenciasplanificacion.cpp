@@ -154,6 +154,6 @@ void DlgEmpleadosLicenciasPlanificacion::on_btnDelete_2_clicked()
     {
         QTreeWidgetItem * selectedItem = selectedItems.at(0);
         QVariant IDLicencia = selectedItem->data(1, Qt::UserRole);
-        ((ACollection*)DataStore::instance()->getLicencias().get())->deleteRecord(IDLicencia);
+        ((ACollection*)DataStore::instance()->getLicencias().data())->deleteRecord(IDLicencia);
     }
 }

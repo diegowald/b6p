@@ -67,7 +67,7 @@ public:
 
 
     virtual void defineHeaders(QStringList &list);
-    virtual boost::shared_ptr<QList<QStringList> > getAll();
+    virtual QSharedPointer<QList<QStringList> > getAll();
     virtual void fillData(QTreeWidget &tree);
     virtual bool addNew();
     virtual bool addNew(QTreeWidgetItem *) { return false;}
@@ -111,5 +111,5 @@ private:
     QMap<int, EmpleadoPtr> m_Empleados;
 };
 
-typedef boost::shared_ptr<Empleados> EmpleadosPtr;
+typedef QSharedPointer<Empleados> EmpleadosPtr;
 #endif // EMPLEADOS_H

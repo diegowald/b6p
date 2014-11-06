@@ -41,12 +41,12 @@
 #define CALENDARIOPERSONA_H
 
 #include <QObject>
-#include <boost/shared_ptr.hpp>
+#include <QSharedPointer>
 #include "nullablefield.h"
 
 class CalendarioPersona;
-typedef boost::shared_ptr<CalendarioPersona> CalendarioPersonaPtr;
-typedef boost::shared_ptr<QList<CalendarioPersonaPtr> > CalendarioPersonaLst;
+typedef QSharedPointer<CalendarioPersona> CalendarioPersonaPtr;
+typedef QSharedPointer<QList<CalendarioPersonaPtr> > CalendarioPersonaLst;
 
 
 class CalendarioPersona : public QObject, public IRecord

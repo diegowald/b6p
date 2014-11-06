@@ -157,7 +157,7 @@ QString Parametros::getSQLExistsInMainDB()
 RecordSet Parametros::getRecords(RecordStatus status, bool)
 {
     QLOG_TRACE_FN();
-    RecordSet rs = boost::make_shared<QList<RecordPtr> >();
+    RecordSet rs = RecordSet(new QList<RecordPtr>());
     if (status == DELETED)
         return rs;
 
@@ -169,7 +169,7 @@ RecordSet Parametros::getRecords(RecordStatus status, bool)
 
     foreach(QString key, m_Dictionary.keys())
     {
-        RecordPtr r = boost::make_shared<Record>();
+        RecordPtr r = RecordPtr(new Record());
         (*r)["Key"] = key;
         (*r)["Value"] = m_Dictionary[key];
         rs->push_back(r);
@@ -181,7 +181,7 @@ RecordSet Parametros::getRecords(RecordStatus status, bool)
 RecordSet Parametros::getUnsent()
 {
     QLOG_TRACE_FN();
-    return boost::make_shared<QList<RecordPtr> >();
+    return RecordSet(new QList<RecordPtr>());
 }
 
 void Parametros::defineHeaders(QStringList &)
@@ -189,10 +189,10 @@ void Parametros::defineHeaders(QStringList &)
     QLOG_TRACE_FN();
 }
 
-boost::shared_ptr<QList<QStringList> > Parametros::getAll()
+QSharedPointer<QList<QStringList>> Parametros::getAll()
 {
     QLOG_TRACE_FN();
-    return boost::make_shared<QList<QStringList> >();
+    return QSharedPointer<QList<QStringList>>(new QList<QStringList>());
 }
 
 void Parametros::fillData(QTreeWidget &)

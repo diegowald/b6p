@@ -42,7 +42,7 @@
 
 #include <QObject>
 #include "planificacionsubsector.h"
-#include <boost/shared_ptr.hpp>
+#include <QSharedPointer>
 
 class ReportItem : public QObject
 {
@@ -66,6 +66,6 @@ private:
     QList<PlanificacionSubSectorPtr> references;
 };
 
-typedef boost::shared_ptr<ReportItem> ReportItemPtr;
+typedef QSharedPointer<ReportItem> ReportItemPtr;
 
 #endif // REPORTITEM_H

@@ -55,7 +55,7 @@ class CalendarWindow : public QMainWindow
     Q_OBJECT
     
 public:
-    explicit CalendarWindow(int LoggedUser, boost::shared_ptr<PlanificacionesDias> Model, bool inPlaceEdit, bool allowSorting, QWidget *parent);
+    explicit CalendarWindow(int LoggedUser, PlanificacionesDiasPtr Model, bool inPlaceEdit, bool allowSorting, QWidget *parent);
 
     void AllowAdd(bool status);
     void AllowEdit(bool status);
@@ -91,7 +91,7 @@ private slots:
 
 private:
     Ui::CalendarWindow *ui;
-    boost::shared_ptr<PlanificacionesDias> model;
+    PlanificacionesDiasPtr model;
     bool m_InPlaceEdit;
     int m_LoggedUser;
     bool m_allowSorting;

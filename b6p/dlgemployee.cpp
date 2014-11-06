@@ -86,7 +86,7 @@ void DlgEmployee::setData(EmpleadoPtr empleado)
 
     // Sectores, subsectores y capacidades
     CapacidadPersonaSectorLst caps = empleado->Capacities();
-    foreach (CapacidadPersonaSectorPtr cap, *caps.get())
+    foreach (CapacidadPersonaSectorPtr cap, *caps.data())
     {
         QTreeWidgetItem *item = new QTreeWidgetItem();
         ui->treeCapacities->addTopLevelItem(item);
@@ -101,7 +101,7 @@ void DlgEmployee::setData(EmpleadoPtr empleado)
 
     // Disponibilidad de horarios
     CalendarioPersonaLst cals = empleado->Disponibilidades();
-    foreach (CalendarioPersonaPtr cal, *cals.get())
+    foreach (CalendarioPersonaPtr cal, *cals.data())
     {
         AvailabilityWidget *w = NULL;
         switch (cal->Dia().value())
@@ -207,13 +207,14 @@ QString DlgEmployee::Legajo()
 CapacidadPersonaSectorLst DlgEmployee::Capacities()
 {
     QLOG_TRACE_FN();
-    CapacidadPersonaSectorLst res = boost::make_shared<QList<CapacidadPersonaSectorPtr> >();
+    CapacidadPersonaSectorLst res = CapacidadPersonaSectorLst(new QList<CapacidadPersonaSectorPtr>());
 
     for (int i = 0; i < ui->treeCapacities->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *treeitem = ui->treeCapacities->topLevelItem(i);
         CapacityWidget * w = qobject_cast<CapacityWidget *>(ui->treeCapacities->itemWidget(treeitem, 0));
-        CapacidadPersonaSectorPtr p = boost::make_shared<CapacidadPersonaSector>();
+        CapacidadPersonaSectorPtr p = CapacidadPersonaSectorPtr::create();
+
         p->IDEmpleado().setValue(m_Empleado->IDEmpleado().value());
         p->IDSector().setValue(w->IDSector());
         p->ID_SubSector().setValue(w->IDSubSector());
@@ -236,7 +237,7 @@ CapacidadPersonaSectorLst DlgEmployee::Capacities()
 CalendarioPersonaPtr DlgEmployee::getAssignment(AvailabilityWidget *w)
 {
     QLOG_TRACE_FN();
-    CalendarioPersonaPtr p = boost::make_shared<CalendarioPersona>();
+    CalendarioPersonaPtr p = CalendarioPersonaPtr::create();
 
     p->IDEmpleado().setValue(m_Empleado->IDEmpleado().value());
 
@@ -252,7 +253,7 @@ CalendarioPersonaPtr DlgEmployee::getAssignment(AvailabilityWidget *w)
 CalendarioPersonaLst DlgEmployee::Disponibilidades()
 {
     QLOG_TRACE_FN();
-    CalendarioPersonaLst res = boost::make_shared<QList<CalendarioPersonaPtr> >();
+    CalendarioPersonaLst res = CalendarioPersonaLst::create();
 
     res->push_back(getAssignment(ui->TimeSunday));
     res->push_back(getAssignment(ui->TimeMonday));
@@ -287,7 +288,7 @@ void DlgEmployee::on_btnDelete_pressed()
                         m_Empleado->IDEmpleado().value(),
                         w->IDSector(),
                         w->IDSubSector(), false);
-            if (c.get())
+            if (c.data())
             {
                 c->setDeleted();
             }
@@ -322,6 +323,6 @@ void DlgEmployee::on_btnDelete_2_clicked()
     {
         QTreeWidgetItem * selectedItem = selectedItems.at(0);
         QVariant IDLicencia = selectedItem->data(1, Qt::UserRole);
-        ((ACollection*)DataStore::instance()->getLicencias().get())->deleteRecord(IDLicencia);
+        ((ACollection*)DataStore::instance()->getLicencias().data())->deleteRecord(IDLicencia);
     }
 }

@@ -47,7 +47,7 @@ ReporteHorasDiaADia::ReporteHorasDiaADia(const QString &dbName, QObject *parent)
     QLOG_TRACE_FN();
     QDate dateFrom = QDate::currentDate().addDays(-7);
     QDate dateTo = QDate::currentDate();
-    reportData = boost::make_shared<ReportItemCollection>(dateFrom, dateTo, -1, -1, -1,
+    reportData = ReportItemCollectionPtr::create(dateFrom, dateTo, -1, -1, -1,
                                                           true, false, false, false/*,
                                                           this*/);
     refreshReport();
@@ -129,10 +129,10 @@ void ReporteHorasDiaADia::refreshReport()
     reportData->refresh();
 }
 
-boost::shared_ptr<QList<QStringList> > ReporteHorasDiaADia::getAll()
+QSharedPointer<QList<QStringList>> ReporteHorasDiaADia::getAll()
 {
     QLOG_TRACE_FN();
-    boost::shared_ptr<QList<QStringList> > res = boost::make_shared<QList<QStringList> >();
+    QSharedPointer<QList<QStringList> > res = QSharedPointer<QList<QStringList>>::create();
 
     foreach (ReportItemPtr item, reportData->items())
     {
@@ -142,7 +142,6 @@ boost::shared_ptr<QList<QStringList> > ReporteHorasDiaADia::getAll()
           << QString::number(item->hours());
         res->push_back(r);
     }
-
 
     return res;
 }

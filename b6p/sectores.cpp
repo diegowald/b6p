@@ -71,7 +71,7 @@ QString Sectores::getSQLExistsInMainDB()
 void Sectores::addRecord(RecordPtr record, bool setNew)
 {
     QLOG_TRACE_FN();
-    SectorPtr s = boost::make_shared<Sector>(this);
+    SectorPtr s = SectorPtr(new Sector(this));
 
     s->IDSector().setValue((*record)["ID"].toInt());
     s->Nombre().setValue((*record)["Nombre"].toString());
@@ -123,14 +123,14 @@ bool Sectores::exists(RecordPtr record)
 {
     QLOG_TRACE_FN();
     SectorPtr s = getSector((*record)["ID"].toInt());
-    return (s.get() != NULL);
+    return (s.data() != NULL);
 }
 
 bool Sectores::localRecordIsEqualsTo(RecordPtr record)
 {
     QLOG_TRACE_FN();
     SectorPtr s = getSector((*record)["ID"].toInt());
-    if (NULL != s.get())
+    if (NULL != s.data())
     {
         return s->isEqualsTo(record);
     }
@@ -201,7 +201,7 @@ QString Sectores::getCentralInsertStatement()
 RecordSet Sectores::getRecords(RecordStatus status, bool fromMemory)
 {
     QLOG_TRACE_FN();
-    RecordSet res = boost::make_shared<QList<RecordPtr> >();
+    RecordSet res = RecordSet(new QList<RecordPtr>());
     foreach(SectorPtr s, m_Sectores.values())
     {
         switch (status)
@@ -230,7 +230,7 @@ RecordSet Sectores::getRecords(RecordStatus status, bool fromMemory)
 RecordSet Sectores::getUnsent()
 {
     QLOG_TRACE_FN();
-    RecordSet res = boost::make_shared<QList<RecordPtr> >();
+    RecordSet res = RecordSet(new QList<RecordPtr>());
     foreach(SectorPtr s, m_Sectores.values())
     {
         if (s->isUnSent())
@@ -263,7 +263,7 @@ SectorPtr Sectores::getSector(QString SectorName)
 SectorLst Sectores::getAll(bool onlyShowInPlanification, bool includeDeleted)
 {
     QLOG_TRACE_FN();
-    SectorLst res = boost::make_shared<QList<SectorPtr> >();
+    SectorLst res = SectorLst(new QList<SectorPtr>());
     foreach(SectorPtr s, m_Sectores.values())
     {
         bool add = false;
@@ -282,10 +282,10 @@ void Sectores::defineHeaders(QStringList &)
     QLOG_TRACE_FN();
 }
 
-boost::shared_ptr<QList<QStringList> > Sectores::getAll()
+QSharedPointer<QList<QStringList> > Sectores::getAll()
 {
     QLOG_TRACE_FN();
-    return boost::make_shared<QList<QStringList> >();
+    return QSharedPointer<QList<QStringList>>(new QList<QStringList>());
 }
 
 void Sectores::fillData(QTreeWidget &)

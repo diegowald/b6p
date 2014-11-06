@@ -67,7 +67,7 @@ Acceso::~Acceso()
 RecordPtr Acceso::asRecordPtr()
 {
     QLOG_TRACE_FN();
-    RecordPtr res = boost::make_shared<Record>();
+    RecordPtr res = RecordPtr::create();
 
     (*res)["IDSector"] = m_IDSector.toVariant();
     (*res)["Feature"] = m_Feature.toVariant();

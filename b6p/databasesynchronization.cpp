@@ -43,7 +43,7 @@
 #include <QsLog.h>
 
 
-DatabaseSynchronization::DatabaseSynchronization(boost::shared_ptr<ACollection> data, boost::shared_ptr<SQLHandler> sqlHandler, QObject *parent) :
+DatabaseSynchronization::DatabaseSynchronization(QSharedPointer<ACollection> data, QSharedPointer<SQLHandler> sqlHandler, QObject *parent) :
     QObject(parent)
 {
     QLOG_TRACE_FN();
@@ -64,7 +64,7 @@ void DatabaseSynchronization::getDataFromDB(const QString &dateFrom, const QStri
     emit gettingDataFromCentralDB(syncroName);
     QString SQL = m_Data->getSelectFromMainDB();
     Q_ASSERT(SQL != "");
-    RecordPtr r = boost::make_shared<Record>();
+    RecordPtr r = RecordPtr::create();
     (*r)["LASTUPDATE"] = dateFrom;
     (*r)["SenderMachine"] = senderMachine;
     m_QueryResult = m_SQLHandler->getAll(SQL, r);
