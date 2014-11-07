@@ -101,7 +101,7 @@ void DlgEmployee::setData(EmpleadoPtr empleado)
 
     // Disponibilidad de horarios
     CalendarioPersonaLst cals = empleado->Disponibilidades();
-    foreach (CalendarioPersonaPtr cal, *cals.data())
+    foreach (CalendarioPersonaPtr cal, *cals)
     {
         AvailabilityWidget *w = NULL;
         switch (cal->Dia().value())
@@ -207,7 +207,7 @@ QString DlgEmployee::Legajo()
 CapacidadPersonaSectorLst DlgEmployee::Capacities()
 {
     QLOG_TRACE_FN();
-    CapacidadPersonaSectorLst res = CapacidadPersonaSectorLst(new QList<CapacidadPersonaSectorPtr>());
+    CapacidadPersonaSectorLst res = CapacidadPersonaSectorLst::create();
 
     for (int i = 0; i < ui->treeCapacities->topLevelItemCount(); i++)
     {

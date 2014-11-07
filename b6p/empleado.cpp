@@ -144,7 +144,7 @@ Empleado::Empleado(bool isNew, QObject *parent) :
 RecordPtr Empleado::asRecordPtr()
 {
     QLOG_TRACE_FN();
-    RecordPtr res = RecordPtr(new Record());
+    RecordPtr res = RecordPtr::create();
 
     (*res)["Legajo"] = legajo.toVariant();
     (*res)["Apellido"] = apellido.toVariant();
@@ -233,7 +233,7 @@ CalendarioPersonaLst Empleado::Disponibilidades()
 {
     QLOG_TRACE_FN();
     if (IDEmpleado().isNull() || IDEmpleado().value() == -1)
-        return QSharedPointer<QList<CalendarioPersonaPtr> >();
+        return QSharedPointer<QList<CalendarioPersonaPtr> >::create();
     else
         return DataStore::instance()->getCalendarios()->getAll(IDEmpleado().value(), false);
 }
@@ -270,7 +270,7 @@ void Empleado::updateID(int newId)
 EmployeeCalculatedCapacityPtr Empleado::canWork(QDate &Fecha, int IDSector, int IDSubSector, int HoraInicio, int HoraFin)
 {
     QLOG_TRACE_FN();
-    EmployeeCalculatedCapacityPtr res = EmployeeCalculatedCapacityPtr(new EmployeeCalculatedCapacity(this, Fecha));
+    EmployeeCalculatedCapacityPtr res = EmployeeCalculatedCapacityPtr::create(this, Fecha);
 
     // Verifico si no esta en licencia
     LicenciaEmpleadoPtr licencia = DataStore::instance()->getLicencias()->getLicenciaEmpleado(idEmpleado.value(), Fecha);

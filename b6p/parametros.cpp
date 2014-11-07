@@ -157,7 +157,7 @@ QString Parametros::getSQLExistsInMainDB()
 RecordSet Parametros::getRecords(RecordStatus status, bool)
 {
     QLOG_TRACE_FN();
-    RecordSet rs = RecordSet(new QList<RecordPtr>());
+    RecordSet rs = RecordSet::create();
     if (status == DELETED)
         return rs;
 
@@ -169,7 +169,7 @@ RecordSet Parametros::getRecords(RecordStatus status, bool)
 
     foreach(QString key, m_Dictionary.keys())
     {
-        RecordPtr r = RecordPtr(new Record());
+        RecordPtr r = RecordPtr::create();
         (*r)["Key"] = key;
         (*r)["Value"] = m_Dictionary[key];
         rs->push_back(r);
@@ -181,7 +181,7 @@ RecordSet Parametros::getRecords(RecordStatus status, bool)
 RecordSet Parametros::getUnsent()
 {
     QLOG_TRACE_FN();
-    return RecordSet(new QList<RecordPtr>());
+    return RecordSet::create();
 }
 
 void Parametros::defineHeaders(QStringList &)
@@ -192,7 +192,7 @@ void Parametros::defineHeaders(QStringList &)
 QSharedPointer<QList<QStringList>> Parametros::getAll()
 {
     QLOG_TRACE_FN();
-    return QSharedPointer<QList<QStringList>>(new QList<QStringList>());
+    return QSharedPointer<QList<QStringList>>::create();
 }
 
 void Parametros::fillData(QTreeWidget &)

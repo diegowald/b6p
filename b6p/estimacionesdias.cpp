@@ -75,7 +75,7 @@ QString EstimacionesDias::getSQLExistsInMainDB()
 void EstimacionesDias::addRecord(RecordPtr record, bool setNew)
 {
     QLOG_TRACE_FN();
-    EstimacionDiaPtr e = EstimacionDiaPtr(new EstimacionDia(setNew));
+    EstimacionDiaPtr e = EstimacionDiaPtr::create(setNew);
     e->Dia().setValue(QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date());
     e->EstimacionHoras().setValue((*record)["HorasEstimadas"].toInt());
     e->setLocalRecordStatus((RecordStatus)((*record)["RecordStatus"].toInt()));
@@ -189,7 +189,7 @@ QString EstimacionesDias::getCentralInsertStatement()
 RecordSet EstimacionesDias::getRecords(RecordStatus status, bool fromMemory)
 {
     QLOG_TRACE_FN();
-    RecordSet res = RecordSet(new QList<RecordPtr>());
+    RecordSet res = RecordSet::create();
     foreach(EstimacionDiaPtr e, m_Estimaciones.values())
     {
         switch (status)
@@ -218,7 +218,7 @@ RecordSet EstimacionesDias::getRecords(RecordStatus status, bool fromMemory)
 RecordSet EstimacionesDias::getUnsent()
 {
     QLOG_TRACE_FN();
-    RecordSet res = RecordSet(new QList<RecordPtr>());
+    RecordSet res = RecordSet::create();
     foreach(EstimacionDiaPtr e, m_Estimaciones.values())
     {
         if (e->isUnSent())
@@ -230,7 +230,7 @@ RecordSet EstimacionesDias::getUnsent()
 QSharedPointer<QList<QAction*>> EstimacionesDias::getActions()
 {
     QLOG_TRACE_FN();
-    QSharedPointer<QList<QAction*>>actions = QSharedPointer<QList<QAction*>>(new QList<QAction*>());
+    QSharedPointer<QList<QAction*>>actions = QSharedPointer<QList<QAction*>>::create();
 
     QAction* action = new QAction(tr("Add Range"), NULL);
 
@@ -259,7 +259,7 @@ void EstimacionesDias::defineHeaders(QStringList &list)
 QSharedPointer<QList<QStringList>> EstimacionesDias::getAll()
 {
     QLOG_TRACE_FN();
-    QSharedPointer<QList<QStringList>> res = QSharedPointer<QList<QStringList>>(new QList<QStringList>());
+    QSharedPointer<QList<QStringList>> res = QSharedPointer<QList<QStringList>>::create();
 
     EstimacionDiaLst lst = getAll(false);
 
@@ -327,7 +327,7 @@ bool EstimacionesDias::edit(QVariant ID)
     QLOG_TRACE_FN();
     EstimacionDiaPtr e;
     if (ID == QDateTime::fromMSecsSinceEpoch(0).date())
-        e = EstimacionDiaPtr(new EstimacionDia(this));
+        e = EstimacionDiaPtr::create(this);
     else
         e = m_Estimaciones[ID.toDate()];
 
@@ -372,7 +372,7 @@ void EstimacionesDias::refreshID(int, int)
 EstimacionDiaLst EstimacionesDias::getAll(bool includeDeleted)
 {
     QLOG_TRACE_FN();
-    EstimacionDiaLst res = EstimacionDiaLst(new QList<EstimacionDiaPtr>());
+    EstimacionDiaLst res = EstimacionDiaLst::create();
 
     foreach (EstimacionDiaPtr e, m_Estimaciones.values())
     {
@@ -389,7 +389,7 @@ EstimacionDiaLst EstimacionesDias::getAll(bool includeDeleted)
 EstimacionDiaLst EstimacionesDias::getUnplanned(bool includeDeleted)
 {
     QLOG_TRACE_FN();
-    EstimacionDiaLst res = EstimacionDiaLst(new QList<EstimacionDiaPtr>());
+    EstimacionDiaLst res = EstimacionDiaLst::create();
 
     foreach(EstimacionDiaPtr e, m_Estimaciones.values())
     {
@@ -464,7 +464,7 @@ void EstimacionesDias::addManyDays()
             QDate date = from.addDays(i);
             if (m_Estimaciones.find(date) == m_Estimaciones.end())
             {
-                EstimacionDiaPtr e = EstimacionDiaPtr(new EstimacionDia(true, this));
+                EstimacionDiaPtr e = EstimacionDiaPtr::create(true, this);
                 e->Dia().setValue(date);
                 m_Estimaciones[e->Dia().value()] = e;
             }

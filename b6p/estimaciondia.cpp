@@ -62,7 +62,7 @@ EstimacionDia::EstimacionDia(bool isNew, QObject *parent) :
 RecordPtr EstimacionDia::asRecordPtr()
 {
     QLOG_TRACE_FN();
-    RecordPtr res = RecordPtr(new Record());
+    RecordPtr res = RecordPtr::create();
 
     (*res)["Dia"] = m_Dia.toVariant();
     (*res)["HorasEstimadas"] = m_EstimacionHoras.toVariant();

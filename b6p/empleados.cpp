@@ -73,7 +73,7 @@ QString Empleados::getSqlString()
 void Empleados::addRecord(RecordPtr record, bool setNew)
 {
     QLOG_TRACE_FN();
-    EmpleadoPtr e = EmpleadoPtr(new Empleado(false, this));
+    EmpleadoPtr e = EmpleadoPtr::create(false, this);
     e->IDEmpleado().setValue((*record)["ID"].toInt());
     e->Apellido().setValue((*record)["Apellido"].toString());
     e->Nombre().setValue((*record)["Nombres"].toString());
@@ -281,7 +281,7 @@ QString Empleados::getSQLExistsInMainDB()
 RecordSet Empleados::getRecords(RecordStatus status, bool fromMemory)
 {
     QLOG_TRACE_FN();
-    RecordSet res = RecordSet();
+    RecordSet res = RecordSet::create();
     foreach(EmpleadoPtr e, m_Empleados.values())
     {
         switch (status)
@@ -308,7 +308,7 @@ RecordSet Empleados::getRecords(RecordStatus status, bool fromMemory)
 RecordSet Empleados::getUnsent()
 {
     QLOG_TRACE_FN();
-    RecordSet res = RecordSet();
+    RecordSet res = RecordSet::create();
     foreach(EmpleadoPtr e, m_Empleados.values())
     {
         if (e->isUnSent())
@@ -334,7 +334,7 @@ EmpleadoPtr Empleados::getEmpleado(int idEmpleado, bool includeDeleted)
 EmpleadosLst Empleados::getAll(bool includeDeleted)
 {
     QLOG_TRACE_FN();
-    EmpleadosLst res = EmpleadosLst();
+    EmpleadosLst res = EmpleadosLst::create();
     foreach(EmpleadoPtr e, m_Empleados.values())
     {
         if (!e->DadoDeBaja())
@@ -362,7 +362,7 @@ EmpleadosLst Empleados::getPowerUsers()
 EmployeeCalculatedCapacityLst Empleados::getAll(int IDSector, int IDSubSector, QDate Fecha, int HoraInicio, int HoraFin, bool includeDeleted)
 {
     QLOG_TRACE_FN();
-    EmployeeCalculatedCapacityLst res = EmployeeCalculatedCapacityLst();
+    EmployeeCalculatedCapacityLst res = EmployeeCalculatedCapacityLst::create();
     QMultiMap<int, EmployeeCalculatedCapacityPtr> candidates;
     foreach(EmpleadoPtr e, m_Empleados.values())
     {
@@ -393,7 +393,7 @@ EmpleadosLst Empleados::getAllAvailableByDay(QDate &Fecha, QList<int> &empleados
 {
 
     QLOG_TRACE_FN();
-    EmpleadosLst res = EmpleadosLst();
+    EmpleadosLst res = EmpleadosLst::create();
     QSet<int> availables;
     foreach (EmpleadoPtr empleado, m_Empleados.values())
     {
@@ -426,10 +426,10 @@ void Empleados::defineHeaders(QStringList &list)
             << tr("Start");
 }
 
-QSharedPointer<QList<QStringList> > Empleados::getAll()
+QSharedPointer<QList<QStringList>> Empleados::getAll()
 {
     QLOG_TRACE_FN();
-    QSharedPointer<QList<QStringList> > res = QSharedPointer<QList<QStringList> >();
+    QSharedPointer<QList<QStringList>> res = QSharedPointer<QList<QStringList>>::create();
 
     EmpleadosLst lst = getAll(false);
 
@@ -475,7 +475,7 @@ bool Empleados::edit(QVariant ID)
     QLOG_TRACE_FN();
     EmpleadoPtr e;
     if (ID == -1)
-        e = EmpleadoPtr(new Empleado(true, this));
+        e = EmpleadoPtr::create(true, this);
     else
         e = getEmpleado(ID.toInt(), false);
     DlgEmployee dlg;

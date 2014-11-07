@@ -63,7 +63,7 @@ CalendarioPersona::CalendarioPersona(QObject *parent) :
 RecordPtr CalendarioPersona::asRecordPtr()
 {
     QLOG_TRACE_FN();
-    RecordPtr res = RecordPtr(new Record());
+    RecordPtr res = RecordPtr::create();
 
     (*res)["Dia"] = m_Dia.toVariant();
     (*res)["IDEmpleado"] = m_IDEmpleado.toVariant();

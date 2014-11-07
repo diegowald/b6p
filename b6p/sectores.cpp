@@ -71,7 +71,7 @@ QString Sectores::getSQLExistsInMainDB()
 void Sectores::addRecord(RecordPtr record, bool setNew)
 {
     QLOG_TRACE_FN();
-    SectorPtr s = SectorPtr(new Sector(this));
+    SectorPtr s = SectorPtr::create(this);
 
     s->IDSector().setValue((*record)["ID"].toInt());
     s->Nombre().setValue((*record)["Nombre"].toString());
@@ -201,7 +201,7 @@ QString Sectores::getCentralInsertStatement()
 RecordSet Sectores::getRecords(RecordStatus status, bool fromMemory)
 {
     QLOG_TRACE_FN();
-    RecordSet res = RecordSet(new QList<RecordPtr>());
+    RecordSet res = RecordSet::create();
     foreach(SectorPtr s, m_Sectores.values())
     {
         switch (status)
@@ -230,7 +230,7 @@ RecordSet Sectores::getRecords(RecordStatus status, bool fromMemory)
 RecordSet Sectores::getUnsent()
 {
     QLOG_TRACE_FN();
-    RecordSet res = RecordSet(new QList<RecordPtr>());
+    RecordSet res = RecordSet::create();
     foreach(SectorPtr s, m_Sectores.values())
     {
         if (s->isUnSent())
@@ -263,7 +263,7 @@ SectorPtr Sectores::getSector(QString SectorName)
 SectorLst Sectores::getAll(bool onlyShowInPlanification, bool includeDeleted)
 {
     QLOG_TRACE_FN();
-    SectorLst res = SectorLst(new QList<SectorPtr>());
+    SectorLst res = SectorLst::create();
     foreach(SectorPtr s, m_Sectores.values())
     {
         bool add = false;
@@ -285,7 +285,7 @@ void Sectores::defineHeaders(QStringList &)
 QSharedPointer<QList<QStringList> > Sectores::getAll()
 {
     QLOG_TRACE_FN();
-    return QSharedPointer<QList<QStringList>>(new QList<QStringList>());
+    return QSharedPointer<QList<QStringList>>::create();
 }
 
 void Sectores::fillData(QTreeWidget &)

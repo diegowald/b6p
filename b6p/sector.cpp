@@ -60,7 +60,7 @@ Sector::Sector(QObject *parent) :
 RecordPtr Sector::asRecordPtr()
 {
     QLOG_TRACE_FN();
-    RecordPtr res = RecordPtr(new Record());
+    RecordPtr res = RecordPtr::create();
 
     (*res)["IDSector"] = m_IDSector.toVariant();
     (*res)["Nombre"] = m_Nombre.toVariant();

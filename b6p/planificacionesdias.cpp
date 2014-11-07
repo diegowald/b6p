@@ -74,7 +74,7 @@ QString PlanificacionesDias::getSQLExistsInMainDB()
 void PlanificacionesDias::addRecord(RecordPtr record, bool setNew)
 {
     QLOG_TRACE_FN();
-    PlanificacionDiaPtr p = PlanificacionDiaPtr(new PlanificacionDia(this));
+    PlanificacionDiaPtr p = PlanificacionDiaPtr::create(this);
 
     p->Dia().setValue(QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date());
     p->Notas().setValue((*record)["Notas"].toString());
@@ -203,7 +203,7 @@ QString PlanificacionesDias::getCentralInsertStatement()
 RecordSet PlanificacionesDias::getRecords(RecordStatus status, bool fromMemory)
 {
     QLOG_TRACE_FN();
-    RecordSet res = RecordSet(new QList<RecordPtr>());
+    RecordSet res = RecordSet::create();
     foreach(PlanificacionDiaPtr p, m_Planificaciones.values())
     {
         switch (status)
@@ -232,7 +232,7 @@ RecordSet PlanificacionesDias::getRecords(RecordStatus status, bool fromMemory)
 RecordSet PlanificacionesDias::getUnsent()
 {
     QLOG_TRACE_FN();
-    RecordSet res = RecordSet(new QList<RecordPtr>());
+    RecordSet res = RecordSet::create();
     foreach(PlanificacionDiaPtr p, m_Planificaciones.values())
     {
         if (p->isUnSent())
@@ -257,7 +257,7 @@ void PlanificacionesDias::defineHeaders(QStringList &list)
 QSharedPointer<QList<QStringList>> PlanificacionesDias::getAll()
 {
     QLOG_TRACE_FN();
-    QSharedPointer<QList<QStringList>> res = QSharedPointer<QList<QStringList>>(new QList<QStringList>());
+    QSharedPointer<QList<QStringList>> res = QSharedPointer<QList<QStringList>>::create();
 
     PlanificacionDiaLst lst = getAll(false);
 
@@ -328,7 +328,7 @@ bool PlanificacionesDias::edit(QVariant ID)
     PlanificacionDiaPtr p;
     p = getByDay(ID.toDate(), false);
     if (!p.data())
-        p = PlanificacionDiaPtr(new PlanificacionDia(ID.toDate(), this));
+        p = PlanificacionDiaPtr::create(ID.toDate(), this);
 
     try
     {
@@ -384,7 +384,7 @@ void PlanificacionesDias::refreshID(int, int)
 PlanificacionDiaLst PlanificacionesDias::getAll(bool includeDeleted)
 {
     QLOG_TRACE_FN();
-    PlanificacionDiaLst res = PlanificacionDiaLst(new QList<PlanificacionDiaPtr>());
+    PlanificacionDiaLst res = PlanificacionDiaLst::create();
     foreach (PlanificacionDiaPtr p, m_Planificaciones.values())
     {
         if (!p->isPlanificacionDeleted() && !p->isDeleted(false))
@@ -420,7 +420,7 @@ PlanificacionDiaPtr PlanificacionesDias::getByDay(QDate day, bool includeDeleted
 PlanificacionDiaLst PlanificacionesDias::getAllReadyForApproval()
 {
     QLOG_TRACE_FN();
-    PlanificacionDiaLst res = PlanificacionDiaLst(new QList<PlanificacionDiaPtr>());
+    PlanificacionDiaLst res = PlanificacionDiaLst::create();
     foreach (PlanificacionDiaPtr p, m_Planificaciones.values())
     {
         if (p->isReadyForApproval())
@@ -461,7 +461,7 @@ void PlanificacionesDias::setStatusToUnmodified(bool removeDeleted, bool impactI
 QSharedPointer<QList<QAction*>> PlanificacionesDias::getActions()
 {
     QLOG_TRACE_FN();
-    QSharedPointer<QList<QAction*>> actions = QSharedPointer<QList<QAction*>>(new QList<QAction*>());
+    QSharedPointer<QList<QAction*>> actions = QSharedPointer<QList<QAction*>>::create();
 
     QAction *action = new QAction(tr("Approve"), NULL);
     QIcon icon2;

@@ -71,7 +71,7 @@ PlanificacionSubSector::~PlanificacionSubSector()
 RecordPtr PlanificacionSubSector::asRecordPtr()
 {
     QLOG_TRACE_FN();
-    RecordPtr res = RecordPtr(new Record());
+    RecordPtr res = RecordPtr::create();
 
     (*res)["IDRecord"] = m_IDRecord.toVariant();
     (*res)["Dia"] = m_Dia.toVariant();

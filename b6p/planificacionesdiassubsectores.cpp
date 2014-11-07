@@ -72,7 +72,7 @@ QString PlanificacionesDiasSubSectores::getSQLExistsInMainDB()
 void PlanificacionesDiasSubSectores::addRecord(RecordPtr record, bool setNew)
 {
     QLOG_TRACE_FN();
-    PlanificacionSubSectorPtr p = PlanificacionSubSectorPtr(new PlanificacionSubSector(this));
+    PlanificacionSubSectorPtr p = PlanificacionSubSectorPtr::create(this);
 
     p->IDRecord().setValue((*record)["IDRecord"].toInt());
     p->Dia().setValue(QDateTime::fromMSecsSinceEpoch((*record)["Dia"].toLongLong()).date());
@@ -217,7 +217,7 @@ QString PlanificacionesDiasSubSectores::getCentralInsertStatement()
 RecordSet PlanificacionesDiasSubSectores::getRecords(RecordStatus status, bool fromMemory)
 {
     QLOG_TRACE_FN();
-    RecordSet res = RecordSet(new QList<RecordPtr>());
+    RecordSet res = RecordSet::create();
     foreach(PlanificacionSubSectorPtr p, m_Planificacion)
     {
         switch (status)
@@ -246,7 +246,7 @@ RecordSet PlanificacionesDiasSubSectores::getRecords(RecordStatus status, bool f
 RecordSet PlanificacionesDiasSubSectores::getUnsent()
 {
     QLOG_TRACE_FN();
-    RecordSet res = RecordSet(new QList<RecordPtr>());
+    RecordSet res = RecordSet::create();
     foreach(PlanificacionSubSectorPtr p, m_Planificacion)
     {
         if (p->isUnSent())
@@ -263,7 +263,7 @@ void PlanificacionesDiasSubSectores::defineHeaders(QStringList &)
 QSharedPointer<QList<QStringList>> PlanificacionesDiasSubSectores::getAll()
 {
     QLOG_TRACE_FN();
-    return QSharedPointer<QList<QStringList>>(new QList<QStringList>());
+    return QSharedPointer<QList<QStringList>>::create();
 }
 
 void PlanificacionesDiasSubSectores::fillData(QTreeWidget &)
@@ -298,7 +298,7 @@ bool PlanificacionesDiasSubSectores::canBeDeleted(QVariant)
 PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getAll(const QDate &Dia, bool includeDeleted)
 {
     QLOG_TRACE_FN();
-    PlanificacionSubSectorLst res = PlanificacionSubSectorLst(new QList<PlanificacionSubSectorPtr>());
+    PlanificacionSubSectorLst res = PlanificacionSubSectorLst::create();
 
     foreach(PlanificacionSubSectorPtr p, m_Planificacion.values())
     {
@@ -320,7 +320,7 @@ PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getAll(const QDate &Di
 PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getAll(const QDate& dateFrom, const QDate& dateTo)
 {
     QLOG_TRACE_FN();
-    PlanificacionSubSectorLst res = PlanificacionSubSectorLst(new QList<PlanificacionSubSectorPtr>());
+    PlanificacionSubSectorLst res = PlanificacionSubSectorLst::create();
 
     foreach(PlanificacionSubSectorPtr p, m_Planificacion.values())
     {
@@ -344,7 +344,7 @@ PlanificacionSubSectorLst PlanificacionesDiasSubSectores::getDiasAnterioresTraba
         QDate Dia, int IDEmpleado)
 {
     QLOG_TRACE_FN();
-    PlanificacionSubSectorLst res = PlanificacionSubSectorLst(new QList<PlanificacionSubSectorPtr>());
+    PlanificacionSubSectorLst res = PlanificacionSubSectorLst::create();
     QMap<QDate, PlanificacionSubSectorPtr> diasTrabajados;
 
     foreach(PlanificacionSubSectorPtr p, m_Planificacion.values())
