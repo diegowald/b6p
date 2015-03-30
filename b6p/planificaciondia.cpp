@@ -248,19 +248,19 @@ bool PlanificacionDia::print(QTextDocument &textDoc)
 
     html += "<tr>";
     html += "<td bgcolor=\"lightgray\" colspan=\"8\">";
-    html += "<b><i>" + tr("Planification") + "</i></b>\n</td>";
+    html += "<b><i>" + tr("Planification") + "</i></b></td>";
     html += "</tr>";
 
     html += "<tr>";
-    html += "<td>" + tr("Date") + "</td><td>" + Dia().value().toString() + "</td>";
+    html += "<td>" + tr("Date") + "</td><td>" + Dia().value().toString("ddd dd-MM-yyyy") + "</td>";
     html += "<td>" + tr("Estimation") + "</td><td>" + QString::number(Estimacion()->EstimacionHoras().value()) + " hs </td>";
     html += "<td>" + tr("Planned") + "</td><td>" + QString::number(HorasPlanificadas()) + " hs </td>";
     html += "<td>" + tr("Status") + "</td><td>" + Estado() + "</td>";
     html += "</tr>";
 
-    html += "<tr>";
+/*    html += "<tr>";
     html += "<td>" + tr("Notes") + "</td><td colspan=\"7\">" + Notas().value() + "</td>";
-    html += "</tr>";
+    html += "</tr>";*/
     html += "</table>";
 
 
@@ -268,17 +268,17 @@ bool PlanificacionDia::print(QTextDocument &textDoc)
     html += "<table width=\"100%\" border=1 cellspacing=0>\n";
     html += "<tr>";
     html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
-    html += "<b><i>" + tr("Sector") + "</i></b></font>\n</td>";
+    html += "<b><i>" + tr("Sector") + "</i></b></font></td>";
     html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
-    html += "<b><i>" + tr("SubSector") + "</i></b></font>\n</td>";
+    html += "<b><i>" + tr("SubSector") + "</i></b></font></td>";
     html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
-    html += "<b><i>" + tr("Start") + "</i></b></font>\n</td>";
+    html += "<b><i>" + tr("Start") + "</i></b></font></td>";
     html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
-    html += "<b><i>" + tr("End") + "</i></b></font>\n</td>";
+    html += "<b><i>" + tr("End") + "</i></b></font></td>";
     html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
-    html += "<b><i>" + tr("Employee") + "</i></b></font>\n</td>";
+    html += "<b><i>" + tr("Employee") + "</i></b></font></td>";
     html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
-    html += "<b><i>" + tr("Diagram") + "</i></b></font>\n</td>";
+    html += "<b><i>" + tr("Diagram") + "</i></b></font></td>";
     html += "</tr>";
 
     int imgNumber = 0;
@@ -286,20 +286,20 @@ bool PlanificacionDia::print(QTextDocument &textDoc)
     {
         html += "<tr>";
         if (p->getSector())
-            html += "<td>" + p->getSector()->Nombre().value() + "</td>";
+            html += "<td><font size=\"-1\">" + p->getSector()->Nombre().value() + "</font></td>";
         else
             html += "<td> </td>";
 
         if (p->getSubsector())
-            html += "<td>" + p->getSubsector()->Nombre().value() + "</td>";
+            html += "<td><font size=\"-1\">" + p->getSubsector()->Nombre().value() + "</font></td>";
         else
             html += "<td> </td>";
 
-        html += "<td>" + TimeHelper::SecondsToString(p->HoraInicio().value()) + "</td>";
-        html += "<td>" + TimeHelper::SecondsToString(p->HoraFin().value()) + "</td>";
+        html += "<td><font size=\"-1\">" + TimeHelper::SecondsToString(p->HoraInicio().value()) + "</font></td>";
+        html += "<td><font size=\"-1\">" + TimeHelper::SecondsToString(p->HoraFin().value()) + "</font></td>";
 
         if (p->getEmpleado())
-            html += "<td>" + p->getEmpleado()->Apellido().value() + ", " + p->getEmpleado()->Nombre().value() + "</td>";
+            html += "<td><font size=\"-1\">" + p->getEmpleado()->Apellido().value() + ", " + p->getEmpleado()->Nombre().value() + "</font></td>";
         else
             html += "<td> </td>";
 
@@ -308,7 +308,7 @@ bool PlanificacionDia::print(QTextDocument &textDoc)
         html += "<td><img src=\"" + img + "\"></td>";
         QRect rect;
         rect.setWidth(500);
-        rect.setHeight(30);
+        rect.setHeight(24);
         QPixmap px(rect.size());
         TimeAssignment ts;
         ts.resize(rect.size());
@@ -326,7 +326,7 @@ bool PlanificacionDia::print(QTextDocument &textDoc)
         imgNumber++;
         html += "</tr>";
     }
-    html += "\n</table>";
+    html += "</table>";
 
 
     // Licencias
@@ -341,11 +341,14 @@ bool PlanificacionDia::print(QTextDocument &textDoc)
     html += "</tr>";
 
     QStringList empleadosEnFranco;
+
     foreach (LicenciaEmpleadoPtr licencia, *licencias)
     {
         EmpleadoPtr empleado = DataStore::instance()->getEmpleados()->getEmpleado(licencia->IDEmpleado().value(), true);
         empleadosEnFranco.append(empleado->Apellido().value() + ", " + empleado->Nombre().value());
     }
+    QSet<QString> francosNoDuplicados = empleadosEnFranco.toSet();
+    empleadosEnFranco = francosNoDuplicados.toList();
 
     html += "<tr>";
     html += "<td colspan=\"2\">" + empleadosEnFranco.join("; ") + "</td>";

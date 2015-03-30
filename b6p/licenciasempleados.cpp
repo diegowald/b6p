@@ -614,7 +614,7 @@ LicenciasEmpleadosLst LicenciasEmpleados::getFrancos(QDate &date)
     QString TipoFranco = DataStore::instance()->getParametros()->getFrancoType();
     foreach(LicenciaEmpleadoPtr licencia, m_Licencias.values())
     {
-        if ((licencia->FechaDesde().value() <= date) && (date <= licencia->FechaHasta().value()) && (licencia->TipoLicencia().value() == TipoFranco))
+        if ((licencia->FechaDesde().value() <= date) && (date <= licencia->FechaHasta().value()) /*&& (licencia->TipoLicencia().value() == TipoFranco)*/)
         {
             licencias->push_back(licencia);
         }

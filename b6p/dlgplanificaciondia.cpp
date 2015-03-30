@@ -59,6 +59,7 @@ DlgPlanificacionDia::DlgPlanificacionDia(QWidget *parent) :
     newID = 0;
     SubsectorsToDelete.clear();
     ui->btnEdit->setVisible(false);
+    setWindowFlags( Qt::Dialog | Qt::WindowMinimizeButtonHint);
 }
 
 DlgPlanificacionDia::~DlgPlanificacionDia()

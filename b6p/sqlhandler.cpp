@@ -76,6 +76,7 @@ SQLHandler::SQLHandler(QString Server, QString Database, QString User, QString P
 bool SQLHandler::tryReconnect()
 {
     QLOG_TRACE_FN();
+    QLOG_INFO() << m_database;
     if (!db.isOpen() && !db.open())
     {
         if (m_UsingSQLITE)

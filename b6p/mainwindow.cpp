@@ -117,6 +117,7 @@ void MainWindow::print(QPrinter *printer)
     {
         QTextDocument textDoc;
         textDoc.setHtml(htmlReport);
+        //printer->setPageMargins(0, 0, 0, 0, QPrinter::Millimeter);
         textDoc.print(printer);
     }
 }
@@ -135,6 +136,7 @@ void MainWindow::printSelected(QPrinter *printer)
         {
             selectedCalendarWindowToPrint->printSelectedRecord(textDoc);
         }
+//        printer->setPageMargins(0, 0, 0, 0, QPrinter::Millimeter);
         textDoc.print(printer);
     }
 }

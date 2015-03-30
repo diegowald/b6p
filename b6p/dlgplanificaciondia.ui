@@ -29,6 +29,9 @@
    <iconset resource="resources.qrc">
     <normaloff>:/img/images/glyphicons_057_history.png</normaloff>:/img/images/glyphicons_057_history.png</iconset>
   </property>
+  <property name="sizeGripEnabled">
+   <bool>false</bool>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
     <number>2</number>

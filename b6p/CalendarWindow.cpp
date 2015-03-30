@@ -207,8 +207,8 @@ QString CalendarWindow::getBody() {
 
 void CalendarWindow::showEvent(QShowEvent *evt)
 {
-    QLOG_TRACE_FN();
     QMainWindow::showEvent(evt);
+    QLOG_TRACE_FN();
 }
 
 void CalendarWindow::setABMButtonsVisible(bool visible)
