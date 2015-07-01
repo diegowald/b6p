@@ -45,6 +45,9 @@
     <widget class="QComboBox" name="cboEmpleado"/>
    </item>
    <item>
+    <widget class="MulticolorLedWidget" name="widget_2" native="true"/>
+   </item>
+   <item>
     <widget class="TimeAssignment" name="widget" native="true">
      <property name="minimumSize">
       <size>
@@ -67,6 +70,12 @@
    <class>TimeEditor</class>
    <extends>QWidget</extends>
    <header location="global">timeeditor.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MulticolorLedWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">multicolorledwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

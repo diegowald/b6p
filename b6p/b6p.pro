@@ -87,7 +87,8 @@ SOURCES += main.cpp\
     b6pcalendarwidget.cpp \
     CalendarWindow.cpp \
     dlgfilesynchronization.cpp \
-    filesynchronization.cpp
+    filesynchronization.cpp \
+    multicolorledwidget.cpp
 
 HEADERS  += \
     timeassignment.h \
@@ -153,7 +154,8 @@ HEADERS  += \
     reportitemcollection.h \
     b6pcalendarwidget.h \
     dlgfilesynchronization.h \
-    filesynchronization.h
+    filesynchronization.h \
+    multicolorledwidget.h
 
 FORMS    += mainwindow.ui \
     genericlist.ui \
