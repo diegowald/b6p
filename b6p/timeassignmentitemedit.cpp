@@ -410,6 +410,34 @@ void TimeAssignmentItemEdit::recalculateColorAssignments(int IDEmpleado)
     else
         color = Qt::darkRed;
 
+    ui->widget_2->setLedColor(color);
+
+    switch (ui->cboSectores->itemData(ui->cboSectores->currentIndex(), Qt::UserRole).toInt())
+    {
+    case 1: //|Entrenamiento||1|1|1
+        color = color = Qt::magenta;
+        break;
+    case 2: //|Cocina||1|1|1
+        color = Qt::black;
+        break;
+    case 3: //|Cajas||1|1|1
+        color = Qt::red;
+        break;
+    case 4: //|Cafeteria||1|1|1
+        color = Qt::darkGreen;
+        break;
+    case 5: //|Salon||1|1|1
+        color = Qt::blue;
+        break;
+    case 6: //|Depositos||1|1|1
+    case 7: //|Eventos||1|1|1
+    case 8: //|Supervisor||1|0|1
+    case 9: //|Gerencia||1|0|1
+    default:
+        color = Qt::magenta;
+        break;
+    }
+
     ui->widget->setAssignmentColor(color);
 }
 
