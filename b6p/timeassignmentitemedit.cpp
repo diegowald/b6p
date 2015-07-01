@@ -246,6 +246,7 @@ void TimeAssignmentItemEdit::setIDSector(int value)
     QLOG_TRACE_FN();
     loadingData = true;
     ui->cboSectores->setCurrentIndex(ui->cboSectores->findData(value, Qt::UserRole));
+    recalculateColorAssignments(ui->cboEmpleado->itemData(ui->cboEmpleado->currentIndex(), Qt::UserRole).toInt());
     loadingData = false;
 }
 
@@ -278,6 +279,7 @@ void TimeAssignmentItemEdit::setIDEmpleado(int value)
     QLOG_TRACE_FN();
     loadingData = true;
     ui->cboEmpleado->setCurrentIndex(ui->cboEmpleado->findData(value));
+    recalculateColorAssignments(value);
     loadingData = false;
 }
 
