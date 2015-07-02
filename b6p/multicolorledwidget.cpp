@@ -46,7 +46,8 @@ void MulticolorLedWidget::paintEvent(QPaintEvent *paintEvt)
     painter.fillRect(rect(), m_BackgroundColor);
 
     // paint led
-    QRect circleRect = rect().adjusted(2, 2, -2, -2);
+    QRect circleRect(0, 0, 18, 18);
+    circleRect.moveCenter(rect().center());
     painter.setBrush(QBrush(m_LedColor));
     painter.drawEllipse(circleRect);
 }

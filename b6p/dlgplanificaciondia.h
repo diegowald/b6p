@@ -87,6 +87,10 @@ private slots:
 
     void on_toolButton_clicked();
 
+    void on_btnSortBySector_pressed();
+
+    void on_btn_SortByEmployee_pressed();
+
 private:
     Ui::DlgPlanificacionDia *ui;
     QDate m_Dia;

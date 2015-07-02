@@ -457,3 +457,13 @@ QList<int> DlgPlanificacionDia::getCurrentlyWorkingEmployees()
     }
     return partialRes.keys();
 }
+
+void DlgPlanificacionDia::on_btnSortBySector_pressed()
+{
+    ui->treeWidget->sor
+}
+
+void DlgPlanificacionDia::on_btn_SortByEmployee_pressed()
+{
+
+}
