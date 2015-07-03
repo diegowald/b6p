@@ -289,6 +289,7 @@ EmployeeCalculatedCapacityPtr Empleado::canWork(QDate &Fecha, int IDSector, int 
         return res;
     }
 
+    aca tengo que agregar la verificacion de cierre en dia anterior
 
     // Verifico si puede trabajar el dia en la franja horaria.
     DAYS Dia = Days::DayOfWeek2DAYS(Fecha.dayOfWeek());

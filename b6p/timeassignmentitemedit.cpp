@@ -344,14 +344,12 @@ void TimeAssignmentItemEdit::on_cboEmpleado_currentIndexChanged(int index)
     bool warningHorasUnderwork = false;
     bool warningHorasOverwork = false;
     bool warningDias = false;
-    bool warningCierraYAbre = false; // este warning se activa si el empleado cerro el local el dia anterior y esta abriendolo al dia siguiente.
 
     if (emp.data())
     {
         warningHorasUnderwork = emp->hasWarningsHorasMenorAMinimo();
         warningHorasOverwork = emp->hasWarningsHorasMayorAMaximo();
         warningDias = emp->hasWarningsDias();
-        //warningCierraYAbre = ui->timeInicio->timeSeconds() emp->closedYesterday();
     }
     bool warnings = warningDias || warningHorasUnderwork || warningHorasOverwork;
 

@@ -74,6 +74,8 @@ public:
     bool hasWarningsDias();
     bool hasWarningsHorasMenorAMinimo();
     bool hasWarningsHorasMayorAMaximo();
+
+    bool closedYesterday();
 signals:
     void calcularHorasPreviamenteTrabajadas(int IDEmpleado, int &horas);
 

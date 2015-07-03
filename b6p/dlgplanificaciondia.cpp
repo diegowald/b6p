@@ -170,8 +170,6 @@ void DlgPlanificacionDia::llenarLicencias(const QDate& date, int column)
 void DlgPlanificacionDia::on_btnAdd_pressed()
 {
     QLOG_TRACE_FN();
-    QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget);
-    ui->treeWidget->addTopLevelItem(item);
     TimeAssignmentItemEdit *time = new TimeAssignmentItemEdit();
     connect(time, SIGNAL(calcularHoras(int,int&)), this, SLOT(on_calcularHoras(int,int&)));
     connect(time, SIGNAL(refreshColorAssignments()), this, SLOT(on_refreshColorAssignments()));
@@ -179,7 +177,8 @@ void DlgPlanificacionDia::on_btnAdd_pressed()
     time->setDate(m_Dia);
     newID++;
     time->setData(-newID);
-    ui->treeWidget->setItemWidget(item, 0, time);
+    PlanificacionItemWidget *item = new PlanificacionItemWidget(time, ui->treeWidget);
+    ui->treeWidget->addTopLevelItem(item);
     connect(time, SIGNAL(AssignmentChanged(int,int)), this, SLOT(slot_AssignmentChanged(int, int)));
 }
 
