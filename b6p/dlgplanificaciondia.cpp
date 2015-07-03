@@ -47,6 +47,7 @@
 #include <QTextStream>
 #include <QsLog.h>
 #include <QTableWidget>
+#include "planificacionitemwidget.h"
 #include <QTableWidgetItem>
 #include <dlgempleadoslicenciasplanificacion.h>
 
@@ -60,6 +61,9 @@ DlgPlanificacionDia::DlgPlanificacionDia(QWidget *parent) :
     SubsectorsToDelete.clear();
     ui->btnEdit->setVisible(false);
     setWindowFlags( Qt::Dialog | Qt::WindowMinimizeButtonHint);
+    ui->treeWidget->setColumnWidth(0, 0);
+    ui->treeWidget->setColumnWidth(1, 0);
+    ui->treeWidget->setColumnWidth(2, 0);
 }
 
 DlgPlanificacionDia::~DlgPlanificacionDia()
@@ -93,13 +97,11 @@ void DlgPlanificacionDia::setData(PlanificacionDiaPtr data)
     PlanificacionSubSectorLst planes = data->getPlanificaciones();
     foreach (PlanificacionSubSectorPtr plan, *planes)
     {
-        QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget);
-        ui->treeWidget->addTopLevelItem(item);
         TimeAssignmentItemEdit *time = new TimeAssignmentItemEdit();
         connect(time, SIGNAL(calcularHoras(int,int&)), this, SLOT(on_calcularHoras(int,int&)));
         connect(time, SIGNAL(refreshColorAssignments()), this, SLOT(on_refreshColorAssignments()));
         connect(time, SIGNAL(AllowOverWorkingForEmployee(int)), this, SLOT(on_AllowOverWorkingForEmployee(int)));
-        time->setDate(m_Dia);
+
         time->setData(plan->IDRecord().value());
 
         time->setAllowOverWorking(plan->AllowOverWorking().value());
@@ -121,7 +123,10 @@ void DlgPlanificacionDia::setData(PlanificacionDiaPtr data)
         else
             time->setIDEmpleado(plan->IDEmpleado().value());
 
-        ui->treeWidget->setItemWidget(item, 0, time);
+
+        PlanificacionItemWidget *item = new PlanificacionItemWidget(time, ui->treeWidget);
+        ui->treeWidget->addTopLevelItem(item);
+
         connect(time, SIGNAL(AssignmentChanged(int,int)), this, SLOT(slot_AssignmentChanged(int,int)));
     }
 
@@ -277,7 +282,7 @@ void DlgPlanificacionDia::setReadOnly()
     for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = ui->treeWidget->topLevelItem(i);
-        TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 0));
+        TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 3));
         time->setEnabled(false);
     }
 }
@@ -288,7 +293,7 @@ void DlgPlanificacionDia::on_btnDelete_pressed()
     QTreeWidgetItem *item = ui->treeWidget->currentItem();
     if (item)
     {
-        TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 0));
+        TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 3));
         if (time->data().toInt() > 0)
         {
             SubsectorsToDelete.push_back(time->data().toInt());
@@ -303,7 +308,7 @@ void DlgPlanificacionDia::on_calcularHoras(int IDEmpleado, int &horas)
     for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = ui->treeWidget->topLevelItem(i);
-        TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 0));
+        TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 3));
 
         if (time && (time->IDEmpleado() == IDEmpleado))
             horas += (time->HoraFin() - time->HoraInicio()) / 3600;
@@ -316,7 +321,7 @@ void DlgPlanificacionDia::on_refreshColorAssignments()
     for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = ui->treeWidget->topLevelItem(i);
-        TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 0));
+        TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 3));
         if (time)
             time->recalculateColorAssignments(time->IDEmpleado());
     }
@@ -328,7 +333,7 @@ void DlgPlanificacionDia::on_AllowOverWorkingForEmployee(int IDEmpleado)
     for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = ui->treeWidget->topLevelItem(i);
-        TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 0));
+        TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 3));
         if (time && (time->IDEmpleado() == IDEmpleado))
             time->setAllowOverWorking(true);
     }
@@ -393,7 +398,7 @@ QSharedPointer<QList<QStringList> > DlgPlanificacionDia::getAll()
     for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = ui->treeWidget->topLevelItem(i);
-        TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 0));
+        TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 3));
         res->push_back(getRecord(time));
     }
 
@@ -436,7 +441,7 @@ void DlgPlanificacionDia::on_toolButton_clicked()
         for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
         {
             QTreeWidgetItem *item = ui->treeWidget->topLevelItem(i);
-            TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 0));
+            TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 3));
             time->recalculateAvailableEmployees();
         }
         this->refreshLicencias();
@@ -452,7 +457,7 @@ QList<int> DlgPlanificacionDia::getCurrentlyWorkingEmployees()
     for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = ui->treeWidget->topLevelItem(i);
-        TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 0));
+        TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 3));
         partialRes[time->IDEmpleado()] = time->IDEmpleado();
     }
     return partialRes.keys();
@@ -460,10 +465,10 @@ QList<int> DlgPlanificacionDia::getCurrentlyWorkingEmployees()
 
 void DlgPlanificacionDia::on_btnSortBySector_pressed()
 {
-    ui->treeWidget->sor
+    ui->treeWidget->sortItems(1, Qt::SortOrder::AscendingOrder);
 }
 
 void DlgPlanificacionDia::on_btn_SortByEmployee_pressed()
 {
-
+    ui->treeWidget->sortItems(0, Qt::SortOrder::AscendingOrder);
 }

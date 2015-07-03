@@ -101,6 +101,7 @@ void TimeAssignmentItemEdit::on_cboSectores_currentIndexChanged(int index)
     llenarSubSectores(ui->cboSectores->itemData(index, Qt::UserRole).toInt());
     llenarEmpleados();
     setIDEmpleadoNull();
+    emit sectorChanged(ui->cboSectores->currentText());
 }
 
 void TimeAssignmentItemEdit::llenarSubSectores(int IDSector)
@@ -119,6 +120,7 @@ void TimeAssignmentItemEdit::on_cboSubsectores_currentIndexChanged(int)
     QLOG_TRACE_FN();
     llenarEmpleados();
     setIDEmpleadoNull();
+    emit subSectorChanged(ui->cboSubsectores->currentText());
 }
 
 
@@ -255,6 +257,7 @@ void TimeAssignmentItemEdit::setIDSectorNull()
     QLOG_TRACE_FN();
     loadingData = true;
     ui->cboSectores->setCurrentIndex(-1);
+    emit sectorChanged("");
     loadingData = false;
 }
 
@@ -271,6 +274,7 @@ void TimeAssignmentItemEdit::setIDSubSectorNull()
     QLOG_TRACE_FN();
     loadingData = true;
     ui->cboSubsectores->setCurrentIndex(-1);
+    emit subSectorChanged("");
     loadingData = false;
 }
 
@@ -288,6 +292,7 @@ void TimeAssignmentItemEdit::setIDEmpleadoNull()
     QLOG_TRACE_FN();
     loadingData = true;
     ui->cboEmpleado->setCurrentIndex(-1);
+    emit employeeChanged("");
     loadingData = false;
 }
 
@@ -366,6 +371,7 @@ void TimeAssignmentItemEdit::on_cboEmpleado_currentIndexChanged(int index)
     }
 
     emit refreshColorAssignments();
+    emit employeeChanged(ui->cboEmpleado->currentText());
 }
 
 void TimeAssignmentItemEdit::recalculateColorAssignments(int IDEmpleado)
