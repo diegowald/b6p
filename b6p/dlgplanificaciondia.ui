@@ -81,14 +81,25 @@
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="0" column="2">
-      <widget class="QToolButton" name="btnDelete">
+     <item row="0" column="3">
+      <widget class="QToolButton" name="btnExport">
        <property name="text">
-        <string>...</string>
+        <string>Export</string>
        </property>
        <property name="icon">
         <iconset resource="resources.qrc">
-         <normaloff>:/img/remove</normaloff>:/img/remove</iconset>
+         <normaloff>:/img/images/glyphicons_151_new_window.png</normaloff>:/img/images/glyphicons_151_new_window.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="4">
+      <widget class="QToolButton" name="toolButton">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="resources.qrc">
+         <normaloff>:/img/employees</normaloff>:/img/employees</iconset>
        </property>
       </widget>
      </item>
@@ -103,7 +114,29 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="5">
+     <item row="0" column="0">
+      <widget class="QToolButton" name="btnAdd">
+       <property name="text">
+        <string>Add</string>
+       </property>
+       <property name="icon">
+        <iconset resource="resources.qrc">
+         <normaloff>:/img/add</normaloff>:/img/add</iconset>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QToolButton" name="btnDelete">
+       <property name="text">
+        <string>...</string>
+       </property>
+       <property name="icon">
+        <iconset resource="resources.qrc">
+         <normaloff>:/img/remove</normaloff>:/img/remove</iconset>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="7">
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -116,36 +149,25 @@
        </property>
       </spacer>
      </item>
-     <item row="0" column="3">
-      <widget class="QToolButton" name="btnExport">
+     <item row="0" column="5">
+      <widget class="QToolButton" name="btnSortBySector">
        <property name="text">
-        <string>Export</string>
+        <string>...</string>
        </property>
        <property name="icon">
         <iconset resource="resources.qrc">
-         <normaloff>:/img/images/glyphicons_151_new_window.png</normaloff>:/img/images/glyphicons_151_new_window.png</iconset>
+         <normaloff>:/img/images/glyphicons_110_align_left.png</normaloff>:/img/images/glyphicons_110_align_left.png</iconset>
        </property>
       </widget>
      </item>
-     <item row="0" column="0">
-      <widget class="QToolButton" name="btnAdd">
+     <item row="0" column="6">
+      <widget class="QToolButton" name="btn_SortByEmployee">
        <property name="text">
-        <string>Add</string>
+        <string>...</string>
        </property>
        <property name="icon">
         <iconset resource="resources.qrc">
-         <normaloff>:/img/add</normaloff>:/img/add</iconset>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="4">
-      <widget class="QToolButton" name="toolButton">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="resources.qrc">
-         <normaloff>:/img/employees</normaloff>:/img/employees</iconset>
+         <normaloff>:/img/images/glyphicons_112_align_right.png</normaloff>:/img/images/glyphicons_112_align_right.png</iconset>
        </property>
       </widget>
      </item>
@@ -183,9 +205,27 @@
      <attribute name="headerVisible">
       <bool>false</bool>
      </attribute>
+     <attribute name="headerStretchLastSection">
+      <bool>true</bool>
+     </attribute>
      <column>
       <property name="text">
        <string notr="true">1</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>New Column</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>New Column</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>New Column</string>
       </property>
      </column>
     </widget>

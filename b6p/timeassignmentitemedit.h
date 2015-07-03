@@ -92,6 +92,9 @@ signals:
     void calcularHoras(int IDEmpleado, int &horas);
     void refreshColorAssignments();
     void AllowOverWorkingForEmployee(int IDEmpleado);
+    void employeeChanged(const QString &empleado);
+    void sectorChanged(const QString &sector);
+    void subSectorChanged(const QString &subSector);
 
 protected:
     void llenarSectores();
