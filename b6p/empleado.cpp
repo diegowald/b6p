@@ -289,7 +289,6 @@ EmployeeCalculatedCapacityPtr Empleado::canWork(QDate &Fecha, int IDSector, int 
         return res;
     }
 
-    aca tengo que agregar la verificacion de cierre en dia anterior
 
     // Verifico si puede trabajar el dia en la franja horaria.
     DAYS Dia = Days::DayOfWeek2DAYS(Fecha.dayOfWeek());
@@ -303,6 +302,24 @@ EmployeeCalculatedCapacityPtr Empleado::canWork(QDate &Fecha, int IDSector, int 
     {
         res->setCapacity(0);
         return res;
+    }
+
+    // Verifico si es horario de apertura y ademas cerro el dia anterior
+    if (HoraInicio == DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0))
+    {
+        PlanificacionSubSectorLst diasPrevios = DataStore::instance()->getPlanificacionesSubSectores()->getDiasAnterioresTrabajadosPorEmpleado(Fecha, idEmpleado.value());
+        foreach (PlanificacionSubSectorPtr p, *diasPrevios)
+        {
+            int days = Fecha.toJulianDay() - p->Dia().value().toJulianDay();
+            if (days == 1)
+            {
+                if (p->HoraFin().value() == DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400))
+                {
+                    res->setCapacity(0);
+                    return res;
+                }
+            }
+        }
     }
 
     if (!cap.isNull())
