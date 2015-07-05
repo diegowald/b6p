@@ -203,6 +203,11 @@ bool ACollection::editRecord(QVariant ID)
     return result;
 }
 
+void ACollection::saveRequested()
+{
+    save();
+}
+
 bool ACollection::deleteRecord(QVariant ID)
 {
     QLOG_TRACE_FN();

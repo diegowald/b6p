@@ -40,7 +40,7 @@
 #include "planificacionesdias.h"
 #include "datastore.h"
 #include "dlgselectorbytdate.h"
-#include "dlgplanificaciondia.h"
+
 #include <QsLog.h>
 
 
@@ -49,6 +49,8 @@ PlanificacionesDias::PlanificacionesDias(const QString &dbName, QObject *parent)
                 "Days Planifications", false, ACollection::MERGE_KEEP_MAIN, dbName, parent)
 {
     QLOG_TRACE_FN();
+    planUnderEdition = PlanificacionDiaPtr(NULL);
+    connect(this, SIGNAL(requestSave()), this, SLOT(saveRequested()));
 }
 
 QString PlanificacionesDias::getSelectFromMainDB()
@@ -327,33 +329,56 @@ bool PlanificacionesDias::edit(QVariant ID)
     QLOG_TRACE_FN();
     PlanificacionDiaPtr p;
     p = getByDay(ID.toDate(), false);
+
+    bool editInReadOnly = !planUnderEdition.isNull();
+    if (p.data())
+    {
+        if (!p->EstadoPlanificacion().isNull())
+            editInReadOnly = editInReadOnly && (p->EstadoPlanificacion().value() != INPROGRESS);
+    }
+
     if (!p.data())
         p = PlanificacionDiaPtr::create(ID.toDate(), this);
 
-    try
-    {
-        DlgPlanificacionDia dlg;
-        dlg.setData(p);
-        dlg.setWindowState(dlg.windowState() | Qt::WindowMaximized);
-        if (dlg.exec() == QDialog::Accepted)
-        {
-            p->Dia().setValue(dlg.Dia());
-            p->Notas().setValue(dlg.Notas());
-            p->IDSupervisor().setValue(dlg.IDSupervisor());
+    DlgPlanificacionDia *dlg = new DlgPlanificacionDia();
 
-            p->updatePlanificaciones(dlg.Planificaciones());
-            m_Planificaciones[p->Dia().value()] = p;
-            p->setParent(this);
-        }
-    }
-    catch (...)
+    if (!editInReadOnly)
     {
-        return false;
+        planUnderEdition = p;
+        connect(dlg, SIGNAL(accepted(DlgPlanificacionDia*)), this, SLOT(on_DlgEditAccepted(DlgPlanificacionDia*)));
     }
+    connect(dlg, SIGNAL(rejected(DlgPlanificacionDia*)), this, SLOT(on_DlgCancelled(DlgPlanificacionDia*)));
+    dlg->setData(p, editInReadOnly);
 
-    return true;
+    dlg->setWindowState(dlg->windowState() | Qt::WindowMaximized);
+    dlg->show();
+    dlg->setFocus();
+    dlg->activateWindow();
+    return false;
 }
 
+void PlanificacionesDias::on_DlgCancelled(DlgPlanificacionDia *dialog)
+{
+    dialog->deleteLater();
+    if (dialog->getData() == planUnderEdition)
+    {
+        planUnderEdition = PlanificacionDiaPtr(NULL);
+    }
+}
+
+void PlanificacionesDias::on_DlgEditAccepted(DlgPlanificacionDia *dialog)
+{
+    planUnderEdition->Dia().setValue(dialog->Dia());
+    planUnderEdition->Notas().setValue(dialog->Notas());
+    planUnderEdition->IDSupervisor().setValue(dialog->IDSupervisor());
+
+    planUnderEdition->updatePlanificaciones(dialog->Planificaciones());
+    m_Planificaciones[planUnderEdition->Dia().value()] = planUnderEdition;
+    planUnderEdition->setParent(this);
+    planUnderEdition = PlanificacionDiaPtr(NULL);
+    dialog->deleteLater();
+    emit requestSave();
+}
 
 bool PlanificacionesDias::deleteElement(QVariant ID)
 {

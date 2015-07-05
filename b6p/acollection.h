@@ -142,6 +142,7 @@ signals:
     void dataUpdated();
 
 public slots:
+    void saveRequested();
 
 protected:
     virtual void deleteRecordsLocally();

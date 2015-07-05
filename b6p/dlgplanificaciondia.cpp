@@ -50,6 +50,7 @@
 #include "planificacionitemwidget.h"
 #include <QTableWidgetItem>
 #include <dlgempleadoslicenciasplanificacion.h>
+#include <QPushButton>
 
 DlgPlanificacionDia::DlgPlanificacionDia(QWidget *parent) :
     QDialog(parent),
@@ -64,6 +65,8 @@ DlgPlanificacionDia::DlgPlanificacionDia(QWidget *parent) :
     ui->treeWidget->setColumnWidth(0, 0);
     ui->treeWidget->setColumnWidth(1, 0);
     ui->treeWidget->setColumnWidth(2, 0);
+    connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(buttonOK()));
+    connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(buttonCancel()));
 }
 
 DlgPlanificacionDia::~DlgPlanificacionDia()
@@ -72,9 +75,10 @@ DlgPlanificacionDia::~DlgPlanificacionDia()
     delete ui;
 }
 
-void DlgPlanificacionDia::setData(PlanificacionDiaPtr data)
+void DlgPlanificacionDia::setData(PlanificacionDiaPtr data, bool readOnly)
 {
     QLOG_TRACE_FN();
+    m_data = data;
     ui->lblDia->setText(tr("Date: %1").arg(data->Dia().value().toString(Qt::ISODate)));
     if (data->Estimacion())
     {
@@ -132,8 +136,13 @@ void DlgPlanificacionDia::setData(PlanificacionDiaPtr data)
 
     refreshLicencias();
 
-    if (data->EstadoPlanificacion().value() == APPROVED)
+    if (data->EstadoPlanificacion().value() == APPROVED || readOnly)
         setReadOnly();
+}
+
+PlanificacionDiaPtr DlgPlanificacionDia::getData()
+{
+    return m_data;
 }
 
 void DlgPlanificacionDia::refreshLicencias()
@@ -277,7 +286,7 @@ void DlgPlanificacionDia::setReadOnly()
     ui->btnAdd->setEnabled(false);
     ui->btnDelete->setEnabled(false);
     ui->btnEdit->setEnabled(false);
-
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
     for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = ui->treeWidget->topLevelItem(i);
@@ -470,4 +479,16 @@ void DlgPlanificacionDia::on_btnSortBySector_pressed()
 void DlgPlanificacionDia::on_btn_SortByEmployee_pressed()
 {
     ui->treeWidget->sortItems(0, Qt::SortOrder::AscendingOrder);
+}
+
+void DlgPlanificacionDia::buttonOK()
+{
+    hide();
+    emit accepted(this);
+}
+
+void DlgPlanificacionDia::buttonCancel()
+{
+    hide();
+    emit rejected(this);
 }

@@ -57,7 +57,8 @@ class DlgPlanificacionDia : public QDialog
 public:
     explicit DlgPlanificacionDia(QWidget *parent = 0);
     ~DlgPlanificacionDia();
-    void setData(PlanificacionDiaPtr data);
+    void setData(PlanificacionDiaPtr data, bool readOnly);
+    PlanificacionDiaPtr getData();
     QDate Dia();
     QString Notas();
     int IDSupervisor();
@@ -91,12 +92,20 @@ private slots:
 
     void on_btn_SortByEmployee_pressed();
 
+    void buttonOK();
+    void buttonCancel();
+
+signals:
+    void accepted(DlgPlanificacionDia *dialog);
+    void rejected(DlgPlanificacionDia *dialog);
+
 private:
     Ui::DlgPlanificacionDia *ui;
     QDate m_Dia;
     int newID;
     QList<int> SubsectorsToDelete;
     int m_HorasEstimadas;
+    PlanificacionDiaPtr m_data;
 };
 
 #endif // DLGPLANIFICACIONDIA_H

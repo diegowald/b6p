@@ -1,0 +1,1618 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ACCESS	accesos.h	54;"	g	class:Accesos	access:private
+ACollection	acollection.h	53;"	c	inherits:QObject
+ACollection	acollection.h	65;"	p	class:ACollection	access:public
+ACollectionPtr	acollection.h	165;"	t
+APPROVED	planificaciondia.h	58;"	e	enum:EstadosPlanificacion
+Acceso	acceso.h	48;"	x
+Acceso	acceso.h	52;"	c	inherits:QObject,IRecord
+Acceso	acceso.h	56;"	p	class:Acceso	access:public
+AccesoLst	acceso.h	50;"	t
+AccesoPtr	acceso.h	49;"	t
+Accesos	accesos.h	50;"	c	inherits:ACollection
+Accesos	accesos.h	63;"	p	class:Accesos	access:public
+AccesosPtr	accesos.h	123;"	t
+AllowAdd	CalendarWindow.h	60;"	p	class:CalendarWindow	access:public
+AllowAdd	genericlist.h	60;"	p	class:GenericList	access:public
+AllowDelete	CalendarWindow.h	62;"	p	class:CalendarWindow	access:public
+AllowDelete	genericlist.h	62;"	p	class:GenericList	access:public
+AllowEdit	CalendarWindow.h	61;"	p	class:CalendarWindow	access:public
+AllowEdit	genericlist.h	61;"	p	class:GenericList	access:public
+AllowOverWorking	planificacionsubsector.h	70;"	p	class:PlanificacionSubSector	access:public
+AllowOverWorking	timeassignmentitemedit.h	70;"	p	class:TimeAssignmentItemEdit	access:public
+AllowOverWorkingForEmployee	timeassignmentitemedit.h	95;"	p	class:TimeAssignmentItemEdit	access:public
+Apellido	dlgemployee.h	61;"	p	class:DlgEmployee	access:public
+Apellido	empleado.h	101;"	p	class:Empleado	access:public
+AssignmentChanged	timeassignmentitemedit.h	92;"	p	class:TimeAssignmentItemEdit	access:public
+AssignmentHeight	timeassignment.h	76;"	p	class:TimeAssignment	access:public
+AvailabilityWidget	availabilitywidget.h	47;"	x
+AvailabilityWidget	availabilitywidget.h	50;"	c	inherits:QWidget
+AvailabilityWidget	availabilitywidget.h	55;"	p	class:AvailabilityWidget	access:public
+B6PCalendarWidget	b6pcalendarwidget.h	12;"	p	class:B6PCalendarWidget	access:public
+B6PCalendarWidget	b6pcalendarwidget.h	8;"	c	inherits:QCalendarWidget
+BaseReport	basereport.h	49;"	c	inherits:ACollection
+BaseReport	basereport.h	53;"	p	class:BaseReport	access:public
+CAN_CREATE	accesos.h	57;"	e	enum:Accesos::ACCESS
+CAN_DELETE	accesos.h	59;"	e	enum:Accesos::ACCESS
+CAN_READ	accesos.h	56;"	e	enum:Accesos::ACCESS
+CAN_UPDATE	accesos.h	58;"	e	enum:Accesos::ACCESS
+CLOSE_STORE	parametros.h	114;"	m	class:Parametros	access:public
+CalendarWindow	CalendarWindow.h	50;"	x
+CalendarWindow	CalendarWindow.h	53;"	c	inherits:QMainWindow
+CalendarWindow	CalendarWindow.h	58;"	p	class:CalendarWindow	access:public
+CalendarioPersona	calendariopersona.h	47;"	x
+CalendarioPersona	calendariopersona.h	52;"	c	inherits:QObject,IRecord
+CalendarioPersona	calendariopersona.h	56;"	p	class:CalendarioPersona	access:public
+CalendarioPersonaLst	calendariopersona.h	49;"	t
+CalendarioPersonaPtr	calendariopersona.h	48;"	t
+CalendarioPersonas	calendariopersonas.h	47;"	c	inherits:ACollection
+CalendarioPersonas	calendariopersonas.h	51;"	p	class:CalendarioPersonas	access:public
+CalendarioPersonasPtr	calendariopersonas.h	109;"	t
+CanCreate	acceso.h	70;"	p	class:Acceso	access:public
+CanDelete	acceso.h	72;"	p	class:Acceso	access:public
+CanRead	acceso.h	69;"	p	class:Acceso	access:public
+CanUpdate	acceso.h	71;"	p	class:Acceso	access:public
+CantidadHoras	planificacionsubsector.h	86;"	p	class:PlanificacionSubSector	access:public
+CantidadHoras	timeassignmentitemedit.h	61;"	p	class:TimeAssignmentItemEdit	access:public
+Capacidad	capacidadpersonasector.h	65;"	p	class:CapacidadPersonaSector	access:public
+CapacidadPersonaSector	capacidadpersonasector.h	49;"	x
+CapacidadPersonaSector	capacidadpersonasector.h	55;"	c	inherits:QObject,IRecord
+CapacidadPersonaSector	capacidadpersonasector.h	59;"	p	class:CapacidadPersonaSector	access:public
+CapacidadPersonaSectorLst	capacidadpersonasector.h	52;"	t
+CapacidadPersonaSectorPtr	capacidadpersonasector.h	51;"	t
+CapacidadesPersonaSector	capacidadespersonasector.h	47;"	c	inherits:ACollection
+CapacidadesPersonaSector	capacidadespersonasector.h	51;"	p	class:CapacidadesPersonaSector	access:public
+CapacidadesPersonaSectorPtr	capacidadespersonasector.h	105;"	t
+Capacities	dlgemployee.h	65;"	p	class:DlgEmployee	access:public
+Capacities	empleado.h	107;"	p	class:Empleado	access:public
+Capacity	capacitywidget.h	64;"	p	class:CapacityWidget	access:public
+Capacity	empleado.h	70;"	p	class:EmployeeCalculatedCapacity	access:public
+CapacityWidget	capacitywidget.h	46;"	x
+CapacityWidget	capacitywidget.h	49;"	c	inherits:QWidget
+CapacityWidget	capacitywidget.h	54;"	p	class:CapacityWidget	access:public
+DATABASE_NAME	parametros.h	122;"	m	class:Parametros	access:public
+DAYS	days.h	44;"	g
+DELETED	IRecord.h	57;"	e	enum:RecordStatus
+DadoDeBaja	empleado.h	117;"	p	class:Empleado	access:public
+DataStore	datastore.h	61;"	c	inherits:QObject
+DataStore	datastore.h	88;"	p	class:DataStore	access:protected
+DatabaseSynchronization	databasesynchronization.h	47;"	x
+DatabaseSynchronization	databasesynchronization.h	51;"	c	inherits:QObject
+DatabaseSynchronization	databasesynchronization.h	55;"	p	class:DatabaseSynchronization	access:public
+DatabaseSynchronizationPtr	databasesynchronization.h	48;"	t
+Date	timeassignmentitemedit.h	85;"	p	class:TimeAssignmentItemEdit	access:public
+Day	availabilitywidget.h	64;"	p	class:AvailabilityWidget	access:public
+DayOfWeek2DAYS	days.h	60;"	p	class:Days	access:public
+Days	days.h	55;"	c
+Days2String	days.h	58;"	p	class:Days	access:public
+DebugLevel	QsLogLevel.h	35;"	e	enum:QsLogging::Level
+DebugOutputDestination	QsLogDestConsole.h	43;"	c	namespace:QsLogging	inherits:Destination
+DebugString	QsLog.cpp	46;"	m	namespace:QsLogging	file:
+Descripcion	dlglicencia.h	64;"	p	class:DlgLicencia	access:public
+Descripcion	licenciaempleado.h	61;"	p	class:LicenciaEmpleado	access:public
+Descripcion	sector.h	57;"	p	class:Sector	access:public
+Descripcion	subsector.h	57;"	p	class:SubSector	access:public
+Destination	QsLog.h	38;"	x
+Destination	QsLogDest.h	37;"	c	namespace:QsLogging
+DestinationFactory	QsLogDest.h	48;"	c	namespace:QsLogging
+DestinationList	QsLog.cpp	43;"	t	namespace:QsLogging	file:
+DestinationPtr	QsLogDest.h	44;"	t	namespace:QsLogging
+Dia	calendariopersona.h	58;"	p	class:CalendarioPersona	access:public
+Dia	dlgestimaciondia.h	60;"	p	class:DlgEstimacionDia	access:public
+Dia	dlgplanificaciondia.h	61;"	p	class:DlgPlanificacionDia	access:public
+Dia	estimaciondia.h	54;"	p	class:EstimacionDia	access:public
+Dia	planificaciondia.h	68;"	p	class:PlanificacionDia	access:public
+Dia	planificacionsubsector.h	64;"	p	class:PlanificacionSubSector	access:public
+DiasPreviamenteTrabajados	empleado.h	72;"	p	class:EmployeeCalculatedCapacity	access:public
+Disponibilidades	dlgemployee.h	66;"	p	class:DlgEmployee	access:public
+Disponibilidades	empleado.h	109;"	p	class:Empleado	access:public
+DlgAddManyEstimationDays	dlgaddmanyestimationdays.h	47;"	x
+DlgAddManyEstimationDays	dlgaddmanyestimationdays.h	50;"	c	inherits:QDialog
+DlgAddManyEstimationDays	dlgaddmanyestimationdays.h	55;"	p	class:DlgAddManyEstimationDays	access:public
+DlgApprovePlanifications	dlgapproveplanifications.h	47;"	x
+DlgApprovePlanifications	dlgapproveplanifications.h	50;"	c	inherits:QDialog
+DlgApprovePlanifications	dlgapproveplanifications.h	55;"	p	class:DlgApprovePlanifications	access:public
+DlgDateRangeFilter	dlgdaterangefilter.h	46;"	x
+DlgDateRangeFilter	dlgdaterangefilter.h	49;"	c	inherits:QDialog
+DlgDateRangeFilter	dlgdaterangefilter.h	54;"	p	class:DlgDateRangeFilter	access:public
+DlgEmpleadosLicenciasPlanificacion	dlgempleadoslicenciasplanificacion.h	48;"	x
+DlgEmpleadosLicenciasPlanificacion	dlgempleadoslicenciasplanificacion.h	51;"	c	inherits:QDialog
+DlgEmpleadosLicenciasPlanificacion	dlgempleadoslicenciasplanificacion.h	56;"	p	class:DlgEmpleadosLicenciasPlanificacion	access:public
+DlgEmployee	dlgemployee.h	48;"	x
+DlgEmployee	dlgemployee.h	51;"	c	inherits:QDialog
+DlgEmployee	dlgemployee.h	56;"	p	class:DlgEmployee	access:public
+DlgEstimacionDia	dlgestimaciondia.h	47;"	x
+DlgEstimacionDia	dlgestimaciondia.h	50;"	c	inherits:QDialog
+DlgEstimacionDia	dlgestimaciondia.h	55;"	p	class:DlgEstimacionDia	access:public
+DlgFileSynchronization	dlgfilesynchronization.h	11;"	c	inherits:QDialog
+DlgFileSynchronization	dlgfilesynchronization.h	16;"	p	class:DlgFileSynchronization	access:public
+DlgFileSynchronization	dlgfilesynchronization.h	8;"	x
+DlgLicencia	dlglicencia.h	47;"	x
+DlgLicencia	dlglicencia.h	50;"	c	inherits:QDialog
+DlgLicencia	dlglicencia.h	55;"	p	class:DlgLicencia	access:public
+DlgLogin	dlglogin.h	46;"	x
+DlgLogin	dlglogin.h	49;"	c	inherits:QDialog
+DlgLogin	dlglogin.h	54;"	p	class:DlgLogin	access:public
+DlgMerge	dlgmerge.h	47;"	x
+DlgMerge	dlgmerge.h	50;"	c	inherits:QDialog
+DlgMerge	dlgmerge.h	55;"	p	class:DlgMerge	access:public
+DlgParametros	dlgparametros.h	46;"	x
+DlgParametros	dlgparametros.h	49;"	c	inherits:QDialog
+DlgParametros	dlgparametros.h	54;"	p	class:DlgParametros	access:public
+DlgPlanificacionDia	dlgplanificaciondia.h	50;"	x
+DlgPlanificacionDia	dlgplanificaciondia.h	53;"	c	inherits:QDialog
+DlgPlanificacionDia	dlgplanificaciondia.h	58;"	p	class:DlgPlanificacionDia	access:public
+DlgQueryBuilder	dlgquerybuilder.h	46;"	x
+DlgQueryBuilder	dlgquerybuilder.h	49;"	c	inherits:QDialog
+DlgQueryBuilder	dlgquerybuilder.h	54;"	p	class:DlgQueryBuilder	access:public
+DlgSelectorBytDate	dlgselectorbytdate.h	47;"	x
+DlgSelectorBytDate	dlgselectorbytdate.h	50;"	c	inherits:QDialog
+DlgSelectorBytDate	dlgselectorbytdate.h	55;"	p	class:DlgSelectorBytDate	access:public
+DlgSynchronization	dlgsynchronization.h	47;"	x
+DlgSynchronization	dlgsynchronization.h	50;"	c	inherits:QDialog
+DlgSynchronization	dlgsynchronization.h	55;"	p	class:DlgSynchronization	access:public
+EMPLOYEE_MAX_HOURS	parametros.h	117;"	m	class:Parametros	access:public
+EMPLOYEE_MIN_HOURS	parametros.h	116;"	m	class:Parametros	access:public
+Empleado	empleado.h	57;"	x
+Empleado	empleado.h	93;"	c	inherits:QObject,IRecord
+Empleado	empleado.h	97;"	p	class:Empleado	access:public
+EmpleadoAsignado	empleado.h	69;"	p	class:EmployeeCalculatedCapacity	access:public
+EmpleadoPtr	empleado.h	58;"	t
+Empleados	empleados.h	50;"	c	inherits:ACollection
+Empleados	empleados.h	54;"	p	class:Empleados	access:public
+EmpleadosLst	empleado.h	59;"	t
+EmpleadosPtr	empleados.h	114;"	t
+EmployeeCalculatedCapacity	empleado.h	61;"	c	inherits:QObject
+EmployeeCalculatedCapacity	empleado.h	65;"	p	class:EmployeeCalculatedCapacity	access:public
+EmployeeCalculatedCapacityLst	empleado.h	91;"	t
+EmployeeCalculatedCapacityPtr	empleado.h	90;"	t
+EnableActions	mainwindow.h	62;"	p	class:MainWindow	access:protected
+EqualsTo	calendariopersona.h	67;"	p	class:CalendarioPersona	access:public
+EqualsTo	capacidadpersonasector.h	67;"	p	class:CapacidadPersonaSector	access:public
+ErrorLevel	QsLogLevel.h	38;"	e	enum:QsLogging::Level
+ErrorString	QsLog.cpp	49;"	m	namespace:QsLogging	file:
+Estado	planificaciondia.h	77;"	p	class:PlanificacionDia	access:public
+EstadoPlanificacion	planificaciondia.h	71;"	p	class:PlanificacionDia	access:public
+EstadosPlanificacion	planificaciondia.h	54;"	g
+Estimacion	planificaciondia.h	74;"	p	class:PlanificacionDia	access:public
+EstimacionDia	estimaciondia.h	48;"	c	inherits:QObject,IRecord
+EstimacionDia	estimaciondia.h	52;"	p	class:EstimacionDia	access:public
+EstimacionDiaLst	estimaciondia.h	72;"	t
+EstimacionDiaPtr	estimaciondia.h	71;"	t
+EstimacionHoras	dlgestimaciondia.h	61;"	p	class:DlgEstimacionDia	access:public
+EstimacionHoras	estimaciondia.h	55;"	p	class:EstimacionDia	access:public
+EstimacionesDias	estimacionesdias.h	47;"	c	inherits:ACollection
+EstimacionesDias	estimacionesdias.h	51;"	p	class:EstimacionesDias	access:public
+EstimacionesDiasPtr	estimacionesdias.h	109;"	t
+FINISHED	planificaciondia.h	57;"	e	enum:EstadosPlanificacion
+FRANCO_TYPE	parametros.h	126;"	m	class:Parametros	access:public
+FatalLevel	QsLogLevel.h	39;"	e	enum:QsLogging::Level
+FatalString	QsLog.cpp	50;"	m	namespace:QsLogging	file:
+Feature	acceso.h	62;"	p	class:Acceso	access:public
+FechaDesde	dlglicencia.h	61;"	p	class:DlgLicencia	access:public
+FechaDesde	licenciaempleado.h	58;"	p	class:LicenciaEmpleado	access:public
+FechaHasta	dlglicencia.h	62;"	p	class:DlgLicencia	access:public
+FechaHasta	licenciaempleado.h	59;"	p	class:LicenciaEmpleado	access:public
+FechaIngreso	dlgemployee.h	63;"	p	class:DlgEmployee	access:public
+FechaIngreso	empleado.h	104;"	p	class:Empleado	access:public
+FieldStatus	nullablefield.h	45;"	g
+FileDestination	QsLogDestFile.h	86;"	c	namespace:QsLogging	inherits:Destination
+FileDestination	QsLogDestFile.h	89;"	p	class:QsLogging::FileDestination	access:public
+FileSynchronization	filesynchronization.h	11;"	p	class:FileSynchronization	access:public
+FileSynchronization	filesynchronization.h	7;"	c	inherits:QObject
+Friday	days.h	51;"	e	enum:DAYS
+From	dlgaddmanyestimationdays.h	60;"	p	class:DlgAddManyEstimationDays	access:public
+FromTime1	availabilitywidget.h	65;"	p	class:AvailabilityWidget	access:public
+FromTime2	availabilitywidget.h	67;"	p	class:AvailabilityWidget	access:public
+GenericList	genericlist.h	50;"	x
+GenericList	genericlist.h	53;"	c	inherits:QMainWindow
+GenericList	genericlist.h	58;"	p	class:GenericList	access:public
+HHMMSS2Seconds	timeeditor.h	82;"	p	class:TimeEditor	access:private
+HHMMSS2Seconds	timeeditor.h	83;"	p	class:TimeEditor	access:private
+Helper	QsLog.h	59;"	c	class:QsLogging::Logger	access:public
+HollowTimeLine	timeassignment.h	100;"	p	class:TimeAssignment	access:public
+HoraEgreso1	calendariopersona.h	61;"	p	class:CalendarioPersona	access:public
+HoraEgreso2	calendariopersona.h	63;"	p	class:CalendarioPersona	access:public
+HoraFin	planificacionsubsector.h	69;"	p	class:PlanificacionSubSector	access:public
+HoraFin	timeassignmentitemedit.h	69;"	p	class:TimeAssignmentItemEdit	access:public
+HoraIngreso1	calendariopersona.h	60;"	p	class:CalendarioPersona	access:public
+HoraIngreso2	calendariopersona.h	62;"	p	class:CalendarioPersona	access:public
+HoraInicio	planificacionsubsector.h	68;"	p	class:PlanificacionSubSector	access:public
+HoraInicio	timeassignmentitemedit.h	68;"	p	class:TimeAssignmentItemEdit	access:public
+HorasPlanificadas	planificaciondia.h	72;"	p	class:PlanificacionDia	access:public
+HorasPreviamenteTrabajadas	empleado.h	71;"	p	class:EmployeeCalculatedCapacity	access:public
+ID	licenciaempleado.h	56;"	p	class:LicenciaEmpleado	access:public
+IDEmpleado	calendariopersona.h	59;"	p	class:CalendarioPersona	access:public
+IDEmpleado	capacidadpersonasector.h	64;"	p	class:CapacidadPersonaSector	access:public
+IDEmpleado	dlglicencia.h	60;"	p	class:DlgLicencia	access:public
+IDEmpleado	empleado.h	100;"	p	class:Empleado	access:public
+IDEmpleado	licenciaempleado.h	57;"	p	class:LicenciaEmpleado	access:public
+IDEmpleado	planificacionsubsector.h	67;"	p	class:PlanificacionSubSector	access:public
+IDEmpleado	timeassignmentitemedit.h	67;"	p	class:TimeAssignmentItemEdit	access:public
+IDRecord	planificacionsubsector.h	63;"	p	class:PlanificacionSubSector	access:public
+IDSector	acceso.h	61;"	p	class:Acceso	access:public
+IDSector	capacidadpersonasector.h	62;"	p	class:CapacidadPersonaSector	access:public
+IDSector	capacitywidget.h	62;"	p	class:CapacityWidget	access:public
+IDSector	planificacionsubsector.h	65;"	p	class:PlanificacionSubSector	access:public
+IDSector	sector.h	55;"	p	class:Sector	access:public
+IDSector	subsector.h	54;"	p	class:SubSector	access:public
+IDSector	timeassignmentitemedit.h	63;"	p	class:TimeAssignmentItemEdit	access:public
+IDSubSector	capacitywidget.h	63;"	p	class:CapacityWidget	access:public
+IDSubSector	planificacionsubsector.h	66;"	p	class:PlanificacionSubSector	access:public
+IDSubSector	timeassignmentitemedit.h	65;"	p	class:TimeAssignmentItemEdit	access:public
+IDSubsector	subsector.h	55;"	p	class:SubSector	access:public
+IDSupervisor	dlgplanificaciondia.h	63;"	p	class:DlgPlanificacionDia	access:public
+IDSupervisor	planificaciondia.h	70;"	p	class:PlanificacionDia	access:public
+ID_SubSector	capacidadpersonasector.h	63;"	p	class:CapacidadPersonaSector	access:public
+INPROGRESS	planificaciondia.h	56;"	e	enum:EstadosPlanificacion
+IRecord	IRecord.h	60;"	s
+IncorrectTime	timeeditor.h	91;"	p	class:TimeEditor	access:private
+InfoLevel	QsLogLevel.h	36;"	e	enum:QsLogging::Level
+InfoString	QsLog.cpp	47;"	m	namespace:QsLogging	file:
+IsBaja	empleado.h	105;"	p	class:Empleado	access:public
+LAST_SYNCHRO	parametros.h	120;"	m	class:Parametros	access:public
+LOG_LEVEL	parametros.h	125;"	m	class:Parametros	access:public
+Legajo	dlgemployee.h	64;"	p	class:DlgEmployee	access:public
+Legajo	empleado.h	103;"	p	class:Empleado	access:public
+Level	QsLogLevel.h	32;"	g	namespace:QsLogging
+LicenciaEmpleado	licenciaempleado.h	49;"	c	inherits:QObject,IRecord
+LicenciaEmpleado	licenciaempleado.h	54;"	p	class:LicenciaEmpleado	access:public
+LicenciaEmpleadoPtr	licenciaempleado.h	85;"	t
+LicenciaProgramada	empleado.h	112;"	p	class:Empleado	access:public
+LicenciasEmpleados	licenciasempleados.h	46;"	c	inherits:ACollection
+LicenciasEmpleados	licenciasempleados.h	50;"	p	class:LicenciasEmpleados	access:public
+LicenciasEmpleadosLst	licenciaempleado.h	86;"	t
+LicenciasEmpleadosPtr	licenciasempleados.h	119;"	t
+LicenciasProgramadas	empleado.h	111;"	p	class:Empleado	access:public
+LogWriterRunnable	QsLog.cpp	80;"	c	namespace:QsLogging	file:	inherits:QRunnable
+LogWriterRunnable	QsLog.h	87;"	x
+Logger	QsLog.h	41;"	c	namespace:QsLogging
+Logger	QsLog.h	77;"	p	class:QsLogging::Logger	access:private
+Logger	QsLog.h	78;"	p	class:QsLogging::Logger	access:private
+LoggerImpl	QsLog.cpp	98;"	c	namespace:QsLogging	file:
+LoggerImpl	QsLog.h	39;"	x
+MAX_DAYS_BETWEEN_FREE_DAY	parametros.h	118;"	m	class:Parametros	access:public
+MERGE_KEEP_LOCAL	acollection.h	61;"	e	enum:ACollection::MERGE_STRATEGY
+MERGE_KEEP_MAIN	acollection.h	60;"	e	enum:ACollection::MERGE_STRATEGY
+MERGE_MANUAL	acollection.h	62;"	e	enum:ACollection::MERGE_STRATEGY
+MERGE_STRATEGY	acollection.h	58;"	g	class:ACollection	access:public
+MIN_WORKING_HOURS	parametros.h	115;"	m	class:Parametros	access:public
+MODIFIED	IRecord.h	56;"	e	enum:RecordStatus
+MainWindow	mainwindow.h	50;"	x
+MainWindow	mainwindow.h	53;"	c	inherits:QMainWindow
+MainWindow	mainwindow.h	58;"	p	class:MainWindow	access:public
+MakeDebugOutputDestination	QsLogDest.h	52;"	p	class:QsLogging::DestinationFactory	access:public
+MakeFileDestination	QsLogDest.h	51;"	p	class:QsLogging::DestinationFactory	access:public
+MaxBackupCount	QsLogDestFile.cpp	32;"	m	class:QsLogging::SizeRotationStrategy	file:
+MaxBackupCount	QsLogDestFile.h	65;"	m	class:QsLogging::SizeRotationStrategy	access:public
+Monday	days.h	47;"	e	enum:DAYS
+MulticolorLedWidget	multicolorledwidget.h	10;"	p	class:MulticolorLedWidget	access:public
+MulticolorLedWidget	multicolorledwidget.h	6;"	c	inherits:QWidget
+NEW	IRecord.h	55;"	e	enum:RecordStatus
+New	nullablefield.h	48;"	e	enum:FieldStatus
+Nombre	empleado.h	102;"	p	class:Empleado	access:public
+Nombre	sector.h	56;"	p	class:Sector	access:public
+Nombre	subsector.h	56;"	p	class:SubSector	access:public
+Nombres	dlgemployee.h	62;"	p	class:DlgEmployee	access:public
+Notas	dlgplanificaciondia.h	62;"	p	class:DlgPlanificacionDia	access:public
+Notas	planificaciondia.h	69;"	p	class:PlanificacionDia	access:public
+NullRotationStrategy	QsLogDestFile.h	50;"	c	namespace:QsLogging	inherits:RotationStrategy
+NullableField	nullablefield.h	53;"	c
+OPEN_STORE	parametros.h	113;"	m	class:Parametros	access:public
+OffLevel	QsLogLevel.h	40;"	e	enum:QsLogging::Level
+PASSWORD	parametros.h	124;"	m	class:Parametros	access:public
+PaintBackgroundReferences	timeassignment.h	95;"	p	class:TimeAssignment	access:public
+PaintVerticalGrid	timeassignment.h	93;"	p	class:TimeAssignment	access:public
+Parametro	parametro.h	44;"	c	inherits:QObject
+Parametro	parametro.h	48;"	p	class:Parametro	access:public
+Parametros	parametros.h	45;"	c	inherits:ACollection
+Parametros	parametros.h	49;"	p	class:Parametros	access:public
+ParametrosPtr	parametros.h	139;"	t
+PlanificacionDia	planificaciondia.h	61;"	c	inherits:QObject,IRecord
+PlanificacionDia	planificaciondia.h	65;"	p	class:PlanificacionDia	access:public
+PlanificacionDia	planificaciondia.h	66;"	p	class:PlanificacionDia	access:public
+PlanificacionDiaLst	planificaciondia.h	106;"	t
+PlanificacionDiaPtr	planificaciondia.h	105;"	t
+PlanificacionItemWidget	planificacionitemwidget.h	14;"	p	class:PlanificacionItemWidget	access:public
+PlanificacionItemWidget	planificacionitemwidget.h	9;"	c	inherits:QObject,QTreeWidgetItem
+PlanificacionSubSector	planificacionsubsector.h	51;"	x
+PlanificacionSubSector	planificacionsubsector.h	56;"	c	inherits:QObject,IRecord
+PlanificacionSubSector	planificacionsubsector.h	60;"	p	class:PlanificacionSubSector	access:public
+PlanificacionSubSectorLst	planificacionsubsector.h	53;"	t
+PlanificacionSubSectorPtr	planificacionsubsector.h	52;"	t
+Planificaciones	dlgplanificaciondia.h	64;"	p	class:DlgPlanificacionDia	access:public
+PlanificacionesDias	planificacionesdias.h	46;"	c	inherits:ACollection
+PlanificacionesDias	planificacionesdias.h	50;"	p	class:PlanificacionesDias	access:public
+PlanificacionesDiasPtr	planificacionesdias.h	103;"	t
+PlanificacionesDiasSubSectores	planificacionesdiassubsectores.h	46;"	c	inherits:ACollection
+PlanificacionesDiasSubSectores	planificacionesdiassubsectores.h	50;"	p	class:PlanificacionesDiasSubSectores	access:public
+PlanificacionesSubSectoresPtr	planificacionesdiassubsectores.h	104;"	t
+QString	QsLogDest.h	32;"	x
+QString	QsLogDestConsole.h	31;"	x
+QsDebugOutput	QsLogDestConsole.h	33;"	c
+Record	IRecord.h	47;"	t
+RecordPtr	IRecord.h	48;"	t
+RecordSet	IRecord.h	49;"	t
+RecordStatus	IRecord.h	51;"	g
+ReportItem	reportitem.h	47;"	c	inherits:QObject
+ReportItem	reportitem.h	51;"	p	class:ReportItem	access:public
+ReportItemCollection	reportitemcollection.h	48;"	c	inherits:QObject
+ReportItemCollection	reportitemcollection.h	52;"	p	class:ReportItemCollection	access:public
+ReportItemCollectionPtr	reportitemcollection.h	110;"	t
+ReportItemPtr	reportitem.h	69;"	t
+ReporteFrancosPlanificados	reportefrancosplanificados.h	48;"	c	inherits:BaseReport
+ReporteFrancosPlanificados	reportefrancosplanificados.h	52;"	p	class:ReporteFrancosPlanificados	access:public
+ReporteFrancosPlanificadosPtr	reportefrancosplanificados.h	70;"	t
+ReporteHorasDiaADia	reportehorasdiaadia.h	48;"	c	inherits:BaseReport
+ReporteHorasDiaADia	reportehorasdiaadia.h	52;"	p	class:ReporteHorasDiaADia	access:public
+ReporteHorasDiaADiaPtr	reportehorasdiaadia.h	68;"	t
+ReporteHorasPorEmpleado	reportehorasporempleado.h	48;"	c	inherits:BaseReport
+ReporteHorasPorEmpleado	reportehorasporempleado.h	52;"	p	class:ReporteHorasPorEmpleado	access:public
+ReporteHorasPorEmpleadoPtr	reportehorasporempleado.h	70;"	t
+ReporteHorasSectorSubSector	reportehorassectorsubsector.h	49;"	c	inherits:BaseReport
+ReporteHorasSectorSubSector	reportehorassectorsubsector.h	53;"	p	class:ReporteHorasSectorSubSector	access:public
+ReporteHorasSectorSubSectorPtr	reportehorassectorsubsector.h	72;"	t
+RotationStrategy	QsLogDestFile.h	37;"	c	namespace:QsLogging
+RotationStrategyPtr	QsLogDestFile.h	83;"	t	namespace:QsLogging
+SERVER_NAME	parametros.h	121;"	m	class:Parametros	access:public
+SQLHandler	sqlhandler.h	47;"	c
+SQLHandler	sqlhandler.h	50;"	p	class:SQLHandler	access:public
+SQLHandler	sqlhandler.h	51;"	p	class:SQLHandler	access:public
+SYNCHRO_FOLDER	parametros.h	128;"	m	class:Parametros	access:public
+Saturday	days.h	52;"	e	enum:DAYS
+SecondsToQTime	timehelper.h	47;"	p	class:TimeHelper	access:public
+SecondsToString	timehelper.h	48;"	p	class:TimeHelper	access:public
+Sector	sector.h	49;"	c	inherits:QObject,IRecord
+Sector	sector.h	53;"	p	class:Sector	access:public
+SectorLst	sector.h	75;"	t
+SectorPtr	sector.h	74;"	t
+Sectores	sectores.h	47;"	c	inherits:ACollection
+Sectores	sectores.h	51;"	p	class:Sectores	access:public
+SectoresPtr	sectores.h	104;"	t
+SetSummarizeDays	reportitemcollection.h	68;"	p	class:ReportItemCollection	access:public
+ShowBackgroundText	timeassignment.h	97;"	p	class:TimeAssignment	access:public
+ShowInPlanification	sector.h	58;"	p	class:Sector	access:public
+SincroManager	SincroManager.h	49;"	c	inherits:QObject
+SincroManager	SincroManager.h	53;"	p	class:SincroManager	access:public
+SizeRotationStrategy	QsLogDestFile.h	61;"	c	namespace:QsLogging	inherits:RotationStrategy
+SizeRotationStrategy	QsLogDestFile.h	64;"	p	class:QsLogging::SizeRotationStrategy	access:public
+String2Day	days.h	59;"	p	class:Days	access:public
+SubSector	subsector.h	48;"	c	inherits:QObject,IRecord
+SubSector	subsector.h	52;"	p	class:SubSector	access:public
+SubSectorPtr	subsector.h	74;"	t
+SubSectores	subsectores.h	47;"	c	inherits:ACollection
+SubSectores	subsectores.h	51;"	p	class:SubSectores	access:public
+SubSectoresLst	subsector.h	75;"	t
+SubSectoresPtr	subsectores.h	107;"	t
+SubsectorsToDelete	dlgplanificaciondia.h	98;"	m	class:DlgPlanificacionDia	access:private
+Sunday	days.h	46;"	e	enum:DAYS
+Supervisor	planificaciondia.h	73;"	p	class:PlanificacionDia	access:public
+SynchroEnded	SincroManager.h	76;"	p	class:SincroManager	access:protected
+Thursday	days.h	50;"	e	enum:DAYS
+TimeAssignment	timeassignment.h	58;"	c	inherits:QWidget
+TimeAssignment	timeassignment.h	63;"	p	class:TimeAssignment	access:public
+TimeAssignmentItemEdit	timeassignmentitemedit.h	50;"	x
+TimeAssignmentItemEdit	timeassignmentitemedit.h	53;"	c	inherits:QWidget
+TimeAssignmentItemEdit	timeassignmentitemedit.h	58;"	p	class:TimeAssignmentItemEdit	access:public
+TimeAssignmentSlot	timeassignment.h	47;"	c
+TimeAssignmentSlot	timeassignment.h	50;"	p	class:TimeAssignmentSlot	access:public
+TimeEditor	timeeditor.h	47;"	x
+TimeEditor	timeeditor.h	50;"	c	inherits:QWidget
+TimeEditor	timeeditor.h	55;"	p	class:TimeEditor	access:public
+TimeHelper	timehelper.h	44;"	c
+TimeInvalid	dlgparametros.h	66;"	p	class:DlgParametros	access:private
+TipoLicencia	dlglicencia.h	63;"	p	class:DlgLicencia	access:public
+TipoLicencia	licenciaempleado.h	60;"	p	class:LicenciaEmpleado	access:public
+To	dlgaddmanyestimationdays.h	61;"	p	class:DlgAddManyEstimationDays	access:public
+ToTime1	availabilitywidget.h	66;"	p	class:AvailabilityWidget	access:public
+ToTime2	availabilitywidget.h	68;"	p	class:AvailabilityWidget	access:public
+TraceLevel	QsLogLevel.h	34;"	e	enum:QsLogging::Level
+TraceString	QsLog.cpp	45;"	m	namespace:QsLogging	file:
+Tuesday	days.h	48;"	e	enum:DAYS
+UNINITIALIZED	IRecord.h	53;"	e	enum:RecordStatus
+UNMODIFIED	IRecord.h	54;"	e	enum:RecordStatus
+USER_NAME	parametros.h	123;"	m	class:Parametros	access:public
+USE_FILE_SYNCHRO	parametros.h	129;"	m	class:Parametros	access:public
+Unmodified	nullablefield.h	47;"	e	enum:FieldStatus
+Updated	nullablefield.h	49;"	e	enum:FieldStatus
+WarnLevel	QsLogLevel.h	37;"	e	enum:QsLogging::Level
+WarnString	QsLog.cpp	48;"	m	namespace:QsLogging	file:
+Wednesday	days.h	49;"	e	enum:DAYS
+accept	dlgparametros.h	57;"	p	class:DlgParametros	access:public	implementation:virtual
+accesosCreated	datastore.h	119;"	m	class:DataStore	access:private
+accessosPtr	datastore.h	103;"	m	class:DataStore	access:private
+addAssignment	timeassignment.h	72;"	p	class:TimeAssignment	access:public
+addDestination	QsLog.h	51;"	p	class:QsLogging::Logger	access:public
+addEmpleadoToTree	dlgempleadoslicenciasplanificacion.h	69;"	p	class:DlgEmpleadosLicenciasPlanificacion	access:private
+addManyDays	estimacionesdias.h	102;"	p	class:EstimacionesDias	access:public
+addNew	accesos.h	109;"	p	class:Accesos	access:protected	implementation:virtual
+addNew	accesos.h	110;"	p	class:Accesos	access:protected	implementation:virtual
+addNew	acollection.h	130;"	p	class:ACollection	access:protected	implementation:pure virtual
+addNew	acollection.h	132;"	p	class:ACollection	access:protected	implementation:pure virtual
+addNew	basereport.h	69;"	p	class:BaseReport	access:public	implementation:virtual
+addNew	basereport.h	70;"	p	class:BaseReport	access:public	implementation:virtual
+addNew	calendariopersonas.h	81;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+addNew	capacidadespersonasector.h	82;"	p	class:CapacidadesPersonaSector	access:public	implementation:virtual
+addNew	empleados.h	72;"	p	class:Empleados	access:public	implementation:virtual
+addNew	estimacionesdias.h	86;"	p	class:EstimacionesDias	access:public	implementation:virtual
+addNew	estimacionesdias.h	87;"	p	class:EstimacionesDias	access:public	implementation:virtual
+addNew	licenciasempleados.h	102;"	p	class:LicenciasEmpleados	access:protected	implementation:virtual
+addNew	licenciasempleados.h	103;"	p	class:LicenciasEmpleados	access:protected	implementation:virtual
+addNew	parametros.h	82;"	p	class:Parametros	access:public	implementation:virtual
+addNew	planificacionesdias.h	80;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+addNew	planificacionesdiassubsectores.h	80;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+addNew	sectores.h	80;"	p	class:Sectores	access:public	implementation:virtual
+addNew	subsectores.h	81;"	p	class:SubSectores	access:public	implementation:virtual
+addNewRecord	acollection.h	94;"	p	class:ACollection	access:public
+addNewRecord	acollection.h	96;"	p	class:ACollection	access:public
+addNewRecordWithAuxiliarydata	acollection.h	95;"	p	class:ACollection	access:public
+addNewRecordsCentralDB	acollection.h	153;"	p	class:ACollection	access:protected	implementation:virtual
+addNewRecordsLocally	acollection.h	149;"	p	class:ACollection	access:protected	implementation:virtual
+addNewWithAdditionalData	acollection.h	131;"	p	class:ACollection	access:protected	implementation:pure virtual
+addNewWithAdditionalData	basereport.h	71;"	p	class:BaseReport	access:public	implementation:virtual
+addNewWithAdditionalData	licenciasempleados.h	104;"	p	class:LicenciasEmpleados	access:protected	implementation:virtual
+addParameters	sqlhandler.h	59;"	p	class:SQLHandler	access:protected
+addPlanificacionSubSector	reportitemcollection.h	58;"	p	class:ReportItemCollection	access:public
+addPlanificacionSubSector	reportitemcollection.h	59;"	p	class:ReportItemCollection	access:public
+addRecord	accesos.h	72;"	p	class:Accesos	access:public	implementation:virtual
+addRecord	acollection.h	79;"	p	class:ACollection	access:public	implementation:pure virtual
+addRecord	basereport.h	58;"	p	class:BaseReport	access:public	implementation:virtual
+addRecord	calendariopersonas.h	55;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+addRecord	capacidadespersonasector.h	55;"	p	class:CapacidadesPersonaSector	access:public
+addRecord	databasesynchronization.h	69;"	p	class:DatabaseSynchronization	access:protected
+addRecord	empleados.h	58;"	p	class:Empleados	access:public	implementation:virtual
+addRecord	estimacionesdias.h	53;"	p	class:EstimacionesDias	access:public	implementation:virtual
+addRecord	licenciasempleados.h	57;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+addRecord	parametros.h	52;"	p	class:Parametros	access:public	implementation:virtual
+addRecord	planificacionesdias.h	53;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+addRecord	planificacionesdiassubsectores.h	53;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+addRecord	sectores.h	54;"	p	class:Sectores	access:public	implementation:virtual
+addRecord	subsectores.h	54;"	p	class:SubSectores	access:public	implementation:virtual
+addReference	reportitem.h	54;"	p	class:ReportItem	access:public
+allowOverWorking	timeassignmentitemedit.h	120;"	m	class:TimeAssignmentItemEdit	access:private
+alreadyCreated	capacitywidget.h	67;"	p	class:CapacityWidget	access:public
+apellido	empleado.h	131;"	m	class:Empleado	access:private
+applyChanges	databasesynchronization.h	59;"	p	class:DatabaseSynchronization	access:public
+applyingChanges	SincroManager.h	73;"	p	class:SincroManager	access:protected
+applyingChanges	databasesynchronization.h	75;"	p	class:DatabaseSynchronization	access:protected
+approve	planificaciondia.h	78;"	p	class:PlanificacionDia	access:public
+approveSelected	estimacionesdias.h	103;"	p	class:EstimacionesDias	access:public
+asHTML	acollection.h	71;"	p	class:ACollection	access:public	implementation:virtual
+asRecordPtr	IRecord.h	68;"	p	struct:IRecord	access:public	implementation:pure virtual
+asRecordPtr	acceso.h	59;"	p	class:Acceso	access:public	implementation:virtual
+asRecordPtr	calendariopersona.h	65;"	p	class:CalendarioPersona	access:public	implementation:virtual
+asRecordPtr	capacidadpersonasector.h	73;"	p	class:CapacidadPersonaSector	access:public	implementation:virtual
+asRecordPtr	empleado.h	114;"	p	class:Empleado	access:public	implementation:virtual
+asRecordPtr	estimaciondia.h	60;"	p	class:EstimacionDia	access:public	implementation:virtual
+asRecordPtr	licenciaempleado.h	65;"	p	class:LicenciaEmpleado	access:public	implementation:virtual
+asRecordPtr	planificaciondia.h	75;"	p	class:PlanificacionDia	access:public	implementation:virtual
+asRecordPtr	planificacionsubsector.h	81;"	p	class:PlanificacionSubSector	access:public	implementation:virtual
+asRecordPtr	sector.h	60;"	p	class:Sector	access:public	implementation:virtual
+asRecordPtr	subsector.h	61;"	p	class:SubSector	access:public	implementation:virtual
+assignmentColor	timeassignment.h	53;"	p	class:TimeAssignmentSlot	access:public
+backgroundColor	multicolorledwidget.h	13;"	p	class:MulticolorLedWidget	access:public
+backgroundColor	timeassignment.h	67;"	p	class:TimeAssignment	access:public
+beyondThisDayVisibility	timeeditor.h	74;"	p	class:TimeEditor	access:public
+buffer	QsLog.h	72;"	m	class:QsLogging::Logger::Helper	access:private
+calcularHoras	timeassignmentitemedit.h	93;"	p	class:TimeAssignmentItemEdit	access:public
+calcularHorasPreviamenteTrabajadas	empleado.h	80;"	p	class:EmployeeCalculatedCapacity	access:public
+calendariosCreated	datastore.h	127;"	m	class:DataStore	access:private
+calendariosPtr	datastore.h	111;"	m	class:DataStore	access:private
+canAccessApplication	accesos.h	69;"	p	class:Accesos	access:public
+canBeDeleted	accesos.h	102;"	p	class:Accesos	access:public	implementation:virtual
+canBeDeleted	acollection.h	121;"	p	class:ACollection	access:public	implementation:pure virtual
+canBeDeleted	basereport.h	78;"	p	class:BaseReport	access:public	implementation:virtual
+canBeDeleted	calendariopersonas.h	87;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+canBeDeleted	capacidadespersonasector.h	88;"	p	class:CapacidadesPersonaSector	access:public	implementation:virtual
+canBeDeleted	empleado.h	120;"	p	class:Empleado	access:public
+canBeDeleted	empleados.h	81;"	p	class:Empleados	access:public	implementation:virtual
+canBeDeleted	estimaciondia.h	58;"	p	class:EstimacionDia	access:public
+canBeDeleted	estimacionesdias.h	91;"	p	class:EstimacionesDias	access:public	implementation:virtual
+canBeDeleted	licenciaempleado.h	67;"	p	class:LicenciaEmpleado	access:public	implementation:virtual
+canBeDeleted	licenciasempleados.h	87;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+canBeDeleted	planificacionesdias.h	86;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+canBeDeleted	planificacionesdiassubsectores.h	86;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+canBeDeleted	sectores.h	86;"	p	class:Sectores	access:public	implementation:virtual
+canBeDeleted	subsectores.h	87;"	p	class:SubSectores	access:public	implementation:virtual
+canCreate	acceso.h	65;"	p	class:Acceso	access:public
+canCreate	accesos.h	66;"	p	class:Accesos	access:public
+canDelete	acceso.h	67;"	p	class:Acceso	access:public
+canDelete	accesos.h	68;"	p	class:Accesos	access:public
+canRead	acceso.h	64;"	p	class:Acceso	access:public
+canRead	accesos.h	65;"	p	class:Accesos	access:public
+canUpdate	acceso.h	66;"	p	class:Acceso	access:public
+canUpdate	accesos.h	67;"	p	class:Accesos	access:public
+canWork	calendariopersona.h	71;"	p	class:CalendarioPersona	access:public
+canWork	calendariopersona.h	72;"	p	class:CalendarioPersona	access:public
+canWork	calendariopersonas.h	99;"	p	class:CalendarioPersonas	access:public
+canWork	capacidadpersonasector.h	77;"	p	class:CapacidadPersonaSector	access:public
+canWork	empleado.h	119;"	p	class:Empleado	access:public
+cantWorkingHours	calendariopersona.h	74;"	p	class:CalendarioPersona	access:public
+capacidadesCreated	datastore.h	128;"	m	class:DataStore	access:private
+capacidadesPtr	datastore.h	112;"	m	class:DataStore	access:private
+capacityForTask	empleado.h	86;"	m	class:EmployeeCalculatedCapacity	access:private
+checkConnection	databasesynchronization.h	57;"	p	class:DatabaseSynchronization	access:public
+checkConnection	sqlhandler.h	57;"	p	class:SQLHandler	access:public
+checkConsistency	databasesynchronization.h	60;"	p	class:DatabaseSynchronization	access:public
+checkTime	timeeditor.h	79;"	p	class:TimeEditor	access:private
+checkTime	timeeditor.h	80;"	p	class:TimeEditor	access:private
+checkTime	timeeditor.h	81;"	p	class:TimeEditor	access:private
+checkingChanges	SincroManager.h	74;"	p	class:SincroManager	access:protected
+checkingChanges	databasesynchronization.h	76;"	p	class:DatabaseSynchronization	access:protected
+clear	reportitemcollection.h	61;"	p	class:ReportItemCollection	access:public
+clearAssignments	timeassignment.h	73;"	p	class:TimeAssignment	access:public
+closedYesterday	empleado.h	78;"	p	class:EmployeeCalculatedCapacity	access:public
+conexionADBOK	SincroManager.h	68;"	p	class:SincroManager	access:protected
+contains	licenciaempleado.h	69;"	p	class:LicenciaEmpleado	access:public	implementation:virtual
+createIndex	reportitemcollection.h	90;"	p	class:ReportItemCollection	access:private
+currentAssignment	timeassignmentitemedit.h	122;"	m	class:TimeAssignmentItemEdit	access:private
+currentTime	timeeditor.h	102;"	m	class:TimeEditor	access:private
+customActionTriggered	CalendarWindow.h	87;"	p	class:CalendarWindow	access:private
+customActionTriggered	genericlist.h	92;"	p	class:GenericList	access:private
+d	QsLog.h	85;"	m	class:QsLogging::Logger	access:private
+data	timeassignmentitemedit.h	83;"	p	class:TimeAssignmentItemEdit	access:public
+dataUpdated	acollection.h	142;"	p	class:ACollection	access:protected
+datastore_loaded	mainwindow.h	70;"	p	class:MainWindow	access:private
+datastore_loading	mainwindow.h	71;"	p	class:MainWindow	access:private
+datastore_saved	mainwindow.h	72;"	p	class:MainWindow	access:private
+datastore_saving	mainwindow.h	73;"	p	class:MainWindow	access:private
+date	reportitem.h	56;"	p	class:ReportItem	access:public
+date	timeassignmentitemedit.h	116;"	m	class:TimeAssignmentItemEdit	access:private
+dateFrom	dlgdaterangefilter.h	57;"	p	class:DlgDateRangeFilter	access:public
+dateFrom	dlgquerybuilder.h	73;"	p	class:DlgQueryBuilder	access:public
+dateFrom	reportefrancosplanificados.h	65;"	m	class:ReporteFrancosPlanificados	access:private
+dateFrom	reportitemcollection.h	73;"	p	class:ReportItemCollection	access:public
+dateFromFilter	reportitemcollection.h	106;"	m	class:ReportItemCollection	access:private
+dateTo	dlgdaterangefilter.h	58;"	p	class:DlgDateRangeFilter	access:public
+dateTo	dlgquerybuilder.h	74;"	p	class:DlgQueryBuilder	access:public
+dateTo	reportefrancosplanificados.h	66;"	m	class:ReporteFrancosPlanificados	access:private
+dateTo	reportitemcollection.h	74;"	p	class:ReportItemCollection	access:public
+dateToFilter	reportitemcollection.h	107;"	m	class:ReportItemCollection	access:private
+db	sqlhandler.h	64;"	m	class:SQLHandler	access:private
+defineHeaders	accesos.h	81;"	p	class:Accesos	access:public	implementation:virtual
+defineHeaders	acollection.h	89;"	p	class:ACollection	access:public	implementation:pure virtual
+defineHeaders	calendariopersonas.h	78;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+defineHeaders	capacidadespersonasector.h	79;"	p	class:CapacidadesPersonaSector	access:public	implementation:virtual
+defineHeaders	empleados.h	69;"	p	class:Empleados	access:public	implementation:virtual
+defineHeaders	estimacionesdias.h	80;"	p	class:EstimacionesDias	access:public	implementation:virtual
+defineHeaders	licenciasempleados.h	65;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+defineHeaders	parametros.h	79;"	p	class:Parametros	access:public	implementation:virtual
+defineHeaders	planificacionesdias.h	77;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+defineHeaders	planificacionesdiassubsectores.h	77;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+defineHeaders	reportefrancosplanificados.h	55;"	p	class:ReporteFrancosPlanificados	access:public	implementation:virtual
+defineHeaders	reportehorasdiaadia.h	55;"	p	class:ReporteHorasDiaADia	access:public	implementation:virtual
+defineHeaders	reportehorasporempleado.h	55;"	p	class:ReporteHorasPorEmpleado	access:public	implementation:virtual
+defineHeaders	reportehorassectorsubsector.h	56;"	p	class:ReporteHorasSectorSubSector	access:public	implementation:virtual
+defineHeaders	sectores.h	77;"	p	class:Sectores	access:public	implementation:virtual
+defineHeaders	subsectores.h	78;"	p	class:SubSectores	access:public	implementation:virtual
+deleteElement	accesos.h	114;"	p	class:Accesos	access:protected	implementation:virtual
+deleteElement	acollection.h	135;"	p	class:ACollection	access:protected	implementation:pure virtual
+deleteElement	basereport.h	74;"	p	class:BaseReport	access:public	implementation:virtual
+deleteElement	calendariopersonas.h	86;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+deleteElement	capacidadespersonasector.h	87;"	p	class:CapacidadesPersonaSector	access:public	implementation:virtual
+deleteElement	empleados.h	77;"	p	class:Empleados	access:public	implementation:virtual
+deleteElement	estimacionesdias.h	92;"	p	class:EstimacionesDias	access:public	implementation:virtual
+deleteElement	licenciasempleados.h	108;"	p	class:LicenciasEmpleados	access:protected	implementation:virtual
+deleteElement	parametros.h	87;"	p	class:Parametros	access:public	implementation:virtual
+deleteElement	planificacionesdias.h	85;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+deleteElement	planificacionesdiassubsectores.h	85;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+deleteElement	sectores.h	85;"	p	class:Sectores	access:public	implementation:virtual
+deleteElement	subsectores.h	86;"	p	class:SubSectores	access:public	implementation:virtual
+deleteRecord	accesos.h	74;"	p	class:Accesos	access:public	implementation:virtual
+deleteRecord	acollection.h	83;"	p	class:ACollection	access:public	implementation:pure virtual
+deleteRecord	acollection.h	99;"	p	class:ACollection	access:public
+deleteRecord	basereport.h	60;"	p	class:BaseReport	access:public	implementation:virtual
+deleteRecord	calendariopersonas.h	57;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+deleteRecord	capacidadespersonasector.h	57;"	p	class:CapacidadesPersonaSector	access:public	implementation:virtual
+deleteRecord	databasesynchronization.h	71;"	p	class:DatabaseSynchronization	access:protected
+deleteRecord	empleados.h	60;"	p	class:Empleados	access:public	implementation:virtual
+deleteRecord	estimacionesdias.h	55;"	p	class:EstimacionesDias	access:public	implementation:virtual
+deleteRecord	licenciasempleados.h	60;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+deleteRecord	parametros.h	54;"	p	class:Parametros	access:public	implementation:virtual
+deleteRecord	planificacionesdias.h	55;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+deleteRecord	planificacionesdiassubsectores.h	55;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+deleteRecord	sectores.h	56;"	p	class:Sectores	access:public	implementation:virtual
+deleteRecord	subsectores.h	56;"	p	class:SubSectores	access:public	implementation:virtual
+deleteRecordsCentralDB	acollection.h	151;"	p	class:ACollection	access:protected	implementation:virtual
+deleteRecordsLocally	acollection.h	147;"	p	class:ACollection	access:protected	implementation:virtual
+delta2screen	timeassignment.h	106;"	p	class:TimeAssignment	access:protected
+descripcion	licenciaempleado.h	81;"	m	class:LicenciaEmpleado	access:private
+destList	QsLog.cpp	117;"	m	class:QsLogging::LoggerImpl	file:	access:public
+dia	empleado.h	87;"	m	class:EmployeeCalculatedCapacity	access:private
+displayPlannedHours	dlgplanificaciondia.h	66;"	p	class:DlgPlanificacionDia	access:private
+doSummarizeDays	reportitemcollection.h	92;"	m	class:ReportItemCollection	access:private
+doSummarizeEmployee	reportitemcollection.h	95;"	m	class:ReportItemCollection	access:private
+doSummarizeSectors	reportitemcollection.h	93;"	m	class:ReportItemCollection	access:private
+doSummarizeSubsectors	reportitemcollection.h	94;"	m	class:ReportItemCollection	access:private
+doSynchro	filesynchronization.h	13;"	p	class:FileSynchronization	access:public
+edit	accesos.h	112;"	p	class:Accesos	access:protected	implementation:virtual
+edit	accesos.h	113;"	p	class:Accesos	access:protected	implementation:virtual
+edit	acollection.h	133;"	p	class:ACollection	access:protected	implementation:pure virtual
+edit	acollection.h	134;"	p	class:ACollection	access:protected	implementation:pure virtual
+edit	basereport.h	72;"	p	class:BaseReport	access:public	implementation:virtual
+edit	basereport.h	73;"	p	class:BaseReport	access:public	implementation:virtual
+edit	calendariopersonas.h	84;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+edit	capacidadespersonasector.h	85;"	p	class:CapacidadesPersonaSector	access:public	implementation:virtual
+edit	empleados.h	75;"	p	class:Empleados	access:public	implementation:virtual
+edit	estimacionesdias.h	89;"	p	class:EstimacionesDias	access:public	implementation:virtual
+edit	estimacionesdias.h	90;"	p	class:EstimacionesDias	access:public	implementation:virtual
+edit	licenciasempleados.h	105;"	p	class:LicenciasEmpleados	access:protected	implementation:virtual
+edit	licenciasempleados.h	107;"	p	class:LicenciasEmpleados	access:protected	implementation:virtual
+edit	parametros.h	85;"	p	class:Parametros	access:public	implementation:virtual
+edit	planificacionesdias.h	83;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+edit	planificacionesdiassubsectores.h	83;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+edit	sectores.h	83;"	p	class:Sectores	access:public	implementation:virtual
+edit	subsectores.h	84;"	p	class:SubSectores	access:public	implementation:virtual
+editRecord	acollection.h	97;"	p	class:ACollection	access:public
+editRecord	acollection.h	98;"	p	class:ACollection	access:public
+editWithIDEmpleado	licenciasempleados.h	106;"	p	class:LicenciasEmpleados	access:protected	implementation:virtual
+empleado	empleado.h	85;"	m	class:EmployeeCalculatedCapacity	access:private
+empleadosCreated	datastore.h	121;"	m	class:DataStore	access:private
+empleadosPtr	datastore.h	105;"	m	class:DataStore	access:private
+employee	reportitem.h	58;"	p	class:ReportItem	access:public
+employeeChanged	timeassignmentitemedit.h	96;"	p	class:TimeAssignmentItemEdit	access:public
+emps	timeassignmentitemedit.h	118;"	m	class:TimeAssignmentItemEdit	access:private
+enableButtonsBasedOnAccess	CalendarWindow.h	66;"	p	class:CalendarWindow	access:public
+enableButtonsBasedOnAccess	genericlist.h	67;"	p	class:GenericList	access:public
+endAssignment	timeassignment.h	52;"	m	class:TimeAssignmentSlot	access:public
+enqueueWrite	QsLog.h	82;"	p	class:QsLogging::Logger	access:private
+enviarDatosADBCentral	SincroManager.h	62;"	p	class:SincroManager	access:protected
+establishConnections	SincroManager.h	66;"	p	class:SincroManager	access:protected
+establishConnections	SincroManager.h	67;"	p	class:SincroManager	access:protected
+establishConnections	datastore.h	99;"	p	class:DataStore	access:protected
+estimacionesDiasCreated	datastore.h	122;"	m	class:DataStore	access:private
+estimacionesDiasPtr	datastore.h	106;"	m	class:DataStore	access:private
+executeCommand	acollection.h	155;"	p	class:ACollection	access:protected	implementation:virtual
+executeCommand	sqlhandler.h	56;"	p	class:SQLHandler	access:public
+executeQuery	sqlhandler.h	55;"	p	class:SQLHandler	access:public
+exists	accesos.h	75;"	p	class:Accesos	access:public	implementation:virtual
+exists	acollection.h	81;"	p	class:ACollection	access:public	implementation:pure virtual
+exists	basereport.h	61;"	p	class:BaseReport	access:public	implementation:virtual
+exists	calendariopersonas.h	58;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+exists	capacidadespersonasector.h	58;"	p	class:CapacidadesPersonaSector	access:public	implementation:virtual
+exists	empleados.h	61;"	p	class:Empleados	access:public	implementation:virtual
+exists	estimacionesdias.h	56;"	p	class:EstimacionesDias	access:public	implementation:virtual
+exists	licenciasempleados.h	58;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+exists	parametros.h	55;"	p	class:Parametros	access:public	implementation:virtual
+exists	planificacionesdias.h	56;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+exists	planificacionesdiassubsectores.h	56;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+exists	sectores.h	57;"	p	class:Sectores	access:public	implementation:virtual
+exists	subsectores.h	57;"	p	class:SubSectores	access:public	implementation:virtual
+existsInMainDB	databasesynchronization.h	68;"	p	class:DatabaseSynchronization	access:protected
+exportTo	acollection.h	67;"	p	class:ACollection	access:public	implementation:virtual
+fechaDesde	licenciaempleado.h	78;"	m	class:LicenciaEmpleado	access:private
+fechaHasta	licenciaempleado.h	79;"	m	class:LicenciaEmpleado	access:private
+fechaIngreso	empleado.h	134;"	m	class:Empleado	access:private
+fillData	accesos.h	83;"	p	class:Accesos	access:public	implementation:virtual
+fillData	acollection.h	91;"	p	class:ACollection	access:public	implementation:pure virtual
+fillData	calendariopersonas.h	80;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+fillData	capacidadespersonasector.h	81;"	p	class:CapacidadesPersonaSector	access:public	implementation:virtual
+fillData	dlgsynchronization.h	68;"	p	class:DlgSynchronization	access:private
+fillData	empleados.h	71;"	p	class:Empleados	access:public	implementation:virtual
+fillData	estimacionesdias.h	82;"	p	class:EstimacionesDias	access:public	implementation:virtual
+fillData	licenciasempleados.h	67;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+fillData	parametros.h	81;"	p	class:Parametros	access:public	implementation:virtual
+fillData	planificacionesdias.h	79;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+fillData	planificacionesdiassubsectores.h	79;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+fillData	reportefrancosplanificados.h	56;"	p	class:ReporteFrancosPlanificados	access:public	implementation:virtual
+fillData	reportehorasdiaadia.h	56;"	p	class:ReporteHorasDiaADia	access:public	implementation:virtual
+fillData	reportehorasporempleado.h	56;"	p	class:ReporteHorasPorEmpleado	access:public	implementation:virtual
+fillData	reportehorassectorsubsector.h	57;"	p	class:ReporteHorasSectorSubSector	access:public	implementation:virtual
+fillData	sectores.h	79;"	p	class:Sectores	access:public	implementation:virtual
+fillData	subsectores.h	80;"	p	class:SubSectores	access:public	implementation:virtual
+fillEmployees	dlgquerybuilder.h	90;"	p	class:DlgQueryBuilder	access:private
+fillSectores	dlgquerybuilder.h	88;"	p	class:DlgQueryBuilder	access:private
+fillSubSectores	dlgquerybuilder.h	89;"	p	class:DlgQueryBuilder	access:private
+fillTree	dlgempleadoslicenciasplanificacion.h	70;"	p	class:DlgEmpleadosLicenciasPlanificacion	access:private
+filter	basereport.h	103;"	p	class:BaseReport	access:public	implementation:virtual
+filter	reportefrancosplanificados.h	62;"	p	class:ReporteFrancosPlanificados	access:public	implementation:virtual
+filter	reportehorasdiaadia.h	62;"	p	class:ReporteHorasDiaADia	access:public	implementation:virtual
+filter	reportehorasporempleado.h	64;"	p	class:ReporteHorasPorEmpleado	access:public	implementation:virtual
+filter	reportehorassectorsubsector.h	65;"	p	class:ReporteHorasSectorSubSector	access:public	implementation:virtual
+finalTimeline	timeassignment.h	91;"	p	class:TimeAssignment	access:public
+fontSize	timeassignment.h	85;"	p	class:TimeAssignment	access:public
+get	accesos.h	117;"	p	class:Accesos	access:private
+get	calendariopersonas.h	98;"	p	class:CalendarioPersonas	access:public
+get	capacidadespersonasector.h	96;"	p	class:CapacidadesPersonaSector	access:public
+get	estimacionesdias.h	98;"	p	class:EstimacionesDias	access:public
+getAccesos	datastore.h	69;"	p	class:DataStore	access:public
+getActions	basereport.h	98;"	p	class:BaseReport	access:public	implementation:virtual
+getActions	estimacionesdias.h	84;"	p	class:EstimacionesDias	access:public	implementation:virtual
+getActions	planificacionesdias.h	90;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+getAll	accesos.h	82;"	p	class:Accesos	access:public	implementation:virtual
+getAll	acollection.h	90;"	p	class:ACollection	access:public	implementation:pure virtual
+getAll	calendariopersonas.h	79;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+getAll	calendariopersonas.h	92;"	p	class:CalendarioPersonas	access:public
+getAll	capacidadespersonasector.h	80;"	p	class:CapacidadesPersonaSector	access:public	implementation:virtual
+getAll	capacidadespersonasector.h	93;"	p	class:CapacidadesPersonaSector	access:public
+getAll	dlgplanificaciondia.h	69;"	p	class:DlgPlanificacionDia	access:private
+getAll	empleados.h	102;"	p	class:Empleados	access:public
+getAll	empleados.h	104;"	p	class:Empleados	access:public
+getAll	empleados.h	70;"	p	class:Empleados	access:public	implementation:virtual
+getAll	estimacionesdias.h	81;"	p	class:EstimacionesDias	access:public	implementation:virtual
+getAll	estimacionesdias.h	97;"	p	class:EstimacionesDias	access:public
+getAll	licenciasempleados.h	66;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+getAll	parametros.h	80;"	p	class:Parametros	access:public	implementation:virtual
+getAll	planificacionesdias.h	78;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+getAll	planificacionesdias.h	92;"	p	class:PlanificacionesDias	access:public
+getAll	planificacionesdiassubsectores.h	78;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+getAll	planificacionesdiassubsectores.h	93;"	p	class:PlanificacionesDiasSubSectores	access:public
+getAll	planificacionesdiassubsectores.h	95;"	p	class:PlanificacionesDiasSubSectores	access:public
+getAll	reportefrancosplanificados.h	59;"	p	class:ReporteFrancosPlanificados	access:public	implementation:virtual
+getAll	reportehorasdiaadia.h	59;"	p	class:ReporteHorasDiaADia	access:public	implementation:virtual
+getAll	reportehorasporempleado.h	60;"	p	class:ReporteHorasPorEmpleado	access:public	implementation:virtual
+getAll	reportehorassectorsubsector.h	61;"	p	class:ReporteHorasSectorSubSector	access:public	implementation:virtual
+getAll	sectores.h	78;"	p	class:Sectores	access:public	implementation:virtual
+getAll	sectores.h	94;"	p	class:Sectores	access:public
+getAll	sqlhandler.h	53;"	p	class:SQLHandler	access:public
+getAll	sqlhandler.h	54;"	p	class:SQLHandler	access:public
+getAll	subsectores.h	79;"	p	class:SubSectores	access:public	implementation:virtual
+getAll	subsectores.h	96;"	p	class:SubSectores	access:public
+getAll	subsectores.h	97;"	p	class:SubSectores	access:public
+getAllAvailableByDay	empleados.h	105;"	p	class:Empleados	access:public
+getAllLicencias	licenciasempleados.h	92;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+getAllLicencias	licenciasempleados.h	93;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+getAllLicencias	licenciasempleados.h	94;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+getAllLicenciasEmpleado	licenciasempleados.h	95;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+getAllReadyForApproval	planificacionesdias.h	94;"	p	class:PlanificacionesDias	access:public
+getAssignment	dlgemployee.h	71;"	p	class:DlgEmployee	access:protected
+getBody	CalendarWindow.h	75;"	p	class:CalendarWindow	access:protected	implementation:virtual
+getBody	genericlist.h	76;"	p	class:GenericList	access:protected	implementation:virtual
+getByDay	planificacionesdias.h	93;"	p	class:PlanificacionesDias	access:public
+getBySector	accesos.h	118;"	p	class:Accesos	access:private
+getCalendarios	datastore.h	77;"	p	class:DataStore	access:public
+getCapacidades	datastore.h	78;"	p	class:DataStore	access:public
+getCentralDeleteStatement	acollection.h	109;"	p	class:ACollection	access:public	implementation:pure virtual
+getCentralDeleteStatement	basereport.h	87;"	p	class:BaseReport	access:public	implementation:virtual
+getCentralDeleteStatement	calendariopersonas.h	71;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+getCentralDeleteStatement	capacidadespersonasector.h	71;"	p	class:CapacidadesPersonaSector	access:public	implementation:virtual
+getCentralDeleteStatement	empleados.h	90;"	p	class:Empleados	access:public	implementation:virtual
+getCentralDeleteStatement	estimacionesdias.h	69;"	p	class:EstimacionesDias	access:public	implementation:virtual
+getCentralDeleteStatement	licenciasempleados.h	75;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+getCentralDeleteStatement	parametros.h	69;"	p	class:Parametros	access:public	implementation:virtual
+getCentralDeleteStatement	planificacionesdias.h	69;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+getCentralDeleteStatement	planificacionesdiassubsectores.h	69;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+getCentralDeleteStatement	sectores.h	70;"	p	class:Sectores	access:public	implementation:virtual
+getCentralDeleteStatement	subsectores.h	70;"	p	class:SubSectores	access:public	implementation:virtual
+getCentralInsertStatement	acollection.h	111;"	p	class:ACollection	access:public	implementation:pure virtual
+getCentralInsertStatement	basereport.h	89;"	p	class:BaseReport	access:public	implementation:virtual
+getCentralInsertStatement	calendariopersonas.h	73;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+getCentralInsertStatement	capacidadespersonasector.h	73;"	p	class:CapacidadesPersonaSector	access:public	implementation:virtual
+getCentralInsertStatement	empleados.h	92;"	p	class:Empleados	access:public	implementation:virtual
+getCentralInsertStatement	estimacionesdias.h	71;"	p	class:EstimacionesDias	access:public	implementation:virtual
+getCentralInsertStatement	licenciasempleados.h	77;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+getCentralInsertStatement	parametros.h	71;"	p	class:Parametros	access:public	implementation:virtual
+getCentralInsertStatement	planificacionesdias.h	71;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+getCentralInsertStatement	planificacionesdiassubsectores.h	71;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+getCentralInsertStatement	sectores.h	72;"	p	class:Sectores	access:public	implementation:virtual
+getCentralInsertStatement	subsectores.h	72;"	p	class:SubSectores	access:public	implementation:virtual
+getCentralUpdateStatement	acollection.h	110;"	p	class:ACollection	access:public	implementation:pure virtual
+getCentralUpdateStatement	basereport.h	88;"	p	class:BaseReport	access:public	implementation:virtual
+getCentralUpdateStatement	calendariopersonas.h	72;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+getCentralUpdateStatement	capacidadespersonasector.h	72;"	p	class:CapacidadesPersonaSector	access:public	implementation:virtual
+getCentralUpdateStatement	empleados.h	91;"	p	class:Empleados	access:public	implementation:virtual
+getCentralUpdateStatement	estimacionesdias.h	70;"	p	class:EstimacionesDias	access:public	implementation:virtual
+getCentralUpdateStatement	licenciasempleados.h	76;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+getCentralUpdateStatement	parametros.h	70;"	p	class:Parametros	access:public	implementation:virtual
+getCentralUpdateStatement	planificacionesdias.h	70;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+getCentralUpdateStatement	planificacionesdiassubsectores.h	70;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+getCentralUpdateStatement	sectores.h	71;"	p	class:Sectores	access:public	implementation:virtual
+getCentralUpdateStatement	subsectores.h	71;"	p	class:SubSectores	access:public	implementation:virtual
+getCloseTime	dlgparametros.h	60;"	p	class:DlgParametros	access:private
+getCurrentlyWorkingEmployees	dlgplanificaciondia.h	71;"	p	class:DlgPlanificacionDia	access:private
+getDataFromCentralDB	SincroManager.h	72;"	p	class:SincroManager	access:protected
+getDataFromDB	databasesynchronization.h	58;"	p	class:DatabaseSynchronization	access:public
+getDatabaseName	parametros.h	105;"	p	class:Parametros	access:private
+getDatabaseNamePath	parametros.h	108;"	p	class:Parametros	access:public
+getDiasAnterioresTrabajadosPorEmpleado	planificacionesdiassubsectores.h	94;"	p	class:PlanificacionesDiasSubSectores	access:public
+getDistinctLicenceType	licenciasempleados.h	98;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+getEmpleado	empleados.h	101;"	p	class:Empleados	access:public
+getEmpleado	planificacionsubsector.h	74;"	p	class:PlanificacionSubSector	access:public
+getEmpleados	datastore.h	71;"	p	class:DataStore	access:public
+getEstimacionesDias	datastore.h	72;"	p	class:DataStore	access:public
+getFieldsToShowInMerge	acollection.h	86;"	p	class:ACollection	access:public	implementation:pure virtual
+getFieldsToShowInMerge	basereport.h	65;"	p	class:BaseReport	access:public	implementation:virtual
+getFieldsToShowInMerge	empleados.h	65;"	p	class:Empleados	access:public	implementation:virtual
+getFieldsToShowInMerge	licenciasempleados.h	63;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+getFile	filesynchronization.h	20;"	p	class:FileSynchronization	access:private
+getFrancoType	parametros.h	111;"	p	class:Parametros	access:public
+getFrancos	licenciasempleados.h	100;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+getHTMLReport	CalendarWindow.h	67;"	p	class:CalendarWindow	access:public
+getHTMLReport	genericlist.h	68;"	p	class:GenericList	access:public
+getHeader	CalendarWindow.h	74;"	p	class:CalendarWindow	access:protected	implementation:virtual
+getHeader	genericlist.h	75;"	p	class:GenericList	access:protected	implementation:virtual
+getHeaders	dlgplanificaciondia.h	67;"	p	class:DlgPlanificacionDia	access:private
+getHours	timeeditor.h	84;"	p	class:TimeEditor	access:private
+getIDUser	dlglogin.h	57;"	p	class:DlgLogin	access:public
+getLicencia	licenciasempleados.h	91;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+getLicenciaEmpleado	licenciasempleados.h	96;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+getLicencias	datastore.h	79;"	p	class:DataStore	access:public
+getLocalDatabaseName	parametros.h	107;"	p	class:Parametros	access:public
+getLocalDeleteStatement	acollection.h	105;"	p	class:ACollection	access:public	implementation:pure virtual
+getLocalDeleteStatement	basereport.h	83;"	p	class:BaseReport	access:public	implementation:virtual
+getLocalDeleteStatement	calendariopersonas.h	67;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+getLocalDeleteStatement	capacidadespersonasector.h	67;"	p	class:CapacidadesPersonaSector	access:public	implementation:virtual
+getLocalDeleteStatement	empleados.h	86;"	p	class:Empleados	access:public	implementation:virtual
+getLocalDeleteStatement	estimacionesdias.h	65;"	p	class:EstimacionesDias	access:public	implementation:virtual
+getLocalDeleteStatement	licenciasempleados.h	71;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+getLocalDeleteStatement	parametros.h	65;"	p	class:Parametros	access:public	implementation:virtual
+getLocalDeleteStatement	planificacionesdias.h	65;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+getLocalDeleteStatement	planificacionesdiassubsectores.h	65;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+getLocalDeleteStatement	sectores.h	66;"	p	class:Sectores	access:public	implementation:virtual
+getLocalDeleteStatement	subsectores.h	66;"	p	class:SubSectores	access:public	implementation:virtual
+getLocalInsertStatement	acollection.h	107;"	p	class:ACollection	access:public	implementation:pure virtual
+getLocalInsertStatement	basereport.h	85;"	p	class:BaseReport	access:public	implementation:virtual
+getLocalInsertStatement	calendariopersonas.h	69;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+getLocalInsertStatement	capacidadespersonasector.h	69;"	p	class:CapacidadesPersonaSector	access:public	implementation:virtual
+getLocalInsertStatement	empleados.h	88;"	p	class:Empleados	access:public	implementation:virtual
+getLocalInsertStatement	estimacionesdias.h	67;"	p	class:EstimacionesDias	access:public	implementation:virtual
+getLocalInsertStatement	licenciasempleados.h	73;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+getLocalInsertStatement	parametros.h	67;"	p	class:Parametros	access:public	implementation:virtual
+getLocalInsertStatement	planificacionesdias.h	67;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+getLocalInsertStatement	planificacionesdiassubsectores.h	67;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+getLocalInsertStatement	sectores.h	68;"	p	class:Sectores	access:public	implementation:virtual
+getLocalInsertStatement	subsectores.h	68;"	p	class:SubSectores	access:public	implementation:virtual
+getLocalMachine	parametros.h	101;"	p	class:Parametros	access:public
+getLocalRecord	acollection.h	85;"	p	class:ACollection	access:public	implementation:pure virtual
+getLocalRecord	basereport.h	64;"	p	class:BaseReport	access:public	implementation:virtual
+getLocalRecord	calendariopersonas.h	61;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+getLocalRecord	capacidadespersonasector.h	61;"	p	class:CapacidadesPersonaSector	access:public	implementation:virtual
+getLocalRecord	empleados.h	64;"	p	class:Empleados	access:public	implementation:virtual
+getLocalRecord	estimacionesdias.h	59;"	p	class:EstimacionesDias	access:public	implementation:virtual
+getLocalRecord	licenciasempleados.h	62;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+getLocalRecord	planificacionesdias.h	59;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+getLocalRecord	planificacionesdiassubsectores.h	59;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+getLocalRecord	sectores.h	60;"	p	class:Sectores	access:public	implementation:virtual
+getLocalRecord	subsectores.h	60;"	p	class:SubSectores	access:public	implementation:virtual
+getLocalUpdateStatement	acollection.h	106;"	p	class:ACollection	access:public	implementation:pure virtual
+getLocalUpdateStatement	basereport.h	84;"	p	class:BaseReport	access:public	implementation:virtual
+getLocalUpdateStatement	calendariopersonas.h	68;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+getLocalUpdateStatement	capacidadespersonasector.h	68;"	p	class:CapacidadesPersonaSector	access:public	implementation:virtual
+getLocalUpdateStatement	empleados.h	87;"	p	class:Empleados	access:public	implementation:virtual
+getLocalUpdateStatement	estimacionesdias.h	66;"	p	class:EstimacionesDias	access:public	implementation:virtual
+getLocalUpdateStatement	licenciasempleados.h	72;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+getLocalUpdateStatement	parametros.h	66;"	p	class:Parametros	access:public	implementation:virtual
+getLocalUpdateStatement	planificacionesdias.h	66;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+getLocalUpdateStatement	planificacionesdiassubsectores.h	66;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+getLocalUpdateStatement	sectores.h	67;"	p	class:Sectores	access:public	implementation:virtual
+getLocalUpdateStatement	subsectores.h	67;"	p	class:SubSectores	access:public	implementation:virtual
+getLoggingLevel	parametros.h	100;"	p	class:Parametros	access:public
+getMinutes	timeeditor.h	85;"	p	class:TimeEditor	access:private
+getNumberOfDivisions	timeassignment.h	107;"	p	class:TimeAssignment	access:protected
+getParametros	datastore.h	70;"	p	class:DataStore	access:public
+getPlanificacionToApprove	dlgapproveplanifications.h	58;"	p	class:DlgApprovePlanifications	access:public
+getPlanificaciones	planificaciondia.h	88;"	p	class:PlanificacionDia	access:public
+getPlanificacionesDias	datastore.h	73;"	p	class:DataStore	access:public
+getPlanificacionesSubSectores	datastore.h	74;"	p	class:DataStore	access:public
+getPowerUsers	empleados.h	103;"	p	class:Empleados	access:public
+getRecord	dlgplanificaciondia.h	68;"	p	class:DlgPlanificacionDia	access:private
+getRecords	accesos.h	97;"	p	class:Accesos	access:public	implementation:virtual
+getRecords	acollection.h	115;"	p	class:ACollection	access:public	implementation:pure virtual
+getRecords	basereport.h	92;"	p	class:BaseReport	access:public	implementation:virtual
+getRecords	calendariopersonas.h	75;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+getRecords	capacidadespersonasector.h	76;"	p	class:CapacidadesPersonaSector	access:public	implementation:virtual
+getRecords	empleados.h	95;"	p	class:Empleados	access:public	implementation:virtual
+getRecords	estimacionesdias.h	74;"	p	class:EstimacionesDias	access:public	implementation:virtual
+getRecords	licenciasempleados.h	80;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+getRecords	parametros.h	74;"	p	class:Parametros	access:public	implementation:virtual
+getRecords	planificacionesdias.h	74;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+getRecords	planificacionesdiassubsectores.h	74;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+getRecords	sectores.h	74;"	p	class:Sectores	access:public	implementation:virtual
+getRecords	subsectores.h	74;"	p	class:SubSectores	access:public	implementation:virtual
+getReporteFrancosPlanificados	datastore.h	83;"	p	class:DataStore	access:public
+getReporteHorasDiaADia	datastore.h	81;"	p	class:DataStore	access:public
+getReporteHorasPorEmpleado	datastore.h	82;"	p	class:DataStore	access:public
+getReporteHorasSectorSubSector	datastore.h	80;"	p	class:DataStore	access:public
+getSQLExistsInMainDB	acollection.h	114;"	p	class:ACollection	access:public	implementation:pure virtual
+getSQLExistsInMainDB	basereport.h	91;"	p	class:BaseReport	access:public	implementation:virtual
+getSQLExistsInMainDB	calendariopersonas.h	54;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+getSQLExistsInMainDB	capacidadespersonasector.h	54;"	p	class:CapacidadesPersonaSector	access:public	implementation:virtual
+getSQLExistsInMainDB	empleados.h	94;"	p	class:Empleados	access:public	implementation:virtual
+getSQLExistsInMainDB	estimacionesdias.h	73;"	p	class:EstimacionesDias	access:public	implementation:virtual
+getSQLExistsInMainDB	licenciasempleados.h	79;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+getSQLExistsInMainDB	parametros.h	73;"	p	class:Parametros	access:public	implementation:virtual
+getSQLExistsInMainDB	planificacionesdias.h	52;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+getSQLExistsInMainDB	planificacionesdiassubsectores.h	52;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+getSQLExistsInMainDB	sectores.h	53;"	p	class:Sectores	access:public	implementation:virtual
+getSQLExistsInMainDB	subsectores.h	53;"	p	class:SubSectores	access:public	implementation:virtual
+getSeconds	timeeditor.h	86;"	p	class:TimeEditor	access:private
+getSector	capacidadpersonasector.h	70;"	p	class:CapacidadPersonaSector	access:public
+getSector	planificacionsubsector.h	72;"	p	class:PlanificacionSubSector	access:public
+getSector	sectores.h	91;"	p	class:Sectores	access:public
+getSector	sectores.h	92;"	p	class:Sectores	access:public
+getSector	subsector.h	59;"	p	class:SubSector	access:public
+getSectores	datastore.h	75;"	p	class:DataStore	access:public
+getSelectFromMainDB	accesos.h	104;"	p	class:Accesos	access:public	implementation:virtual
+getSelectFromMainDB	acollection.h	123;"	p	class:ACollection	access:public	implementation:pure virtual
+getSelectFromMainDB	basereport.h	96;"	p	class:BaseReport	access:public	implementation:virtual
+getSelectFromMainDB	calendariopersonas.h	77;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+getSelectFromMainDB	capacidadespersonasector.h	78;"	p	class:CapacidadesPersonaSector	access:public	implementation:virtual
+getSelectFromMainDB	empleados.h	99;"	p	class:Empleados	access:public	implementation:virtual
+getSelectFromMainDB	estimacionesdias.h	78;"	p	class:EstimacionesDias	access:public	implementation:virtual
+getSelectFromMainDB	licenciasempleados.h	54;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+getSelectFromMainDB	parametros.h	92;"	p	class:Parametros	access:public	implementation:virtual
+getSelectFromMainDB	planificacionesdias.h	76;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+getSelectFromMainDB	planificacionesdiassubsectores.h	76;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+getSelectFromMainDB	sectores.h	76;"	p	class:Sectores	access:public	implementation:virtual
+getSelectFromMainDB	subsectores.h	76;"	p	class:SubSectores	access:public	implementation:virtual
+getSincroTableNames	SincroManager.h	56;"	p	class:SincroManager	access:public
+getSqlString	accesos.h	71;"	p	class:Accesos	access:public	implementation:virtual
+getSqlString	acollection.h	78;"	p	class:ACollection	access:public	implementation:pure virtual
+getSqlString	basereport.h	56;"	p	class:BaseReport	access:public	implementation:virtual
+getSqlString	calendariopersonas.h	53;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+getSqlString	capacidadespersonasector.h	53;"	p	class:CapacidadesPersonaSector	access:public
+getSqlString	empleados.h	56;"	p	class:Empleados	access:public	implementation:virtual
+getSqlString	estimacionesdias.h	52;"	p	class:EstimacionesDias	access:public	implementation:virtual
+getSqlString	licenciasempleados.h	53;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+getSqlString	parametros.h	51;"	p	class:Parametros	access:public	implementation:virtual
+getSqlString	planificacionesdias.h	51;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+getSqlString	planificacionesdiassubsectores.h	51;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+getSqlString	sectores.h	52;"	p	class:Sectores	access:public	implementation:virtual
+getSqlString	subsectores.h	52;"	p	class:SubSectores	access:public	implementation:virtual
+getSubSector	capacidadpersonasector.h	71;"	p	class:CapacidadPersonaSector	access:public
+getSubSector	subsectores.h	93;"	p	class:SubSectores	access:public
+getSubSector	subsectores.h	94;"	p	class:SubSectores	access:public
+getSubSectores	datastore.h	76;"	p	class:DataStore	access:public
+getSubsector	planificacionsubsector.h	73;"	p	class:PlanificacionSubSector	access:public
+getTableName	acollection.h	103;"	p	class:ACollection	access:public	implementation:pure virtual
+getTableName	basereport.h	81;"	p	class:BaseReport	access:public	implementation:virtual
+getTableName	licenciasempleados.h	69;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+getUltimoFranco	licenciasempleados.h	99;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+getUnplanned	estimacionesdias.h	99;"	p	class:EstimacionesDias	access:public
+getUnsent	accesos.h	98;"	p	class:Accesos	access:public	implementation:virtual
+getUnsent	acollection.h	116;"	p	class:ACollection	access:public	implementation:pure virtual
+getUnsent	basereport.h	93;"	p	class:BaseReport	access:public	implementation:virtual
+getUnsent	calendariopersonas.h	76;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+getUnsent	capacidadespersonasector.h	77;"	p	class:CapacidadesPersonaSector	access:public	implementation:virtual
+getUnsent	empleados.h	96;"	p	class:Empleados	access:public	implementation:virtual
+getUnsent	estimacionesdias.h	75;"	p	class:EstimacionesDias	access:public	implementation:virtual
+getUnsent	licenciasempleados.h	81;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+getUnsent	parametros.h	75;"	p	class:Parametros	access:public	implementation:virtual
+getUnsent	planificacionesdias.h	75;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+getUnsent	planificacionesdiassubsectores.h	75;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+getUnsent	sectores.h	75;"	p	class:Sectores	access:public	implementation:virtual
+getUnsent	subsectores.h	75;"	p	class:SubSectores	access:public	implementation:virtual
+getValue	parametros.h	94;"	p	class:Parametros	access:public
+getValue	parametros.h	97;"	p	class:Parametros	access:public
+gettingDataFromCentralDB	databasesynchronization.h	74;"	p	class:DatabaseSynchronization	access:protected
+grabarFechaUltimaSincronizacion	SincroManager.h	64;"	p	class:SincroManager	access:protected
+hasUsers	dlglogin.h	56;"	p	class:DlgLogin	access:public
+hasWarningsDias	empleado.h	74;"	p	class:EmployeeCalculatedCapacity	access:public
+hasWarningsHorasMayorAMaximo	empleado.h	76;"	p	class:EmployeeCalculatedCapacity	access:public
+hasWarningsHorasMenorAMinimo	empleado.h	75;"	p	class:EmployeeCalculatedCapacity	access:public
+horizontalGap	timeassignment.h	79;"	p	class:TimeAssignment	access:public
+hours	reportitem.h	57;"	p	class:ReportItem	access:public
+id	licenciaempleado.h	76;"	m	class:LicenciaEmpleado	access:private
+idEmpleado	dlglicencia.h	69;"	m	class:DlgLicencia	access:private
+idEmpleado	empleado.h	130;"	m	class:Empleado	access:private
+idEmpleado	licenciaempleado.h	77;"	m	class:LicenciaEmpleado	access:private
+idEmpleado	reportitemcollection.h	75;"	p	class:ReportItemCollection	access:public
+idEmpleadoFilter	reportitemcollection.h	105;"	m	class:ReportItemCollection	access:private
+idEmployee	dlgquerybuilder.h	77;"	p	class:DlgQueryBuilder	access:public
+idSector	dlgquerybuilder.h	75;"	p	class:DlgQueryBuilder	access:public
+idSector	reportitemcollection.h	76;"	p	class:ReportItemCollection	access:public
+idSector	timeassignment.h	54;"	m	class:TimeAssignmentSlot	access:public
+idSectorFilter	reportitemcollection.h	103;"	m	class:ReportItemCollection	access:private
+idSubSector	dlgquerybuilder.h	76;"	p	class:DlgQueryBuilder	access:public
+idSubSector	reportitemcollection.h	77;"	p	class:ReportItemCollection	access:public
+idSubSectorFilter	reportitemcollection.h	104;"	m	class:ReportItemCollection	access:private
+inMemoryStatus	IRecord.h	151;"	m	struct:IRecord	access:private
+includeMessageInCalculation	QsLogDestFile.h	43;"	p	class:QsLogging::RotationStrategy	access:public	implementation:pure virtual
+includeMessageInCalculation	QsLogDestFile.h	68;"	p	class:QsLogging::SizeRotationStrategy	access:public	implementation:virtual
+initialTimeline	timeassignment.h	88;"	p	class:TimeAssignment	access:public
+initialize	datastore.h	67;"	p	class:DataStore	access:public
+instance	datastore.h	66;"	p	class:DataStore	access:public
+invariableName	acollection.h	75;"	p	class:ACollection	access:public
+isAvailable	empleado.h	121;"	p	class:Empleado	access:public
+isBaja	empleado.h	135;"	m	class:Empleado	access:private
+isBeyondThisDay	timeeditor.h	76;"	p	class:TimeEditor	access:public
+isColumnEditable	estimacionesdias.h	83;"	p	class:EstimacionesDias	access:public	implementation:virtual
+isEmpleadoEmpty	timeassignmentitemedit.h	66;"	p	class:TimeAssignmentItemEdit	access:public
+isEqualsTo	calendariopersona.h	66;"	p	class:CalendarioPersona	access:public	implementation:virtual
+isEqualsTo	capacidadpersonasector.h	74;"	p	class:CapacidadPersonaSector	access:public	implementation:virtual
+isEqualsTo	empleado.h	115;"	p	class:Empleado	access:public
+isEqualsTo	estimaciondia.h	61;"	p	class:EstimacionDia	access:public	implementation:virtual
+isEqualsTo	licenciaempleado.h	68;"	p	class:LicenciaEmpleado	access:public	implementation:virtual
+isEqualsTo	planificaciondia.h	76;"	p	class:PlanificacionDia	access:public	implementation:virtual
+isEqualsTo	planificacionsubsector.h	78;"	p	class:PlanificacionSubSector	access:public
+isEqualsTo	planificacionsubsector.h	82;"	p	class:PlanificacionSubSector	access:public	implementation:virtual
+isEqualsTo	sector.h	61;"	p	class:Sector	access:public	implementation:virtual
+isEqualsTo	subsector.h	62;"	p	class:SubSector	access:public	implementation:virtual
+isEverythingAssigned	planificaciondia.h	84;"	p	class:PlanificacionDia	access:public
+isOnLicence	licenciasempleados.h	97;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+isPlanificacionDeleted	planificaciondia.h	90;"	p	class:PlanificacionDia	access:public
+isPlanificacionDeleted	planificacionsubsector.h	84;"	p	class:PlanificacionSubSector	access:public
+isPlanned	estimaciondia.h	56;"	p	class:EstimacionDia	access:public
+isPowerUser	empleado.h	118;"	p	class:Empleado	access:public
+isReadOnly	acollection.h	127;"	p	class:ACollection	access:public	implementation:virtual
+isReadyForApproval	planificaciondia.h	85;"	p	class:PlanificacionDia	access:public
+isRecordUnsent	acollection.h	84;"	p	class:ACollection	access:public	implementation:pure virtual
+isRecordUnsent	basereport.h	63;"	p	class:BaseReport	access:public	implementation:virtual
+isRecordUnsent	calendariopersonas.h	60;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+isRecordUnsent	capacidadespersonasector.h	60;"	p	class:CapacidadesPersonaSector	access:public	implementation:virtual
+isRecordUnsent	empleados.h	63;"	p	class:Empleados	access:public	implementation:virtual
+isRecordUnsent	estimacionesdias.h	58;"	p	class:EstimacionesDias	access:public	implementation:virtual
+isRecordUnsent	licenciasempleados.h	61;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+isRecordUnsent	planificacionesdias.h	58;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+isRecordUnsent	planificacionesdiassubsectores.h	58;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+isRecordUnsent	sectores.h	59;"	p	class:Sectores	access:public	implementation:virtual
+isRecordUnsent	subsectores.h	59;"	p	class:SubSectores	access:public	implementation:virtual
+isSubSector	timeassignment.h	55;"	m	class:TimeAssignmentSlot	access:public
+isSubSectorEmpty	timeassignmentitemedit.h	64;"	p	class:TimeAssignmentItemEdit	access:public
+isValid	QsLogDest.h	42;"	p	class:QsLogging::Destination	access:public	implementation:pure virtual
+isValid	QsLogDestConsole.h	47;"	p	class:QsLogging::DebugOutputDestination	access:public	implementation:virtual
+isValid	QsLogDestFile.h	91;"	p	class:QsLogging::FileDestination	access:public	implementation:virtual
+isValid	reportitemcollection.h	91;"	p	class:ReportItemCollection	access:private
+items	reportitemcollection.h	87;"	p	class:ReportItemCollection	access:public
+ledColor	multicolorledwidget.h	16;"	p	class:MulticolorLedWidget	access:public
+legajo	empleado.h	133;"	m	class:Empleado	access:private
+level	QsLog.cpp	116;"	m	class:QsLogging::LoggerImpl	file:	access:public
+level	QsLog.h	71;"	m	class:QsLogging::Logger::Helper	access:private
+licenciasEmpleadosCreated	datastore.h	129;"	m	class:DataStore	access:private
+licenciasEmpleadosPtr	datastore.h	113;"	m	class:DataStore	access:private
+list2map	planificaciondia.h	97;"	p	class:PlanificacionDia	access:private
+llenarComboConTiposLicencia	dlglicencia.h	66;"	p	class:DlgLicencia	access:private
+llenarComboUsuarios	dlglogin.h	59;"	p	class:DlgLogin	access:private
+llenarEmpleados	timeassignmentitemedit.h	103;"	p	class:TimeAssignmentItemEdit	access:protected
+llenarFrancos	dlgparametros.h	61;"	p	class:DlgParametros	access:private
+llenarLicencias	dlgplanificaciondia.h	73;"	p	class:DlgPlanificacionDia	access:private
+llenarLoggingLevels	dlgparametros.h	62;"	p	class:DlgParametros	access:private
+llenarSectores	capacitywidget.h	69;"	p	class:CapacityWidget	access:protected
+llenarSectores	timeassignmentitemedit.h	101;"	p	class:TimeAssignmentItemEdit	access:protected
+llenarSubSectores	capacitywidget.h	70;"	p	class:CapacityWidget	access:protected
+llenarSubSectores	timeassignmentitemedit.h	102;"	p	class:TimeAssignmentItemEdit	access:protected
+load	acollection.h	68;"	p	class:ACollection	access:public	implementation:virtual
+loaded	acollection.h	138;"	p	class:ACollection	access:protected
+loaded	datastore.h	91;"	p	class:DataStore	access:protected
+loading	acollection.h	139;"	p	class:ACollection	access:protected
+loading	datastore.h	92;"	p	class:DataStore	access:protected
+loadingData	timeassignmentitemedit.h	119;"	m	class:TimeAssignmentItemEdit	access:private
+local	dlgmerge.h	66;"	m	class:DlgMerge	access:private
+localRecordIsEqualsTo	accesos.h	106;"	p	class:Accesos	access:public	implementation:virtual
+localRecordIsEqualsTo	acollection.h	125;"	p	class:ACollection	access:public	implementation:pure virtual
+localRecordIsEqualsTo	basereport.h	62;"	p	class:BaseReport	access:public	implementation:virtual
+localRecordIsEqualsTo	calendariopersonas.h	59;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+localRecordIsEqualsTo	capacidadespersonasector.h	59;"	p	class:CapacidadesPersonaSector	access:public	implementation:virtual
+localRecordIsEqualsTo	empleados.h	62;"	p	class:Empleados	access:public	implementation:virtual
+localRecordIsEqualsTo	estimacionesdias.h	57;"	p	class:EstimacionesDias	access:public	implementation:virtual
+localRecordIsEqualsTo	licenciasempleados.h	89;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+localRecordIsEqualsTo	parametros.h	56;"	p	class:Parametros	access:public	implementation:virtual
+localRecordIsEqualsTo	planificacionesdias.h	57;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+localRecordIsEqualsTo	planificacionesdiassubsectores.h	57;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+localRecordIsEqualsTo	sectores.h	58;"	p	class:Sectores	access:public	implementation:virtual
+localRecordIsEqualsTo	subsectores.h	58;"	p	class:SubSectores	access:public	implementation:virtual
+localStatus	IRecord.h	152;"	m	struct:IRecord	access:private
+logMutex	QsLog.cpp	114;"	m	class:QsLogging::LoggerImpl	file:	access:public
+loggingLevel	QsLog.h	55;"	p	class:QsLogging::Logger	access:public
+mBackupsCount	QsLogDestFile.h	80;"	m	class:QsLogging::SizeRotationStrategy	access:private
+mCurrentSizeInBytes	QsLogDestFile.h	78;"	m	class:QsLogging::SizeRotationStrategy	access:private
+mFile	QsLogDestFile.h	94;"	m	class:QsLogging::FileDestination	access:private
+mFileName	QsLogDestFile.h	77;"	m	class:QsLogging::SizeRotationStrategy	access:private
+mLevel	QsLog.cpp	94;"	m	class:QsLogging::LogWriterRunnable	file:	access:private
+mMaxSizeInBytes	QsLogDestFile.h	79;"	m	class:QsLogging::SizeRotationStrategy	access:private
+mMessage	QsLog.cpp	93;"	m	class:QsLogging::LogWriterRunnable	file:	access:private
+mOutputStream	QsLogDestFile.h	95;"	m	class:QsLogging::FileDestination	access:private
+mRotationStrategy	QsLogDestFile.h	96;"	m	class:QsLogging::FileDestination	access:private
+m_AccessList	accesos.h	120;"	m	class:Accesos	access:private
+m_AllowOverworking	planificacionsubsector.h	100;"	m	class:PlanificacionSubSector	access:private
+m_AlreadyCreated	capacitywidget.h	78;"	m	class:CapacityWidget	access:private
+m_AssignmentHeight	timeassignment.h	113;"	m	class:TimeAssignment	access:private
+m_Assignments	timeassignment.h	121;"	m	class:TimeAssignment	access:private
+m_BackgroundColor	multicolorledwidget.h	26;"	m	class:MulticolorLedWidget	access:private
+m_BackgroundColor	timeassignment.h	109;"	m	class:TimeAssignment	access:private
+m_Calendarios	calendariopersonas.h	106;"	m	class:CalendarioPersonas	access:private
+m_Capacidad	capacidadpersonasector.h	86;"	m	class:CapacidadPersonaSector	access:private
+m_Capacidades	capacidadespersonasector.h	102;"	m	class:CapacidadesPersonaSector	access:private
+m_CurrentDay	dlgempleadoslicenciasplanificacion.h	74;"	m	class:DlgEmpleadosLicenciasPlanificacion	access:private
+m_Data	databasesynchronization.h	82;"	m	class:DatabaseSynchronization	access:private
+m_Data	timeassignmentitemedit.h	117;"	m	class:TimeAssignmentItemEdit	access:private
+m_Descripcion	sector.h	70;"	m	class:Sector	access:private
+m_Descripcion	subsector.h	71;"	m	class:SubSector	access:private
+m_Dia	calendariopersona.h	81;"	m	class:CalendarioPersona	access:private
+m_Dia	dlgplanificaciondia.h	96;"	m	class:DlgPlanificacionDia	access:private
+m_Dia	estimaciondia.h	67;"	m	class:EstimacionDia	access:private
+m_Dia	planificaciondia.h	99;"	m	class:PlanificacionDia	access:private
+m_Dia	planificacionsubsector.h	94;"	m	class:PlanificacionSubSector	access:private
+m_Dictionary	parametros.h	135;"	m	class:Parametros	access:private
+m_Empleado	dlgemployee.h	86;"	m	class:DlgEmployee	access:private
+m_Empleados	empleados.h	111;"	m	class:Empleados	access:private
+m_EmployeesToExclude	dlgempleadoslicenciasplanificacion.h	75;"	m	class:DlgEmpleadosLicenciasPlanificacion	access:private
+m_EstadosPlanificacion	planificaciondia.h	102;"	m	class:PlanificacionDia	access:private
+m_EstimacionHoras	estimaciondia.h	68;"	m	class:EstimacionDia	access:private
+m_Estimaciones	estimacionesdias.h	106;"	m	class:EstimacionesDias	access:private
+m_Feature	acceso.h	76;"	m	class:Acceso	access:private
+m_FechaSincro	SincroManager.h	84;"	m	class:SincroManager	access:private
+m_FechaUltimaSincronizacion	SincroManager.h	81;"	m	class:SincroManager	access:private
+m_FinalTimeline	timeassignment.h	116;"	m	class:TimeAssignment	access:private
+m_FontSize	timeassignment.h	114;"	m	class:TimeAssignment	access:private
+m_HollowTimeLine	timeassignment.h	120;"	m	class:TimeAssignment	access:private
+m_HoraEgreso1	calendariopersona.h	84;"	m	class:CalendarioPersona	access:private
+m_HoraEgreso2	calendariopersona.h	86;"	m	class:CalendarioPersona	access:private
+m_HoraFin	planificacionsubsector.h	99;"	m	class:PlanificacionSubSector	access:private
+m_HoraIngreso1	calendariopersona.h	83;"	m	class:CalendarioPersona	access:private
+m_HoraIngreso2	calendariopersona.h	85;"	m	class:CalendarioPersona	access:private
+m_HoraInicio	planificacionsubsector.h	98;"	m	class:PlanificacionSubSector	access:private
+m_HorasEstimadas	dlgplanificaciondia.h	99;"	m	class:DlgPlanificacionDia	access:private
+m_HorizontalGap	timeassignment.h	111;"	m	class:TimeAssignment	access:private
+m_IDEmpleado	calendariopersona.h	82;"	m	class:CalendarioPersona	access:private
+m_IDEmpleado	capacidadpersonasector.h	85;"	m	class:CapacidadPersonaSector	access:private
+m_IDEmpleado	planificacionsubsector.h	97;"	m	class:PlanificacionSubSector	access:private
+m_IDRecord	planificacionsubsector.h	93;"	m	class:PlanificacionSubSector	access:private
+m_IDSector	acceso.h	75;"	m	class:Acceso	access:private
+m_IDSector	capacidadpersonasector.h	83;"	m	class:CapacidadPersonaSector	access:private
+m_IDSector	planificacionsubsector.h	95;"	m	class:PlanificacionSubSector	access:private
+m_IDSector	sector.h	68;"	m	class:Sector	access:private
+m_IDSector	subsector.h	68;"	m	class:SubSector	access:private
+m_IDSubSector	planificacionsubsector.h	96;"	m	class:PlanificacionSubSector	access:private
+m_IDSubSector	subsector.h	69;"	m	class:SubSector	access:private
+m_IDSupervisor	planificaciondia.h	101;"	m	class:PlanificacionDia	access:private
+m_ID_SubSector	capacidadpersonasector.h	84;"	m	class:CapacidadPersonaSector	access:private
+m_InPlaceEdit	CalendarWindow.h	95;"	m	class:CalendarWindow	access:private
+m_InPlaceEdit	genericlist.h	99;"	m	class:GenericList	access:private
+m_InitialTimeline	timeassignment.h	115;"	m	class:TimeAssignment	access:private
+m_Instance	datastore.cpp	44;"	m	class:DataStore	file:
+m_Instance	datastore.h	135;"	m	class:DataStore	access:private
+m_InvariableName	acollection.h	158;"	m	class:ACollection	access:private
+m_Key	parametro.h	55;"	m	class:Parametro	access:private
+m_LedColor	multicolorledwidget.h	27;"	m	class:MulticolorLedWidget	access:private
+m_Licencias	licenciasempleados.h	115;"	m	class:LicenciasEmpleados	access:private
+m_LoggedUser	CalendarWindow.h	96;"	m	class:CalendarWindow	access:private
+m_LoggedUser	genericlist.h	100;"	m	class:GenericList	access:private
+m_LoggedUser	mainwindow.h	97;"	m	class:MainWindow	access:private
+m_MergeStrategy	acollection.h	161;"	m	class:ACollection	access:private
+m_Name	acollection.h	157;"	m	class:ACollection	access:private
+m_Nombre	sector.h	69;"	m	class:Sector	access:private
+m_Nombre	subsector.h	70;"	m	class:SubSector	access:private
+m_Notas	planificaciondia.h	100;"	m	class:PlanificacionDia	access:private
+m_Password	sqlhandler.h	67;"	m	class:SQLHandler	access:private
+m_Planificacion	planificacionesdiassubsectores.h	101;"	m	class:PlanificacionesDiasSubSectores	access:private
+m_Planificaciones	planificacionesdias.h	100;"	m	class:PlanificacionesDias	access:private
+m_QueryResult	databasesynchronization.h	84;"	m	class:DatabaseSynchronization	access:private
+m_SQL	SincroManager.h	83;"	m	class:SincroManager	access:private
+m_SQLHandler	databasesynchronization.h	83;"	m	class:DatabaseSynchronization	access:private
+m_Sectores	sectores.h	101;"	m	class:Sectores	access:private
+m_Server	sqlhandler.h	65;"	m	class:SQLHandler	access:private
+m_ShowInPlanification	sector.h	71;"	m	class:Sector	access:private
+m_SubSectores	subsectores.h	104;"	m	class:SubSectores	access:private
+m_Synchronizationtables	SincroManager.h	82;"	m	class:SincroManager	access:private
+m_TimelineColor	timeassignment.h	110;"	m	class:TimeAssignment	access:private
+m_TimelineHeight	timeassignment.h	112;"	m	class:TimeAssignment	access:private
+m_User	sqlhandler.h	66;"	m	class:SQLHandler	access:private
+m_UsingSQLITE	sqlhandler.h	68;"	m	class:SQLHandler	access:private
+m_Value	nullablefield.h	149;"	m	class:NullableField	access:private
+m_Value	parametro.h	56;"	m	class:Parametro	access:private
+m_allowSorting	CalendarWindow.h	97;"	m	class:CalendarWindow	access:private
+m_allowSorting	genericlist.h	101;"	m	class:GenericList	access:private
+m_canCreate	acceso.h	78;"	m	class:Acceso	access:private
+m_canDelete	acceso.h	80;"	m	class:Acceso	access:private
+m_canRead	acceso.h	77;"	m	class:Acceso	access:private
+m_canUpdate	acceso.h	79;"	m	class:Acceso	access:private
+m_database	sqlhandler.h	63;"	m	class:SQLHandler	access:private
+m_day	availabilitywidget.h	72;"	m	class:AvailabilityWidget	access:private
+m_dbName	acollection.h	162;"	m	class:ACollection	access:private
+m_paintBackgroundReferences	timeassignment.h	117;"	m	class:TimeAssignment	access:private
+m_paintVerticalGrid	timeassignment.h	119;"	m	class:TimeAssignment	access:private
+m_recordsWereCreated	parametros.h	136;"	m	class:Parametros	access:private
+m_showBackgroundText	timeassignment.h	118;"	m	class:TimeAssignment	access:private
+maxTimeBeyondThisDay	timeeditor.h	101;"	m	class:TimeEditor	access:private
+maxTimeSeconds	timeeditor.h	68;"	p	class:TimeEditor	access:public
+maxValue	timeeditor.h	104;"	m	class:TimeEditor	access:private
+mergeStrategy	acollection.h	87;"	p	class:ACollection	access:public	implementation:virtual
+mergedRecord	dlgmerge.h	59;"	p	class:DlgMerge	access:public
+minTimeSeconds	timeeditor.h	64;"	p	class:TimeEditor	access:public
+minValue	timeeditor.h	103;"	m	class:TimeEditor	access:private
+model	CalendarWindow.h	94;"	m	class:CalendarWindow	access:private
+model	b6pcalendarwidget.h	23;"	m	class:B6PCalendarWidget	access:private
+model	genericlist.h	98;"	m	class:GenericList	access:private
+name	acollection.h	74;"	p	class:ACollection	access:public
+name	databasesynchronization.h	65;"	p	class:DatabaseSynchronization	access:public
+newID	dlgplanificaciondia.h	97;"	m	class:DlgPlanificacionDia	access:private
+nombre	empleado.h	132;"	m	class:Empleado	access:private
+obtenerActualizacionesDeBaseCentral	SincroManager.h	59;"	p	class:SincroManager	access:protected
+obtenerFechaDesdeServerCentral	SincroManager.h	60;"	p	class:SincroManager	access:protected
+obtenerFechaUltimaSincronizacion	SincroManager.h	58;"	p	class:SincroManager	access:protected
+onEmployeeChanged	planificacionitemwidget.h	19;"	p	class:PlanificacionItemWidget	access:public
+onSectorChanged	planificacionitemwidget.h	20;"	p	class:PlanificacionItemWidget	access:public
+onSubsectorChanged	planificacionitemwidget.h	21;"	p	class:PlanificacionItemWidget	access:public
+onValueChanged	timeeditor.h	87;"	p	class:TimeEditor	access:private
+on_AllowOverWorkingForEmployee	dlgplanificaciondia.h	84;"	p	class:DlgPlanificacionDia	access:private
+on_SynchroEnded	dlgsynchronization.h	65;"	p	class:DlgSynchronization	access:private
+on_actionAbout_triggered	mainwindow.h	69;"	p	class:MainWindow	access:private
+on_actionDelete_triggered	CalendarWindow.h	85;"	p	class:CalendarWindow	access:private
+on_actionDelete_triggered	genericlist.h	86;"	p	class:GenericList	access:private
+on_actionEdit_triggered	CalendarWindow.h	83;"	p	class:CalendarWindow	access:private
+on_actionEdit_triggered	genericlist.h	84;"	p	class:GenericList	access:private
+on_actionExit_triggered	mainwindow.h	66;"	p	class:MainWindow	access:private
+on_actionExport_triggered	CalendarWindow.h	89;"	p	class:CalendarWindow	access:private
+on_actionExport_triggered	genericlist.h	94;"	p	class:GenericList	access:private
+on_actionHours_by_Sector_and_Subsector_triggered	mainwindow.h	87;"	p	class:MainWindow	access:private
+on_actionHours_planned_by_employee_triggered	mainwindow.h	91;"	p	class:MainWindow	access:private
+on_actionNew_triggered	CalendarWindow.h	81;"	p	class:CalendarWindow	access:private
+on_actionNew_triggered	genericlist.h	82;"	p	class:GenericList	access:private
+on_actionOpen_triggered	mainwindow.h	64;"	p	class:MainWindow	access:private
+on_actionParameters_triggered	mainwindow.h	68;"	p	class:MainWindow	access:private
+on_actionPlanned_hours_day_by_day_triggered	mainwindow.h	89;"	p	class:MainWindow	access:private
+on_actionPlanned_rests_triggered	mainwindow.h	93;"	p	class:MainWindow	access:private
+on_actionPrint_Preview_Selected_Record_triggered	mainwindow.h	85;"	p	class:MainWindow	access:private
+on_actionPrint_Preview_triggered	mainwindow.h	78;"	p	class:MainWindow	access:private
+on_actionPrint_Selected_triggered	mainwindow.h	83;"	p	class:MainWindow	access:private
+on_actionPrint_triggered	mainwindow.h	65;"	p	class:MainWindow	access:private
+on_actionSetup_days_triggered	mainwindow.h	74;"	p	class:MainWindow	access:private
+on_actionSynchronize_triggered	mainwindow.h	76;"	p	class:MainWindow	access:private
+on_actionView_triggered	mainwindow.h	67;"	p	class:MainWindow	access:private
+on_applyingChanges	dlgsynchronization.h	62;"	p	class:DlgSynchronization	access:private
+on_btnAdd_2_clicked	dlgempleadoslicenciasplanificacion.h	62;"	p	class:DlgEmpleadosLicenciasPlanificacion	access:private
+on_btnAdd_2_clicked	dlgemployee.h	78;"	p	class:DlgEmployee	access:private
+on_btnAdd_pressed	dlgemployee.h	74;"	p	class:DlgEmployee	access:private
+on_btnAdd_pressed	dlgplanificaciondia.h	77;"	p	class:DlgPlanificacionDia	access:private
+on_btnChooseFolder_clicked	dlgparametros.h	68;"	p	class:DlgParametros	access:private
+on_btnDelete_2_clicked	dlgempleadoslicenciasplanificacion.h	66;"	p	class:DlgEmpleadosLicenciasPlanificacion	access:private
+on_btnDelete_2_clicked	dlgemployee.h	82;"	p	class:DlgEmployee	access:private
+on_btnDelete_pressed	dlgemployee.h	76;"	p	class:DlgEmployee	access:private
+on_btnDelete_pressed	dlgplanificaciondia.h	81;"	p	class:DlgPlanificacionDia	access:private
+on_btnEdit_2_clicked	dlgempleadoslicenciasplanificacion.h	64;"	p	class:DlgEmpleadosLicenciasPlanificacion	access:private
+on_btnEdit_2_clicked	dlgemployee.h	80;"	p	class:DlgEmployee	access:private
+on_btnEdit_pressed	dlgplanificaciondia.h	78;"	p	class:DlgPlanificacionDia	access:private
+on_btnExport_pressed	dlgplanificaciondia.h	86;"	p	class:DlgPlanificacionDia	access:private
+on_btnSortBySector_pressed	dlgplanificaciondia.h	90;"	p	class:DlgPlanificacionDia	access:private
+on_btnStartSynchro_pressed	dlgsynchronization.h	59;"	p	class:DlgSynchronization	access:private
+on_btn_SortByEmployee_pressed	dlgplanificaciondia.h	92;"	p	class:DlgPlanificacionDia	access:private
+on_buttonBox_clicked	dlgfilesynchronization.h	20;"	p	class:DlgFileSynchronization	access:private
+on_calcularHoras	dlgplanificaciondia.h	82;"	p	class:DlgPlanificacionDia	access:private
+on_calcularHorasPreviamenteTrabajadas	timeassignmentitemedit.h	112;"	p	class:TimeAssignmentItemEdit	access:private
+on_calendarDateSelected	CalendarWindow.h	90;"	p	class:CalendarWindow	access:private
+on_cboEmpleado_currentIndexChanged	timeassignmentitemedit.h	111;"	p	class:TimeAssignmentItemEdit	access:private
+on_cboSector_currentIndexChanged	dlgquerybuilder.h	85;"	p	class:DlgQueryBuilder	access:private
+on_cboSectores_currentIndexChanged	capacitywidget.h	74;"	p	class:CapacityWidget	access:private
+on_cboSectores_currentIndexChanged	timeassignmentitemedit.h	105;"	p	class:TimeAssignmentItemEdit	access:private
+on_cboSubsectores_currentIndexChanged	timeassignmentitemedit.h	109;"	p	class:TimeAssignmentItemEdit	access:private
+on_checkingChanges	dlgsynchronization.h	63;"	p	class:DlgSynchronization	access:private
+on_chkBeyondThisDay_clicked	timeeditor.h	94;"	p	class:TimeEditor	access:private
+on_dataUpdated	CalendarWindow.h	88;"	p	class:CalendarWindow	access:private
+on_dataUpdated	genericlist.h	93;"	p	class:GenericList	access:private
+on_getDataFromCentralDB	dlgsynchronization.h	61;"	p	class:DlgSynchronization	access:private
+on_lineTime_textChanged	timeeditor.h	96;"	p	class:TimeEditor	access:private
+on_pushButton_pressed	dlgparametros.h	65;"	p	class:DlgParametros	access:private
+on_refreshColorAssignments	dlgplanificaciondia.h	83;"	p	class:DlgPlanificacionDia	access:private
+on_sendingData	dlgsynchronization.h	64;"	p	class:DlgSynchronization	access:private
+on_slideCapacity_valueChanged	capacitywidget.h	72;"	p	class:CapacityWidget	access:private
+on_startingSynchro	dlgsynchronization.h	60;"	p	class:DlgSynchronization	access:private
+on_tblData_cellClicked	dlgmerge.h	62;"	p	class:DlgMerge	access:private
+on_timeFin_TimeChanged	timeassignmentitemedit.h	107;"	p	class:TimeAssignmentItemEdit	access:private
+on_timeInicio_TimeChanged	timeassignmentitemedit.h	106;"	p	class:TimeAssignmentItemEdit	access:private
+on_toolButton_clicked	dlgplanificaciondia.h	88;"	p	class:DlgPlanificacionDia	access:private
+on_treeList_doubleClicked	genericlist.h	88;"	p	class:GenericList	access:private
+on_treeList_itemChanged	genericlist.h	91;"	p	class:GenericList	access:private
+on_treeList_itemClicked	genericlist.h	89;"	p	class:GenericList	access:private
+operator =	QsLog.h	79;"	p	class:QsLogging::Logger	access:private
+output	QsLogDestConsole.h	36;"	p	class:QsDebugOutput	access:public
+paintCell	b6pcalendarwidget.h	16;"	p	class:B6PCalendarWidget	access:protected
+paintEvent	multicolorledwidget.h	19;"	p	class:MulticolorLedWidget	access:protected
+paintEvent	timeassignment.h	103;"	p	class:TimeAssignment	access:protected
+parametrosCreated	datastore.h	120;"	m	class:DataStore	access:private
+parametrosPtr	datastore.h	104;"	m	class:DataStore	access:private
+parent	nullablefield.h	151;"	m	class:NullableField	access:private
+planificacionesDiasCreated	datastore.h	123;"	m	class:DataStore	access:private
+planificacionesDiasPtr	datastore.h	107;"	m	class:DataStore	access:private
+planificacionesSubSectoresCreated	datastore.h	124;"	m	class:DataStore	access:private
+planificacionesSubSectoresPtr	datastore.h	108;"	m	class:DataStore	access:private
+previousSelectedEmployee	timeassignmentitemedit.h	121;"	m	class:TimeAssignmentItemEdit	access:private
+previouslySelectedHour	timeeditor.h	105;"	m	class:TimeEditor	access:private
+print	empleado.h	123;"	p	class:Empleado	access:public
+print	licenciaempleado.h	63;"	p	class:LicenciaEmpleado	access:public
+print	mainwindow.h	80;"	p	class:MainWindow	access:private
+print	planificaciondia.h	80;"	p	class:PlanificacionDia	access:public
+print2	planificaciondia.h	81;"	p	class:PlanificacionDia	access:public
+printSelected	mainwindow.h	81;"	p	class:MainWindow	access:private
+printSelectedRecord	CalendarWindow.h	68;"	p	class:CalendarWindow	access:public
+printSelectedRecord	acollection.h	72;"	p	class:ACollection	access:public	implementation:pure virtual
+printSelectedRecord	basereport.h	66;"	p	class:BaseReport	access:public	implementation:virtual
+printSelectedRecord	empleados.h	66;"	p	class:Empleados	access:public	implementation:virtual
+printSelectedRecord	genericlist.h	69;"	p	class:GenericList	access:public
+printSelectedRecord	licenciasempleados.h	56;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+printSelectedRecord	planificacionesdias.h	61;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+putFile	filesynchronization.h	21;"	p	class:FileSynchronization	access:private
+qtDebug	QsLog.h	73;"	m	class:QsLogging::Logger::Helper	access:private
+recalculateAvailableEmployees	timeassignmentitemedit.h	89;"	p	class:TimeAssignmentItemEdit	access:public
+recalculateColorAssignments	timeassignmentitemedit.h	88;"	p	class:TimeAssignmentItemEdit	access:public
+recommendedOpenModeFlag	QsLogDestFile.h	46;"	p	class:QsLogging::RotationStrategy	access:public	implementation:pure virtual
+recommendedOpenModeFlag	QsLogDestFile.h	71;"	p	class:QsLogging::SizeRotationStrategy	access:public	implementation:virtual
+references	reportitem.h	66;"	m	class:ReportItem	access:private
+refresh	reportitemcollection.h	85;"	p	class:ReportItemCollection	access:public
+refreshColorAssignments	timeassignmentitemedit.h	94;"	p	class:TimeAssignmentItemEdit	access:public
+refreshData	datastore.h	85;"	p	class:DataStore	access:public
+refreshID	acollection.h	118;"	p	class:ACollection	access:public	implementation:pure virtual
+refreshID	basereport.h	75;"	p	class:BaseReport	access:public	implementation:virtual
+refreshID	empleados.h	78;"	p	class:Empleados	access:public	implementation:virtual
+refreshID	estimacionesdias.h	93;"	p	class:EstimacionesDias	access:public	implementation:virtual
+refreshID	licenciasempleados.h	83;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+refreshID	planificacionesdias.h	87;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+refreshID	planificacionesdiassubsectores.h	87;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+refreshLicencias	dlgplanificaciondia.h	72;"	p	class:DlgPlanificacionDia	access:private
+refreshReport	basereport.h	100;"	p	class:BaseReport	access:public	implementation:pure virtual
+refreshReport	reportefrancosplanificados.h	58;"	p	class:ReporteFrancosPlanificados	access:public	implementation:virtual
+refreshReport	reportehorasdiaadia.h	58;"	p	class:ReporteHorasDiaADia	access:public	implementation:virtual
+refreshReport	reportehorasporempleado.h	59;"	p	class:ReporteHorasPorEmpleado	access:public	implementation:virtual
+refreshReport	reportehorassectorsubsector.h	60;"	p	class:ReporteHorasSectorSubSector	access:public	implementation:virtual
+reportData	reportefrancosplanificados.h	67;"	m	class:ReporteFrancosPlanificados	access:private
+reportData	reportehorasdiaadia.h	65;"	m	class:ReporteHorasDiaADia	access:private
+reportData	reportehorasporempleado.h	67;"	m	class:ReporteHorasPorEmpleado	access:private
+reportData	reportehorassectorsubsector.h	69;"	m	class:ReporteHorasSectorSubSector	access:private
+reportItems	reportitemcollection.h	102;"	m	class:ReportItemCollection	access:private
+reporteFrancosPlanificadosCreated	datastore.h	133;"	m	class:DataStore	access:private
+reporteFrancosPlanificadosPtr	datastore.h	117;"	m	class:DataStore	access:private
+reporteHorasDiaADiaCreated	datastore.h	131;"	m	class:DataStore	access:private
+reporteHorasDiaADiaPtr	datastore.h	115;"	m	class:DataStore	access:private
+reporteHorasPorEmpleadoCreated	datastore.h	132;"	m	class:DataStore	access:private
+reporteHorasPorEmpleadoPtr	datastore.h	116;"	m	class:DataStore	access:private
+reporteHorasSectorSubSectorCreated	datastore.h	130;"	m	class:DataStore	access:private
+reporteHorasSectorSubSectorPtr	datastore.h	114;"	m	class:DataStore	access:private
+rotate	QsLogDestFile.h	45;"	p	class:QsLogging::RotationStrategy	access:public	implementation:pure virtual
+rotate	QsLogDestFile.h	70;"	p	class:QsLogging::SizeRotationStrategy	access:public	implementation:virtual
+runSincro	SincroManager.h	55;"	p	class:SincroManager	access:public
+save	acollection.h	69;"	p	class:ACollection	access:public	implementation:virtual
+saveDependants	acollection.h	119;"	p	class:ACollection	access:public	implementation:pure virtual
+saveDependants	basereport.h	76;"	p	class:BaseReport	access:public	implementation:virtual
+saveDependants	empleados.h	79;"	p	class:Empleados	access:public	implementation:virtual
+saveDependants	licenciasempleados.h	85;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+saveDependants	planificacionesdias.h	88;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+saveLocalChanges	databasesynchronization.h	63;"	p	class:DatabaseSynchronization	access:public
+saveLocally	acollection.h	70;"	p	class:ACollection	access:public	implementation:virtual
+saved	acollection.h	140;"	p	class:ACollection	access:protected
+saved	datastore.h	93;"	p	class:DataStore	access:protected
+saving	acollection.h	141;"	p	class:ACollection	access:protected
+saving	datastore.h	94;"	p	class:DataStore	access:protected
+sector	reportitem.h	59;"	p	class:ReportItem	access:public
+sectorChanged	timeassignmentitemedit.h	97;"	p	class:TimeAssignmentItemEdit	access:public
+sectoresCreated	datastore.h	125;"	m	class:DataStore	access:private
+sectoresPtr	datastore.h	109;"	m	class:DataStore	access:private
+selectedCalendarWindowToPrint	mainwindow.h	99;"	m	class:MainWindow	access:private
+selectedDay	dlgselectorbytdate.h	59;"	p	class:DlgSelectorBytDate	access:public
+selectedWindowToPrint	mainwindow.h	98;"	m	class:MainWindow	access:private
+sendData	databasesynchronization.h	62;"	p	class:DatabaseSynchronization	access:public
+sendingData	SincroManager.h	75;"	p	class:SincroManager	access:protected
+sendingData	databasesynchronization.h	77;"	p	class:DatabaseSynchronization	access:protected
+server	dlgmerge.h	67;"	m	class:DlgMerge	access:private
+setABMButtonsVisible	CalendarWindow.h	71;"	p	class:CalendarWindow	access:public
+setABMButtonsVisible	genericlist.h	72;"	p	class:GenericList	access:public
+setAllowOverWorking	timeassignmentitemedit.h	80;"	p	class:TimeAssignmentItemEdit	access:public
+setAlreadyCreated	capacitywidget.h	66;"	p	class:CapacityWidget	access:public
+setAssignmentHeight	timeassignment.h	75;"	p	class:TimeAssignment	access:public
+setBackgroundColor	multicolorledwidget.h	12;"	p	class:MulticolorLedWidget	access:public
+setBackgroundColor	timeassignment.h	66;"	p	class:TimeAssignment	access:public
+setBackupCount	QsLogDestFile.h	74;"	p	class:QsLogging::SizeRotationStrategy	access:public
+setCapacity	capacitywidget.h	60;"	p	class:CapacityWidget	access:public
+setCapacity	empleado.h	67;"	p	class:EmployeeCalculatedCapacity	access:public
+setData	dlgapproveplanifications.h	57;"	p	class:DlgApprovePlanifications	access:public
+setData	dlgempleadoslicenciasplanificacion.h	59;"	p	class:DlgEmpleadosLicenciasPlanificacion	access:public
+setData	dlgemployee.h	59;"	p	class:DlgEmployee	access:public
+setData	dlgestimaciondia.h	58;"	p	class:DlgEstimacionDia	access:public
+setData	dlglicencia.h	58;"	p	class:DlgLicencia	access:public
+setData	dlgmerge.h	58;"	p	class:DlgMerge	access:public
+setData	dlgplanificaciondia.h	60;"	p	class:DlgPlanificacionDia	access:public
+setData	dlgselectorbytdate.h	58;"	p	class:DlgSelectorBytDate	access:public
+setData	timeassignmentitemedit.h	82;"	p	class:TimeAssignmentItemEdit	access:public
+setDataModel	b6pcalendarwidget.h	13;"	p	class:B6PCalendarWidget	access:public
+setDate	timeassignmentitemedit.h	86;"	p	class:TimeAssignmentItemEdit	access:public
+setDateEnabled	dlgquerybuilder.h	82;"	p	class:DlgQueryBuilder	access:public
+setDateFrom	dlgdaterangefilter.h	60;"	p	class:DlgDateRangeFilter	access:public
+setDateFrom	dlgquerybuilder.h	57;"	p	class:DlgQueryBuilder	access:public
+setDateFrom	reportitemcollection.h	62;"	p	class:ReportItemCollection	access:public
+setDateTo	dlgdaterangefilter.h	61;"	p	class:DlgDateRangeFilter	access:public
+setDateTo	dlgquerybuilder.h	58;"	p	class:DlgQueryBuilder	access:public
+setDateTo	reportitemcollection.h	63;"	p	class:ReportItemCollection	access:public
+setDay	availabilitywidget.h	63;"	p	class:AvailabilityWidget	access:public
+setDefaultValues	timeeditor.h	88;"	p	class:TimeEditor	access:private
+setEmployeeEnabled	dlgquerybuilder.h	79;"	p	class:DlgQueryBuilder	access:public
+setFinalTimeline	timeassignment.h	90;"	p	class:TimeAssignment	access:public
+setFontSize	timeassignment.h	84;"	p	class:TimeAssignment	access:public
+setFrom	dlgaddmanyestimationdays.h	58;"	p	class:DlgAddManyEstimationDays	access:public
+setFrom1	availabilitywidget.h	58;"	p	class:AvailabilityWidget	access:public
+setFrom2	availabilitywidget.h	60;"	p	class:AvailabilityWidget	access:public
+setHeader	genericlist.h	66;"	p	class:GenericList	access:public
+setHollowTimeLine	timeassignment.h	99;"	p	class:TimeAssignment	access:public
+setHoraFin	timeassignmentitemedit.h	79;"	p	class:TimeAssignmentItemEdit	access:public
+setHoraInicio	timeassignmentitemedit.h	78;"	p	class:TimeAssignmentItemEdit	access:public
+setHorizontalGap	timeassignment.h	78;"	p	class:TimeAssignment	access:public
+setIDEmpleado	reportitemcollection.h	64;"	p	class:ReportItemCollection	access:public
+setIDEmpleado	timeassignmentitemedit.h	76;"	p	class:TimeAssignmentItemEdit	access:public
+setIDEmpleadoNull	timeassignmentitemedit.h	77;"	p	class:TimeAssignmentItemEdit	access:public
+setIDEmployee	dlgquerybuilder.h	61;"	p	class:DlgQueryBuilder	access:public
+setIDSector	capacitywidget.h	57;"	p	class:CapacityWidget	access:public
+setIDSector	dlgquerybuilder.h	59;"	p	class:DlgQueryBuilder	access:public
+setIDSector	reportitemcollection.h	65;"	p	class:ReportItemCollection	access:public
+setIDSector	timeassignmentitemedit.h	72;"	p	class:TimeAssignmentItemEdit	access:public
+setIDSectorNull	timeassignmentitemedit.h	73;"	p	class:TimeAssignmentItemEdit	access:public
+setIDSubSector	capacitywidget.h	58;"	p	class:CapacityWidget	access:public
+setIDSubSector	dlgquerybuilder.h	60;"	p	class:DlgQueryBuilder	access:public
+setIDSubSector	reportitemcollection.h	66;"	p	class:ReportItemCollection	access:public
+setIDSubSector	timeassignmentitemedit.h	74;"	p	class:TimeAssignmentItemEdit	access:public
+setIDSubSectorNull	timeassignmentitemedit.h	75;"	p	class:TimeAssignmentItemEdit	access:public
+setInMemoryStatusToUnmodified	acollection.h	101;"	p	class:ACollection	access:public
+setInitialInfo	QsLogDestFile.h	42;"	p	class:QsLogging::RotationStrategy	access:public	implementation:pure virtual
+setInitialInfo	QsLogDestFile.h	67;"	p	class:QsLogging::SizeRotationStrategy	access:public	implementation:virtual
+setInitialTimeline	timeassignment.h	87;"	p	class:TimeAssignment	access:public
+setLabel	availabilitywidget.h	57;"	p	class:AvailabilityWidget	access:public
+setLabel	dlgselectorbytdate.h	61;"	p	class:DlgSelectorBytDate	access:public
+setLedColor	multicolorledwidget.h	15;"	p	class:MulticolorLedWidget	access:public
+setLocalStatusToUnmodified	acollection.h	100;"	p	class:ACollection	access:public
+setLoggingLevel	QsLog.h	53;"	p	class:QsLogging::Logger	access:public
+setMaxTime	timeeditor.h	66;"	p	class:TimeEditor	access:public
+setMaxTime	timeeditor.h	67;"	p	class:TimeEditor	access:public
+setMaximumSizeInBytes	QsLogDestFile.h	73;"	p	class:QsLogging::SizeRotationStrategy	access:public
+setMinTime	timeeditor.h	62;"	p	class:TimeEditor	access:public
+setMinTime	timeeditor.h	63;"	p	class:TimeEditor	access:public
+setPaintBackgroundReferences	timeassignment.h	96;"	p	class:TimeAssignment	access:public
+setPaintVerticalGrid	timeassignment.h	94;"	p	class:TimeAssignment	access:public
+setReadOnly	dlgplanificaciondia.h	70;"	p	class:DlgPlanificacionDia	access:private
+setSectorEnabled	dlgquerybuilder.h	80;"	p	class:DlgQueryBuilder	access:public
+setShowBackgroundText	timeassignment.h	98;"	p	class:TimeAssignment	access:public
+setStatusToUnmodified	accesos.h	101;"	p	class:Accesos	access:public	implementation:virtual
+setStatusToUnmodified	acollection.h	120;"	p	class:ACollection	access:public	implementation:pure virtual
+setStatusToUnmodified	basereport.h	77;"	p	class:BaseReport	access:public	implementation:virtual
+setStatusToUnmodified	calendariopersonas.h	90;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+setStatusToUnmodified	capacidadespersonasector.h	91;"	p	class:CapacidadesPersonaSector	access:public	implementation:virtual
+setStatusToUnmodified	empleados.h	80;"	p	class:Empleados	access:public	implementation:virtual
+setStatusToUnmodified	estimacionesdias.h	95;"	p	class:EstimacionesDias	access:public	implementation:virtual
+setStatusToUnmodified	licenciasempleados.h	86;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+setStatusToUnmodified	planificacionesdias.h	89;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+setStatusToUnmodified	planificacionesdiassubsectores.h	89;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+setStatusToUnmodified	sectores.h	89;"	p	class:Sectores	access:public	implementation:virtual
+setStatusToUnmodified	subsectores.h	90;"	p	class:SubSectores	access:public	implementation:virtual
+setSubSectorEnabled	dlgquerybuilder.h	81;"	p	class:DlgQueryBuilder	access:public
+setSummarizeDays	dlgquerybuilder.h	63;"	p	class:DlgQueryBuilder	access:public
+setSummarizeEmployee	dlgquerybuilder.h	66;"	p	class:DlgQueryBuilder	access:public
+setSummarizeEmployee	reportitemcollection.h	71;"	p	class:ReportItemCollection	access:public
+setSummarizeSectors	dlgquerybuilder.h	64;"	p	class:DlgQueryBuilder	access:public
+setSummarizeSectors	reportitemcollection.h	69;"	p	class:ReportItemCollection	access:public
+setSummarizeSubSectors	reportitemcollection.h	70;"	p	class:ReportItemCollection	access:public
+setSummarizeSubsectors	dlgquerybuilder.h	65;"	p	class:DlgQueryBuilder	access:public
+setTime	timeeditor.h	58;"	p	class:TimeEditor	access:public
+setTime	timeeditor.h	59;"	p	class:TimeEditor	access:public
+setTimeLineColor	timeassignment.h	69;"	p	class:TimeAssignment	access:public
+setTimeLineHeight	timeassignment.h	81;"	p	class:TimeAssignment	access:public
+setTitle	dlgselectorbytdate.h	62;"	p	class:DlgSelectorBytDate	access:public
+setTo	dlgaddmanyestimationdays.h	59;"	p	class:DlgAddManyEstimationDays	access:public
+setTo1	availabilitywidget.h	59;"	p	class:AvailabilityWidget	access:public
+setTo2	availabilitywidget.h	61;"	p	class:AvailabilityWidget	access:public
+setValidRange	timeeditor.h	70;"	p	class:TimeEditor	access:public
+setValidRange	timeeditor.h	71;"	p	class:TimeEditor	access:public
+setValue	parametros.h	95;"	p	class:Parametros	access:public
+setValue	parametros.h	98;"	p	class:Parametros	access:public
+setbeyondThisDayVisibility	timeeditor.h	73;"	p	class:TimeEditor	access:public
+setupAssignment	dlgemployee.h	70;"	p	class:DlgEmployee	access:protected
+setupScreen	dlgemployee.h	69;"	p	class:DlgEmployee	access:protected
+shouldRotate	QsLogDestFile.h	44;"	p	class:QsLogging::RotationStrategy	access:public	implementation:pure virtual
+shouldRotate	QsLogDestFile.h	69;"	p	class:QsLogging::SizeRotationStrategy	access:public	implementation:virtual
+showEvent	CalendarWindow.h	69;"	p	class:CalendarWindow	access:public	implementation:virtual
+showEvent	genericlist.h	70;"	p	class:GenericList	access:public	implementation:virtual
+sincro	dlgsynchronization.h	71;"	m	class:DlgSynchronization	access:private
+slot_AssignmentChanged	dlgplanificaciondia.h	79;"	p	class:DlgPlanificacionDia	access:private
+sqlEngine	acollection.h	159;"	m	class:ACollection	access:private
+startAssignment	timeassignment.h	51;"	m	class:TimeAssignmentSlot	access:public
+startingSynchro	SincroManager.h	71;"	p	class:SincroManager	access:protected
+status	nullablefield.h	150;"	m	class:NullableField	access:private
+subSector	reportitem.h	60;"	p	class:ReportItem	access:public
+subSectorChanged	timeassignmentitemedit.h	98;"	p	class:TimeAssignmentItemEdit	access:public
+subSectoresCreated	datastore.h	126;"	m	class:DataStore	access:private
+subSectoresPtr	datastore.h	110;"	m	class:DataStore	access:private
+summarizeDays	dlgquerybuilder.h	68;"	p	class:DlgQueryBuilder	access:public
+summarizeDays	reportitemcollection.h	79;"	p	class:ReportItemCollection	access:public
+summarizeEmployee	dlgquerybuilder.h	71;"	p	class:DlgQueryBuilder	access:public
+summarizeEmployee	reportitemcollection.h	82;"	p	class:ReportItemCollection	access:public
+summarizeSectors	dlgquerybuilder.h	69;"	p	class:DlgQueryBuilder	access:public
+summarizeSectors	reportitemcollection.h	80;"	p	class:ReportItemCollection	access:public
+summarizeSubSectors	reportitemcollection.h	81;"	p	class:ReportItemCollection	access:public
+summarizeSubsectors	dlgquerybuilder.h	70;"	p	class:DlgQueryBuilder	access:public
+threadPool	QsLog.cpp	112;"	m	class:QsLogging::LoggerImpl	file:	access:public
+time2position	timeassignment.h	105;"	p	class:TimeAssignment	access:protected
+timeChanged	timeeditor.h	90;"	p	class:TimeEditor	access:private
+timeLineColor	timeassignment.h	70;"	p	class:TimeAssignment	access:public
+timeSeconds	timeeditor.h	60;"	p	class:TimeEditor	access:public
+timelineHeight	timeassignment.h	82;"	p	class:TimeAssignment	access:public
+tipoLicencia	licenciaempleado.h	80;"	m	class:LicenciaEmpleado	access:private
+tryReconnect	sqlhandler.h	60;"	p	class:SQLHandler	access:protected
+ui	CalendarWindow.h	93;"	m	class:CalendarWindow	access:private
+ui	availabilitywidget.h	71;"	m	class:AvailabilityWidget	access:private
+ui	capacitywidget.h	77;"	m	class:CapacityWidget	access:private
+ui	dlgaddmanyestimationdays.h	64;"	m	class:DlgAddManyEstimationDays	access:private
+ui	dlgapproveplanifications.h	60;"	m	class:DlgApprovePlanifications	access:private
+ui	dlgdaterangefilter.h	63;"	m	class:DlgDateRangeFilter	access:private
+ui	dlgempleadoslicenciasplanificacion.h	73;"	m	class:DlgEmpleadosLicenciasPlanificacion	access:private
+ui	dlgemployee.h	85;"	m	class:DlgEmployee	access:private
+ui	dlgestimaciondia.h	64;"	m	class:DlgEstimacionDia	access:private
+ui	dlgfilesynchronization.h	23;"	m	class:DlgFileSynchronization	access:private
+ui	dlglicencia.h	68;"	m	class:DlgLicencia	access:private
+ui	dlglogin.h	61;"	m	class:DlgLogin	access:private
+ui	dlgmerge.h	65;"	m	class:DlgMerge	access:private
+ui	dlgparametros.h	71;"	m	class:DlgParametros	access:private
+ui	dlgplanificaciondia.h	95;"	m	class:DlgPlanificacionDia	access:private
+ui	dlgquerybuilder.h	93;"	m	class:DlgQueryBuilder	access:private
+ui	dlgselectorbytdate.h	65;"	m	class:DlgSelectorBytDate	access:private
+ui	dlgsynchronization.h	70;"	m	class:DlgSynchronization	access:private
+ui	genericlist.h	97;"	m	class:GenericList	access:private
+ui	mainwindow.h	96;"	m	class:MainWindow	access:private
+ui	timeassignmentitemedit.h	115;"	m	class:TimeAssignmentItemEdit	access:private
+ui	timeeditor.h	99;"	m	class:TimeEditor	access:private
+updateCalendarFromData	calendariopersonas.h	93;"	p	class:CalendarioPersonas	access:public
+updateCalendarFromData	calendariopersonas.h	94;"	p	class:CalendarioPersonas	access:public
+updateCalendarWithNewIDEmpleado	calendariopersonas.h	96;"	p	class:CalendarioPersonas	access:public
+updateCapacities	empleado.h	108;"	p	class:Empleado	access:public
+updateCapacityfromData	capacidadespersonasector.h	94;"	p	class:CapacidadesPersonaSector	access:public
+updateDisponibilidades	empleado.h	110;"	p	class:Empleado	access:public
+updateID	empleado.h	99;"	p	class:Empleado	access:public
+updateID	licenciaempleado.h	66;"	p	class:LicenciaEmpleado	access:public	implementation:virtual
+updateID	planificacionsubsector.h	76;"	p	class:PlanificacionSubSector	access:public
+updateIDEmpleado	calendariopersona.h	70;"	p	class:CalendarioPersona	access:public
+updateIDEmpleado	capacidadpersonasector.h	75;"	p	class:CapacidadPersonaSector	access:public
+updatePlanificaciones	planificaciondia.h	87;"	p	class:PlanificacionDia	access:public
+updateRecord	accesos.h	73;"	p	class:Accesos	access:public	implementation:virtual
+updateRecord	acollection.h	82;"	p	class:ACollection	access:public	implementation:pure virtual
+updateRecord	basereport.h	59;"	p	class:BaseReport	access:public	implementation:virtual
+updateRecord	calendariopersonas.h	56;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+updateRecord	capacidadespersonasector.h	56;"	p	class:CapacidadesPersonaSector	access:public	implementation:virtual
+updateRecord	databasesynchronization.h	70;"	p	class:DatabaseSynchronization	access:protected
+updateRecord	empleados.h	59;"	p	class:Empleados	access:public	implementation:virtual
+updateRecord	estimacionesdias.h	54;"	p	class:EstimacionesDias	access:public	implementation:virtual
+updateRecord	licenciasempleados.h	59;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+updateRecord	parametros.h	53;"	p	class:Parametros	access:public	implementation:virtual
+updateRecord	planificacionesdias.h	54;"	p	class:PlanificacionesDias	access:public	implementation:virtual
+updateRecord	planificacionesdiassubsectores.h	54;"	p	class:PlanificacionesDiasSubSectores	access:public	implementation:virtual
+updateRecord	sectores.h	55;"	p	class:Sectores	access:public	implementation:virtual
+updateRecord	subsectores.h	55;"	p	class:SubSectores	access:public	implementation:virtual
+updateRecordsCentralDB	acollection.h	152;"	p	class:ACollection	access:protected	implementation:virtual
+updateRecordsLocally	acollection.h	148;"	p	class:ACollection	access:protected	implementation:virtual
+updateWith	calendariopersona.h	68;"	p	class:CalendarioPersona	access:public
+updateWith	capacidadpersonasector.h	68;"	p	class:CapacidadPersonaSector	access:public
+updateWith	planificacionsubsector.h	79;"	p	class:PlanificacionSubSector	access:public
+updateWithOtherData	planificacionesdiassubsectores.h	91;"	p	class:PlanificacionesDiasSubSectores	access:public
+usesLastInsertedId	acollection.h	160;"	m	class:ACollection	access:private
+write	QsLog.h	83;"	p	class:QsLogging::Logger	access:private
+write	QsLogDest.h	41;"	p	class:QsLogging::Destination	access:public	implementation:pure virtual
+write	QsLogDestConsole.h	46;"	p	class:QsLogging::DebugOutputDestination	access:public	implementation:virtual
+write	QsLogDestFile.h	90;"	p	class:QsLogging::FileDestination	access:public	implementation:virtual
+writeToLog	QsLog.h	69;"	p	class:QsLogging::Logger::Helper	access:private
+~Acceso	acceso.h	57;"	p	class:Acceso	access:public	implementation:virtual
+~AvailabilityWidget	availabilitywidget.h	56;"	p	class:AvailabilityWidget	access:public
+~BaseReport	basereport.h	54;"	p	class:BaseReport	access:public	implementation:virtual
+~CalendarWindow	CalendarWindow.h	65;"	p	class:CalendarWindow	access:public
+~CalendarioPersonas	calendariopersonas.h	52;"	p	class:CalendarioPersonas	access:public	implementation:virtual
+~CapacityWidget	capacitywidget.h	55;"	p	class:CapacityWidget	access:public
+~DataStore	datastore.h	65;"	p	class:DataStore	access:public	implementation:virtual
+~DlgAddManyEstimationDays	dlgaddmanyestimationdays.h	56;"	p	class:DlgAddManyEstimationDays	access:public
+~DlgApprovePlanifications	dlgapproveplanifications.h	56;"	p	class:DlgApprovePlanifications	access:public
+~DlgDateRangeFilter	dlgdaterangefilter.h	55;"	p	class:DlgDateRangeFilter	access:public
+~DlgEmpleadosLicenciasPlanificacion	dlgempleadoslicenciasplanificacion.h	57;"	p	class:DlgEmpleadosLicenciasPlanificacion	access:public
+~DlgEmployee	dlgemployee.h	57;"	p	class:DlgEmployee	access:public
+~DlgEstimacionDia	dlgestimaciondia.h	56;"	p	class:DlgEstimacionDia	access:public
+~DlgFileSynchronization	dlgfilesynchronization.h	17;"	p	class:DlgFileSynchronization	access:public
+~DlgLicencia	dlglicencia.h	56;"	p	class:DlgLicencia	access:public
+~DlgLogin	dlglogin.h	55;"	p	class:DlgLogin	access:public
+~DlgMerge	dlgmerge.h	56;"	p	class:DlgMerge	access:public
+~DlgParametros	dlgparametros.h	55;"	p	class:DlgParametros	access:public
+~DlgPlanificacionDia	dlgplanificaciondia.h	59;"	p	class:DlgPlanificacionDia	access:public
+~DlgQueryBuilder	dlgquerybuilder.h	55;"	p	class:DlgQueryBuilder	access:public
+~DlgSelectorBytDate	dlgselectorbytdate.h	56;"	p	class:DlgSelectorBytDate	access:public
+~DlgSynchronization	dlgsynchronization.h	56;"	p	class:DlgSynchronization	access:public
+~Empleados	empleados.h	55;"	p	class:Empleados	access:public	implementation:virtual
+~GenericList	genericlist.h	65;"	p	class:GenericList	access:public
+~Helper	QsLog.h	65;"	p	class:QsLogging::Logger::Helper	access:public
+~LicenciasEmpleados	licenciasempleados.h	51;"	p	class:LicenciasEmpleados	access:public	implementation:virtual
+~Logger	QsLog.h	80;"	p	class:QsLogging::Logger	access:private
+~MainWindow	mainwindow.h	59;"	p	class:MainWindow	access:public
+~PlanificacionSubSector	planificacionsubsector.h	61;"	p	class:PlanificacionSubSector	access:public	implementation:virtual
+~ReportItem	reportitem.h	52;"	p	class:ReportItem	access:public	implementation:virtual
+~ReportItemCollection	reportitemcollection.h	57;"	p	class:ReportItemCollection	access:public	implementation:virtual
+~ReporteFrancosPlanificados	reportefrancosplanificados.h	53;"	p	class:ReporteFrancosPlanificados	access:public	implementation:virtual
+~ReporteHorasDiaADia	reportehorasdiaadia.h	53;"	p	class:ReporteHorasDiaADia	access:public	implementation:virtual
+~ReporteHorasPorEmpleado	reportehorasporempleado.h	53;"	p	class:ReporteHorasPorEmpleado	access:public	implementation:virtual
+~ReporteHorasSectorSubSector	reportehorassectorsubsector.h	54;"	p	class:ReporteHorasSectorSubSector	access:public	implementation:virtual
+~RotationStrategy	QsLogDestFile.h	40;"	p	class:QsLogging::RotationStrategy	access:public	implementation:virtual
+~TimeAssignment	timeassignment.h	64;"	p	class:TimeAssignment	access:public
+~TimeAssignmentItemEdit	timeassignmentitemedit.h	59;"	p	class:TimeAssignmentItemEdit	access:public
+~TimeEditor	timeeditor.h	56;"	p	class:TimeEditor	access:public

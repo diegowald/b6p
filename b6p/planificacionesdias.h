@@ -42,6 +42,7 @@
 
 #include "acollection.h"
 #include "planificaciondia.h"
+#include "dlgplanificaciondia.h"
 
 class PlanificacionesDias : public ACollection
 {
@@ -92,12 +93,20 @@ public:
     PlanificacionDiaLst getAll(bool includeDeleted);
     PlanificacionDiaPtr getByDay(QDate day, bool includeDeleted);
     PlanificacionDiaLst getAllReadyForApproval();
+
 signals:
-    
+    void requestSave();
+
 public slots:
+
+protected slots:
+    void on_DlgEditAccepted(DlgPlanificacionDia *dialog);
+    void on_DlgCancelled(DlgPlanificacionDia *dialog);
+
 
 private:
     QMap<QDate, PlanificacionDiaPtr> m_Planificaciones;
+    PlanificacionDiaPtr planUnderEdition;
 };
 
 typedef QSharedPointer<PlanificacionesDias> PlanificacionesDiasPtr;
