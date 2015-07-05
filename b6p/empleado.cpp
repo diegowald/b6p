@@ -468,10 +468,14 @@ bool Empleado::print(QTextDocument &textDoc)
         ts.resize(rect.size());
         ts.setInitialTimeline(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0));
         ts.setFinalTimeline(DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
-        ts.setStartAssignment(c->HoraIngreso1().value());
-        ts.setEndAssignment(c->HoraEgreso1().value());
-        ts.setStartAssignment2(c->HoraIngreso2().value());
-        ts.setEndAssignment2(c->HoraEgreso2().value());
+        TimeAssignmentSlot t;
+        t.startAssignment = c->HoraIngreso1().value();
+        t.endAssignment = c->HoraEgreso1().value();
+        ts.addAssignment(t);
+
+        t.startAssignment = c->HoraIngreso2().value();
+        t.endAssignment = c->HoraEgreso2().value();
+        ts.addAssignment(t);
 
         ts.setPaintBackgroundReferences(true);
         ts.setPaintVerticalGrid(true);

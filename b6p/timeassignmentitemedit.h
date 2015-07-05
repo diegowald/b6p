@@ -44,6 +44,7 @@
 #include <QDate>
 #include <QVariant>
 #include "empleado.h"
+#include "timeassignment.h"
 
 namespace Ui {
 class TimeAssignmentItemEdit;
@@ -118,6 +119,7 @@ private:
     bool loadingData;
     bool allowOverWorking;
     int previousSelectedEmployee;
+    TimeAssignmentSlot currentAssignment;
 };
 
 #endif // TIMEASSIGNMENTITEMEDIT_H

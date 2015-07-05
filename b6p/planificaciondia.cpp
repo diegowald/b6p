@@ -49,6 +49,7 @@
 
 #include <QsLog.h>
 
+#include <algorithm>
 
 PlanificacionDia::PlanificacionDia(QDate date, QObject *parent) :
     QObject(parent)
@@ -240,7 +241,7 @@ PlanificacionSubSectorLst PlanificacionDia::getPlanificaciones()
     return DataStore::instance()->getPlanificacionesSubSectores()->getAll(m_Dia.value(), false);
 }
 
-bool PlanificacionDia::print(QTextDocument &textDoc)
+bool PlanificacionDia::print2(QTextDocument &textDoc)
 {
     QLOG_TRACE_FN();
     QString html("<table width=\"100%\" border=1 cellspacing=0>\n");
@@ -258,7 +259,7 @@ bool PlanificacionDia::print(QTextDocument &textDoc)
     html += "<td>" + tr("Status") + "</td><td>" + Estado() + "</td>";
     html += "</tr>";
 
-/*    html += "<tr>";
+    /*    html += "<tr>";
     html += "<td>" + tr("Notes") + "</td><td colspan=\"7\">" + Notas().value() + "</td>";
     html += "</tr>";*/
     html += "</table>";
@@ -315,8 +316,10 @@ bool PlanificacionDia::print(QTextDocument &textDoc)
         ts.setInitialTimeline(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0));
         ts.setFinalTimeline(DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
         ts.setTimeLineColor(Qt::black);
-        ts.setStartAssignment(p->HoraInicio().value());
-        ts.setEndAssignment(p->HoraFin().value());
+        TimeAssignmentSlot t;
+        t.startAssignment = p->HoraInicio().value();
+        t.endAssignment = p->HoraFin().value();
+        ts.addAssignment(t);
         ts.setPaintBackgroundReferences(true);
         ts.setPaintVerticalGrid(true);
         ts.setShowBackgroundText(true);
@@ -358,6 +361,175 @@ bool PlanificacionDia::print(QTextDocument &textDoc)
     textDoc.setHtml(html);
     return true;
 }
+
+QMultiMap<QString, PlanificacionSubSectorPtr> PlanificacionDia::list2map(PlanificacionSubSectorLst lst)
+{
+    QMultiMap<QString, PlanificacionSubSectorPtr> res;
+    QString key = "%1, %2"; //"%1 %2 %3 %4";
+    foreach (PlanificacionSubSectorPtr p, *lst)
+    {
+        QString keyEmpleado;
+        QString apellido = "";
+        QString nombre  = "";
+        QString sector = "";
+        QString subsector = "";
+        EmpleadoPtr e = p->getEmpleado();
+        if (!e.isNull())
+        {
+            apellido = e->Apellido().isNull() ? "" : e->Apellido().value();
+            nombre = e->Nombre().isNull() ? "" : e->Nombre().value();
+        }
+        SectorPtr s = p->getSector();
+        if (!s.isNull())
+        {
+            sector = s->Nombre().isNull() ? "" : s->Nombre().value();
+        }
+        SubSectorPtr ss = p->getSubsector();
+        if (!ss.isNull())
+        {
+            subsector = ss->Nombre().isNull() ? "" : ss->Nombre().value();
+        }
+        keyEmpleado = key.arg(apellido, nombre, sector, subsector);
+        res.insert(keyEmpleado, p);
+    }
+    return res;
+}
+
+bool PlanificacionDia::print(QTextDocument &textDoc)
+{
+    QLOG_TRACE_FN();
+    QString html("<table width=\"100%\" border=1 cellspacing=0>\n");
+    // Escribo el header
+
+    html += "<tr>";
+    html += "<td bgcolor=\"lightgray\" colspan=\"8\">";
+    html += "<b><i>" + tr("Planification") + "</i></b></td>";
+    html += "</tr>";
+
+    html += "<tr>";
+    html += "<td>" + tr("Date") + "</td><td>" + Dia().value().toString("ddd dd-MM-yyyy") + "</td>";
+    html += "<td>" + tr("Estimation") + "</td><td>" + QString::number(Estimacion()->EstimacionHoras().value()) + " hs </td>";
+    html += "<td>" + tr("Planned") + "</td><td>" + QString::number(HorasPlanificadas()) + " hs </td>";
+    html += "<td>" + tr("Status") + "</td><td>" + Estado() + "</td>";
+    html += "</tr>";
+
+    /*    html += "<tr>";
+    html += "<td>" + tr("Notes") + "</td><td colspan=\"7\">" + Notas().value() + "</td>";
+    html += "</tr>";*/
+    html += "</table>";
+
+
+    PlanificacionSubSectorLst ls = getPlanificaciones();
+    QMultiMap<QString, PlanificacionSubSectorPtr> pls = list2map(ls);
+    html += "<table width=\"100%\" border=1 cellspacing=0>\n";
+    html += "<tr>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<b><i>" + tr("Sector") + "</i></b></font></td>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<b><i>" + tr("SubSector") + "</i></b></font></td>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<b><i>" + tr("Start") + "</i></b></font></td>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<b><i>" + tr("End") + "</i></b></font></td>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<b><i>" + tr("Employee") + "</i></b></font></td>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<b><i>" + tr("Diagram") + "</i></b></font></td>";
+    html += "</tr>";
+
+    int imgNumber = 0;
+    QString prevKey = "";
+    foreach (QString key, pls.keys())
+    {
+        if ((key == prevKey) && (key != ", "))
+        {
+            continue;
+        }
+        prevKey = key;
+        PlanificacionSubSectorPtr p = pls.values(key).first();
+        html += "<tr>";
+        if (p->getSector())
+            html += "<td><font size=\"-1\">" + p->getSector()->Nombre().value() + "</font></td>";
+        else
+            html += "<td> </td>";
+
+        if (p->getSubsector())
+            html += "<td><font size=\"-1\">" + p->getSubsector()->Nombre().value() + "</font></td>";
+        else
+            html += "<td> </td>";
+
+        html += "<td><font size=\"-1\">" + TimeHelper::SecondsToString(p->HoraInicio().value()) + "</font></td>";
+        html += "<td><font size=\"-1\">" + TimeHelper::SecondsToString(p->HoraFin().value()) + "</font></td>";
+
+        if (p->getEmpleado())
+            html += "<td><font size=\"-1\">" + p->getEmpleado()->Apellido().value() + ", " + p->getEmpleado()->Nombre().value() + "</font></td>";
+        else
+            html += "<td> </td>";
+
+        QString img = "img%1";
+        img = img.arg(imgNumber);
+        html += "<td><img src=\"" + img + "\"></td>";
+        QRect rect;
+        rect.setWidth(500);
+        rect.setHeight(24);
+        QPixmap px(rect.size());
+        TimeAssignment ts;
+        ts.resize(rect.size());
+        ts.setInitialTimeline(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0));
+        ts.setFinalTimeline(DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
+        ts.setTimeLineColor(Qt::black);
+
+        foreach (PlanificacionSubSectorPtr p1, pls.values(key))
+        {
+            TimeAssignmentSlot t;
+            t.startAssignment = p1->HoraInicio().value();
+            t.endAssignment = p1->HoraFin().value();
+            t.idSector = p1->IDSector().value();
+            t.isSubSector = p1->IDSubSector().value();
+            ts.addAssignment(t);
+        }
+        ts.setPaintBackgroundReferences(true);
+        ts.setPaintVerticalGrid(true);
+        ts.setShowBackgroundText(true);
+        ts.setHollowTimeLine(true);
+        ts.render(&px, QPoint(), QRegion(rect));
+        textDoc.addResource(QTextDocument::ImageResource, QUrl(img), px);
+        imgNumber++;
+        html += "</tr>";
+    }
+    html += "</table>";
+
+
+    // Licencias
+    QDate date = m_Dia.value();
+    LicenciasEmpleadosLst licencias = DataStore::instance()->getLicencias()->getFrancos(date);
+    html += "<table width=\"100%\" border=1 cellspacing=0>\n";
+    html += "<tr>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<b><i>" + tr("Rest") + "</i></b></font>\n</td>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<b><i>" + tr("Employees") + "</i></b></font>\n</td>";
+    html += "</tr>";
+
+    QStringList empleadosEnFranco;
+
+    foreach (LicenciaEmpleadoPtr licencia, *licencias)
+    {
+        EmpleadoPtr empleado = DataStore::instance()->getEmpleados()->getEmpleado(licencia->IDEmpleado().value(), true);
+        empleadosEnFranco.append(empleado->Apellido().value() + ", " + empleado->Nombre().value());
+    }
+    QSet<QString> francosNoDuplicados = empleadosEnFranco.toSet();
+    empleadosEnFranco = francosNoDuplicados.toList();
+
+    html += "<tr>";
+    html += "<td colspan=\"2\">" + empleadosEnFranco.join("; ") + "</td>";
+    html += "</tr>";
+
+    html += "\n</table>\n<br>\n";
+    textDoc.setHtml(html);
+    return true;
+}
+
 
 bool PlanificacionDia::isPlanificacionDeleted()
 {

@@ -95,7 +95,7 @@ public:
 signals:
     
 public slots:
-    
+
 private:
     QMap<QDate, PlanificacionDiaPtr> m_Planificaciones;
 };

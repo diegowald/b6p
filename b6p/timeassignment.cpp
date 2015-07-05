@@ -43,6 +43,44 @@
 #include <QPainter>
 #include <QsLog.h>
 
+TimeAssignmentSlot::TimeAssignmentSlot()
+{
+    startAssignment = 0;
+    endAssignment = 0;
+    idSector = 0;
+    isSubSector = 0;
+}
+
+QColor TimeAssignmentSlot::assignmentColor() const
+{
+    QColor color;
+    switch (idSector)
+    {
+    case 1: //|Entrenamiento||1|1|1
+        color = Qt::magenta;
+        break;
+    case 2: //|Cocina||1|1|1
+        color = Qt::black;
+        break;
+    case 3: //|Cajas||1|1|1
+        color = Qt::red;
+        break;
+    case 4: //|Cafeteria||1|1|1
+        color = Qt::darkGreen;
+        break;
+    case 5: //|Salon||1|1|1
+        color = Qt::blue;
+        break;
+    case 6: //|Depositos||1|1|1
+    case 7: //|Eventos||1|1|1
+    case 8: //|Supervisor||1|0|1
+    case 9: //|Gerencia||1|0|1
+    default:
+        color = Qt::magenta;
+        break;
+    }
+    return color;
+}
 
 TimeAssignment::TimeAssignment(QWidget *parent) :
     QWidget(parent)
@@ -50,22 +88,18 @@ TimeAssignment::TimeAssignment(QWidget *parent) :
     QLOG_TRACE_FN();
     m_BackgroundColor = QColor(255, 255, 255);
     m_TimelineColor = Qt::lightGray;
-    m_AssignmentColor = Qt::darkRed;
     m_HorizontalGap = 10;
     m_TimelineHeight = 4;
     m_AssignmentHeight = 6;
     m_FontSize = 10;
     m_InitialTimeline = 0;
     m_FinalTimeline = 86400;
-    m_StartAssignment = 0 * 3600;
-    m_EndAssignment = 24 * 3600;
-    m_StartAssignment2 = 0;
-    m_EndAssignment2 = 24;
 
     m_paintBackgroundReferences = true;
     m_paintVerticalGrid = false;
     m_showBackgroundText = false;
     m_HollowTimeLine = false;
+    m_Assignments.clear();
 }
 
 bool TimeAssignment::PaintBackgroundReferences()
@@ -179,26 +213,19 @@ void TimeAssignment::paintEvent(QPaintEvent *)
         }
     }
 
-    // Paint Time Assignment 1
-    QRectF assignment(timeline.left() + time2position(m_StartAssignment, timeline.width()),
-                      (height() - m_AssignmentHeight) / 2,
-                      delta2screen(m_EndAssignment - m_StartAssignment, timeline.width()),
-                      m_AssignmentHeight);
+    // Paint assignments.
+    foreach (TimeAssignmentSlot assignment, m_Assignments)
+    {
+        QRectF a(timeline.left() + time2position(assignment.startAssignment, timeline.width()),
+                          (height() - m_AssignmentHeight) / 2,
+                          delta2screen(assignment.endAssignment - assignment.startAssignment, timeline.width()),
+                          m_AssignmentHeight);
 
-    painter.fillRect(assignment, m_AssignmentColor);
-    painter.setPen(m_AssignmentColor);
-    painter.drawRect(assignment);
+        painter.fillRect(a, assignment.assignmentColor());
+        painter.setPen(assignment.assignmentColor());
+        painter.drawRect(a);
 
-    // Paint Time Assignment 2
-    QRectF assignment2(timeline.left() + time2position(m_StartAssignment2, timeline.width()),
-                      (height() - m_AssignmentHeight) / 2,
-                      delta2screen(m_EndAssignment2 - m_StartAssignment2, timeline.width()),
-                      m_AssignmentHeight);
-
-    painter.fillRect(assignment2, m_AssignmentColor);
-    painter.setPen(m_AssignmentColor);
-    painter.drawRect(assignment2);
-
+    }
 }
 
 qreal TimeAssignment::time2position(int seconds, float w)
@@ -238,19 +265,6 @@ QColor TimeAssignment::timeLineColor() const
 {
     QLOG_TRACE_FN();
     return m_TimelineColor;
-}
-
-void TimeAssignment::setAssignmentColor(QColor color)
-{
-    QLOG_TRACE_FN();
-    m_AssignmentColor = color;
-    repaint();
-}
-
-QColor TimeAssignment::assignmentColor() const
-{
-    QLOG_TRACE_FN();
-    return m_AssignmentColor;
 }
 
 void TimeAssignment::setAssignmentHeight(int value)
@@ -332,59 +346,6 @@ int TimeAssignment::finalTimeline() const
     return m_FinalTimeline;
 }
 
-void TimeAssignment::setStartAssignment(int seconds)
-{
-    QLOG_TRACE_FN();
-    m_StartAssignment = seconds;
-    repaint();
-}
-
-
-int TimeAssignment::startAssignment1() const
-{
-    QLOG_TRACE_FN();
-    return m_StartAssignment;
-}
-
-void TimeAssignment::setStartAssignment2(int seconds)
-{
-    QLOG_TRACE_FN();
-    m_StartAssignment2 = seconds;
-    repaint();
-}
-
-int TimeAssignment::startAssignment2() const
-{
-    QLOG_TRACE_FN();
-    return m_StartAssignment2;
-}
-
-void TimeAssignment::setEndAssignment(int seconds)
-{
-    QLOG_TRACE_FN();
-    m_EndAssignment = seconds;
-    repaint();
-}
-
-int TimeAssignment::endAssignment1() const
-{
-    QLOG_TRACE_FN();
-    return m_EndAssignment;
-}
-
-void TimeAssignment::setEndAssignment2(int seconds)
-{
-    QLOG_TRACE_FN();
-    m_EndAssignment2 = seconds;
-    repaint();
-}
-
-int TimeAssignment::endAssignment2() const
-{
-    QLOG_TRACE_FN();
-    return m_EndAssignment2;
-}
-
 void TimeAssignment::setHollowTimeLine(bool hollow)
 {
     QLOG_TRACE_FN();
@@ -395,4 +356,14 @@ bool TimeAssignment::HollowTimeLine() const
 {
     QLOG_TRACE_FN();
     return m_HollowTimeLine;
+}
+
+void TimeAssignment::addAssignment(TimeAssignmentSlot assignment)
+{
+    m_Assignments.push_back(assignment);
+}
+
+void TimeAssignment::clearAssignments()
+{
+    m_Assignments.clear();
 }

@@ -354,6 +354,7 @@ bool PlanificacionesDias::edit(QVariant ID)
     return true;
 }
 
+
 bool PlanificacionesDias::deleteElement(QVariant ID)
 {
     QLOG_TRACE_FN();

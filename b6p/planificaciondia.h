@@ -78,6 +78,7 @@ public:
     void approve();
 
     bool print(QTextDocument &textDoc);
+    bool print2(QTextDocument &textDoc);
 
 
     bool isEverythingAssigned();
@@ -92,6 +93,8 @@ signals:
     
 public slots:
     
+private:
+    QMultiMap<QString, PlanificacionSubSectorPtr> list2map(PlanificacionSubSectorLst lst);
 private:
     NullableField<QDate> m_Dia;
     NullableField<QString> m_Notas;
