@@ -395,7 +395,7 @@ QMultiMap<QString, PlanificacionSubSectorPtr> PlanificacionDia::list2map(Planifi
     return res;
 }
 
-bool PlanificacionDia::print(QTextDocument &textDoc)
+bool PlanificacionDia::print3(QTextDocument &textDoc)
 {
     QLOG_TRACE_FN();
     QString html("<table width=\"100%\" border=1 cellspacing=0>\n");
@@ -408,7 +408,14 @@ bool PlanificacionDia::print(QTextDocument &textDoc)
 
     html += "<tr>";
     html += "<td>" + tr("Date") + "</td><td>" + Dia().value().toString("ddd dd-MM-yyyy") + "</td>";
-    html += "<td>" + tr("Estimation") + "</td><td>" + QString::number(Estimacion()->EstimacionHoras().value()) + " hs </td>";
+    if (Estimacion().isNull())
+    {
+        html += "<td>" + tr("Estimation") + "</td><td>" + QString::number(0) + " hs </td>";
+    }
+    else
+    {
+        html += "<td>" + tr("Estimation") + "</td><td>" + QString::number(Estimacion()->EstimacionHoras().isNull() ? 0 : Estimacion()->EstimacionHoras().value()) + " hs </td>";
+    }
     html += "<td>" + tr("Planned") + "</td><td>" + QString::number(HorasPlanificadas()) + " hs </td>";
     html += "<td>" + tr("Status") + "</td><td>" + Estado() + "</td>";
     html += "</tr>";
@@ -530,6 +537,125 @@ bool PlanificacionDia::print(QTextDocument &textDoc)
     return true;
 }
 
+bool PlanificacionDia::print(QTextDocument &textDoc)
+{
+    QLOG_TRACE_FN();
+    QString html("<table width=\"100%\" border=1 cellspacing=0>\n");
+    // Escribo el header
+
+    html += "<tr>";
+    html += "<td bgcolor=\"lightgray\" colspan=\"8\">";
+    html += "<b><i>" + tr("Planification") + "</i></b></td>";
+    html += "</tr>";
+
+    html += "<tr>";
+    html += "<td>" + tr("Date") + "</td><td>" + Dia().value().toString("ddd dd-MM-yyyy") + "</td>";
+    if (Estimacion().isNull())
+    {
+        html += "<td>" + tr("Estimation") + "</td><td>" + QString::number(0) + " hs </td>";
+    }
+    else
+    {
+        html += "<td>" + tr("Estimation") + "</td><td>" + QString::number(Estimacion()->EstimacionHoras().isNull() ? 0 : Estimacion()->EstimacionHoras().value()) + " hs </td>";
+    }
+    html += "<td>" + tr("Planned") + "</td><td>" + QString::number(HorasPlanificadas()) + " hs </td>";
+    html += "<td>" + tr("Status") + "</td><td>" + Estado() + "</td>";
+    html += "</tr>";
+
+    html += "</table>";
+
+
+    PlanificacionSubSectorLst ls = getPlanificaciones();
+    QMultiMap<QString, PlanificacionSubSectorPtr> pls = list2map(ls);
+    html += "<table width=\"100%\" border=1 cellspacing=0>\n";
+    html += "<tr>";
+
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<b><i>" + tr("Employee") + "</i></b></font></td>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<b><i>" + tr("Diagram") + "</i></b></font></td>";
+    html += "</tr>";
+
+    int imgNumber = 0;
+    QString prevKey = "";
+    foreach (QString key, pls.keys())
+    {
+        if ((key == prevKey) && (key != ", "))
+        {
+            continue;
+        }
+        prevKey = key;
+        PlanificacionSubSectorPtr p = pls.values(key).first();
+        html += "<tr>";
+
+        if (p->getEmpleado())
+            html += "<td><font size=\"-1\">" + p->getEmpleado()->Apellido().value() + ", " + p->getEmpleado()->Nombre().value() + "</font></td>";
+        else
+            html += "<td> </td>";
+
+        QString img = "img%1";
+        img = img.arg(imgNumber);
+        html += "<td><img src=\"" + img + "\"></td>";
+        QRect rect;
+        rect.setWidth(500);
+        rect.setHeight(32);
+        QPixmap px(rect.size());
+        TimeAssignment ts;
+        ts.resize(rect.size());
+        ts.setInitialTimeline(DataStore::instance()->getParametros()->getValue(Parametros::OPEN_STORE, 0));
+        ts.setFinalTimeline(DataStore::instance()->getParametros()->getValue(Parametros::CLOSE_STORE, 86400));
+        ts.setTimeLineColor(Qt::black);
+
+        foreach (PlanificacionSubSectorPtr p1, pls.values(key))
+        {
+            TimeAssignmentSlot t;
+            t.startAssignment = p1->HoraInicio().value();
+            t.endAssignment = p1->HoraFin().value();
+            t.idSector = p1->IDSector().value();
+            t.isSubSector = p1->IDSubSector().value();
+            ts.addAssignment(t);
+        }
+        ts.setPaintBackgroundReferences(true);
+        ts.setPaintVerticalGrid(true);
+        ts.setShowBackgroundText(true);
+        ts.setHollowTimeLine(true);
+        ts.render(&px, QPoint(), QRegion(rect));
+        textDoc.addResource(QTextDocument::ImageResource, QUrl(img), px);
+        imgNumber++;
+        html += "</tr>";
+    }
+    html += "</table>";
+
+
+    // Licencias
+    QDate date = m_Dia.value();
+    LicenciasEmpleadosLst licencias = DataStore::instance()->getLicencias()->getFrancos(date);
+    html += "<table width=\"100%\" border=1 cellspacing=0>\n";
+    html += "<tr>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<b><i>" + tr("Rest") + "</i></b></font>\n</td>";
+    html += "<td bgcolor=\"lightgray\"><font size=\"+1\">";
+    html += "<b><i>" + tr("Employees") + "</i></b></font>\n</td>";
+    html += "</tr>";
+
+    QStringList empleadosEnFranco;
+
+    foreach (LicenciaEmpleadoPtr licencia, *licencias)
+    {
+        EmpleadoPtr empleado = DataStore::instance()->getEmpleados()->getEmpleado(licencia->IDEmpleado().value(), true);
+        empleadosEnFranco.append(empleado->Apellido().value() + ", " + empleado->Nombre().value());
+    }
+    QSet<QString> francosNoDuplicados = empleadosEnFranco.toSet();
+    empleadosEnFranco = francosNoDuplicados.toList();
+
+    html += "<tr>";
+    html += "<td colspan=\"2\">" + empleadosEnFranco.join("; ") + "</td>";
+    html += "</tr>";
+
+    html += "\n</table>\n<br>\n";
+    textDoc.setHtml(html);
+    return true;
+}
 
 bool PlanificacionDia::isPlanificacionDeleted()
 {

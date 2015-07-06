@@ -79,6 +79,7 @@ public:
 
     bool print(QTextDocument &textDoc);
     bool print2(QTextDocument &textDoc);
+    bool print3(QTextDocument &textDoc);
 
 
     bool isEverythingAssigned();

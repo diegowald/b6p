@@ -218,7 +218,7 @@ void MainWindow::on_actionPrint_Preview_Selected_Record_triggered()
         }
         // Prints Selected record on active window
         QPrinter printer;
-        printer.setOrientation(QPrinter::Landscape);
+        //printer.setOrientation(QPrinter::Landscape);
         QPrintPreviewDialog dlg(&printer, this);
         connect(&dlg, SIGNAL(paintRequested(QPrinter*)), this, SLOT(printSelected(QPrinter*)));
         dlg.setWindowState(dlg.windowState() | Qt::WindowMaximized);
