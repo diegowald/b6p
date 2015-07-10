@@ -492,7 +492,7 @@ bool PlanificacionDia::print3(QTextDocument &textDoc)
             t.startAssignment = p1->HoraInicio().value();
             t.endAssignment = p1->HoraFin().value();
             t.idSector = p1->IDSector().value();
-            t.isSubSector = p1->IDSubSector().value();
+            t.idSubSector = p1->IDSubSector().value();
             ts.addAssignment(t);
         }
         ts.setPaintBackgroundReferences(true);
@@ -612,7 +612,7 @@ bool PlanificacionDia::print(QTextDocument &textDoc)
             t.startAssignment = p1->HoraInicio().value();
             t.endAssignment = p1->HoraFin().value();
             t.idSector = p1->IDSector().value();
-            t.isSubSector = p1->IDSubSector().value();
+            t.idSubSector = p1->IDSubSector().value();
             ts.addAssignment(t);
         }
         ts.setPaintBackgroundReferences(true);

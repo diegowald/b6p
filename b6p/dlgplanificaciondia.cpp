@@ -209,7 +209,7 @@ void DlgPlanificacionDia::slot_AssignmentChanged(int, int)
     for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = ui->treeWidget->topLevelItem(i);
-        TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 0));
+        TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 3));
         CantHoras += time->CantidadHoras();
     }
     displayPlannedHours(CantHoras);
@@ -247,7 +247,7 @@ PlanificacionSubSectorLst DlgPlanificacionDia::Planificaciones()
     for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = ui->treeWidget->topLevelItem(i);
-        TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 0));
+        TimeAssignmentItemEdit *time = qobject_cast<TimeAssignmentItemEdit*>(ui->treeWidget->itemWidget(item, 3));
         PlanificacionSubSectorPtr ptr = PlanificacionSubSectorPtr::create();
 
         ptr->IDRecord().setValue(time->data().toInt());

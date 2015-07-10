@@ -42,13 +42,14 @@
 #include <QTime>
 #include <QPainter>
 #include <QsLog.h>
+#include "datastore.h"
 
 TimeAssignmentSlot::TimeAssignmentSlot()
 {
     startAssignment = 0;
     endAssignment = 0;
     idSector = 0;
-    isSubSector = 0;
+    idSubSector = 0;
 }
 
 QColor TimeAssignmentSlot::assignmentColor() const
@@ -80,6 +81,22 @@ QColor TimeAssignmentSlot::assignmentColor() const
         break;
     }
     return color;
+}
+
+QString TimeAssignmentSlot::label() const
+{
+    QString lbl = "";
+    if (idSector != 0)
+    {
+        lbl = DataStore::instance()->getSectores()->getSector(idSector)->Nombre().value();
+    }
+    if (idSubSector != 0)
+    {
+        QString lblSS = DataStore::instance()->getSubSectores()->getSubSector(idSubSector)->Nombre().value();
+        lbl += lblSS.length() > 0 ? " - " : "";
+        lbl += lblSS;
+    }
+    return lbl;
 }
 
 TimeAssignment::TimeAssignment(QWidget *parent) :
@@ -225,6 +242,16 @@ void TimeAssignment::paintEvent(QPaintEvent *)
         painter.setPen(assignment.assignmentColor());
         painter.drawRect(a);
 
+        QString lbl = assignment.label();
+        if (lbl.length() > 0)
+        {
+            qreal x1 = timeline.left() + time2position(assignment.startAssignment, timeline.width());
+            int y1 = (height() / 2) - m_TimelineHeight;// - m_FontSize;
+            QFont f = painter.font();
+            f.setPixelSize(m_FontSize);
+            painter.setFont(f);
+            painter.drawText(x1, y1, lbl);
+        }
     }
 }
 

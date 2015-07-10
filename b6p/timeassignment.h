@@ -52,7 +52,8 @@ public:
     int endAssignment;
     QColor assignmentColor() const;
     int idSector;
-    int isSubSector;
+    int idSubSector;
+    QString label() const;
 };
 
 class TimeAssignment : public QWidget
