@@ -333,8 +333,8 @@ bool PlanificacionesDias::edit(QVariant ID)
     bool editInReadOnly = !planUnderEdition.isNull();
     if (p.data())
     {
-        if (!p->EstadoPlanificacion().isNull())
-            editInReadOnly = editInReadOnly && (p->EstadoPlanificacion().value() != INPROGRESS);
+        if (!editInReadOnly && !p->EstadoPlanificacion().isNull())
+            editInReadOnly = (p->EstadoPlanificacion().value() != INPROGRESS);
     }
 
     if (!p.data())
